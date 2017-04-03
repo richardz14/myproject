@@ -1,0 +1,6 @@
+
+}
+</script>
+</head>
+<body onLoad="initialize()">
+	<div id="locationMap"></div>

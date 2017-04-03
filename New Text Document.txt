@@ -1,0 +1,30 @@
+''for id
+	Dim TextReader_id As TextReader
+    TextReader_id.Initialize(File.OpenInput(File.DirRootExternal, "data_query_id.txt"))
+    Dim line_id As String
+    line_id = TextReader_id.ReadLine    
+    Do While line_id <> Null
+        Log(line_id) 'write the line to LogCat
+        line_id = TextReader_id.ReadLine
+    Loop
+    TextReader_id.Close
+	''for full name
+		Dim TextReader_fullN As TextReader
+    TextReader_fullN.Initialize(File.OpenInput(File.DirRootExternal, "data_query_fullN.txt"))
+    Dim line_fullN As String
+    line_fullN = TextReader_fullN.ReadLine    
+    Do While line_fullN <> Null
+        Log(line_fullN) 'write the line to LogCat
+        line_fullN = TextReader_fullN.ReadLine
+    Loop
+    TextReader_fullN.Close
+	''for location
+		Dim TextReader_location As TextReader
+    TextReader_location.Initialize(File.OpenInput(File.DirRootExternal, "data_query_location.txt"))
+    Dim line_location As String
+    line_location = TextReader_location.ReadLine    
+    Do While line_location <> Null
+        Log(line_location) 'write the line to LogCat
+        line_location = TextReader_location.ReadLine
+    Loop
+    TextReader_location.Close

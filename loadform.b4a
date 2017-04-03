@@ -1,0 +1,139 @@
+﻿Version=5.8
+NumberOfModules=10
+Module1=login_form
+Module2=create_account
+Module3=calculations
+Module4=search_frame
+Module5=menu_form
+Module6=HttpJob
+Module7=HttpUtils2Service
+Module8=my_profile
+Module9=about_frame
+Module10=help_frame
+Build1=Default,b4a.example
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
+IconFile=
+NumberOfFiles=40
+File1=ABOUT US.png
+File2=about_frame.bal
+File3=ABOUT_US.png
+File4=background.png
+File5=banner01.jpg
+File6=banner4.jpg
+File7=bg.jpg
+File8=btnsearch.png
+File9=create_account.bal
+File10=create_account.rar
+File11=CREATE_ACOUNT.png
+File12=create_all_inputs.bal
+File13=eaboutus.png
+File14=eexit.png
+File15=ehelp.png
+File16=emyprofile.png
+File17=esearch.png
+File18=EXIT.png
+File19=HELP.png
+File20=help_frame.bal
+File21=load_form.bal
+File22=location_buttom.htm
+File23=location_buttom.txt
+File24=location_top.htm
+File25=location_top.txt
+File26=LOG_IN.png
+File27=login_form.bal
+File28=logo02.png
+File29=logo1.jpg
+File30=logo1.png
+File31=menu_frame.bal
+File32=MENU1.png
+File33=my profile.png
+File34=my_profile.bal
+File35=my_profile.png
+File36=REGISTER.png
+File37=SEARCH.png
+File38=search_frame.bal
+File39=searchbloodtype.png
+File40=VIEW ALL.png
+NumberOfLibraries=8
+Library1=core
+Library2=scrollview2d
+Library3=httpserver
+Library4=http
+Library5=stringutils
+Library6=jsinterface
+Library7=dialogs
+Library8=webviewextras
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: bloodlife system
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: true
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+	Private ban_panel As Panel
+	Private but_panel As Panel
+	Private ban_picture As ImageView
+	Private start_button As Button
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	'Do not forget to load the layout file created with the visual designer. For example:
+	Activity.LoadLayout("load_form")
+	all_settings_layout
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub start_button_Click
+'StartActivity ("login_form")
+StartActivity ("login_form")
+End Sub
+
+Public Sub all_settings_layout
+	ban_picture.SetBackgroundImage(LoadBitmap(File.DirAssets,"banner01.jpg"))
+	Activity.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	but_panel.Color = Colors.Transparent
+	'' width
+		ban_panel.Width = 100%x
+		ban_picture.Width = ban_panel.Width
+		but_panel.Width = 100%x
+		start_button.Width =30%x
+	'' height
+		ban_panel.Height = 45%y
+		ban_picture.Height = ban_panel.Height - 3dip
+		but_panel.Height = Activity.Height - ban_panel.Height - 3dip
+		start_button.Height = 11%y
+	'' top
+		ban_panel.Top = Activity.Top
+		ban_picture.Top = ban_panel.Top + 2dip
+		but_panel.Top = ban_panel.Top + ban_panel.Height + 3dip	
+		start_button.Top = 14%y
+	'' left
+		ban_panel.Left = 0
+		ban_picture.Left = 0
+		but_panel.Left = 0
+		start_button.Left = 36%x
+End Sub
