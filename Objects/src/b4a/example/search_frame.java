@@ -460,53 +460,75 @@ return "";
 }
 public static String  _create_map() throws Exception{
 String _htmlstring = "";
+String _html_content = "";
 int _i = 0;
  //BA.debugLineNum = 145;BA.debugLine="Sub create_map";
  //BA.debugLineNum = 146;BA.debugLine="ProgressDialogShow2(\"Creating the map, please wai";
 anywheresoftware.b4a.keywords.Common.ProgressDialogShow2(mostCurrent.activityBA,"Creating the map, please wait...",anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 147;BA.debugLine="Dim htmlString As String";
+ //BA.debugLineNum = 147;BA.debugLine="Dim htmlString,html_content As String";
 _htmlstring = "";
+_html_content = "";
  //BA.debugLineNum = 148;BA.debugLine="htmlString = File.GetText(File.DirAssets, \"locati";
 _htmlstring = anywheresoftware.b4a.keywords.Common.File.GetText(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"location_top.txt");
+ //BA.debugLineNum = 149;BA.debugLine="htmlString = htmlString & \" var markers=[]; var c";
+_htmlstring = _htmlstring+" var markers=[]; var contents = []; var infowindows = [];";
  //BA.debugLineNum = 150;BA.debugLine="For i=0 To id_list.Size-1";
 {
-final int step4 = 1;
-final int limit4 = (int) (_id_list.getSize()-1);
-for (_i = (int) (0) ; (step4 > 0 && _i <= limit4) || (step4 < 0 && _i >= limit4); _i = ((int)(0 + _i + step4)) ) {
- //BA.debugLineNum = 151;BA.debugLine="Log(id_list.Get(i))";
-anywheresoftware.b4a.keywords.Common.Log(BA.ObjectToString(_id_list.Get(_i)));
- //BA.debugLineNum = 153;BA.debugLine="htmlString = htmlString & \" var markerc\"&i&\" = ne";
-_htmlstring = _htmlstring+" var markerc"+BA.NumberToString(_i)+" = new google.maps.Marker({	position: new google.maps.LatLng("+BA.ObjectToString(_lat_list.Get(_i))+","+BA.ObjectToString(_lng_list.Get(_i))+"),map: map, title: '"+BA.ObjectToString(_fulln_llist.Get(_i))+"',clickable: true,icon: 'http://www.google.com/mapfiles/dd-end.png' });";
+final int step5 = 1;
+final int limit5 = (int) (_id_list.getSize()-1);
+for (_i = (int) (0) ; (step5 > 0 && _i <= limit5) || (step5 < 0 && _i >= limit5); _i = ((int)(0 + _i + step5)) ) {
+ //BA.debugLineNum = 153;BA.debugLine="html_content = \"<div align='left'><b><h2>Full Nam";
+_html_content = "<div align='left'><b><h2>Full Name: "+BA.ObjectToString(_fulln_llist.Get(_i))+"</h2></b><br>";
+ //BA.debugLineNum = 154;BA.debugLine="html_content = html_content & \" <b><h4>Location:";
+_html_content = _html_content+" <b><h4>Location: "+BA.ObjectToString(_location_list.Get(_i))+"</h4></b><br>";
+ //BA.debugLineNum = 155;BA.debugLine="html_content = html_content & \" <b><h4>Blood Type";
+_html_content = _html_content+" <b><h4>Blood Type: </h4></b><br>";
+ //BA.debugLineNum = 156;BA.debugLine="html_content = html_content & \" <b><h4>Donated: <";
+_html_content = _html_content+" <b><h4>Donated: </h4></b><br>";
+ //BA.debugLineNum = 157;BA.debugLine="html_content = html_content & \" <b><h4>Email: </h";
+_html_content = _html_content+" <b><h4>Email: </h4></b><br>";
+ //BA.debugLineNum = 158;BA.debugLine="html_content = html_content & \" <b><h4>Phone Numb";
+_html_content = _html_content+" <b><h4>Phone Number 1: </h4></b><br>";
+ //BA.debugLineNum = 159;BA.debugLine="html_content = html_content & \" <b><h4>Phone Numb";
+_html_content = _html_content+" <b><h4>Phone Number 2: </h4></b><br></div>";
+ //BA.debugLineNum = 160;BA.debugLine="htmlString = htmlString & \" markers[\"&i&\"] = new";
+_htmlstring = _htmlstring+" markers["+BA.NumberToString(_i)+"] = new google.maps.Marker({ position: new google.maps.LatLng("+BA.ObjectToString(_lat_list.Get(_i))+","+BA.ObjectToString(_lng_list.Get(_i))+"), map: map, title: '"+BA.ObjectToString(_fulln_llist.Get(_i))+"',clickable: true,icon: 'http://www.google.com/mapfiles/dd-end.png' }); ";
+ //BA.debugLineNum = 161;BA.debugLine="htmlString = htmlString & \" markers[\"&i&\"].index";
+_htmlstring = _htmlstring+" markers["+BA.NumberToString(_i)+"].index = "+BA.NumberToString(_i)+";  contents["+BA.NumberToString(_i)+"] = '<div><b><h2>Full Name: "+BA.ObjectToString(_fulln_llist.Get(_i))+"</h2></b><br><b><h4>Location: "+BA.ObjectToString(_location_list.Get(_i))+"</h4></b><br><b><h4>Blood Type: </h4></b><br><b><h4>Donated: </h4></b><br><b><h4>Email: </h4></b><br><b><h4>Email: </h4></b><br> <b><h4>Phone Number 1: </h4></b><br><b><h4>Phone Number 2: </h4></b></div>';";
+ //BA.debugLineNum = 162;BA.debugLine="htmlString = htmlString & \" infowindows[\"&i&\"] =";
+_htmlstring = _htmlstring+" infowindows["+BA.NumberToString(_i)+"] = new google.maps.InfoWindow({ content: contents["+BA.NumberToString(_i)+"], maxWidth: 350 });";
+ //BA.debugLineNum = 163;BA.debugLine="htmlString = htmlString & \" google.maps.event.add";
+_htmlstring = _htmlstring+" google.maps.event.addListener(markers["+BA.NumberToString(_i)+"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); ";
  }
 };
- //BA.debugLineNum = 157;BA.debugLine="htmlString = htmlString&File.GetText(File.DirAsse";
+ //BA.debugLineNum = 166;BA.debugLine="htmlString = htmlString&File.GetText(File.DirAsse";
 _htmlstring = _htmlstring+anywheresoftware.b4a.keywords.Common.File.GetText(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"location_buttom.txt");
- //BA.debugLineNum = 158;BA.debugLine="map_webview.LoadHtml(htmlString)";
+ //BA.debugLineNum = 167;BA.debugLine="map_webview.LoadHtml(htmlString)";
 mostCurrent._map_webview.LoadHtml(_htmlstring);
- //BA.debugLineNum = 159;BA.debugLine="Log(htmlString)";
+ //BA.debugLineNum = 168;BA.debugLine="Log(htmlString)";
 anywheresoftware.b4a.keywords.Common.Log(_htmlstring);
- //BA.debugLineNum = 161;BA.debugLine="End Sub";
+ //BA.debugLineNum = 170;BA.debugLine="End Sub";
 return "";
 }
 public static String  _data_list_click() throws Exception{
 anywheresoftware.b4a.objects.ConcreteViewWrapper _send = null;
 int _row = 0;
- //BA.debugLineNum = 322;BA.debugLine="Sub data_list_Click";
- //BA.debugLineNum = 323;BA.debugLine="Dim Send As View";
+ //BA.debugLineNum = 331;BA.debugLine="Sub data_list_Click";
+ //BA.debugLineNum = 332;BA.debugLine="Dim Send As View";
 _send = new anywheresoftware.b4a.objects.ConcreteViewWrapper();
- //BA.debugLineNum = 324;BA.debugLine="Dim row As Int";
+ //BA.debugLineNum = 333;BA.debugLine="Dim row As Int";
 _row = 0;
- //BA.debugLineNum = 325;BA.debugLine="Send=Sender";
+ //BA.debugLineNum = 334;BA.debugLine="Send=Sender";
 _send.setObject((android.view.View)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
- //BA.debugLineNum = 326;BA.debugLine="row=Floor(Send.Tag/10) '20";
+ //BA.debugLineNum = 335;BA.debugLine="row=Floor(Send.Tag/10) '20";
 _row = (int) (anywheresoftware.b4a.keywords.Common.Floor((double)(BA.ObjectToNumber(_send.getTag()))/(double)10));
- //BA.debugLineNum = 327;BA.debugLine="item=row";
+ //BA.debugLineNum = 336;BA.debugLine="item=row";
 _item = _row;
- //BA.debugLineNum = 328;BA.debugLine="Log(row)";
+ //BA.debugLineNum = 337;BA.debugLine="Log(row)";
 anywheresoftware.b4a.keywords.Common.Log(BA.NumberToString(_row));
- //BA.debugLineNum = 329;BA.debugLine="Log(CRLF&\"Item \"&item)";
+ //BA.debugLineNum = 338;BA.debugLine="Log(CRLF&\"Item \"&item)";
 anywheresoftware.b4a.keywords.Common.Log(anywheresoftware.b4a.keywords.Common.CRLF+"Item "+BA.NumberToString(_item));
- //BA.debugLineNum = 331;BA.debugLine="End Sub";
+ //BA.debugLineNum = 340;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
@@ -552,20 +574,20 @@ return "";
 }
 public static String  _is_initialize() throws Exception{
 anywheresoftware.b4a.objects.streams.File.TextWriterWrapper _textwriters = null;
- //BA.debugLineNum = 165;BA.debugLine="Sub is_initialize";
- //BA.debugLineNum = 166;BA.debugLine="Dim TextWriters As TextWriter";
+ //BA.debugLineNum = 174;BA.debugLine="Sub is_initialize";
+ //BA.debugLineNum = 175;BA.debugLine="Dim TextWriters As TextWriter";
 _textwriters = new anywheresoftware.b4a.objects.streams.File.TextWriterWrapper();
- //BA.debugLineNum = 167;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.DirIn";
+ //BA.debugLineNum = 176;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.DirIn";
 _textwriters.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_id.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 168;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.DirIn";
+ //BA.debugLineNum = 177;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.DirIn";
 _textwriters.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_fullN.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 169;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.DirI";
+ //BA.debugLineNum = 178;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.DirI";
 _textwriters.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_location.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 170;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.Dir";
+ //BA.debugLineNum = 179;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.Dir";
 _textwriters.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_lat.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 171;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.Dir";
+ //BA.debugLineNum = 180;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.Dir";
 _textwriters.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_lng.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 172;BA.debugLine="End Sub";
+ //BA.debugLineNum = 181;BA.debugLine="End Sub";
 return "";
 }
 public static String  _jobdone(b4a.example.httpjob _job) throws Exception{
@@ -574,85 +596,85 @@ anywheresoftware.b4a.objects.streams.File.TextWriterWrapper _textwriter_full = n
 anywheresoftware.b4a.objects.streams.File.TextWriterWrapper _textwriter_location = null;
 anywheresoftware.b4a.objects.streams.File.TextWriterWrapper _textwriter_lat = null;
 anywheresoftware.b4a.objects.streams.File.TextWriterWrapper _textwriter_lng = null;
- //BA.debugLineNum = 173;BA.debugLine="Public Sub JobDone(job As HttpJob)";
- //BA.debugLineNum = 174;BA.debugLine="If job.Success Then";
+ //BA.debugLineNum = 182;BA.debugLine="Public Sub JobDone(job As HttpJob)";
+ //BA.debugLineNum = 183;BA.debugLine="If job.Success Then";
 if (_job._success) { 
- //BA.debugLineNum = 175;BA.debugLine="Select job.JobName";
+ //BA.debugLineNum = 184;BA.debugLine="Select job.JobName";
 switch (BA.switchObjectToInt(_job._jobname,"data_query_id_get","data_query_fullN_get","data_query_location_get","data_query_lat_get","data_query_lng_get")) {
 case 0: {
- //BA.debugLineNum = 177;BA.debugLine="Dim TextWriter_id As TextWriter";
+ //BA.debugLineNum = 186;BA.debugLine="Dim TextWriter_id As TextWriter";
 _textwriter_id = new anywheresoftware.b4a.objects.streams.File.TextWriterWrapper();
- //BA.debugLineNum = 178;BA.debugLine="TextWriter_id.Initialize(File.OpenOutput(";
+ //BA.debugLineNum = 187;BA.debugLine="TextWriter_id.Initialize(File.OpenOutput(";
 _textwriter_id.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_id.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 179;BA.debugLine="TextWriter_id.WriteLine(job.GetString.Tr";
+ //BA.debugLineNum = 188;BA.debugLine="TextWriter_id.WriteLine(job.GetString.Tr";
 _textwriter_id.WriteLine(_job._getstring().trim());
- //BA.debugLineNum = 180;BA.debugLine="TextWriter_id.Close";
+ //BA.debugLineNum = 189;BA.debugLine="TextWriter_id.Close";
 _textwriter_id.Close();
  break; }
 case 1: {
- //BA.debugLineNum = 183;BA.debugLine="Dim TextWriter_full As TextWriter";
+ //BA.debugLineNum = 192;BA.debugLine="Dim TextWriter_full As TextWriter";
 _textwriter_full = new anywheresoftware.b4a.objects.streams.File.TextWriterWrapper();
- //BA.debugLineNum = 184;BA.debugLine="TextWriter_full.Initialize(File.OpenOutpu";
+ //BA.debugLineNum = 193;BA.debugLine="TextWriter_full.Initialize(File.OpenOutpu";
 _textwriter_full.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_fullN.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 185;BA.debugLine="TextWriter_full.WriteLine(job.GetString.";
+ //BA.debugLineNum = 194;BA.debugLine="TextWriter_full.WriteLine(job.GetString.";
 _textwriter_full.WriteLine(_job._getstring().trim());
- //BA.debugLineNum = 186;BA.debugLine="TextWriter_full.Close";
+ //BA.debugLineNum = 195;BA.debugLine="TextWriter_full.Close";
 _textwriter_full.Close();
  break; }
 case 2: {
- //BA.debugLineNum = 189;BA.debugLine="Dim TextWriter_location As TextWriter";
+ //BA.debugLineNum = 198;BA.debugLine="Dim TextWriter_location As TextWriter";
 _textwriter_location = new anywheresoftware.b4a.objects.streams.File.TextWriterWrapper();
- //BA.debugLineNum = 190;BA.debugLine="TextWriter_location.Initialize(File.OpenO";
+ //BA.debugLineNum = 199;BA.debugLine="TextWriter_location.Initialize(File.OpenO";
 _textwriter_location.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_location.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 191;BA.debugLine="TextWriter_location.WriteLine(job.GetStr";
+ //BA.debugLineNum = 200;BA.debugLine="TextWriter_location.WriteLine(job.GetStr";
 _textwriter_location.WriteLine(_job._getstring().trim());
- //BA.debugLineNum = 192;BA.debugLine="TextWriter_location.Close";
+ //BA.debugLineNum = 201;BA.debugLine="TextWriter_location.Close";
 _textwriter_location.Close();
  break; }
 case 3: {
- //BA.debugLineNum = 194;BA.debugLine="Dim TextWriter_lat As TextWriter";
+ //BA.debugLineNum = 203;BA.debugLine="Dim TextWriter_lat As TextWriter";
 _textwriter_lat = new anywheresoftware.b4a.objects.streams.File.TextWriterWrapper();
- //BA.debugLineNum = 195;BA.debugLine="TextWriter_lat.Initialize(File.OpenOutput";
+ //BA.debugLineNum = 204;BA.debugLine="TextWriter_lat.Initialize(File.OpenOutput";
 _textwriter_lat.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_lat.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 196;BA.debugLine="TextWriter_lat.WriteLine(job.GetString.T";
+ //BA.debugLineNum = 205;BA.debugLine="TextWriter_lat.WriteLine(job.GetString.T";
 _textwriter_lat.WriteLine(_job._getstring().trim());
- //BA.debugLineNum = 198;BA.debugLine="TextWriter_lat.Close";
+ //BA.debugLineNum = 207;BA.debugLine="TextWriter_lat.Close";
 _textwriter_lat.Close();
  break; }
 case 4: {
- //BA.debugLineNum = 200;BA.debugLine="Dim TextWriter_lng As TextWriter";
+ //BA.debugLineNum = 209;BA.debugLine="Dim TextWriter_lng As TextWriter";
 _textwriter_lng = new anywheresoftware.b4a.objects.streams.File.TextWriterWrapper();
- //BA.debugLineNum = 201;BA.debugLine="TextWriter_lng.Initialize(File.OpenOutput";
+ //BA.debugLineNum = 210;BA.debugLine="TextWriter_lng.Initialize(File.OpenOutput";
 _textwriter_lng.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_lng.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
- //BA.debugLineNum = 202;BA.debugLine="TextWriter_lng.WriteLine(job.GetString.T";
+ //BA.debugLineNum = 211;BA.debugLine="TextWriter_lng.WriteLine(job.GetString.T";
 _textwriter_lng.WriteLine(_job._getstring().trim());
- //BA.debugLineNum = 204;BA.debugLine="TextWriter_lng.Close";
+ //BA.debugLineNum = 213;BA.debugLine="TextWriter_lng.Close";
 _textwriter_lng.Close();
  break; }
 }
 ;
- //BA.debugLineNum = 207;BA.debugLine="If is_complete == 4 Then";
+ //BA.debugLineNum = 216;BA.debugLine="If is_complete == 4 Then";
 if (_is_complete==4) { 
- //BA.debugLineNum = 208;BA.debugLine="ProgressDialogHide";
+ //BA.debugLineNum = 217;BA.debugLine="ProgressDialogHide";
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
- //BA.debugLineNum = 209;BA.debugLine="is_complete = 0";
+ //BA.debugLineNum = 218;BA.debugLine="is_complete = 0";
 _is_complete = (int) (0);
- //BA.debugLineNum = 210;BA.debugLine="reading_txt";
+ //BA.debugLineNum = 219;BA.debugLine="reading_txt";
 _reading_txt();
- //BA.debugLineNum = 211;BA.debugLine="create_map";
+ //BA.debugLineNum = 220;BA.debugLine="create_map";
 _create_map();
  };
- //BA.debugLineNum = 213;BA.debugLine="is_complete = is_complete + 1";
+ //BA.debugLineNum = 222;BA.debugLine="is_complete = is_complete + 1";
 _is_complete = (int) (_is_complete+1);
  }else if(_job._success==anywheresoftware.b4a.keywords.Common.False) { 
- //BA.debugLineNum = 215;BA.debugLine="ProgressDialogHide";
+ //BA.debugLineNum = 224;BA.debugLine="ProgressDialogHide";
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
- //BA.debugLineNum = 216;BA.debugLine="is_complete = 0";
+ //BA.debugLineNum = 225;BA.debugLine="is_complete = 0";
 _is_complete = (int) (0);
- //BA.debugLineNum = 217;BA.debugLine="Msgbox(\"Error: Error connecting to server,please";
+ //BA.debugLineNum = 226;BA.debugLine="Msgbox(\"Error: Error connecting to server,please";
 anywheresoftware.b4a.keywords.Common.Msgbox("Error: Error connecting to server,please try again.!","Confirmation",mostCurrent.activityBA);
  };
- //BA.debugLineNum = 222;BA.debugLine="End Sub";
+ //BA.debugLineNum = 231;BA.debugLine="End Sub";
 return "";
 }
 public static String  _list_btn_click() throws Exception{
@@ -667,120 +689,120 @@ int _i = 0;
 anywheresoftware.b4a.objects.ImageViewWrapper _imageview1 = null;
 anywheresoftware.b4a.objects.LabelWrapper _label1 = null;
 anywheresoftware.b4a.objects.LabelWrapper _label2 = null;
- //BA.debugLineNum = 234;BA.debugLine="Sub list_btn_Click";
- //BA.debugLineNum = 235;BA.debugLine="ProgressDialogShow2(\"Loading data, Please Wait...";
+ //BA.debugLineNum = 243;BA.debugLine="Sub list_btn_Click";
+ //BA.debugLineNum = 244;BA.debugLine="ProgressDialogShow2(\"Loading data, Please Wait...";
 anywheresoftware.b4a.keywords.Common.ProgressDialogShow2(mostCurrent.activityBA,"Loading data, Please Wait...",anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 236;BA.debugLine="If scrolllista.IsInitialized == True Then";
+ //BA.debugLineNum = 245;BA.debugLine="If scrolllista.IsInitialized == True Then";
 if (mostCurrent._scrolllista.IsInitialized()==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 237;BA.debugLine="scrolllista.RemoveView";
+ //BA.debugLineNum = 246;BA.debugLine="scrolllista.RemoveView";
 mostCurrent._scrolllista.RemoveView();
- //BA.debugLineNum = 238;BA.debugLine="dialog_panel.RemoveView";
+ //BA.debugLineNum = 247;BA.debugLine="dialog_panel.RemoveView";
 mostCurrent._dialog_panel.RemoveView();
  };
- //BA.debugLineNum = 240;BA.debugLine="scrolllista.Initialize(500)";
+ //BA.debugLineNum = 249;BA.debugLine="scrolllista.Initialize(500)";
 mostCurrent._scrolllista.Initialize(mostCurrent.activityBA,(int) (500));
- //BA.debugLineNum = 241;BA.debugLine="dialog_panel.Initialize(\"dialog_panel\")";
+ //BA.debugLineNum = 250;BA.debugLine="dialog_panel.Initialize(\"dialog_panel\")";
 mostCurrent._dialog_panel.Initialize(mostCurrent.activityBA,"dialog_panel");
- //BA.debugLineNum = 242;BA.debugLine="Dim cd As CustomDialog2";
+ //BA.debugLineNum = 251;BA.debugLine="Dim cd As CustomDialog2";
 _cd = new anywheresoftware.b4a.agraham.dialogs.InputDialog.CustomDialog2();
- //BA.debugLineNum = 243;BA.debugLine="Dim pnl As Panel";
+ //BA.debugLineNum = 252;BA.debugLine="Dim pnl As Panel";
 _pnl = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 244;BA.debugLine="pnl.Initialize(\"pnl\")";
+ //BA.debugLineNum = 253;BA.debugLine="pnl.Initialize(\"pnl\")";
 _pnl.Initialize(mostCurrent.activityBA,"pnl");
- //BA.debugLineNum = 245;BA.debugLine="Dim bgnd As ColorDrawable";
+ //BA.debugLineNum = 254;BA.debugLine="Dim bgnd As ColorDrawable";
 _bgnd = new anywheresoftware.b4a.objects.drawable.ColorDrawable();
- //BA.debugLineNum = 246;BA.debugLine="bgnd.Initialize(Colors.Cyan, 5dip)";
+ //BA.debugLineNum = 255;BA.debugLine="bgnd.Initialize(Colors.Cyan, 5dip)";
 _bgnd.Initialize(anywheresoftware.b4a.keywords.Common.Colors.Cyan,anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)));
- //BA.debugLineNum = 247;BA.debugLine="pnl.Background = bgnd";
+ //BA.debugLineNum = 256;BA.debugLine="pnl.Background = bgnd";
 _pnl.setBackground((android.graphics.drawable.Drawable)(_bgnd.getObject()));
- //BA.debugLineNum = 251;BA.debugLine="reading_txt";
+ //BA.debugLineNum = 260;BA.debugLine="reading_txt";
 _reading_txt();
- //BA.debugLineNum = 263;BA.debugLine="Dim Bitmap1 As Bitmap";
+ //BA.debugLineNum = 272;BA.debugLine="Dim Bitmap1 As Bitmap";
 _bitmap1 = new anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper();
- //BA.debugLineNum = 264;BA.debugLine="Dim Panel0 As Panel";
+ //BA.debugLineNum = 273;BA.debugLine="Dim Panel0 As Panel";
 _panel0 = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 265;BA.debugLine="Dim PanelTop, PanelHeight  As Int";
+ //BA.debugLineNum = 274;BA.debugLine="Dim PanelTop, PanelHeight  As Int";
 _paneltop = 0;
 _panelheight = 0;
- //BA.debugLineNum = 270;BA.debugLine="Bitmap1.Initialize(File.DirAssets,\"banner1.png\")";
+ //BA.debugLineNum = 279;BA.debugLine="Bitmap1.Initialize(File.DirAssets,\"banner1.png\")";
 _bitmap1.Initialize(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"banner1.png");
- //BA.debugLineNum = 271;BA.debugLine="PanelTop=1%y";
+ //BA.debugLineNum = 280;BA.debugLine="PanelTop=1%y";
 _paneltop = anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (1),mostCurrent.activityBA);
- //BA.debugLineNum = 272;BA.debugLine="Panel0=scrolllista.Panel";
+ //BA.debugLineNum = 281;BA.debugLine="Panel0=scrolllista.Panel";
 _panel0 = mostCurrent._scrolllista.getPanel();
- //BA.debugLineNum = 273;BA.debugLine="Panel0.Color=Colors.argb(0,0,0,0)  'sets the invi";
+ //BA.debugLineNum = 282;BA.debugLine="Panel0.Color=Colors.argb(0,0,0,0)  'sets the invi";
 _panel0.setColor(anywheresoftware.b4a.keywords.Common.Colors.ARGB((int) (0),(int) (0),(int) (0),(int) (0)));
- //BA.debugLineNum = 275;BA.debugLine="For i=0 To id_list.Size-1";
+ //BA.debugLineNum = 284;BA.debugLine="For i=0 To id_list.Size-1";
 {
 final int step22 = 1;
 final int limit22 = (int) (_id_list.getSize()-1);
 for (_i = (int) (0) ; (step22 > 0 && _i <= limit22) || (step22 < 0 && _i >= limit22); _i = ((int)(0 + _i + step22)) ) {
- //BA.debugLineNum = 277;BA.debugLine="If i>0 And i<3 Then Bitmap1.Initialize(File.DirA";
+ //BA.debugLineNum = 286;BA.debugLine="If i>0 And i<3 Then Bitmap1.Initialize(File.DirA";
 if (_i>0 && _i<3) { 
 _bitmap1.Initialize(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"banner.png");};
- //BA.debugLineNum = 278;BA.debugLine="Dim ImageView1 As ImageView";
+ //BA.debugLineNum = 287;BA.debugLine="Dim ImageView1 As ImageView";
 _imageview1 = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 279;BA.debugLine="ImageView1.Initialize(\"data_list\")";
+ //BA.debugLineNum = 288;BA.debugLine="ImageView1.Initialize(\"data_list\")";
 _imageview1.Initialize(mostCurrent.activityBA,"data_list");
- //BA.debugLineNum = 280;BA.debugLine="PanelHeight=12%y";
+ //BA.debugLineNum = 289;BA.debugLine="PanelHeight=12%y";
 _panelheight = anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (12),mostCurrent.activityBA);
- //BA.debugLineNum = 282;BA.debugLine="Panel0.AddView(ImageView1,1%x,PanelTop,71%x,Pane";
+ //BA.debugLineNum = 291;BA.debugLine="Panel0.AddView(ImageView1,1%x,PanelTop,71%x,Pane";
 _panel0.AddView((android.view.View)(_imageview1.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (1),mostCurrent.activityBA),_paneltop,anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (71),mostCurrent.activityBA),_panelheight);
- //BA.debugLineNum = 283;BA.debugLine="ImageView1.Tag=i&\"1\"";
+ //BA.debugLineNum = 292;BA.debugLine="ImageView1.Tag=i&\"1\"";
 _imageview1.setTag((Object)(BA.NumberToString(_i)+"1"));
- //BA.debugLineNum = 284;BA.debugLine="ImageView1.Bitmap=Bitmap1";
+ //BA.debugLineNum = 293;BA.debugLine="ImageView1.Bitmap=Bitmap1";
 _imageview1.setBitmap((android.graphics.Bitmap)(_bitmap1.getObject()));
- //BA.debugLineNum = 285;BA.debugLine="ImageView1.Gravity=Gravity.fill";
+ //BA.debugLineNum = 294;BA.debugLine="ImageView1.Gravity=Gravity.fill";
 _imageview1.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.FILL);
- //BA.debugLineNum = 287;BA.debugLine="Dim Label1, Label2 As Label";
+ //BA.debugLineNum = 296;BA.debugLine="Dim Label1, Label2 As Label";
 _label1 = new anywheresoftware.b4a.objects.LabelWrapper();
 _label2 = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 288;BA.debugLine="Label1.Initialize(\"\")";
+ //BA.debugLineNum = 297;BA.debugLine="Label1.Initialize(\"\")";
 _label1.Initialize(mostCurrent.activityBA,"");
- //BA.debugLineNum = 289;BA.debugLine="Label2.Initialize(\"\")";
+ //BA.debugLineNum = 298;BA.debugLine="Label2.Initialize(\"\")";
 _label2.Initialize(mostCurrent.activityBA,"");
- //BA.debugLineNum = 290;BA.debugLine="Panel0.AddView(Label1,1%x,PanelTop-2%y,71%x,Pane";
+ //BA.debugLineNum = 299;BA.debugLine="Panel0.AddView(Label1,1%x,PanelTop-2%y,71%x,Pane";
 _panel0.AddView((android.view.View)(_label1.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (1),mostCurrent.activityBA),(int) (_paneltop-anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (2),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (71),mostCurrent.activityBA),_panelheight);
- //BA.debugLineNum = 291;BA.debugLine="Panel0.AddView(Label2,1%x,PanelTop+2%y,71%x,Pane";
+ //BA.debugLineNum = 300;BA.debugLine="Panel0.AddView(Label2,1%x,PanelTop+2%y,71%x,Pane";
 _panel0.AddView((android.view.View)(_label2.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (1),mostCurrent.activityBA),(int) (_paneltop+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (2),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (71),mostCurrent.activityBA),_panelheight);
- //BA.debugLineNum = 293;BA.debugLine="Label1.TextColor= Colors.black";
+ //BA.debugLineNum = 302;BA.debugLine="Label1.TextColor= Colors.black";
 _label1.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 294;BA.debugLine="Label1.TextSize= 17";
+ //BA.debugLineNum = 303;BA.debugLine="Label1.TextSize= 17";
 _label1.setTextSize((float) (17));
- //BA.debugLineNum = 295;BA.debugLine="Label1.Gravity=Gravity.CENTER";
+ //BA.debugLineNum = 304;BA.debugLine="Label1.Gravity=Gravity.CENTER";
 _label1.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
- //BA.debugLineNum = 296;BA.debugLine="Label1.Color=Colors.argb(0,0,0,0)";
+ //BA.debugLineNum = 305;BA.debugLine="Label1.Color=Colors.argb(0,0,0,0)";
 _label1.setColor(anywheresoftware.b4a.keywords.Common.Colors.ARGB((int) (0),(int) (0),(int) (0),(int) (0)));
- //BA.debugLineNum = 297;BA.debugLine="Label1.Text=fullN_llist.Get(i) 'set data from li";
+ //BA.debugLineNum = 306;BA.debugLine="Label1.Text=fullN_llist.Get(i) 'set data from li";
 _label1.setText(_fulln_llist.Get(_i));
- //BA.debugLineNum = 299;BA.debugLine="Label2.TextColor= Colors.black";
+ //BA.debugLineNum = 308;BA.debugLine="Label2.TextColor= Colors.black";
 _label2.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 300;BA.debugLine="Label2.TextSize= 15";
+ //BA.debugLineNum = 309;BA.debugLine="Label2.TextSize= 15";
 _label2.setTextSize((float) (15));
- //BA.debugLineNum = 301;BA.debugLine="Label2.Gravity=Gravity.CENTER";
+ //BA.debugLineNum = 310;BA.debugLine="Label2.Gravity=Gravity.CENTER";
 _label2.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
- //BA.debugLineNum = 302;BA.debugLine="Label2.Color=Colors.argb(0,0,0,0)";
+ //BA.debugLineNum = 311;BA.debugLine="Label2.Color=Colors.argb(0,0,0,0)";
 _label2.setColor(anywheresoftware.b4a.keywords.Common.Colors.ARGB((int) (0),(int) (0),(int) (0),(int) (0)));
- //BA.debugLineNum = 303;BA.debugLine="Label2.Text=location_list.Get(i) 'set data from";
+ //BA.debugLineNum = 312;BA.debugLine="Label2.Text=location_list.Get(i) 'set data from";
 _label2.setText(_location_list.Get(_i));
- //BA.debugLineNum = 306;BA.debugLine="If i > id_list.size-1 Then i = id_list.size-1";
+ //BA.debugLineNum = 315;BA.debugLine="If i > id_list.size-1 Then i = id_list.size-1";
 if (_i>_id_list.getSize()-1) { 
 _i = (int) (_id_list.getSize()-1);};
- //BA.debugLineNum = 309;BA.debugLine="PanelTop=PanelTop+PanelHeight";
+ //BA.debugLineNum = 318;BA.debugLine="PanelTop=PanelTop+PanelHeight";
 _paneltop = (int) (_paneltop+_panelheight);
  }
 };
- //BA.debugLineNum = 311;BA.debugLine="Panel0.Height=PanelTop";
+ //BA.debugLineNum = 320;BA.debugLine="Panel0.Height=PanelTop";
 _panel0.setHeight(_paneltop);
- //BA.debugLineNum = 313;BA.debugLine="ProgressDialogHide";
+ //BA.debugLineNum = 322;BA.debugLine="ProgressDialogHide";
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
- //BA.debugLineNum = 315;BA.debugLine="dialog_panel.AddView(scrolllista,1%x,1%y,75%x,78%";
+ //BA.debugLineNum = 324;BA.debugLine="dialog_panel.AddView(scrolllista,1%x,1%y,75%x,78%";
 mostCurrent._dialog_panel.AddView((android.view.View)(mostCurrent._scrolllista.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (1),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (1),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (75),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (78),mostCurrent.activityBA));
- //BA.debugLineNum = 316;BA.debugLine="cd.AddView(dialog_panel,75%x,78%y)";
+ //BA.debugLineNum = 325;BA.debugLine="cd.AddView(dialog_panel,75%x,78%y)";
 _cd.AddView((android.view.View)(mostCurrent._dialog_panel.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (75),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (78),mostCurrent.activityBA));
- //BA.debugLineNum = 318;BA.debugLine="cd.Show(\"List of people\", \"CANCEL\", \"VIEW\", \"\", N";
+ //BA.debugLineNum = 327;BA.debugLine="cd.Show(\"List of people\", \"CANCEL\", \"VIEW\", \"\", N";
 _cd.Show("List of people","CANCEL","VIEW","",mostCurrent.activityBA,(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null));
- //BA.debugLineNum = 320;BA.debugLine="End Sub";
+ //BA.debugLineNum = 329;BA.debugLine="End Sub";
 return "";
 }
 public static String  _load_list() throws Exception{
@@ -806,19 +828,19 @@ return "";
 }
 public static String  _lv_itemclick(int _position,Object _value) throws Exception{
 b4a.example.calculations _calc = null;
- //BA.debugLineNum = 227;BA.debugLine="Sub lv_ItemClick (Position As Int, Value As Object";
- //BA.debugLineNum = 228;BA.debugLine="Dim calc As calculations";
+ //BA.debugLineNum = 236;BA.debugLine="Sub lv_ItemClick (Position As Int, Value As Object";
+ //BA.debugLineNum = 237;BA.debugLine="Dim calc As calculations";
 _calc = new b4a.example.calculations();
- //BA.debugLineNum = 229;BA.debugLine="calc.users_id = id_list.Get(Position)";
-_calc._users_id = (int)(BA.ObjectToNumber(_id_list.Get(_position)));
- //BA.debugLineNum = 232;BA.debugLine="End Sub";
+ //BA.debugLineNum = 238;BA.debugLine="calc.users_id = id_list.Get(Position)";
+_calc._users_id = BA.ObjectToString(_id_list.Get(_position));
+ //BA.debugLineNum = 241;BA.debugLine="End Sub";
 return "";
 }
 public static String  _map_shows_pagefinished(String _url) throws Exception{
- //BA.debugLineNum = 162;BA.debugLine="Sub map_shows_PageFinished (Url As String)";
- //BA.debugLineNum = 163;BA.debugLine="ProgressDialogHide";
+ //BA.debugLineNum = 171;BA.debugLine="Sub map_shows_PageFinished (Url As String)";
+ //BA.debugLineNum = 172;BA.debugLine="ProgressDialogHide";
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
- //BA.debugLineNum = 164;BA.debugLine="End Sub";
+ //BA.debugLineNum = 173;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
@@ -853,108 +875,108 @@ anywheresoftware.b4a.objects.streams.File.TextReaderWrapper _textreader_lat = nu
 String _line_lat = "";
 anywheresoftware.b4a.objects.streams.File.TextReaderWrapper _textreader_lng = null;
 String _line_lng = "";
- //BA.debugLineNum = 333;BA.debugLine="Sub reading_txt";
- //BA.debugLineNum = 334;BA.debugLine="id_list.Initialize";
+ //BA.debugLineNum = 342;BA.debugLine="Sub reading_txt";
+ //BA.debugLineNum = 343;BA.debugLine="id_list.Initialize";
 _id_list.Initialize();
- //BA.debugLineNum = 335;BA.debugLine="fullN_llist.Initialize";
+ //BA.debugLineNum = 344;BA.debugLine="fullN_llist.Initialize";
 _fulln_llist.Initialize();
- //BA.debugLineNum = 336;BA.debugLine="location_list.Initialize";
+ //BA.debugLineNum = 345;BA.debugLine="location_list.Initialize";
 _location_list.Initialize();
- //BA.debugLineNum = 337;BA.debugLine="lat_list.Initialize";
+ //BA.debugLineNum = 346;BA.debugLine="lat_list.Initialize";
 _lat_list.Initialize();
- //BA.debugLineNum = 338;BA.debugLine="lng_list.Initialize";
+ //BA.debugLineNum = 347;BA.debugLine="lng_list.Initialize";
 _lng_list.Initialize();
- //BA.debugLineNum = 340;BA.debugLine="Dim TextReader_id As TextReader";
+ //BA.debugLineNum = 349;BA.debugLine="Dim TextReader_id As TextReader";
 _textreader_id = new anywheresoftware.b4a.objects.streams.File.TextReaderWrapper();
- //BA.debugLineNum = 341;BA.debugLine="TextReader_id.Initialize(File.OpenInput(File.D";
+ //BA.debugLineNum = 350;BA.debugLine="TextReader_id.Initialize(File.OpenInput(File.D";
 _textreader_id.Initialize((java.io.InputStream)(anywheresoftware.b4a.keywords.Common.File.OpenInput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_id.txt").getObject()));
- //BA.debugLineNum = 342;BA.debugLine="Dim line_id As String";
+ //BA.debugLineNum = 351;BA.debugLine="Dim line_id As String";
 _line_id = "";
- //BA.debugLineNum = 343;BA.debugLine="line_id = TextReader_id.ReadLine";
+ //BA.debugLineNum = 352;BA.debugLine="line_id = TextReader_id.ReadLine";
 _line_id = _textreader_id.ReadLine();
- //BA.debugLineNum = 344;BA.debugLine="Do While line_id <> Null";
+ //BA.debugLineNum = 353;BA.debugLine="Do While line_id <> Null";
 while (_line_id!= null) {
- //BA.debugLineNum = 346;BA.debugLine="id_list.Add(line_id)";
+ //BA.debugLineNum = 355;BA.debugLine="id_list.Add(line_id)";
 _id_list.Add((Object)(_line_id));
- //BA.debugLineNum = 347;BA.debugLine="line_id = TextReader_id.ReadLine";
+ //BA.debugLineNum = 356;BA.debugLine="line_id = TextReader_id.ReadLine";
 _line_id = _textreader_id.ReadLine();
  }
 ;
- //BA.debugLineNum = 349;BA.debugLine="TextReader_id.Close";
+ //BA.debugLineNum = 358;BA.debugLine="TextReader_id.Close";
 _textreader_id.Close();
- //BA.debugLineNum = 351;BA.debugLine="Dim TextReader_fullN As TextReader";
+ //BA.debugLineNum = 360;BA.debugLine="Dim TextReader_fullN As TextReader";
 _textreader_fulln = new anywheresoftware.b4a.objects.streams.File.TextReaderWrapper();
- //BA.debugLineNum = 352;BA.debugLine="TextReader_fullN.Initialize(File.OpenInput(Fil";
+ //BA.debugLineNum = 361;BA.debugLine="TextReader_fullN.Initialize(File.OpenInput(Fil";
 _textreader_fulln.Initialize((java.io.InputStream)(anywheresoftware.b4a.keywords.Common.File.OpenInput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_fullN.txt").getObject()));
- //BA.debugLineNum = 353;BA.debugLine="Dim line_fullN As String";
+ //BA.debugLineNum = 362;BA.debugLine="Dim line_fullN As String";
 _line_fulln = "";
- //BA.debugLineNum = 354;BA.debugLine="line_fullN = TextReader_fullN.ReadLine";
+ //BA.debugLineNum = 363;BA.debugLine="line_fullN = TextReader_fullN.ReadLine";
 _line_fulln = _textreader_fulln.ReadLine();
- //BA.debugLineNum = 355;BA.debugLine="Do While line_fullN <> Null";
+ //BA.debugLineNum = 364;BA.debugLine="Do While line_fullN <> Null";
 while (_line_fulln!= null) {
- //BA.debugLineNum = 357;BA.debugLine="fullN_llist.Add(line_fullN)";
+ //BA.debugLineNum = 366;BA.debugLine="fullN_llist.Add(line_fullN)";
 _fulln_llist.Add((Object)(_line_fulln));
- //BA.debugLineNum = 358;BA.debugLine="line_fullN = TextReader_fullN.ReadLine";
+ //BA.debugLineNum = 367;BA.debugLine="line_fullN = TextReader_fullN.ReadLine";
 _line_fulln = _textreader_fulln.ReadLine();
  }
 ;
- //BA.debugLineNum = 360;BA.debugLine="TextReader_fullN.Close";
+ //BA.debugLineNum = 369;BA.debugLine="TextReader_fullN.Close";
 _textreader_fulln.Close();
- //BA.debugLineNum = 362;BA.debugLine="Dim TextReader_location As TextReader";
+ //BA.debugLineNum = 371;BA.debugLine="Dim TextReader_location As TextReader";
 _textreader_location = new anywheresoftware.b4a.objects.streams.File.TextReaderWrapper();
- //BA.debugLineNum = 363;BA.debugLine="TextReader_location.Initialize(File.OpenInput(";
+ //BA.debugLineNum = 372;BA.debugLine="TextReader_location.Initialize(File.OpenInput(";
 _textreader_location.Initialize((java.io.InputStream)(anywheresoftware.b4a.keywords.Common.File.OpenInput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_location.txt").getObject()));
- //BA.debugLineNum = 364;BA.debugLine="Dim line_location As String";
+ //BA.debugLineNum = 373;BA.debugLine="Dim line_location As String";
 _line_location = "";
- //BA.debugLineNum = 365;BA.debugLine="line_location = TextReader_location.ReadLine";
+ //BA.debugLineNum = 374;BA.debugLine="line_location = TextReader_location.ReadLine";
 _line_location = _textreader_location.ReadLine();
- //BA.debugLineNum = 366;BA.debugLine="Do While line_location <> Null";
+ //BA.debugLineNum = 375;BA.debugLine="Do While line_location <> Null";
 while (_line_location!= null) {
- //BA.debugLineNum = 368;BA.debugLine="location_list.Add(line_location)";
+ //BA.debugLineNum = 377;BA.debugLine="location_list.Add(line_location)";
 _location_list.Add((Object)(_line_location));
- //BA.debugLineNum = 369;BA.debugLine="line_location = TextReader_location.ReadLi";
+ //BA.debugLineNum = 378;BA.debugLine="line_location = TextReader_location.ReadLi";
 _line_location = _textreader_location.ReadLine();
  }
 ;
- //BA.debugLineNum = 371;BA.debugLine="TextReader_location.Close";
+ //BA.debugLineNum = 380;BA.debugLine="TextReader_location.Close";
 _textreader_location.Close();
- //BA.debugLineNum = 373;BA.debugLine="Dim TextReader_lat As TextReader";
+ //BA.debugLineNum = 382;BA.debugLine="Dim TextReader_lat As TextReader";
 _textreader_lat = new anywheresoftware.b4a.objects.streams.File.TextReaderWrapper();
- //BA.debugLineNum = 374;BA.debugLine="TextReader_lat.Initialize(File.OpenInput(File.";
+ //BA.debugLineNum = 383;BA.debugLine="TextReader_lat.Initialize(File.OpenInput(File.";
 _textreader_lat.Initialize((java.io.InputStream)(anywheresoftware.b4a.keywords.Common.File.OpenInput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_lat.txt").getObject()));
- //BA.debugLineNum = 375;BA.debugLine="Dim line_lat As String";
+ //BA.debugLineNum = 384;BA.debugLine="Dim line_lat As String";
 _line_lat = "";
- //BA.debugLineNum = 376;BA.debugLine="line_lat = TextReader_lat.ReadLine";
+ //BA.debugLineNum = 385;BA.debugLine="line_lat = TextReader_lat.ReadLine";
 _line_lat = _textreader_lat.ReadLine();
- //BA.debugLineNum = 377;BA.debugLine="Do While line_lat <> Null";
+ //BA.debugLineNum = 386;BA.debugLine="Do While line_lat <> Null";
 while (_line_lat!= null) {
- //BA.debugLineNum = 378;BA.debugLine="lat_list.Add(line_lat)";
+ //BA.debugLineNum = 387;BA.debugLine="lat_list.Add(line_lat)";
 _lat_list.Add((Object)(_line_lat));
- //BA.debugLineNum = 379;BA.debugLine="line_lat = TextReader_lat.ReadLine";
+ //BA.debugLineNum = 388;BA.debugLine="line_lat = TextReader_lat.ReadLine";
 _line_lat = _textreader_lat.ReadLine();
  }
 ;
- //BA.debugLineNum = 381;BA.debugLine="TextReader_lat.Close";
+ //BA.debugLineNum = 390;BA.debugLine="TextReader_lat.Close";
 _textreader_lat.Close();
- //BA.debugLineNum = 383;BA.debugLine="Dim TextReader_lng As TextReader";
+ //BA.debugLineNum = 392;BA.debugLine="Dim TextReader_lng As TextReader";
 _textreader_lng = new anywheresoftware.b4a.objects.streams.File.TextReaderWrapper();
- //BA.debugLineNum = 384;BA.debugLine="TextReader_lng.Initialize(File.OpenInput(File.";
+ //BA.debugLineNum = 393;BA.debugLine="TextReader_lng.Initialize(File.OpenInput(File.";
 _textreader_lng.Initialize((java.io.InputStream)(anywheresoftware.b4a.keywords.Common.File.OpenInput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"data_query_lng.txt").getObject()));
- //BA.debugLineNum = 385;BA.debugLine="Dim line_lng As String";
+ //BA.debugLineNum = 394;BA.debugLine="Dim line_lng As String";
 _line_lng = "";
- //BA.debugLineNum = 386;BA.debugLine="line_lng = TextReader_lng.ReadLine";
+ //BA.debugLineNum = 395;BA.debugLine="line_lng = TextReader_lng.ReadLine";
 _line_lng = _textreader_lng.ReadLine();
- //BA.debugLineNum = 387;BA.debugLine="Do While line_lng <> Null";
+ //BA.debugLineNum = 396;BA.debugLine="Do While line_lng <> Null";
 while (_line_lng!= null) {
- //BA.debugLineNum = 388;BA.debugLine="lng_list.Add(line_lng)";
+ //BA.debugLineNum = 397;BA.debugLine="lng_list.Add(line_lng)";
 _lng_list.Add((Object)(_line_lng));
- //BA.debugLineNum = 389;BA.debugLine="line_lng = TextReader_lng.ReadLine";
+ //BA.debugLineNum = 398;BA.debugLine="line_lng = TextReader_lng.ReadLine";
 _line_lng = _textreader_lng.ReadLine();
  }
 ;
- //BA.debugLineNum = 391;BA.debugLine="TextReader_lng.Close";
+ //BA.debugLineNum = 400;BA.debugLine="TextReader_lng.Close";
 _textreader_lng.Close();
- //BA.debugLineNum = 395;BA.debugLine="End Sub";
+ //BA.debugLineNum = 404;BA.debugLine="End Sub";
 return "";
 }
 public static String  _search_btn_click() throws Exception{
@@ -1001,10 +1023,10 @@ mostCurrent._query_lng._download2(_lng,new String[]{"long","SELECT * FROM `blood
 return "";
 }
 public static String  _search_spiner_itemclick(int _position,Object _value) throws Exception{
- //BA.debugLineNum = 224;BA.debugLine="Sub search_spiner_ItemClick (Position As Int, Valu";
- //BA.debugLineNum = 225;BA.debugLine="spin_item_click = search_spiner.GetItem(Position)";
+ //BA.debugLineNum = 233;BA.debugLine="Sub search_spiner_ItemClick (Position As Int, Valu";
+ //BA.debugLineNum = 234;BA.debugLine="spin_item_click = search_spiner.GetItem(Position)";
 mostCurrent._spin_item_click = mostCurrent._search_spiner.GetItem(_position).trim();
- //BA.debugLineNum = 226;BA.debugLine="End Sub";
+ //BA.debugLineNum = 235;BA.debugLine="End Sub";
 return "";
 }
 }

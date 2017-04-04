@@ -11,7 +11,8 @@ B4A=true
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
-
+	Public id_query As String : id_query = ""
+	Public name_query As String : name_query = "Me"
 End Sub
 
 Sub Globals
@@ -62,19 +63,21 @@ Public Sub JobDone(job As HttpJob)
 			Case "pass_get"
 				Log(job.GetString)
 			pass = job.GetString.Trim
-			'Case "full_name_get"
-			'	Log(job.GetString)
-		'	name = job.GetString.Trim
-			'Case "user_id_get"
-			'	Log(job.GetString)
-			'calcs.users_id = job.GetString.Trim
-		'	Case "nick_name_get"
-		'		Log(job.GetString)
-		'	calcs.users_nick_name = job.GetString.Trim
+			Case "full_name_get"
+				Log(job.GetString)
+			name = job.GetString.Trim
+			Case "user_id_get"
+				Log(job.GetString)
+				id_query = job.GetString.Trim
+			'id_query = job.GetString.Trim
+	     	Case "nick_name_get"
+				Log(job.GetString)
+				name_query = job.GetString.Trim
+			'name_query = job.GetString.Trim
 			End Select
 		''''''''''''''''''''''''''''''''''''''''''''''''''
 	booleanCount = booleanCount+1
-		If booleanCount = 3 Then '''''''' 1st statement
+		If booleanCount = 4 Then '''''''' 1st statement
 			ProgressDialogHide
 			If text_email.Text == Null Or text_password.Text == Null Then ''''' 2nd statement
  						Msgbox("Error email address or password.!","Confirmation")
@@ -99,11 +102,11 @@ Public Sub JobDone(job As HttpJob)
 		'''''''''''''''''''''''''''''''''''''''''''''''''''
 	Else If job.Success == False Then
 	ProgressDialogHide
-		If booleanCount = 3 Then
+		If booleanCount = 4 Then
 		Msgbox("Error: Error connecting to server, try again laiter.!","Confirmation")
 		booleanCount = 0
 		Else
-		booleanCount = 3
+		booleanCount = 4
 		End If
 	
 	End If
@@ -120,12 +123,13 @@ ProgressDialogShow2("please wait.!!",False)
 	url_back.Initialize
 	url_email = url_back.php_email_url("/bloodlifePHP/index.php")
 	url_pass = url_back.php_email_url("/bloodlifePHP/index1.php")
-	'full_name = url_back.php_email_url("/bloodlifePHP/search_blood_fullN.php")
-	'id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
-	'nickname = url_back.php_email_url("/bloodlifePHP/search_blood_nickN.php")
-	'h_fullname.Download2(url_pass,Array As String("full_name","SELECT full_name FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
-	'user_id.Download2(url_pass,Array As String("id","SELECT id FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
-	'nick_name.Download2(url_pass,Array As String("nick","SELECT nick_name FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
+	full_name = url_back.php_email_url("/bloodlifePHP/search_blood_fullN.php")
+	id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
+	nickname = url_back.php_email_url("/bloodlifePHP/search_blood_nickN.php")
+	
+	h_fullname.Download2(full_name,Array As String("full_name","SELECT full_name FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
+	user_id.Download2(id,Array As String("id","SELECT id FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
+	nick_name.Download2(nickname,Array As String("nick","SELECT nick_name FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
 	
 	h_email.Download2(url_email,Array As String("email","SELECT email FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
 	h_pass.Download2(url_pass,Array As String("pass","SELECT decode(password,'goroy') FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))

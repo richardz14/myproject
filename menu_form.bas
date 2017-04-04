@@ -49,8 +49,11 @@ Sub Activity_Create(FirstTime As Boolean)
 End Sub
 Sub load_activity_layout
 	Dim text_temp As calculations
+	
 	text_temp.Initialize
-	users_out_lbl.text = text_temp.users_nick_name
+	'Log("name: "&login_form.name_query)
+	'Log("id: "&login_form.id_query)
+	users_out_lbl.text = login_form.name_query
 	ban_picture.SetBackgroundImage(LoadBitmap(File.DirAssets,"banner01.jpg"))
 	ban_logo.SetBackgroundImage(LoadBitmap(File.DirAssets,"logo1.jpg"))
 	Activity.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))

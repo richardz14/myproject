@@ -149,14 +149,23 @@ Sub search_btn_Click
 End Sub
 Sub create_map
 	ProgressDialogShow2("Creating the map, please wait...",False)
-		Dim htmlString As String
+		Dim htmlString,html_content As String
 	htmlString = File.GetText(File.DirAssets, "location_top.txt")
-	
+	htmlString = htmlString & " var markers=[]; var contents = []; var infowindows = [];"
 	For i=0 To id_list.Size-1
-	Log(id_list.Get(i))
-	
-	htmlString = htmlString & " var markerc"&i&" = new google.maps.Marker({	position: new google.maps.LatLng("&lat_list.Get(i)&","&lng_list.Get(i)&"),map: map, title: '"&fullN_llist.Get(i)&"',clickable: true,icon: 'http://www.google.com/mapfiles/dd-end.png' });"
-	
+	'Log(id_list.Get(i))
+	'htmlString = htmlString & " var marker"&i&" = new google.maps.Marker({	position: new google.maps.LatLng("&lat_list.Get(i)&","&lng_list.Get(i)&"),map: map, title: '"&fullN_llist.Get(i)&"',clickable: true,icon: 'http://www.google.com/mapfiles/dd-end.png' });"
+	'html_content = "<div align='left'><b><h2>Full Name: "&fullN_llist.Get(i)&"</h2></b><br>"
+	'html_content = html_content & " <b><h4>Location: "&location_list.Get(i)&"</h4></b><br>"
+	'html_content = html_content & " <b><h4>Blood Type: </h4></b><br>"
+	'html_content = html_content & " <b><h4>Donated: </h4></b><br>"
+	'html_content = html_content & " <b><h4>Email: </h4></b><br>"
+	'html_content = html_content & " <b><h4>Phone Number 1: </h4></b><br>"
+	'html_content = html_content & " <b><h4>Phone Number 2: </h4></b><br></div>"
+	htmlString = htmlString & " markers["&i&"] = new google.maps.Marker({ position: new google.maps.LatLng("&lat_list.Get(i)&","&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"',clickable: true,icon: 'http://www.google.com/mapfiles/dd-end.png' }); "
+	htmlString = htmlString & " markers["&i&"].index = "&i&";  contents["&i&"] = '<div class='alert alert-info'><b><h2>Full Name: "&fullN_llist.Get(i)&"</h2></b><b><h4>Location: "&location_list.Get(i)&"</h4></b><b><h4>Blood Type: </h4></b><b><h4>Donated: </h4></b><b><h4>Email: </h4></b><b><h4>Email: </h4></b><b><h4>Phone Number 1: </h4></b><b><h4>Phone Number 2: </h4></b></div>';"
+	htmlString = htmlString & " infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 350 });"
+	htmlString = htmlString & " google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 	Next
 	
 	htmlString = htmlString&File.GetText(File.DirAssets, "location_buttom.txt")		

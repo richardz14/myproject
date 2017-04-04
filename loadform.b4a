@@ -109,7 +109,7 @@ End Sub
 
 Sub start_button_Click
 'StartActivity ("login_form")
-StartActivity ("login_form")
+StartActivity ("search_frame")
 End Sub
 
 Public Sub all_settings_layout

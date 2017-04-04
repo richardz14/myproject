@@ -12,7 +12,7 @@ Sub Class_Globals
 	Public name As String
 	Private ip As String
 	ip = "http://192.168.254.100:80"
-	Public users_id As Int
+	Public users_id As String
 	Public users_nick_name As String
 	'Private full_name As HttpJob
 	'Private name As String
