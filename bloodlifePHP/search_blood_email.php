@@ -12,7 +12,8 @@ $email = $_REQUEST["email"];
 $sql_query = mysql_query($email);
 
        while($row = mysql_fetch_array($sql_query)){
-           echo ''.$row["email"];
+           //echo ''.$row["email"];
+		   printf(''.$row["email"]."\xA");
        }
         
 ?>

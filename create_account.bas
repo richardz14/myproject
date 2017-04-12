@@ -16,8 +16,8 @@ Sub Process_Globals
 	Dim list_bday_m,list_bday_d,list_bday_y As List
 	Dim list_location_b,list_location_s,list_location_p As List
 	
-	Dim lat As String
-	Dim lng As String
+	Dim lat As String : lat = "10.098014"
+	Dim lng As String : lng = "122.869168"
 	Dim brgy_index As Int : brgy_index = 0
 	Dim street_index As Int : street_index = 0
 	
@@ -102,7 +102,7 @@ Public Sub JobDone(job As HttpJob)
 			Log(email_exists)
 			If email_exists.Contains(text_email.Text) == True Then
 				ProgressDialogHide
-					Msgbox("Error: Email address are already existed.!","Confirmation")
+					Msgbox("Error: Email address are already existed.!","C O N F I R M A T I O N")
 				Else
 					existing_result
 			End If
@@ -112,7 +112,7 @@ Public Sub JobDone(job As HttpJob)
 	
 	Else If job.Success == False Then
 		ProgressDialogHide
-		Msgbox("Error: Error connecting to server, try again laiter.!","Confirmation")	
+		Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N")	
 	End If
 	ProgressDialogHide
 End Sub
@@ -137,16 +137,16 @@ Sub reg_button_Click
 	
 	'' registering process...
 		''comparing empty fields...
-	If text_fn.Text == ""  Or text_email.Text == "" Or text_password.Text == "" Or text_password2.Text == "" Or text_phonenumber.Text == "" Or text_password2.Text == "" Or text_answer.Text == "" Then
+	If text_fn.Text == ""  Or text_email.Text == "" Or text_password.Text == "" Or text_password2.Text == "" Or text_phonenumber.Text == "" Or text_phonenumber2.Text == "" Or text_password2.Text == "" Or text_answer.Text == "" Then
 		ProgressDialogHide
-		Msgbox("Error: Fill up those empty fields before you registered!","Confirmation")
+		Msgbox("Error: Fill up those empty fields before you registered!","C O N F I R M A T I O N")
 		Else
 		'' compairing password matching..
 		If password1.Contains(password2) == False Then
 			ProgressDialogHide
 			text_password.Text = ""
 			text_password2.Text = ""
-			Msgbox("Error: Password did not match!","Confirmation")
+			Msgbox("Error: Password did not match!","C O N F I R M A T I O N")
 		Else
 			ProgressDialogHide
 			email_existance
@@ -207,7 +207,7 @@ Private Sub existing_result
 				insert_job.Download2(ins,Array As String("insert",""&merge))
 				ProgressDialogHide
 			''
-			Dim choose As Int : choose = Msgbox2("Sucessfuly Registered","Confirmation","OK","","",Null)
+			Dim choose As Int : choose = Msgbox2("Sucessfuly Registered","C O N F I R M A T I O N","OK","","",Null)
 				Select choose
 					Case DialogResponse.POSITIVE
 						Activity.Finish
@@ -300,9 +300,15 @@ Sub spinners_list_data
 	list_donate_confirm.Add("NO")
 	spin_donate_confirm.AddAll(list_donate_confirm)
 	''
-	list_bday_m.Add("January")
-	list_bday_d.Add("1")
-	list_bday_y.Add("2017")
+	 For i = 1 To 31
+	  	list_bday_d.Add(i)
+	  Next
+	  For ii = 1940 To 2017
+	  	list_bday_y.Add(ii)
+	  Next
+		For iii = 1 To 12
+			list_bday_m.Add(iii)
+		Next
 	bday_spin_month.AddAll(list_bday_m)
 	bday_spin_day.AddAll(list_bday_d)
 	bday_spin_year.AddAll(list_bday_y)

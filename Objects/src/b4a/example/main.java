@@ -339,60 +339,60 @@ public static String  _activity_create(boolean _firsttime) throws Exception{
 mostCurrent._activity.LoadLayout("load_form",mostCurrent.activityBA);
  //BA.debugLineNum = 33;BA.debugLine="all_settings_layout";
 _all_settings_layout();
- //BA.debugLineNum = 34;BA.debugLine="End Sub";
+ //BA.debugLineNum = 35;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 40;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 42;BA.debugLine="End Sub";
+ //BA.debugLineNum = 41;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 43;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 36;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 38;BA.debugLine="End Sub";
+ //BA.debugLineNum = 37;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 39;BA.debugLine="End Sub";
 return "";
 }
 public static String  _all_settings_layout() throws Exception{
- //BA.debugLineNum = 49;BA.debugLine="Public Sub all_settings_layout";
- //BA.debugLineNum = 50;BA.debugLine="ban_picture.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 50;BA.debugLine="Public Sub all_settings_layout";
+ //BA.debugLineNum = 51;BA.debugLine="ban_picture.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._ban_picture.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"banner01.jpg").getObject()));
- //BA.debugLineNum = 51;BA.debugLine="Activity.SetBackgroundImage(LoadBitmap(File.DirAs";
+ //BA.debugLineNum = 52;BA.debugLine="Activity.SetBackgroundImage(LoadBitmap(File.DirAs";
 mostCurrent._activity.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 52;BA.debugLine="but_panel.Color = Colors.Transparent";
+ //BA.debugLineNum = 53;BA.debugLine="but_panel.Color = Colors.Transparent";
 mostCurrent._but_panel.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
- //BA.debugLineNum = 54;BA.debugLine="ban_panel.Width = 100%x";
+ //BA.debugLineNum = 55;BA.debugLine="ban_panel.Width = 100%x";
 mostCurrent._ban_panel.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 55;BA.debugLine="ban_picture.Width = ban_panel.Width";
+ //BA.debugLineNum = 56;BA.debugLine="ban_picture.Width = ban_panel.Width";
 mostCurrent._ban_picture.setWidth(mostCurrent._ban_panel.getWidth());
- //BA.debugLineNum = 56;BA.debugLine="but_panel.Width = 100%x";
+ //BA.debugLineNum = 57;BA.debugLine="but_panel.Width = 100%x";
 mostCurrent._but_panel.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 57;BA.debugLine="start_button.Width =30%x";
+ //BA.debugLineNum = 58;BA.debugLine="start_button.Width =30%x";
 mostCurrent._start_button.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (30),mostCurrent.activityBA));
- //BA.debugLineNum = 59;BA.debugLine="ban_panel.Height = 45%y";
+ //BA.debugLineNum = 60;BA.debugLine="ban_panel.Height = 45%y";
 mostCurrent._ban_panel.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (45),mostCurrent.activityBA));
- //BA.debugLineNum = 60;BA.debugLine="ban_picture.Height = ban_panel.Height - 3dip";
+ //BA.debugLineNum = 61;BA.debugLine="ban_picture.Height = ban_panel.Height - 3dip";
 mostCurrent._ban_picture.setHeight((int) (mostCurrent._ban_panel.getHeight()-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (3))));
- //BA.debugLineNum = 61;BA.debugLine="but_panel.Height = Activity.Height - ban_panel.H";
+ //BA.debugLineNum = 62;BA.debugLine="but_panel.Height = Activity.Height - ban_panel.H";
 mostCurrent._but_panel.setHeight((int) (mostCurrent._activity.getHeight()-mostCurrent._ban_panel.getHeight()-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (3))));
- //BA.debugLineNum = 62;BA.debugLine="start_button.Height = 11%y";
+ //BA.debugLineNum = 63;BA.debugLine="start_button.Height = 11%y";
 mostCurrent._start_button.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (11),mostCurrent.activityBA));
- //BA.debugLineNum = 64;BA.debugLine="ban_panel.Top = Activity.Top";
+ //BA.debugLineNum = 65;BA.debugLine="ban_panel.Top = Activity.Top";
 mostCurrent._ban_panel.setTop(mostCurrent._activity.getTop());
- //BA.debugLineNum = 65;BA.debugLine="ban_picture.Top = ban_panel.Top + 2dip";
+ //BA.debugLineNum = 66;BA.debugLine="ban_picture.Top = ban_panel.Top + 2dip";
 mostCurrent._ban_picture.setTop((int) (mostCurrent._ban_panel.getTop()+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (2))));
- //BA.debugLineNum = 66;BA.debugLine="but_panel.Top = ban_panel.Top + ban_panel.Height";
+ //BA.debugLineNum = 67;BA.debugLine="but_panel.Top = ban_panel.Top + ban_panel.Height";
 mostCurrent._but_panel.setTop((int) (mostCurrent._ban_panel.getTop()+mostCurrent._ban_panel.getHeight()+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (3))));
- //BA.debugLineNum = 67;BA.debugLine="start_button.Top = 14%y";
+ //BA.debugLineNum = 68;BA.debugLine="start_button.Top = 14%y";
 mostCurrent._start_button.setTop(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (14),mostCurrent.activityBA));
- //BA.debugLineNum = 69;BA.debugLine="ban_panel.Left = 0";
+ //BA.debugLineNum = 70;BA.debugLine="ban_panel.Left = 0";
 mostCurrent._ban_panel.setLeft((int) (0));
- //BA.debugLineNum = 70;BA.debugLine="ban_picture.Left = 0";
+ //BA.debugLineNum = 71;BA.debugLine="ban_picture.Left = 0";
 mostCurrent._ban_picture.setLeft((int) (0));
- //BA.debugLineNum = 71;BA.debugLine="but_panel.Left = 0";
+ //BA.debugLineNum = 72;BA.debugLine="but_panel.Left = 0";
 mostCurrent._but_panel.setLeft((int) (0));
- //BA.debugLineNum = 72;BA.debugLine="start_button.Left = 36%x";
+ //BA.debugLineNum = 73;BA.debugLine="start_button.Left = 36%x";
 mostCurrent._start_button.setLeft(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (36),mostCurrent.activityBA));
- //BA.debugLineNum = 73;BA.debugLine="End Sub";
+ //BA.debugLineNum = 74;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
@@ -434,10 +434,10 @@ help_frame._process_globals();
 return "";
 }
 public static String  _start_button_click() throws Exception{
- //BA.debugLineNum = 44;BA.debugLine="Sub start_button_Click";
- //BA.debugLineNum = 46;BA.debugLine="StartActivity (\"search_frame\")";
-anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("search_frame"));
- //BA.debugLineNum = 47;BA.debugLine="End Sub";
+ //BA.debugLineNum = 45;BA.debugLine="Sub start_button_Click";
+ //BA.debugLineNum = 47;BA.debugLine="StartActivity (\"menu_form\")";
+anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("menu_form"));
+ //BA.debugLineNum = 48;BA.debugLine="End Sub";
 return "";
 }
 }

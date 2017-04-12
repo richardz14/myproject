@@ -309,6 +309,34 @@ public class menu_form extends Activity implements B4AActivity{
 	}
 
 public anywheresoftware.b4a.keywords.Common __c = null;
+public static anywheresoftware.b4a.objects.collections.List _list_all_info = null;
+public static anywheresoftware.b4a.objects.collections.List _list_bloodgroup = null;
+public static anywheresoftware.b4a.objects.collections.List _list_donated = null;
+public static anywheresoftware.b4a.objects.collections.List _list_day = null;
+public static anywheresoftware.b4a.objects.collections.List _list_month = null;
+public static anywheresoftware.b4a.objects.collections.List _list_year = null;
+public static String _users_string_login = "";
+public static String _blood_selected = "";
+public static String _bday_day_selected = "";
+public static String _bday_month_selected = "";
+public static String _bday_year_selected = "";
+public static String _location_brgy_selected = "";
+public static String _location_street_selected = "";
+public static String _is_donated = "";
+public static String _lat = "";
+public static String _lng = "";
+public static int _brgy_index = 0;
+public static int _street_index = 0;
+public static anywheresoftware.b4a.objects.collections.List _list_location_b = null;
+public static anywheresoftware.b4a.objects.collections.List _list_location_s = null;
+public static anywheresoftware.b4a.objects.collections.List _list_location_p = null;
+public anywheresoftware.b4a.objects.SpinnerWrapper _location_spin_street = null;
+public anywheresoftware.b4a.objects.SpinnerWrapper _location_spin_brgy = null;
+public anywheresoftware.b4a.objects.SpinnerWrapper _spin_bloodgroup = null;
+public anywheresoftware.b4a.objects.SpinnerWrapper _spin_day = null;
+public anywheresoftware.b4a.objects.SpinnerWrapper _spin_month = null;
+public anywheresoftware.b4a.objects.SpinnerWrapper _spin_year = null;
+public anywheresoftware.b4a.objects.SpinnerWrapper _spin_donated = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _search_blood = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _about = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _help = null;
@@ -330,6 +358,35 @@ public anywheresoftware.b4a.objects.ImageViewWrapper _profile_img = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _about_img = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _help_img = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _exit_img = null;
+public anywheresoftware.b4a.objects.PanelWrapper _profile_panel = null;
+public anywheresoftware.b4a.objects.ScrollViewWrapper _scroll_profile_pnl = null;
+public anywheresoftware.b4a.objects.PanelWrapper _all_inputs = null;
+public anywheresoftware.b4a.objects.PanelWrapper _pnl_body = null;
+public anywheresoftware.b4a.objects.PanelWrapper _pnl_blood_body = null;
+public anywheresoftware.b4a.objects.PanelWrapper _pnl_bday_body = null;
+public anywheresoftware.b4a.objects.PanelWrapper _pnl_donated_body = null;
+public b4a.example.httpjob _all_info_query = null;
+public b4a.example.httpjob _update_job = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_fullname = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_bloodgroup = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_email = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_phonenumber = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_phonenumber2 = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_location = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_question = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_donate_confirm = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lab_bday = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_fn = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_blood = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_email = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_phonenumber = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_phonenumber2 = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_bday = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_location = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_answer = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _text_donated = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _cancel_btn = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _update_btn = null;
 public b4a.example.main _main = null;
 public b4a.example.login_form _login_form = null;
 public b4a.example.create_account _create_account = null;
@@ -347,313 +404,2606 @@ public static void initializeProcessGlobals() {
             }
 }
 public static String  _about_click() throws Exception{
- //BA.debugLineNum = 187;BA.debugLine="Sub about_Click";
- //BA.debugLineNum = 189;BA.debugLine="End Sub";
+ //BA.debugLineNum = 407;BA.debugLine="Sub about_Click";
+ //BA.debugLineNum = 409;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 39;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 42;BA.debugLine="Activity.LoadLayout (\"menu_frame\")";
+ //BA.debugLineNum = 95;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 98;BA.debugLine="Activity.LoadLayout (\"menu_frame\")";
 mostCurrent._activity.LoadLayout("menu_frame",mostCurrent.activityBA);
- //BA.debugLineNum = 43;BA.debugLine="load_activity_layout";
+ //BA.debugLineNum = 99;BA.debugLine="load_activity_layout";
 _load_activity_layout();
- //BA.debugLineNum = 44;BA.debugLine="End Sub";
+ //BA.debugLineNum = 100;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 178;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 180;BA.debugLine="End Sub";
+ //BA.debugLineNum = 234;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 236;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 174;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 176;BA.debugLine="End Sub";
+ //BA.debugLineNum = 230;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 232;BA.debugLine="End Sub";
+return "";
+}
+public static String  _all_input_on_list() throws Exception{
+anywheresoftware.b4a.objects.streams.File.TextReaderWrapper _textreader_phone2 = null;
+String _line_phone2 = "";
+ //BA.debugLineNum = 281;BA.debugLine="Sub all_input_on_list";
+ //BA.debugLineNum = 282;BA.debugLine="list_all_info.Initialize";
+_list_all_info.Initialize();
+ //BA.debugLineNum = 283;BA.debugLine="Dim TextReader_phone2 As TextReader";
+_textreader_phone2 = new anywheresoftware.b4a.objects.streams.File.TextReaderWrapper();
+ //BA.debugLineNum = 284;BA.debugLine="TextReader_phone2.Initialize(File.OpenInput(Fi";
+_textreader_phone2.Initialize((java.io.InputStream)(anywheresoftware.b4a.keywords.Common.File.OpenInput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"users_all_info.txt").getObject()));
+ //BA.debugLineNum = 285;BA.debugLine="Dim line_phone2 As String";
+_line_phone2 = "";
+ //BA.debugLineNum = 286;BA.debugLine="line_phone2 = TextReader_phone2.ReadLine";
+_line_phone2 = _textreader_phone2.ReadLine();
+ //BA.debugLineNum = 287;BA.debugLine="Do While line_phone2 <> Null";
+while (_line_phone2!= null) {
+ //BA.debugLineNum = 288;BA.debugLine="list_all_info.Add(line_phone2)";
+_list_all_info.Add((Object)(_line_phone2));
+ //BA.debugLineNum = 289;BA.debugLine="line_phone2 = TextReader_phone2.ReadLine";
+_line_phone2 = _textreader_phone2.ReadLine();
+ }
+;
+ //BA.debugLineNum = 291;BA.debugLine="TextReader_phone2.Close";
+_textreader_phone2.Close();
+ //BA.debugLineNum = 294;BA.debugLine="text_fn.Text = list_all_info.Get(0)";
+mostCurrent._text_fn.setText(_list_all_info.Get((int) (0)));
+ //BA.debugLineNum = 295;BA.debugLine="text_blood.Text = list_all_info.Get(1)";
+mostCurrent._text_blood.setText(_list_all_info.Get((int) (1)));
+ //BA.debugLineNum = 296;BA.debugLine="blood_selected = list_all_info.Get(1)";
+_blood_selected = BA.ObjectToString(_list_all_info.Get((int) (1)));
+ //BA.debugLineNum = 297;BA.debugLine="text_email.Text = list_all_info.Get(2)";
+mostCurrent._text_email.setText(_list_all_info.Get((int) (2)));
+ //BA.debugLineNum = 298;BA.debugLine="text_phonenumber.Text = list_all_info.Get(3)";
+mostCurrent._text_phonenumber.setText(_list_all_info.Get((int) (3)));
+ //BA.debugLineNum = 299;BA.debugLine="text_phonenumber2.Text = list_all_info.Get(4)";
+mostCurrent._text_phonenumber2.setText(_list_all_info.Get((int) (4)));
+ //BA.debugLineNum = 300;BA.debugLine="text_bday.Text = list_all_info.Get(5)&\"/\"&list_al";
+mostCurrent._text_bday.setText((Object)(BA.ObjectToString(_list_all_info.Get((int) (5)))+"/"+BA.ObjectToString(_list_all_info.Get((int) (6)))+"/"+BA.ObjectToString(_list_all_info.Get((int) (7)))));
+ //BA.debugLineNum = 301;BA.debugLine="bday_month_selected = list_all_info.Get(5)";
+_bday_month_selected = BA.ObjectToString(_list_all_info.Get((int) (5)));
+ //BA.debugLineNum = 302;BA.debugLine="bday_day_selected = list_all_info.Get(6)";
+_bday_day_selected = BA.ObjectToString(_list_all_info.Get((int) (6)));
+ //BA.debugLineNum = 303;BA.debugLine="bday_year_selected = list_all_info.Get(7)";
+_bday_year_selected = BA.ObjectToString(_list_all_info.Get((int) (7)));
+ //BA.debugLineNum = 304;BA.debugLine="text_location.Text = list_all_info.Get(8)&\", \"&li";
+mostCurrent._text_location.setText((Object)(BA.ObjectToString(_list_all_info.Get((int) (8)))+", "+BA.ObjectToString(_list_all_info.Get((int) (9)))));
+ //BA.debugLineNum = 305;BA.debugLine="location_brgy_selected = list_all_info.Get(8)";
+_location_brgy_selected = BA.ObjectToString(_list_all_info.Get((int) (8)));
+ //BA.debugLineNum = 306;BA.debugLine="location_street_selected = list_all_info.Get(";
+_location_street_selected = BA.ObjectToString(_list_all_info.Get((int) (9)));
+ //BA.debugLineNum = 307;BA.debugLine="text_answer.Text = list_all_info.Get(10)";
+mostCurrent._text_answer.setText(_list_all_info.Get((int) (10)));
+ //BA.debugLineNum = 308;BA.debugLine="text_donated.Text = list_all_info.Get(11)";
+mostCurrent._text_donated.setText(_list_all_info.Get((int) (11)));
+ //BA.debugLineNum = 309;BA.debugLine="is_donated = list_all_info.Get(11)";
+_is_donated = BA.ObjectToString(_list_all_info.Get((int) (11)));
+ //BA.debugLineNum = 311;BA.debugLine="ProgressDialogHide";
+anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
+ //BA.debugLineNum = 312;BA.debugLine="End Sub";
+return "";
+}
+public static String  _all_inputs_click() throws Exception{
+ //BA.debugLineNum = 689;BA.debugLine="Sub all_inputs_click";
+ //BA.debugLineNum = 691;BA.debugLine="End Sub";
+return "";
+}
+public static String  _bday_edit_click() throws Exception{
+int _i = 0;
+int _ii = 0;
+int _iii = 0;
+anywheresoftware.b4a.objects.PanelWrapper _pnl = null;
+anywheresoftware.b4a.objects.ButtonWrapper _edit_ok_btn = null;
+anywheresoftware.b4a.objects.ButtonWrapper _edit_can_btn = null;
+anywheresoftware.b4a.objects.LabelWrapper _title_lbl = null;
+ //BA.debugLineNum = 495;BA.debugLine="Sub bday_edit_Click";
+ //BA.debugLineNum = 496;BA.debugLine="list_day.Initialize";
+_list_day.Initialize();
+ //BA.debugLineNum = 497;BA.debugLine="list_month.Initialize";
+_list_month.Initialize();
+ //BA.debugLineNum = 498;BA.debugLine="list_year.Initialize";
+_list_year.Initialize();
+ //BA.debugLineNum = 499;BA.debugLine="spin_day.Initialize(\"spin_day\")";
+mostCurrent._spin_day.Initialize(mostCurrent.activityBA,"spin_day");
+ //BA.debugLineNum = 500;BA.debugLine="spin_month.Initialize(\"spin_month\")";
+mostCurrent._spin_month.Initialize(mostCurrent.activityBA,"spin_month");
+ //BA.debugLineNum = 501;BA.debugLine="spin_year.Initialize(\"spin_year\")";
+mostCurrent._spin_year.Initialize(mostCurrent.activityBA,"spin_year");
+ //BA.debugLineNum = 502;BA.debugLine="For i = 1 To 31";
+{
+final int step7 = 1;
+final int limit7 = (int) (31);
+for (_i = (int) (1) ; (step7 > 0 && _i <= limit7) || (step7 < 0 && _i >= limit7); _i = ((int)(0 + _i + step7)) ) {
+ //BA.debugLineNum = 503;BA.debugLine="list_day.Add(i)";
+_list_day.Add((Object)(_i));
+ }
+};
+ //BA.debugLineNum = 505;BA.debugLine="For ii = 1940 To 2017";
+{
+final int step10 = 1;
+final int limit10 = (int) (2017);
+for (_ii = (int) (1940) ; (step10 > 0 && _ii <= limit10) || (step10 < 0 && _ii >= limit10); _ii = ((int)(0 + _ii + step10)) ) {
+ //BA.debugLineNum = 506;BA.debugLine="list_year.Add(ii)";
+_list_year.Add((Object)(_ii));
+ }
+};
+ //BA.debugLineNum = 508;BA.debugLine="For iii = 1 To 12";
+{
+final int step13 = 1;
+final int limit13 = (int) (12);
+for (_iii = (int) (1) ; (step13 > 0 && _iii <= limit13) || (step13 < 0 && _iii >= limit13); _iii = ((int)(0 + _iii + step13)) ) {
+ //BA.debugLineNum = 509;BA.debugLine="list_month.Add(iii)";
+_list_month.Add((Object)(_iii));
+ }
+};
+ //BA.debugLineNum = 511;BA.debugLine="spin_day.AddAll(list_day)";
+mostCurrent._spin_day.AddAll(_list_day);
+ //BA.debugLineNum = 512;BA.debugLine="spin_month.AddAll(list_month)";
+mostCurrent._spin_month.AddAll(_list_month);
+ //BA.debugLineNum = 513;BA.debugLine="spin_year.AddAll(list_year)";
+mostCurrent._spin_year.AddAll(_list_year);
+ //BA.debugLineNum = 514;BA.debugLine="Dim pnl As Panel";
+_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 515;BA.debugLine="Dim edit_ok_btn,edit_can_btn As Button";
+_edit_ok_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+_edit_can_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 516;BA.debugLine="Dim title_lbl As Label";
+_title_lbl = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 517;BA.debugLine="edit_ok_btn.Initialize(\"edit_bday_ok_btn\")";
+_edit_ok_btn.Initialize(mostCurrent.activityBA,"edit_bday_ok_btn");
+ //BA.debugLineNum = 518;BA.debugLine="edit_can_btn.Initialize(\"edit_bday_can_btn\")";
+_edit_can_btn.Initialize(mostCurrent.activityBA,"edit_bday_can_btn");
+ //BA.debugLineNum = 519;BA.debugLine="title_lbl.Initialize(\"\")";
+_title_lbl.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 520;BA.debugLine="edit_ok_btn.Text = \"OK\"";
+_edit_ok_btn.setText((Object)("OK"));
+ //BA.debugLineNum = 521;BA.debugLine="edit_can_btn.Text = \"CANCEL\"";
+_edit_can_btn.setText((Object)("CANCEL"));
+ //BA.debugLineNum = 522;BA.debugLine="title_lbl.Text = \"SELECT BIRTH DATE\"";
+_title_lbl.setText((Object)("SELECT BIRTH DATE"));
+ //BA.debugLineNum = 523;BA.debugLine="title_lbl.Gravity = Gravity.CENTER";
+_title_lbl.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
+ //BA.debugLineNum = 524;BA.debugLine="pnl.Initialize(\"pnl\")";
+_pnl.Initialize(mostCurrent.activityBA,"pnl");
+ //BA.debugLineNum = 525;BA.debugLine="pnl_bday_body.Initialize(\"pnl_bday_body\")";
+mostCurrent._pnl_bday_body.Initialize(mostCurrent.activityBA,"pnl_bday_body");
+ //BA.debugLineNum = 526;BA.debugLine="pnl_bday_body.Color = Colors.Transparent";
+mostCurrent._pnl_bday_body.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
+ //BA.debugLineNum = 527;BA.debugLine="pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,";
+_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"modal_bg.png").getObject()));
+ //BA.debugLineNum = 528;BA.debugLine="pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)";
+_pnl.AddView((android.view.View)(_title_lbl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (2),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (68),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 529;BA.debugLine="pnl.AddView(spin_day,2%x,title_lbl.Top + title_lb";
+_pnl.AddView((android.view.View)(mostCurrent._spin_day.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA),(int) (_title_lbl.getTop()+_title_lbl.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (1),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 530;BA.debugLine="pnl.AddView(spin_month,spin_day.Left+spin_day.Wid";
+_pnl.AddView((android.view.View)(mostCurrent._spin_month.getObject()),(int) (mostCurrent._spin_day.getLeft()+mostCurrent._spin_day.getWidth()+anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (1),mostCurrent.activityBA)),mostCurrent._spin_day.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 531;BA.debugLine="pnl.AddView(spin_year,spin_month.Left+spin_month.";
+_pnl.AddView((android.view.View)(mostCurrent._spin_year.getObject()),(int) (mostCurrent._spin_month.getLeft()+mostCurrent._spin_month.getWidth()+anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (1),mostCurrent.activityBA)),mostCurrent._spin_month.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 532;BA.debugLine="pnl.AddView(edit_ok_btn,15%x,spin_year.Top+spin_y";
+_pnl.AddView((android.view.View)(_edit_ok_btn.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (15),mostCurrent.activityBA),(int) (mostCurrent._spin_year.getTop()+mostCurrent._spin_year.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 533;BA.debugLine="pnl.AddView(edit_can_btn,edit_ok_btn.Left+edit_ok";
+_pnl.AddView((android.view.View)(_edit_can_btn.getObject()),(int) (_edit_ok_btn.getLeft()+_edit_ok_btn.getWidth()+anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA)),(int) (mostCurrent._spin_year.getTop()+mostCurrent._spin_year.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 535;BA.debugLine="pnl_bday_body.AddView(pnl,13%x,((Activity.Height/";
+mostCurrent._pnl_bday_body.AddView((android.view.View)(_pnl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (13),mostCurrent.activityBA),(int) (((mostCurrent._activity.getHeight()/(double)2)/(double)2)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (74),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (33),mostCurrent.activityBA));
+ //BA.debugLineNum = 536;BA.debugLine="pnl_bday_body.BringToFront";
+mostCurrent._pnl_bday_body.BringToFront();
+ //BA.debugLineNum = 539;BA.debugLine="Activity.AddView(pnl_bday_body,0,0,100%x,100%y)";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._pnl_bday_body.getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
+ //BA.debugLineNum = 540;BA.debugLine="End Sub";
+return "";
+}
+public static String  _blood_edit_click() throws Exception{
+anywheresoftware.b4a.objects.PanelWrapper _pnl = null;
+anywheresoftware.b4a.objects.ButtonWrapper _edit_ok_btn = null;
+anywheresoftware.b4a.objects.ButtonWrapper _edit_can_btn = null;
+anywheresoftware.b4a.objects.LabelWrapper _title_lbl = null;
+ //BA.debugLineNum = 564;BA.debugLine="Sub blood_edit_Click";
+ //BA.debugLineNum = 566;BA.debugLine="list_bloodgroup.Initialize";
+_list_bloodgroup.Initialize();
+ //BA.debugLineNum = 567;BA.debugLine="spin_bloodgroup.Initialize(\"spin_bloodgroup\")";
+mostCurrent._spin_bloodgroup.Initialize(mostCurrent.activityBA,"spin_bloodgroup");
+ //BA.debugLineNum = 568;BA.debugLine="list_bloodgroup.Add(\"A\")";
+_list_bloodgroup.Add((Object)("A"));
+ //BA.debugLineNum = 569;BA.debugLine="list_bloodgroup.Add(\"B\")";
+_list_bloodgroup.Add((Object)("B"));
+ //BA.debugLineNum = 570;BA.debugLine="list_bloodgroup.Add(\"O\")";
+_list_bloodgroup.Add((Object)("O"));
+ //BA.debugLineNum = 571;BA.debugLine="list_bloodgroup.Add(\"AB\")";
+_list_bloodgroup.Add((Object)("AB"));
+ //BA.debugLineNum = 572;BA.debugLine="list_bloodgroup.Add(\"A+\")";
+_list_bloodgroup.Add((Object)("A+"));
+ //BA.debugLineNum = 573;BA.debugLine="spin_bloodgroup.AddAll(list_bloodgroup)";
+mostCurrent._spin_bloodgroup.AddAll(_list_bloodgroup);
+ //BA.debugLineNum = 574;BA.debugLine="Dim pnl As Panel";
+_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 575;BA.debugLine="Dim edit_ok_btn,edit_can_btn As Button";
+_edit_ok_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+_edit_can_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 576;BA.debugLine="Dim title_lbl As Label";
+_title_lbl = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 577;BA.debugLine="title_lbl.Initialize(\"\")";
+_title_lbl.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 578;BA.debugLine="edit_ok_btn.Initialize(\"edit_blood_ok_btn\")";
+_edit_ok_btn.Initialize(mostCurrent.activityBA,"edit_blood_ok_btn");
+ //BA.debugLineNum = 579;BA.debugLine="edit_can_btn.Initialize(\"edit_blood_can_btn\")";
+_edit_can_btn.Initialize(mostCurrent.activityBA,"edit_blood_can_btn");
+ //BA.debugLineNum = 580;BA.debugLine="edit_ok_btn.Text = \"OK\"";
+_edit_ok_btn.setText((Object)("OK"));
+ //BA.debugLineNum = 581;BA.debugLine="edit_can_btn.Text = \"CANCEL\"";
+_edit_can_btn.setText((Object)("CANCEL"));
+ //BA.debugLineNum = 582;BA.debugLine="pnl.Initialize(\"pnl\")";
+_pnl.Initialize(mostCurrent.activityBA,"pnl");
+ //BA.debugLineNum = 583;BA.debugLine="pnl_blood_body.Initialize(\"pnl_blood_body\")";
+mostCurrent._pnl_blood_body.Initialize(mostCurrent.activityBA,"pnl_blood_body");
+ //BA.debugLineNum = 584;BA.debugLine="pnl_blood_body.Color = Colors.Transparent";
+mostCurrent._pnl_blood_body.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
+ //BA.debugLineNum = 585;BA.debugLine="pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,";
+_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"modal_bg.png").getObject()));
+ //BA.debugLineNum = 586;BA.debugLine="title_lbl.Text = \"SELECT BLOOD TYPE\"";
+_title_lbl.setText((Object)("SELECT BLOOD TYPE"));
+ //BA.debugLineNum = 587;BA.debugLine="title_lbl.Gravity = Gravity.CENTER";
+_title_lbl.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
+ //BA.debugLineNum = 588;BA.debugLine="pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)";
+_pnl.AddView((android.view.View)(_title_lbl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (2),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (68),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 589;BA.debugLine="pnl.AddView(spin_bloodgroup,2%x,title_lbl.Top + t";
+_pnl.AddView((android.view.View)(mostCurrent._spin_bloodgroup.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA),(int) (_title_lbl.getTop()+_title_lbl.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (1),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (68),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 590;BA.debugLine="pnl.AddView(edit_ok_btn,15%x,spin_bloodgroup.Top+";
+_pnl.AddView((android.view.View)(_edit_ok_btn.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (15),mostCurrent.activityBA),(int) (mostCurrent._spin_bloodgroup.getTop()+mostCurrent._spin_bloodgroup.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 591;BA.debugLine="pnl.AddView(edit_can_btn,edit_ok_btn.Left+edit_ok";
+_pnl.AddView((android.view.View)(_edit_can_btn.getObject()),(int) (_edit_ok_btn.getLeft()+_edit_ok_btn.getWidth()+anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA)),(int) (mostCurrent._spin_bloodgroup.getTop()+mostCurrent._spin_bloodgroup.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 593;BA.debugLine="pnl_blood_body.AddView(pnl,13%x,((Activity.Height";
+mostCurrent._pnl_blood_body.AddView((android.view.View)(_pnl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (13),mostCurrent.activityBA),(int) (((mostCurrent._activity.getHeight()/(double)2)/(double)2)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (74),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (33),mostCurrent.activityBA));
+ //BA.debugLineNum = 594;BA.debugLine="pnl_blood_body.BringToFront";
+mostCurrent._pnl_blood_body.BringToFront();
+ //BA.debugLineNum = 597;BA.debugLine="Activity.AddView(pnl_blood_body,0,0,100%x,100%y)";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._pnl_blood_body.getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
+ //BA.debugLineNum = 598;BA.debugLine="End Sub";
+return "";
+}
+public static String  _cancel_btn_click() throws Exception{
+ //BA.debugLineNum = 417;BA.debugLine="Sub cancel_btn_Click";
+ //BA.debugLineNum = 418;BA.debugLine="scroll_profile_pnl.RemoveView";
+mostCurrent._scroll_profile_pnl.RemoveView();
+ //BA.debugLineNum = 419;BA.debugLine="End Sub";
+return "";
+}
+public static String  _donated_edit_click() throws Exception{
+anywheresoftware.b4a.objects.PanelWrapper _pnl = null;
+anywheresoftware.b4a.objects.ButtonWrapper _edit_ok_btn = null;
+anywheresoftware.b4a.objects.ButtonWrapper _edit_can_btn = null;
+anywheresoftware.b4a.objects.LabelWrapper _title_lbl = null;
+ //BA.debugLineNum = 451;BA.debugLine="Sub donated_edit_Click";
+ //BA.debugLineNum = 452;BA.debugLine="list_donated.Initialize";
+_list_donated.Initialize();
+ //BA.debugLineNum = 453;BA.debugLine="spin_donated.Initialize(\"spin_donated\")";
+mostCurrent._spin_donated.Initialize(mostCurrent.activityBA,"spin_donated");
+ //BA.debugLineNum = 454;BA.debugLine="list_donated.Add(\"YES\")";
+_list_donated.Add((Object)("YES"));
+ //BA.debugLineNum = 455;BA.debugLine="list_donated.Add(\"NO\")";
+_list_donated.Add((Object)("NO"));
+ //BA.debugLineNum = 456;BA.debugLine="spin_donated.AddAll(list_donated)";
+mostCurrent._spin_donated.AddAll(_list_donated);
+ //BA.debugLineNum = 457;BA.debugLine="Dim pnl As Panel";
+_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 458;BA.debugLine="Dim edit_ok_btn,edit_can_btn As Button";
+_edit_ok_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+_edit_can_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 459;BA.debugLine="Dim title_lbl As Label";
+_title_lbl = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 460;BA.debugLine="edit_ok_btn.Initialize(\"edit_donated_ok_btn\")";
+_edit_ok_btn.Initialize(mostCurrent.activityBA,"edit_donated_ok_btn");
+ //BA.debugLineNum = 461;BA.debugLine="edit_can_btn.Initialize(\"edit_donated_can_btn\")";
+_edit_can_btn.Initialize(mostCurrent.activityBA,"edit_donated_can_btn");
+ //BA.debugLineNum = 462;BA.debugLine="title_lbl.Initialize(\"\")";
+_title_lbl.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 463;BA.debugLine="edit_ok_btn.Text = \"OK\"";
+_edit_ok_btn.setText((Object)("OK"));
+ //BA.debugLineNum = 464;BA.debugLine="edit_can_btn.Text = \"CANCEL\"";
+_edit_can_btn.setText((Object)("CANCEL"));
+ //BA.debugLineNum = 465;BA.debugLine="title_lbl.Text = \"SELECT DONATED STATUS\"";
+_title_lbl.setText((Object)("SELECT DONATED STATUS"));
+ //BA.debugLineNum = 466;BA.debugLine="title_lbl.Gravity = Gravity.CENTER";
+_title_lbl.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
+ //BA.debugLineNum = 467;BA.debugLine="pnl.Initialize(\"pnl\")";
+_pnl.Initialize(mostCurrent.activityBA,"pnl");
+ //BA.debugLineNum = 468;BA.debugLine="pnl_donated_body.Initialize(\"pnl_donated_body\")";
+mostCurrent._pnl_donated_body.Initialize(mostCurrent.activityBA,"pnl_donated_body");
+ //BA.debugLineNum = 469;BA.debugLine="pnl_donated_body.Color = Colors.Transparent";
+mostCurrent._pnl_donated_body.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
+ //BA.debugLineNum = 470;BA.debugLine="pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,";
+_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"modal_bg.png").getObject()));
+ //BA.debugLineNum = 471;BA.debugLine="pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)";
+_pnl.AddView((android.view.View)(_title_lbl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (2),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (68),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 472;BA.debugLine="pnl.AddView(spin_donated,2%x,title_lbl.Top+title_";
+_pnl.AddView((android.view.View)(mostCurrent._spin_donated.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA),(int) (_title_lbl.getTop()+_title_lbl.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (1),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (68),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 473;BA.debugLine="pnl.AddView(edit_ok_btn,15%x,spin_donated.Top+spi";
+_pnl.AddView((android.view.View)(_edit_ok_btn.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (15),mostCurrent.activityBA),(int) (mostCurrent._spin_donated.getTop()+mostCurrent._spin_donated.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 474;BA.debugLine="pnl.AddView(edit_can_btn,edit_ok_btn.Left+edit_ok";
+_pnl.AddView((android.view.View)(_edit_can_btn.getObject()),(int) (_edit_ok_btn.getLeft()+_edit_ok_btn.getWidth()+anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA)),(int) (mostCurrent._spin_donated.getTop()+mostCurrent._spin_donated.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 476;BA.debugLine="pnl_donated_body.AddView(pnl,13%x,((Activity.Heig";
+mostCurrent._pnl_donated_body.AddView((android.view.View)(_pnl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (13),mostCurrent.activityBA),(int) (((mostCurrent._activity.getHeight()/(double)2)/(double)2)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (74),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (33),mostCurrent.activityBA));
+ //BA.debugLineNum = 477;BA.debugLine="pnl_donated_body.BringToFront";
+mostCurrent._pnl_donated_body.BringToFront();
+ //BA.debugLineNum = 480;BA.debugLine="Activity.AddView(pnl_donated_body,0,0,100%x,100%y";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._pnl_donated_body.getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
+ //BA.debugLineNum = 481;BA.debugLine="End Sub";
+return "";
+}
+public static String  _edit_bday_can_btn_click() throws Exception{
+ //BA.debugLineNum = 558;BA.debugLine="Sub edit_bday_can_btn_click";
+ //BA.debugLineNum = 559;BA.debugLine="pnl_bday_body.RemoveView";
+mostCurrent._pnl_bday_body.RemoveView();
+ //BA.debugLineNum = 560;BA.debugLine="End Sub";
+return "";
+}
+public static String  _edit_bday_ok_btn_click() throws Exception{
+ //BA.debugLineNum = 553;BA.debugLine="Sub edit_bday_ok_btn_click";
+ //BA.debugLineNum = 554;BA.debugLine="text_bday.Text = bday_month_selected&\"/\"&bday_day";
+mostCurrent._text_bday.setText((Object)(_bday_month_selected+"/"+_bday_day_selected+"/"+_bday_year_selected));
+ //BA.debugLineNum = 555;BA.debugLine="Log(\"date: \"& bday_month_selected&\"/\"&bday_day_s";
+anywheresoftware.b4a.keywords.Common.Log("date: "+_bday_month_selected+"/"+_bday_day_selected+"/"+_bday_year_selected);
+ //BA.debugLineNum = 556;BA.debugLine="pnl_bday_body.RemoveView";
+mostCurrent._pnl_bday_body.RemoveView();
+ //BA.debugLineNum = 557;BA.debugLine="End Sub";
+return "";
+}
+public static String  _edit_blood_can_btn_click() throws Exception{
+ //BA.debugLineNum = 603;BA.debugLine="Sub edit_blood_can_btn_click";
+ //BA.debugLineNum = 604;BA.debugLine="pnl_blood_body.RemoveView";
+mostCurrent._pnl_blood_body.RemoveView();
+ //BA.debugLineNum = 605;BA.debugLine="End Sub";
+return "";
+}
+public static String  _edit_blood_ok_btn_click() throws Exception{
+ //BA.debugLineNum = 599;BA.debugLine="Sub edit_blood_ok_btn_click";
+ //BA.debugLineNum = 600;BA.debugLine="text_blood.Text = blood_selected";
+mostCurrent._text_blood.setText((Object)(_blood_selected));
+ //BA.debugLineNum = 601;BA.debugLine="pnl_blood_body.RemoveView";
+mostCurrent._pnl_blood_body.RemoveView();
+ //BA.debugLineNum = 602;BA.debugLine="End Sub";
+return "";
+}
+public static String  _edit_can_btn_click() throws Exception{
+ //BA.debugLineNum = 675;BA.debugLine="Sub edit_can_btn_click";
+ //BA.debugLineNum = 676;BA.debugLine="pnl_body.RemoveView";
+mostCurrent._pnl_body.RemoveView();
+ //BA.debugLineNum = 677;BA.debugLine="End Sub";
+return "";
+}
+public static String  _edit_donated_can_btn_click() throws Exception{
+ //BA.debugLineNum = 489;BA.debugLine="Sub edit_donated_can_btn_click";
+ //BA.debugLineNum = 490;BA.debugLine="pnl_donated_body.RemoveView";
+mostCurrent._pnl_donated_body.RemoveView();
+ //BA.debugLineNum = 491;BA.debugLine="End Sub";
+return "";
+}
+public static String  _edit_donated_ok_btn_click() throws Exception{
+ //BA.debugLineNum = 485;BA.debugLine="Sub edit_donated_ok_btn_click";
+ //BA.debugLineNum = 486;BA.debugLine="text_donated.Text = is_donated";
+mostCurrent._text_donated.setText((Object)(_is_donated));
+ //BA.debugLineNum = 487;BA.debugLine="pnl_donated_body.RemoveView";
+mostCurrent._pnl_donated_body.RemoveView();
+ //BA.debugLineNum = 488;BA.debugLine="End Sub";
+return "";
+}
+public static String  _edit_ok_btn_click() throws Exception{
+String _click_string = "";
+ //BA.debugLineNum = 678;BA.debugLine="Sub edit_ok_btn_click";
+ //BA.debugLineNum = 679;BA.debugLine="Dim click_string As String";
+_click_string = "";
+ //BA.debugLineNum = 680;BA.debugLine="click_string = location_spin_brgy.GetItem(brgy_in";
+_click_string = mostCurrent._location_spin_brgy.GetItem(_brgy_index)+", "+mostCurrent._location_spin_street.GetItem(_street_index);
+ //BA.debugLineNum = 681;BA.debugLine="location_brgy_selected = location_spin_brgy.GetIt";
+_location_brgy_selected = mostCurrent._location_spin_brgy.GetItem(_brgy_index);
+ //BA.debugLineNum = 682;BA.debugLine="location_street_selected = location_spin_stree";
+_location_street_selected = mostCurrent._location_spin_street.GetItem(_street_index);
+ //BA.debugLineNum = 683;BA.debugLine="text_location.Text = click_string";
+mostCurrent._text_location.setText((Object)(_click_string));
+ //BA.debugLineNum = 684;BA.debugLine="pnl_body.RemoveView";
+mostCurrent._pnl_body.RemoveView();
+ //BA.debugLineNum = 685;BA.debugLine="End Sub";
 return "";
 }
 public static String  _exit_btn_click() throws Exception{
- //BA.debugLineNum = 193;BA.debugLine="Sub exit_btn_Click";
- //BA.debugLineNum = 195;BA.debugLine="End Sub";
+ //BA.debugLineNum = 413;BA.debugLine="Sub exit_btn_Click";
+ //BA.debugLineNum = 415;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
- //BA.debugLineNum = 12;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 16;BA.debugLine="Private search_blood As Button";
+ //BA.debugLineNum = 29;BA.debugLine="Sub Globals";
+ //BA.debugLineNum = 32;BA.debugLine="Dim location_spin_street As Spinner";
+mostCurrent._location_spin_street = new anywheresoftware.b4a.objects.SpinnerWrapper();
+ //BA.debugLineNum = 33;BA.debugLine="Dim location_spin_brgy As Spinner";
+mostCurrent._location_spin_brgy = new anywheresoftware.b4a.objects.SpinnerWrapper();
+ //BA.debugLineNum = 34;BA.debugLine="Dim spin_bloodgroup As Spinner";
+mostCurrent._spin_bloodgroup = new anywheresoftware.b4a.objects.SpinnerWrapper();
+ //BA.debugLineNum = 35;BA.debugLine="Dim spin_day,spin_month,spin_year As Spinner";
+mostCurrent._spin_day = new anywheresoftware.b4a.objects.SpinnerWrapper();
+mostCurrent._spin_month = new anywheresoftware.b4a.objects.SpinnerWrapper();
+mostCurrent._spin_year = new anywheresoftware.b4a.objects.SpinnerWrapper();
+ //BA.debugLineNum = 36;BA.debugLine="Dim spin_donated As Spinner";
+mostCurrent._spin_donated = new anywheresoftware.b4a.objects.SpinnerWrapper();
+ //BA.debugLineNum = 38;BA.debugLine="Private search_blood As Button";
 mostCurrent._search_blood = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 17;BA.debugLine="Private about As Button";
+ //BA.debugLineNum = 39;BA.debugLine="Private about As Button";
 mostCurrent._about = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 18;BA.debugLine="Private help As Button";
+ //BA.debugLineNum = 40;BA.debugLine="Private help As Button";
 mostCurrent._help = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 19;BA.debugLine="Private exit_btn As Button";
+ //BA.debugLineNum = 41;BA.debugLine="Private exit_btn As Button";
 mostCurrent._exit_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 20;BA.debugLine="Private profile As Button";
+ //BA.debugLineNum = 42;BA.debugLine="Private profile As Button";
 mostCurrent._profile = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 21;BA.debugLine="Private src_blood_pnl As Panel";
+ //BA.debugLineNum = 43;BA.debugLine="Private src_blood_pnl As Panel";
 mostCurrent._src_blood_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 22;BA.debugLine="Private users_panel As Panel";
+ //BA.debugLineNum = 44;BA.debugLine="Private users_panel As Panel";
 mostCurrent._users_panel = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 23;BA.debugLine="Private profile_pnl As Panel";
+ //BA.debugLineNum = 45;BA.debugLine="Private profile_pnl As Panel";
 mostCurrent._profile_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 24;BA.debugLine="Private about_pnl As Panel";
+ //BA.debugLineNum = 46;BA.debugLine="Private about_pnl As Panel";
 mostCurrent._about_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 25;BA.debugLine="Private help_pnl As Panel";
+ //BA.debugLineNum = 47;BA.debugLine="Private help_pnl As Panel";
 mostCurrent._help_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 26;BA.debugLine="Private exit_pnl As Panel";
+ //BA.debugLineNum = 48;BA.debugLine="Private exit_pnl As Panel";
 mostCurrent._exit_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 28;BA.debugLine="Private users_out_lbl As Label";
+ //BA.debugLineNum = 50;BA.debugLine="Private users_out_lbl As Label";
 mostCurrent._users_out_lbl = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 29;BA.debugLine="Private users_lbl As Label";
+ //BA.debugLineNum = 51;BA.debugLine="Private users_lbl As Label";
 mostCurrent._users_lbl = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 30;BA.debugLine="Private ban_logo As ImageView";
+ //BA.debugLineNum = 52;BA.debugLine="Private ban_logo As ImageView";
 mostCurrent._ban_logo = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 31;BA.debugLine="Private ban_picture As ImageView";
+ //BA.debugLineNum = 53;BA.debugLine="Private ban_picture As ImageView";
 mostCurrent._ban_picture = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 32;BA.debugLine="Private users_heading As Panel";
+ //BA.debugLineNum = 54;BA.debugLine="Private users_heading As Panel";
 mostCurrent._users_heading = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 33;BA.debugLine="Private srch_blood_img As ImageView";
+ //BA.debugLineNum = 55;BA.debugLine="Private srch_blood_img As ImageView";
 mostCurrent._srch_blood_img = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 34;BA.debugLine="Private profile_img As ImageView";
+ //BA.debugLineNum = 56;BA.debugLine="Private profile_img As ImageView";
 mostCurrent._profile_img = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 35;BA.debugLine="Private about_img As ImageView";
+ //BA.debugLineNum = 57;BA.debugLine="Private about_img As ImageView";
 mostCurrent._about_img = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 36;BA.debugLine="Private help_img As ImageView";
+ //BA.debugLineNum = 58;BA.debugLine="Private help_img As ImageView";
 mostCurrent._help_img = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 37;BA.debugLine="Private exit_img As ImageView";
+ //BA.debugLineNum = 59;BA.debugLine="Private exit_img As ImageView";
 mostCurrent._exit_img = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 38;BA.debugLine="End Sub";
+ //BA.debugLineNum = 61;BA.debugLine="Dim profile_panel As Panel";
+mostCurrent._profile_panel = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 62;BA.debugLine="Dim scroll_profile_pnl As ScrollView";
+mostCurrent._scroll_profile_pnl = new anywheresoftware.b4a.objects.ScrollViewWrapper();
+ //BA.debugLineNum = 63;BA.debugLine="Private all_inputs As Panel";
+mostCurrent._all_inputs = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 64;BA.debugLine="Dim pnl_body As Panel";
+mostCurrent._pnl_body = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 65;BA.debugLine="Dim pnl_blood_body As Panel";
+mostCurrent._pnl_blood_body = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 66;BA.debugLine="Dim pnl_bday_body As Panel";
+mostCurrent._pnl_bday_body = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 67;BA.debugLine="Dim pnl_donated_body As Panel";
+mostCurrent._pnl_donated_body = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 69;BA.debugLine="Private all_info_query As HttpJob";
+mostCurrent._all_info_query = new b4a.example.httpjob();
+ //BA.debugLineNum = 70;BA.debugLine="Private update_job As HttpJob";
+mostCurrent._update_job = new b4a.example.httpjob();
+ //BA.debugLineNum = 72;BA.debugLine="Private lab_fullname As Label";
+mostCurrent._lab_fullname = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 73;BA.debugLine="Private lab_bloodgroup As Label";
+mostCurrent._lab_bloodgroup = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 74;BA.debugLine="Private lab_email As Label";
+mostCurrent._lab_email = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 75;BA.debugLine="Private lab_phonenumber As Label";
+mostCurrent._lab_phonenumber = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 76;BA.debugLine="Private lab_phonenumber2 As Label";
+mostCurrent._lab_phonenumber2 = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 77;BA.debugLine="Private lab_location As Label";
+mostCurrent._lab_location = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 78;BA.debugLine="Private lab_question As Label";
+mostCurrent._lab_question = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 79;BA.debugLine="Private lab_donate_confirm As Label";
+mostCurrent._lab_donate_confirm = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 80;BA.debugLine="Private lab_bday As Label";
+mostCurrent._lab_bday = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 83;BA.debugLine="Private text_fn As EditText";
+mostCurrent._text_fn = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 84;BA.debugLine="Private text_blood As EditText";
+mostCurrent._text_blood = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 85;BA.debugLine="Private text_email As EditText";
+mostCurrent._text_email = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 86;BA.debugLine="Private text_phonenumber As EditText";
+mostCurrent._text_phonenumber = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 87;BA.debugLine="Private text_phonenumber2 As EditText";
+mostCurrent._text_phonenumber2 = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 88;BA.debugLine="Private text_bday As EditText";
+mostCurrent._text_bday = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 89;BA.debugLine="Private text_location As EditText";
+mostCurrent._text_location = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 90;BA.debugLine="Private text_answer As EditText";
+mostCurrent._text_answer = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 91;BA.debugLine="Private text_donated As EditText";
+mostCurrent._text_donated = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 92;BA.debugLine="Private cancel_btn As Button";
+mostCurrent._cancel_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 93;BA.debugLine="Private update_btn As Button";
+mostCurrent._update_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 94;BA.debugLine="End Sub";
 return "";
 }
 public static String  _help_click() throws Exception{
- //BA.debugLineNum = 190;BA.debugLine="Sub help_Click";
- //BA.debugLineNum = 192;BA.debugLine="End Sub";
+ //BA.debugLineNum = 410;BA.debugLine="Sub help_Click";
+ //BA.debugLineNum = 412;BA.debugLine="End Sub";
+return "";
+}
+public static String  _jobdone(b4a.example.httpjob _job) throws Exception{
+anywheresoftware.b4a.objects.streams.File.TextWriterWrapper _user_all_info = null;
+ //BA.debugLineNum = 313;BA.debugLine="Public Sub JobDone(job As HttpJob)";
+ //BA.debugLineNum = 314;BA.debugLine="If job.Success Then";
+if (_job._success) { 
+ //BA.debugLineNum = 315;BA.debugLine="Select job.JobName";
+switch (BA.switchObjectToInt(_job._jobname,"all_info_query")) {
+case 0: {
+ //BA.debugLineNum = 317;BA.debugLine="Dim user_all_info As TextWriter";
+_user_all_info = new anywheresoftware.b4a.objects.streams.File.TextWriterWrapper();
+ //BA.debugLineNum = 318;BA.debugLine="user_all_info.Initialize(File.OpenOutput(";
+_user_all_info.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"users_all_info.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
+ //BA.debugLineNum = 319;BA.debugLine="user_all_info.WriteLine(job.GetString.Tr";
+_user_all_info.WriteLine(_job._getstring().trim());
+ //BA.debugLineNum = 320;BA.debugLine="user_all_info.Close";
+_user_all_info.Close();
+ break; }
+}
+;
+ //BA.debugLineNum = 324;BA.debugLine="all_input_on_list";
+_all_input_on_list();
+ }else if(_job._success==anywheresoftware.b4a.keywords.Common.False) { 
+ //BA.debugLineNum = 326;BA.debugLine="ProgressDialogHide";
+anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
+ //BA.debugLineNum = 327;BA.debugLine="scroll_profile_pnl.RemoveView";
+mostCurrent._scroll_profile_pnl.RemoveView();
+ //BA.debugLineNum = 328;BA.debugLine="Msgbox(\"Error connecting to server, try again!\"";
+anywheresoftware.b4a.keywords.Common.Msgbox("Error connecting to server, try again!","C O N F I R M A T I O N",mostCurrent.activityBA);
+ };
+ //BA.debugLineNum = 331;BA.debugLine="End Sub";
 return "";
 }
 public static String  _load_activity_layout() throws Exception{
 b4a.example.calculations _text_temp = null;
- //BA.debugLineNum = 45;BA.debugLine="Sub load_activity_layout";
- //BA.debugLineNum = 46;BA.debugLine="Dim text_temp As calculations";
+ //BA.debugLineNum = 101;BA.debugLine="Sub load_activity_layout";
+ //BA.debugLineNum = 102;BA.debugLine="Dim text_temp As calculations";
 _text_temp = new b4a.example.calculations();
- //BA.debugLineNum = 48;BA.debugLine="text_temp.Initialize";
+ //BA.debugLineNum = 104;BA.debugLine="text_temp.Initialize";
 _text_temp._initialize(processBA);
- //BA.debugLineNum = 51;BA.debugLine="users_out_lbl.text = login_form.name_query";
+ //BA.debugLineNum = 105;BA.debugLine="Log(\"name: \"&login_form.name_query)";
+anywheresoftware.b4a.keywords.Common.Log("name: "+mostCurrent._login_form._name_query);
+ //BA.debugLineNum = 107;BA.debugLine="users_out_lbl.text = login_form.name_query";
 mostCurrent._users_out_lbl.setText((Object)(mostCurrent._login_form._name_query));
- //BA.debugLineNum = 52;BA.debugLine="ban_picture.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 108;BA.debugLine="ban_picture.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._ban_picture.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"banner01.jpg").getObject()));
- //BA.debugLineNum = 53;BA.debugLine="ban_logo.SetBackgroundImage(LoadBitmap(File.DirAs";
+ //BA.debugLineNum = 109;BA.debugLine="ban_logo.SetBackgroundImage(LoadBitmap(File.DirAs";
 mostCurrent._ban_logo.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"logo1.jpg").getObject()));
- //BA.debugLineNum = 54;BA.debugLine="Activity.SetBackgroundImage(LoadBitmap(File.DirAs";
+ //BA.debugLineNum = 110;BA.debugLine="Activity.SetBackgroundImage(LoadBitmap(File.DirAs";
 mostCurrent._activity.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 55;BA.debugLine="users_panel.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 111;BA.debugLine="users_panel.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._users_panel.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 56;BA.debugLine="src_blood_pnl.SetBackgroundImage(LoadBitmap(File.";
+ //BA.debugLineNum = 112;BA.debugLine="src_blood_pnl.SetBackgroundImage(LoadBitmap(File.";
 mostCurrent._src_blood_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 57;BA.debugLine="profile_pnl.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 113;BA.debugLine="profile_pnl.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._profile_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 58;BA.debugLine="about_pnl.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 114;BA.debugLine="about_pnl.SetBackgroundImage(LoadBitmap(File.DirA";
 mostCurrent._about_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 59;BA.debugLine="help_pnl.SetBackgroundImage(LoadBitmap(File.DirAs";
+ //BA.debugLineNum = 115;BA.debugLine="help_pnl.SetBackgroundImage(LoadBitmap(File.DirAs";
 mostCurrent._help_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 60;BA.debugLine="exit_pnl.SetBackgroundImage(LoadBitmap(File.DirAs";
+ //BA.debugLineNum = 116;BA.debugLine="exit_pnl.SetBackgroundImage(LoadBitmap(File.DirAs";
 mostCurrent._exit_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 62;BA.debugLine="srch_blood_img.SetBackgroundImage(LoadBitmap(Fi";
+ //BA.debugLineNum = 118;BA.debugLine="srch_blood_img.SetBackgroundImage(LoadBitmap(Fi";
 mostCurrent._srch_blood_img.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"menu_search.png").getObject()));
- //BA.debugLineNum = 63;BA.debugLine="profile_img.SetBackgroundImage(LoadBitmap(File";
+ //BA.debugLineNum = 119;BA.debugLine="profile_img.SetBackgroundImage(LoadBitmap(File";
 mostCurrent._profile_img.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"emyprofile.png").getObject()));
- //BA.debugLineNum = 64;BA.debugLine="about_img.SetBackgroundImage(LoadBitmap(File.D";
+ //BA.debugLineNum = 120;BA.debugLine="about_img.SetBackgroundImage(LoadBitmap(File.D";
 mostCurrent._about_img.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"eaboutus.png").getObject()));
- //BA.debugLineNum = 65;BA.debugLine="help_img.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 121;BA.debugLine="help_img.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._help_img.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"ehelp.png").getObject()));
- //BA.debugLineNum = 66;BA.debugLine="exit_img.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 122;BA.debugLine="exit_img.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._exit_img.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"eexit.png").getObject()));
- //BA.debugLineNum = 68;BA.debugLine="users_heading.Color = Colors.Transparent";
+ //BA.debugLineNum = 124;BA.debugLine="users_heading.Color = Colors.Transparent";
 mostCurrent._users_heading.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
- //BA.debugLineNum = 70;BA.debugLine="ban_picture.Width = 80%x";
+ //BA.debugLineNum = 126;BA.debugLine="ban_picture.Width = 80%x";
 mostCurrent._ban_picture.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (80),mostCurrent.activityBA));
- //BA.debugLineNum = 71;BA.debugLine="ban_logo.Width = 20%x";
+ //BA.debugLineNum = 127;BA.debugLine="ban_logo.Width = 20%x";
 mostCurrent._ban_logo.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA));
- //BA.debugLineNum = 72;BA.debugLine="users_panel.Width = Activity.Width";
+ //BA.debugLineNum = 128;BA.debugLine="users_panel.Width = Activity.Width";
 mostCurrent._users_panel.setWidth(mostCurrent._activity.getWidth());
- //BA.debugLineNum = 73;BA.debugLine="src_blood_pnl.Width = Activity.Width";
+ //BA.debugLineNum = 129;BA.debugLine="src_blood_pnl.Width = Activity.Width";
 mostCurrent._src_blood_pnl.setWidth(mostCurrent._activity.getWidth());
- //BA.debugLineNum = 74;BA.debugLine="profile_pnl.Width = Activity.Width";
+ //BA.debugLineNum = 130;BA.debugLine="profile_pnl.Width = Activity.Width";
 mostCurrent._profile_pnl.setWidth(mostCurrent._activity.getWidth());
- //BA.debugLineNum = 75;BA.debugLine="about_pnl.Width = Activity.Width";
+ //BA.debugLineNum = 131;BA.debugLine="about_pnl.Width = Activity.Width";
 mostCurrent._about_pnl.setWidth(mostCurrent._activity.getWidth());
- //BA.debugLineNum = 76;BA.debugLine="help_pnl.Width = Activity.Width";
+ //BA.debugLineNum = 132;BA.debugLine="help_pnl.Width = Activity.Width";
 mostCurrent._help_pnl.setWidth(mostCurrent._activity.getWidth());
- //BA.debugLineNum = 77;BA.debugLine="exit_pnl.Width = Activity.Width";
+ //BA.debugLineNum = 133;BA.debugLine="exit_pnl.Width = Activity.Width";
 mostCurrent._exit_pnl.setWidth(mostCurrent._activity.getWidth());
- //BA.debugLineNum = 78;BA.debugLine="users_heading.Width = Activity.Width";
+ //BA.debugLineNum = 134;BA.debugLine="users_heading.Width = Activity.Width";
 mostCurrent._users_heading.setWidth(mostCurrent._activity.getWidth());
- //BA.debugLineNum = 80;BA.debugLine="users_heading.Height = 9%y";
+ //BA.debugLineNum = 136;BA.debugLine="users_heading.Height = 9%y";
 mostCurrent._users_heading.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 81;BA.debugLine="users_panel.Height = 18%y";
+ //BA.debugLineNum = 137;BA.debugLine="users_panel.Height = 18%y";
 mostCurrent._users_panel.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (18),mostCurrent.activityBA));
- //BA.debugLineNum = 82;BA.debugLine="ban_picture.Height = users_panel.Height";
+ //BA.debugLineNum = 138;BA.debugLine="ban_picture.Height = users_panel.Height";
 mostCurrent._ban_picture.setHeight(mostCurrent._users_panel.getHeight());
- //BA.debugLineNum = 83;BA.debugLine="ban_logo.Height = users_panel.Height";
+ //BA.debugLineNum = 139;BA.debugLine="ban_logo.Height = users_panel.Height";
 mostCurrent._ban_logo.setHeight(mostCurrent._users_panel.getHeight());
- //BA.debugLineNum = 84;BA.debugLine="src_blood_pnl.Height = 12%y";
+ //BA.debugLineNum = 140;BA.debugLine="src_blood_pnl.Height = 12%y";
 mostCurrent._src_blood_pnl.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (12),mostCurrent.activityBA));
- //BA.debugLineNum = 85;BA.debugLine="profile_pnl.Height = 12%y";
+ //BA.debugLineNum = 141;BA.debugLine="profile_pnl.Height = 12%y";
 mostCurrent._profile_pnl.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (12),mostCurrent.activityBA));
- //BA.debugLineNum = 86;BA.debugLine="about_pnl.Height = 12%y";
+ //BA.debugLineNum = 142;BA.debugLine="about_pnl.Height = 12%y";
 mostCurrent._about_pnl.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (12),mostCurrent.activityBA));
- //BA.debugLineNum = 87;BA.debugLine="help_pnl.Height = 12%y";
+ //BA.debugLineNum = 143;BA.debugLine="help_pnl.Height = 12%y";
 mostCurrent._help_pnl.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (12),mostCurrent.activityBA));
- //BA.debugLineNum = 88;BA.debugLine="exit_pnl.Height = 12%y";
+ //BA.debugLineNum = 144;BA.debugLine="exit_pnl.Height = 12%y";
 mostCurrent._exit_pnl.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (12),mostCurrent.activityBA));
- //BA.debugLineNum = 90;BA.debugLine="ban_logo.Left = 0";
+ //BA.debugLineNum = 146;BA.debugLine="ban_logo.Left = 0";
 mostCurrent._ban_logo.setLeft((int) (0));
- //BA.debugLineNum = 91;BA.debugLine="ban_picture.Left = ban_logo.Left + ban_logo.Width";
+ //BA.debugLineNum = 147;BA.debugLine="ban_picture.Left = ban_logo.Left + ban_logo.Width";
 mostCurrent._ban_picture.setLeft((int) (mostCurrent._ban_logo.getLeft()+mostCurrent._ban_logo.getWidth()));
- //BA.debugLineNum = 92;BA.debugLine="users_panel.Left = 0";
+ //BA.debugLineNum = 148;BA.debugLine="users_panel.Left = 0";
 mostCurrent._users_panel.setLeft((int) (0));
- //BA.debugLineNum = 93;BA.debugLine="src_blood_pnl.Left = 0";
+ //BA.debugLineNum = 149;BA.debugLine="src_blood_pnl.Left = 0";
 mostCurrent._src_blood_pnl.setLeft((int) (0));
- //BA.debugLineNum = 94;BA.debugLine="profile_pnl.Left = 0";
+ //BA.debugLineNum = 150;BA.debugLine="profile_pnl.Left = 0";
 mostCurrent._profile_pnl.setLeft((int) (0));
- //BA.debugLineNum = 95;BA.debugLine="about_pnl.Left = 0";
+ //BA.debugLineNum = 151;BA.debugLine="about_pnl.Left = 0";
 mostCurrent._about_pnl.setLeft((int) (0));
- //BA.debugLineNum = 96;BA.debugLine="help_pnl.Left = 0";
+ //BA.debugLineNum = 152;BA.debugLine="help_pnl.Left = 0";
 mostCurrent._help_pnl.setLeft((int) (0));
- //BA.debugLineNum = 97;BA.debugLine="exit_pnl.Left = 0";
+ //BA.debugLineNum = 153;BA.debugLine="exit_pnl.Left = 0";
 mostCurrent._exit_pnl.setLeft((int) (0));
- //BA.debugLineNum = 98;BA.debugLine="users_heading.Left = 0";
+ //BA.debugLineNum = 154;BA.debugLine="users_heading.Left = 0";
 mostCurrent._users_heading.setLeft((int) (0));
- //BA.debugLineNum = 100;BA.debugLine="users_panel.Top = 0";
+ //BA.debugLineNum = 156;BA.debugLine="users_panel.Top = 0";
 mostCurrent._users_panel.setTop((int) (0));
- //BA.debugLineNum = 101;BA.debugLine="ban_picture.Top = 0";
+ //BA.debugLineNum = 157;BA.debugLine="ban_picture.Top = 0";
 mostCurrent._ban_picture.setTop((int) (0));
- //BA.debugLineNum = 102;BA.debugLine="ban_logo.Top = 0";
+ //BA.debugLineNum = 158;BA.debugLine="ban_logo.Top = 0";
 mostCurrent._ban_logo.setTop((int) (0));
- //BA.debugLineNum = 103;BA.debugLine="users_heading.Top = users_panel.Top + users_panel";
+ //BA.debugLineNum = 159;BA.debugLine="users_heading.Top = users_panel.Top + users_panel";
 mostCurrent._users_heading.setTop((int) (mostCurrent._users_panel.getTop()+mostCurrent._users_panel.getHeight()));
- //BA.debugLineNum = 104;BA.debugLine="src_blood_pnl.Top = users_heading.Top + users_hea";
+ //BA.debugLineNum = 160;BA.debugLine="src_blood_pnl.Top = users_heading.Top + users_hea";
 mostCurrent._src_blood_pnl.setTop((int) (mostCurrent._users_heading.getTop()+mostCurrent._users_heading.getHeight()));
- //BA.debugLineNum = 105;BA.debugLine="profile_pnl.Top = src_blood_pnl.Top + src_blood_p";
+ //BA.debugLineNum = 161;BA.debugLine="profile_pnl.Top = src_blood_pnl.Top + src_blood_p";
 mostCurrent._profile_pnl.setTop((int) (mostCurrent._src_blood_pnl.getTop()+mostCurrent._src_blood_pnl.getHeight()));
- //BA.debugLineNum = 106;BA.debugLine="about_pnl.Top = profile_pnl.Top + profile_pnl.Hei";
+ //BA.debugLineNum = 162;BA.debugLine="about_pnl.Top = profile_pnl.Top + profile_pnl.Hei";
 mostCurrent._about_pnl.setTop((int) (mostCurrent._profile_pnl.getTop()+mostCurrent._profile_pnl.getHeight()));
- //BA.debugLineNum = 107;BA.debugLine="help_pnl.Top = about_pnl.Top + about_pnl.Height";
+ //BA.debugLineNum = 163;BA.debugLine="help_pnl.Top = about_pnl.Top + about_pnl.Height";
 mostCurrent._help_pnl.setTop((int) (mostCurrent._about_pnl.getTop()+mostCurrent._about_pnl.getHeight()));
- //BA.debugLineNum = 108;BA.debugLine="exit_pnl.Top = help_pnl.Top + help_pnl.Height";
+ //BA.debugLineNum = 164;BA.debugLine="exit_pnl.Top = help_pnl.Top + help_pnl.Height";
 mostCurrent._exit_pnl.setTop((int) (mostCurrent._help_pnl.getTop()+mostCurrent._help_pnl.getHeight()));
- //BA.debugLineNum = 117;BA.debugLine="search_blood.Width = Activity.Width - 60%x";
+ //BA.debugLineNum = 173;BA.debugLine="search_blood.Width = Activity.Width - 60%x";
 mostCurrent._search_blood.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA)));
- //BA.debugLineNum = 118;BA.debugLine="about.Width = Activity.Width - 60%x";
+ //BA.debugLineNum = 174;BA.debugLine="about.Width = Activity.Width - 60%x";
 mostCurrent._about.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA)));
- //BA.debugLineNum = 119;BA.debugLine="help.Width = Activity.Width - 60%x";
+ //BA.debugLineNum = 175;BA.debugLine="help.Width = Activity.Width - 60%x";
 mostCurrent._help.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA)));
- //BA.debugLineNum = 120;BA.debugLine="profile.Width = Activity.Width - 60%x";
+ //BA.debugLineNum = 176;BA.debugLine="profile.Width = Activity.Width - 60%x";
 mostCurrent._profile.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA)));
- //BA.debugLineNum = 121;BA.debugLine="exit_btn.Width = Activity.Width - 60%x";
+ //BA.debugLineNum = 177;BA.debugLine="exit_btn.Width = Activity.Width - 60%x";
 mostCurrent._exit_btn.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA)));
- //BA.debugLineNum = 122;BA.debugLine="srch_blood_img.Width = Activity.Width - 85%x";
+ //BA.debugLineNum = 178;BA.debugLine="srch_blood_img.Width = Activity.Width - 85%x";
 mostCurrent._srch_blood_img.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (85),mostCurrent.activityBA)));
- //BA.debugLineNum = 123;BA.debugLine="profile_img.Width = Activity.Width - 85%x";
+ //BA.debugLineNum = 179;BA.debugLine="profile_img.Width = Activity.Width - 85%x";
 mostCurrent._profile_img.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (85),mostCurrent.activityBA)));
- //BA.debugLineNum = 124;BA.debugLine="about_img.Width = Activity.Width - 85%x";
+ //BA.debugLineNum = 180;BA.debugLine="about_img.Width = Activity.Width - 85%x";
 mostCurrent._about_img.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (85),mostCurrent.activityBA)));
- //BA.debugLineNum = 125;BA.debugLine="help_img.Width = Activity.Width - 85%x";
+ //BA.debugLineNum = 181;BA.debugLine="help_img.Width = Activity.Width - 85%x";
 mostCurrent._help_img.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (85),mostCurrent.activityBA)));
- //BA.debugLineNum = 126;BA.debugLine="exit_img.Width = Activity.Width - 85%x";
+ //BA.debugLineNum = 182;BA.debugLine="exit_img.Width = Activity.Width - 85%x";
 mostCurrent._exit_img.setWidth((int) (mostCurrent._activity.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (85),mostCurrent.activityBA)));
- //BA.debugLineNum = 128;BA.debugLine="search_blood.Height = 9%y";
+ //BA.debugLineNum = 184;BA.debugLine="search_blood.Height = 9%y";
 mostCurrent._search_blood.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 129;BA.debugLine="about.Height = 9%y";
+ //BA.debugLineNum = 185;BA.debugLine="about.Height = 9%y";
 mostCurrent._about.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 130;BA.debugLine="help.Height = 9%y";
+ //BA.debugLineNum = 186;BA.debugLine="help.Height = 9%y";
 mostCurrent._help.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 131;BA.debugLine="profile.Height = 9%y";
+ //BA.debugLineNum = 187;BA.debugLine="profile.Height = 9%y";
 mostCurrent._profile.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 132;BA.debugLine="exit_btn.Height = 9%y";
+ //BA.debugLineNum = 188;BA.debugLine="exit_btn.Height = 9%y";
 mostCurrent._exit_btn.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 133;BA.debugLine="srch_blood_img.Height = 9%y";
+ //BA.debugLineNum = 189;BA.debugLine="srch_blood_img.Height = 9%y";
 mostCurrent._srch_blood_img.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 134;BA.debugLine="profile_img.Height = 9%y";
+ //BA.debugLineNum = 190;BA.debugLine="profile_img.Height = 9%y";
 mostCurrent._profile_img.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 135;BA.debugLine="about_img.Height = 9%y";
+ //BA.debugLineNum = 191;BA.debugLine="about_img.Height = 9%y";
 mostCurrent._about_img.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 136;BA.debugLine="help_img.Height = 9%y";
+ //BA.debugLineNum = 192;BA.debugLine="help_img.Height = 9%y";
 mostCurrent._help_img.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 137;BA.debugLine="exit_img.Height = 9%y";
+ //BA.debugLineNum = 193;BA.debugLine="exit_img.Height = 9%y";
 mostCurrent._exit_img.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (9),mostCurrent.activityBA));
- //BA.debugLineNum = 139;BA.debugLine="users_lbl.Left = 2%x";
+ //BA.debugLineNum = 195;BA.debugLine="users_lbl.Left = 2%x";
 mostCurrent._users_lbl.setLeft(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA));
- //BA.debugLineNum = 140;BA.debugLine="users_out_lbl.Left = users_lbl.Left + users_lbl.W";
+ //BA.debugLineNum = 196;BA.debugLine="users_out_lbl.Left = users_lbl.Left + users_lbl.W";
 mostCurrent._users_out_lbl.setLeft((int) (mostCurrent._users_lbl.getLeft()+mostCurrent._users_lbl.getWidth()));
- //BA.debugLineNum = 141;BA.debugLine="search_blood.Left = ((src_blood_pnl.Width/2)/2)/";
+ //BA.debugLineNum = 197;BA.debugLine="search_blood.Left = ((src_blood_pnl.Width/2)/2)/";
 mostCurrent._search_blood.setLeft((int) (((mostCurrent._src_blood_pnl.getWidth()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 142;BA.debugLine="profile.Left = ((profile_pnl.Width/2)/2)";
+ //BA.debugLineNum = 198;BA.debugLine="profile.Left = ((profile_pnl.Width/2)/2)";
 mostCurrent._profile.setLeft((int) (((mostCurrent._profile_pnl.getWidth()/(double)2)/(double)2)));
- //BA.debugLineNum = 143;BA.debugLine="about.Left = (help_pnl.Width/2)";
+ //BA.debugLineNum = 199;BA.debugLine="about.Left = (help_pnl.Width/2)";
 mostCurrent._about.setLeft((int) ((mostCurrent._help_pnl.getWidth()/(double)2)));
- //BA.debugLineNum = 144;BA.debugLine="help.Left = ((about_pnl.Width/2)/2)";
+ //BA.debugLineNum = 200;BA.debugLine="help.Left = ((about_pnl.Width/2)/2)";
 mostCurrent._help.setLeft((int) (((mostCurrent._about_pnl.getWidth()/(double)2)/(double)2)));
- //BA.debugLineNum = 145;BA.debugLine="exit_btn.Left = ((exit_pnl.Width/2)/2)/2";
+ //BA.debugLineNum = 201;BA.debugLine="exit_btn.Left = ((exit_pnl.Width/2)/2)/2";
 mostCurrent._exit_btn.setLeft((int) (((mostCurrent._exit_pnl.getWidth()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 147;BA.debugLine="srch_blood_img.Left = search_blood.Left + search";
+ //BA.debugLineNum = 203;BA.debugLine="srch_blood_img.Left = search_blood.Left + search";
 mostCurrent._srch_blood_img.setLeft((int) (mostCurrent._search_blood.getLeft()+mostCurrent._search_blood.getWidth()));
- //BA.debugLineNum = 148;BA.debugLine="profile_img.Left = profile.Left + profile.Widt";
+ //BA.debugLineNum = 204;BA.debugLine="profile_img.Left = profile.Left + profile.Widt";
 mostCurrent._profile_img.setLeft((int) (mostCurrent._profile.getLeft()+mostCurrent._profile.getWidth()));
- //BA.debugLineNum = 149;BA.debugLine="about_img.Left = about.Left - about_img.Width";
+ //BA.debugLineNum = 205;BA.debugLine="about_img.Left = about.Left - about_img.Width";
 mostCurrent._about_img.setLeft((int) (mostCurrent._about.getLeft()-mostCurrent._about_img.getWidth()));
- //BA.debugLineNum = 150;BA.debugLine="help_img.Left = help.Left + help.Width";
+ //BA.debugLineNum = 206;BA.debugLine="help_img.Left = help.Left + help.Width";
 mostCurrent._help_img.setLeft((int) (mostCurrent._help.getLeft()+mostCurrent._help.getWidth()));
- //BA.debugLineNum = 151;BA.debugLine="exit_img.Left = exit_btn.Left + exit_btn.Width";
+ //BA.debugLineNum = 207;BA.debugLine="exit_img.Left = exit_btn.Left + exit_btn.Width";
 mostCurrent._exit_img.setLeft((int) (mostCurrent._exit_btn.getLeft()+mostCurrent._exit_btn.getWidth()));
- //BA.debugLineNum = 153;BA.debugLine="users_out_lbl.Top = ((users_heading.Height/2)/2)/";
+ //BA.debugLineNum = 209;BA.debugLine="users_out_lbl.Top = ((users_heading.Height/2)/2)/";
 mostCurrent._users_out_lbl.setTop((int) (((mostCurrent._users_heading.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 154;BA.debugLine="users_lbl.Left = users_out_lbl.Top";
-mostCurrent._users_lbl.setLeft(mostCurrent._users_out_lbl.getTop());
- //BA.debugLineNum = 156;BA.debugLine="search_blood.Top = ((src_blood_pnl.Height/2)/2)/";
+ //BA.debugLineNum = 210;BA.debugLine="users_lbl.Top = users_out_lbl.Top";
+mostCurrent._users_lbl.setTop(mostCurrent._users_out_lbl.getTop());
+ //BA.debugLineNum = 212;BA.debugLine="search_blood.Top = ((src_blood_pnl.Height/2)/2)/";
 mostCurrent._search_blood.setTop((int) (((mostCurrent._src_blood_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 157;BA.debugLine="about.Top = ((about_pnl.Height/2)/2)/2";
+ //BA.debugLineNum = 213;BA.debugLine="about.Top = ((about_pnl.Height/2)/2)/2";
 mostCurrent._about.setTop((int) (((mostCurrent._about_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 158;BA.debugLine="help.Top = ((help_pnl.Height/2)/2)/2";
+ //BA.debugLineNum = 214;BA.debugLine="help.Top = ((help_pnl.Height/2)/2)/2";
 mostCurrent._help.setTop((int) (((mostCurrent._help_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 159;BA.debugLine="profile.Top = ((profile_pnl.Height/2)/2)/2";
+ //BA.debugLineNum = 215;BA.debugLine="profile.Top = ((profile_pnl.Height/2)/2)/2";
 mostCurrent._profile.setTop((int) (((mostCurrent._profile_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 160;BA.debugLine="exit_btn.Top = ((exit_pnl.Height/2)/2)/2";
+ //BA.debugLineNum = 216;BA.debugLine="exit_btn.Top = ((exit_pnl.Height/2)/2)/2";
 mostCurrent._exit_btn.setTop((int) (((mostCurrent._exit_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 162;BA.debugLine="srch_blood_img.Top = ((src_blood_pnl.Height/2)/2";
+ //BA.debugLineNum = 218;BA.debugLine="srch_blood_img.Top = ((src_blood_pnl.Height/2)/2";
 mostCurrent._srch_blood_img.setTop((int) (((mostCurrent._src_blood_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 163;BA.debugLine="profile_img.Top = ((about_pnl.Height/2)/2)/2";
+ //BA.debugLineNum = 219;BA.debugLine="profile_img.Top = ((about_pnl.Height/2)/2)/2";
 mostCurrent._profile_img.setTop((int) (((mostCurrent._about_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 164;BA.debugLine="about_img.Top = ((help_pnl.Height/2)/2)/2";
+ //BA.debugLineNum = 220;BA.debugLine="about_img.Top = ((help_pnl.Height/2)/2)/2";
 mostCurrent._about_img.setTop((int) (((mostCurrent._help_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 165;BA.debugLine="help_img.Top = ((profile_pnl.Height/2)/2)/2";
+ //BA.debugLineNum = 221;BA.debugLine="help_img.Top = ((profile_pnl.Height/2)/2)/2";
 mostCurrent._help_img.setTop((int) (((mostCurrent._profile_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 166;BA.debugLine="exit_img.Top = ((exit_pnl.Height/2)/2)/2";
+ //BA.debugLineNum = 222;BA.debugLine="exit_img.Top = ((exit_pnl.Height/2)/2)/2";
 mostCurrent._exit_img.setTop((int) (((mostCurrent._exit_pnl.getHeight()/(double)2)/(double)2)/(double)2));
- //BA.debugLineNum = 168;BA.debugLine="search_blood.SetBackgroundImage(LoadBitmap(File.D";
+ //BA.debugLineNum = 224;BA.debugLine="search_blood.SetBackgroundImage(LoadBitmap(File.D";
 mostCurrent._search_blood.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"SEARCH.png").getObject()));
- //BA.debugLineNum = 169;BA.debugLine="about.SetBackgroundImage(LoadBitmap(File.DirAsse";
+ //BA.debugLineNum = 225;BA.debugLine="about.SetBackgroundImage(LoadBitmap(File.DirAsse";
 mostCurrent._about.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"ABOUT_US.png").getObject()));
- //BA.debugLineNum = 170;BA.debugLine="help.SetBackgroundImage(LoadBitmap(File.DirAsset";
+ //BA.debugLineNum = 226;BA.debugLine="help.SetBackgroundImage(LoadBitmap(File.DirAsset";
 mostCurrent._help.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"HELP.png").getObject()));
- //BA.debugLineNum = 171;BA.debugLine="profile.SetBackgroundImage(LoadBitmap(File.DirAs";
+ //BA.debugLineNum = 227;BA.debugLine="profile.SetBackgroundImage(LoadBitmap(File.DirAs";
 mostCurrent._profile.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"my_profile.png").getObject()));
- //BA.debugLineNum = 172;BA.debugLine="exit_btn.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 228;BA.debugLine="exit_btn.SetBackgroundImage(LoadBitmap(File.DirA";
 mostCurrent._exit_btn.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"EXIT.png").getObject()));
- //BA.debugLineNum = 173;BA.debugLine="End Sub";
+ //BA.debugLineNum = 229;BA.debugLine="End Sub";
+return "";
+}
+public static String  _locate_edit_click() throws Exception{
+anywheresoftware.b4a.objects.PanelWrapper _pnl = null;
+anywheresoftware.b4a.objects.ButtonWrapper _edit_ok_btn = null;
+anywheresoftware.b4a.objects.ButtonWrapper _edit_can_btn = null;
+anywheresoftware.b4a.objects.LabelWrapper _title_lbl = null;
+ //BA.debugLineNum = 613;BA.debugLine="Sub locate_edit_Click";
+ //BA.debugLineNum = 614;BA.debugLine="list_location_b.Initialize";
+_list_location_b.Initialize();
+ //BA.debugLineNum = 615;BA.debugLine="location_spin_street.Initialize(\"location_spin_s";
+mostCurrent._location_spin_street.Initialize(mostCurrent.activityBA,"location_spin_street");
+ //BA.debugLineNum = 616;BA.debugLine="location_spin_brgy.Initialize(\"location_spin_brg";
+mostCurrent._location_spin_brgy.Initialize(mostCurrent.activityBA,"location_spin_brgy");
+ //BA.debugLineNum = 617;BA.debugLine="list_location_s.Initialize";
+_list_location_s.Initialize();
+ //BA.debugLineNum = 618;BA.debugLine="list_location_b.Add(\"Barangay  1\") 'index 0";
+_list_location_b.Add((Object)("Barangay  1"));
+ //BA.debugLineNum = 619;BA.debugLine="list_location_b.Add(\"Barangay 2\") 'index 1";
+_list_location_b.Add((Object)("Barangay 2"));
+ //BA.debugLineNum = 620;BA.debugLine="list_location_b.Add(\"Barangay 3\") 'index 2";
+_list_location_b.Add((Object)("Barangay 3"));
+ //BA.debugLineNum = 621;BA.debugLine="list_location_b.Add(\"Barangay 4\") 'index 3";
+_list_location_b.Add((Object)("Barangay 4"));
+ //BA.debugLineNum = 622;BA.debugLine="list_location_b.Add(\"Aguisan\") 'index 4";
+_list_location_b.Add((Object)("Aguisan"));
+ //BA.debugLineNum = 623;BA.debugLine="list_location_b.Add(\"caradio-an\") 'index 5";
+_list_location_b.Add((Object)("caradio-an"));
+ //BA.debugLineNum = 624;BA.debugLine="list_location_b.Add(\"Buenavista\") 'index 6";
+_list_location_b.Add((Object)("Buenavista"));
+ //BA.debugLineNum = 625;BA.debugLine="list_location_b.Add(\"Cabadiangan\") 'index 7";
+_list_location_b.Add((Object)("Cabadiangan"));
+ //BA.debugLineNum = 626;BA.debugLine="list_location_b.Add(\"Cabanbanan\") 'index 8";
+_list_location_b.Add((Object)("Cabanbanan"));
+ //BA.debugLineNum = 627;BA.debugLine="list_location_b.Add(\"Carabalan\") 'index 9";
+_list_location_b.Add((Object)("Carabalan"));
+ //BA.debugLineNum = 628;BA.debugLine="list_location_b.Add(\"Libacao\") 'index 10";
+_list_location_b.Add((Object)("Libacao"));
+ //BA.debugLineNum = 629;BA.debugLine="list_location_b.Add(\"Mahalang\") 'index 11";
+_list_location_b.Add((Object)("Mahalang"));
+ //BA.debugLineNum = 630;BA.debugLine="list_location_b.Add(\"Mambagaton\") 'index 12";
+_list_location_b.Add((Object)("Mambagaton"));
+ //BA.debugLineNum = 631;BA.debugLine="list_location_b.Add(\"Nabalian\") 'index 13";
+_list_location_b.Add((Object)("Nabalian"));
+ //BA.debugLineNum = 632;BA.debugLine="list_location_b.Add(\"San Antonio\") 'index 14";
+_list_location_b.Add((Object)("San Antonio"));
+ //BA.debugLineNum = 633;BA.debugLine="list_location_b.Add(\"Saraet\") 'index 15";
+_list_location_b.Add((Object)("Saraet"));
+ //BA.debugLineNum = 634;BA.debugLine="list_location_b.Add(\"Suay\") 'index 16";
+_list_location_b.Add((Object)("Suay"));
+ //BA.debugLineNum = 635;BA.debugLine="list_location_b.Add(\"Talaban\") 'index 17";
+_list_location_b.Add((Object)("Talaban"));
+ //BA.debugLineNum = 636;BA.debugLine="list_location_b.Add(\"Tooy\") 'index 18";
+_list_location_b.Add((Object)("Tooy"));
+ //BA.debugLineNum = 637;BA.debugLine="location_spin_brgy.AddAll(list_location_b)";
+mostCurrent._location_spin_brgy.AddAll(_list_location_b);
+ //BA.debugLineNum = 639;BA.debugLine="list_location_s.Add(\"Rizal st.\")";
+_list_location_s.Add((Object)("Rizal st."));
+ //BA.debugLineNum = 640;BA.debugLine="list_location_s.Add(\"Valega st.\")";
+_list_location_s.Add((Object)("Valega st."));
+ //BA.debugLineNum = 641;BA.debugLine="list_location_s.Add(\"Sarmiento st.\")";
+_list_location_s.Add((Object)("Sarmiento st."));
+ //BA.debugLineNum = 642;BA.debugLine="list_location_s.Add(\"Bantolinao st.\")";
+_list_location_s.Add((Object)("Bantolinao st."));
+ //BA.debugLineNum = 643;BA.debugLine="list_location_s.Add(\"Versoza st.\")";
+_list_location_s.Add((Object)("Versoza st."));
+ //BA.debugLineNum = 644;BA.debugLine="list_location_s.Add(\"Jimenez st.\")";
+_list_location_s.Add((Object)("Jimenez st."));
+ //BA.debugLineNum = 645;BA.debugLine="list_location_s.Add(\"Olmedo st.\")";
+_list_location_s.Add((Object)("Olmedo st."));
+ //BA.debugLineNum = 646;BA.debugLine="list_location_s.Add(\"Burgos st.\")";
+_list_location_s.Add((Object)("Burgos st."));
+ //BA.debugLineNum = 647;BA.debugLine="location_spin_street.AddAll(list_location_s)";
+mostCurrent._location_spin_street.AddAll(_list_location_s);
+ //BA.debugLineNum = 649;BA.debugLine="Dim pnl As Panel";
+_pnl = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 650;BA.debugLine="Dim edit_ok_btn,edit_can_btn As Button";
+_edit_ok_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+_edit_can_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 651;BA.debugLine="Dim title_lbl As Label";
+_title_lbl = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 652;BA.debugLine="edit_ok_btn.Initialize(\"edit_ok_btn\")";
+_edit_ok_btn.Initialize(mostCurrent.activityBA,"edit_ok_btn");
+ //BA.debugLineNum = 653;BA.debugLine="edit_can_btn.Initialize(\"edit_can_btn\")";
+_edit_can_btn.Initialize(mostCurrent.activityBA,"edit_can_btn");
+ //BA.debugLineNum = 654;BA.debugLine="title_lbl.Initialize(\"\")";
+_title_lbl.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 655;BA.debugLine="edit_ok_btn.Text = \"OK\"";
+_edit_ok_btn.setText((Object)("OK"));
+ //BA.debugLineNum = 656;BA.debugLine="edit_can_btn.Text = \"CANCEL\"";
+_edit_can_btn.setText((Object)("CANCEL"));
+ //BA.debugLineNum = 657;BA.debugLine="title_lbl.Text = \"SELECT LOCATION\"";
+_title_lbl.setText((Object)("SELECT LOCATION"));
+ //BA.debugLineNum = 658;BA.debugLine="title_lbl.Gravity =  Gravity.CENTER";
+_title_lbl.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
+ //BA.debugLineNum = 659;BA.debugLine="pnl.Initialize(\"pnl\")";
+_pnl.Initialize(mostCurrent.activityBA,"pnl");
+ //BA.debugLineNum = 660;BA.debugLine="pnl_body.Initialize(\"pnl_body\")";
+mostCurrent._pnl_body.Initialize(mostCurrent.activityBA,"pnl_body");
+ //BA.debugLineNum = 661;BA.debugLine="pnl_body.Color = Colors.Transparent";
+mostCurrent._pnl_body.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
+ //BA.debugLineNum = 662;BA.debugLine="pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,";
+_pnl.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"modal_bg.png").getObject()));
+ //BA.debugLineNum = 663;BA.debugLine="pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)";
+_pnl.AddView((android.view.View)(_title_lbl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (2),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (68),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 664;BA.debugLine="pnl.AddView(location_spin_brgy,2%x,title_lbl.Top";
+_pnl.AddView((android.view.View)(mostCurrent._location_spin_brgy.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA),(int) (_title_lbl.getTop()+_title_lbl.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (1),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (33),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 665;BA.debugLine="pnl.AddView(location_spin_street,location_spin_br";
+_pnl.AddView((android.view.View)(mostCurrent._location_spin_street.getObject()),(int) (mostCurrent._location_spin_brgy.getLeft()+mostCurrent._location_spin_brgy.getWidth()+anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA)),mostCurrent._location_spin_brgy.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (33),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 666;BA.debugLine="pnl.AddView(edit_ok_btn,15%x,location_spin_street";
+_pnl.AddView((android.view.View)(_edit_ok_btn.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (15),mostCurrent.activityBA),(int) (mostCurrent._location_spin_street.getTop()+mostCurrent._location_spin_street.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 667;BA.debugLine="pnl.AddView(edit_can_btn,edit_ok_btn.Left+edit_ok";
+_pnl.AddView((android.view.View)(_edit_can_btn.getObject()),(int) (_edit_ok_btn.getLeft()+_edit_ok_btn.getWidth()+anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (2),mostCurrent.activityBA)),(int) (mostCurrent._location_spin_street.getTop()+mostCurrent._location_spin_street.getHeight()+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (20),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 669;BA.debugLine="pnl_body.AddView(pnl,13%x,((Activity.Height/2)/2)";
+mostCurrent._pnl_body.AddView((android.view.View)(_pnl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (13),mostCurrent.activityBA),(int) (((mostCurrent._activity.getHeight()/(double)2)/(double)2)),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (74),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (33),mostCurrent.activityBA));
+ //BA.debugLineNum = 670;BA.debugLine="pnl_body.BringToFront";
+mostCurrent._pnl_body.BringToFront();
+ //BA.debugLineNum = 673;BA.debugLine="Activity.AddView(pnl_body,0,0,100%x,100%y)";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._pnl_body.getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
+ //BA.debugLineNum = 674;BA.debugLine="End Sub";
+return "";
+}
+public static String  _location_spin_brgy_itemclick(int _position,Object _value) throws Exception{
+ //BA.debugLineNum = 1244;BA.debugLine="Sub location_spin_brgy_ItemClick (Position As Int,";
+ //BA.debugLineNum = 1245;BA.debugLine="list_location_s.Clear";
+_list_location_s.Clear();
+ //BA.debugLineNum = 1247;BA.debugLine="location_spin_street.Clear";
+mostCurrent._location_spin_street.Clear();
+ //BA.debugLineNum = 1250;BA.debugLine="If Position == 0 Then";
+if (_position==0) { 
+ //BA.debugLineNum = 1251;BA.debugLine="list_location_s.Add(\"Rizal st.\")";
+_list_location_s.Add((Object)("Rizal st."));
+ //BA.debugLineNum = 1252;BA.debugLine="list_location_s.Add(\"Valega st.\")";
+_list_location_s.Add((Object)("Valega st."));
+ //BA.debugLineNum = 1253;BA.debugLine="list_location_s.Add(\"Sarmiento st.\")";
+_list_location_s.Add((Object)("Sarmiento st."));
+ //BA.debugLineNum = 1254;BA.debugLine="list_location_s.Add(\"Bantolinao st.\")";
+_list_location_s.Add((Object)("Bantolinao st."));
+ //BA.debugLineNum = 1255;BA.debugLine="list_location_s.Add(\"Versoza st.\")";
+_list_location_s.Add((Object)("Versoza st."));
+ //BA.debugLineNum = 1256;BA.debugLine="list_location_s.Add(\"Jimenez st.\")";
+_list_location_s.Add((Object)("Jimenez st."));
+ //BA.debugLineNum = 1257;BA.debugLine="list_location_s.Add(\"Olmedo st.\")";
+_list_location_s.Add((Object)("Olmedo st."));
+ //BA.debugLineNum = 1258;BA.debugLine="list_location_s.Add(\"Burgos st.\")";
+_list_location_s.Add((Object)("Burgos st."));
+ }else if(_position==1) { 
+ //BA.debugLineNum = 1261;BA.debugLine="list_location_s.Add(\"Rizal st.\")";
+_list_location_s.Add((Object)("Rizal st."));
+ //BA.debugLineNum = 1262;BA.debugLine="list_location_s.Add(\"Monton st.\")";
+_list_location_s.Add((Object)("Monton st."));
+ //BA.debugLineNum = 1263;BA.debugLine="list_location_s.Add(\"Carabalan road\")";
+_list_location_s.Add((Object)("Carabalan road"));
+ //BA.debugLineNum = 1264;BA.debugLine="list_location_s.Add(\"Purok star apple\")";
+_list_location_s.Add((Object)("Purok star apple"));
+ //BA.debugLineNum = 1265;BA.debugLine="list_location_s.Add(\"Gatuslao st.\")";
+_list_location_s.Add((Object)("Gatuslao st."));
+ //BA.debugLineNum = 1266;BA.debugLine="list_location_s.Add(\"Bungyod\")";
+_list_location_s.Add((Object)("Bungyod"));
+ //BA.debugLineNum = 1267;BA.debugLine="list_location_s.Add(\"Tabino st.\")";
+_list_location_s.Add((Object)("Tabino st."));
+ //BA.debugLineNum = 1268;BA.debugLine="list_location_s.Add(\"River side\")";
+_list_location_s.Add((Object)("River side"));
+ //BA.debugLineNum = 1269;BA.debugLine="list_location_s.Add(\"Arroyan st\")";
+_list_location_s.Add((Object)("Arroyan st"));
+ }else if(_position==2) { 
+ //BA.debugLineNum = 1271;BA.debugLine="list_location_s.Add(\"Segovia st.\")";
+_list_location_s.Add((Object)("Segovia st."));
+ //BA.debugLineNum = 1272;BA.debugLine="list_location_s.Add(\"Vasquez st.\")";
+_list_location_s.Add((Object)("Vasquez st."));
+ //BA.debugLineNum = 1273;BA.debugLine="list_location_s.Add(\"Olmedo st.\")";
+_list_location_s.Add((Object)("Olmedo st."));
+ //BA.debugLineNum = 1274;BA.debugLine="list_location_s.Add(\"Old relis st.\")";
+_list_location_s.Add((Object)("Old relis st."));
+ //BA.debugLineNum = 1275;BA.debugLine="list_location_s.Add(\"Wayang\")";
+_list_location_s.Add((Object)("Wayang"));
+ //BA.debugLineNum = 1276;BA.debugLine="list_location_s.Add(\"Valencia\")";
+_list_location_s.Add((Object)("Valencia"));
+ //BA.debugLineNum = 1277;BA.debugLine="list_location_s.Add(\"Bungyod\")";
+_list_location_s.Add((Object)("Bungyod"));
+ //BA.debugLineNum = 1278;BA.debugLine="list_location_s.Add(\"Bingig\")";
+_list_location_s.Add((Object)("Bingig"));
+ //BA.debugLineNum = 1279;BA.debugLine="list_location_s.Add(\"Bajay\")";
+_list_location_s.Add((Object)("Bajay"));
+ //BA.debugLineNum = 1280;BA.debugLine="list_location_s.Add(\"Carabalan road\")";
+_list_location_s.Add((Object)("Carabalan road"));
+ }else if(_position==3) { 
+ //BA.debugLineNum = 1282;BA.debugLine="list_location_s.Add(\"Crusher\")";
+_list_location_s.Add((Object)("Crusher"));
+ //BA.debugLineNum = 1283;BA.debugLine="list_location_s.Add(\"Bangga mayok\")";
+_list_location_s.Add((Object)("Bangga mayok"));
+ //BA.debugLineNum = 1284;BA.debugLine="list_location_s.Add(\"Villa julita\")";
+_list_location_s.Add((Object)("Villa julita"));
+ //BA.debugLineNum = 1285;BA.debugLine="list_location_s.Add(\"Greenland subdivision\")";
+_list_location_s.Add((Object)("Greenland subdivision"));
+ //BA.debugLineNum = 1286;BA.debugLine="list_location_s.Add(\"Bangga 3c\")";
+_list_location_s.Add((Object)("Bangga 3c"));
+ //BA.debugLineNum = 1287;BA.debugLine="list_location_s.Add(\"Cambugnon\")";
+_list_location_s.Add((Object)("Cambugnon"));
+ //BA.debugLineNum = 1288;BA.debugLine="list_location_s.Add(\"Menez\")";
+_list_location_s.Add((Object)("Menez"));
+ //BA.debugLineNum = 1289;BA.debugLine="list_location_s.Add(\"Relis\")";
+_list_location_s.Add((Object)("Relis"));
+ //BA.debugLineNum = 1290;BA.debugLine="list_location_s.Add(\"Bangga patyo\")";
+_list_location_s.Add((Object)("Bangga patyo"));
+ }else if(_position==4) { 
+ //BA.debugLineNum = 1292;BA.debugLine="list_location_s.Add(\"Purok 1\")";
+_list_location_s.Add((Object)("Purok 1"));
+ //BA.debugLineNum = 1293;BA.debugLine="list_location_s.Add(\"Purok 2\")";
+_list_location_s.Add((Object)("Purok 2"));
+ //BA.debugLineNum = 1294;BA.debugLine="list_location_s.Add(\"Purok 3\")";
+_list_location_s.Add((Object)("Purok 3"));
+ //BA.debugLineNum = 1295;BA.debugLine="list_location_s.Add(\"Purok 4\")";
+_list_location_s.Add((Object)("Purok 4"));
+ //BA.debugLineNum = 1296;BA.debugLine="list_location_s.Add(\"Purok 5\")";
+_list_location_s.Add((Object)("Purok 5"));
+ //BA.debugLineNum = 1297;BA.debugLine="list_location_s.Add(\"Purok 6\")";
+_list_location_s.Add((Object)("Purok 6"));
+ //BA.debugLineNum = 1298;BA.debugLine="list_location_s.Add(\"Purok 7\")";
+_list_location_s.Add((Object)("Purok 7"));
+ //BA.debugLineNum = 1299;BA.debugLine="list_location_s.Add(\"Purok 8\")";
+_list_location_s.Add((Object)("Purok 8"));
+ //BA.debugLineNum = 1300;BA.debugLine="list_location_s.Add(\"Purok 9\")";
+_list_location_s.Add((Object)("Purok 9"));
+ //BA.debugLineNum = 1301;BA.debugLine="list_location_s.Add(\"Purok 10\")";
+_list_location_s.Add((Object)("Purok 10"));
+ //BA.debugLineNum = 1302;BA.debugLine="list_location_s.Add(\"Purok 11\")";
+_list_location_s.Add((Object)("Purok 11"));
+ //BA.debugLineNum = 1303;BA.debugLine="list_location_s.Add(\"Purok 12\")";
+_list_location_s.Add((Object)("Purok 12"));
+ }else if(_position==5) { 
+ //BA.debugLineNum = 1305;BA.debugLine="list_location_s.Add(\"Malusay\")";
+_list_location_s.Add((Object)("Malusay"));
+ //BA.debugLineNum = 1306;BA.debugLine="list_location_s.Add(\"Nasug ong\")";
+_list_location_s.Add((Object)("Nasug ong"));
+ //BA.debugLineNum = 1307;BA.debugLine="list_location_s.Add(\"Lugway\")";
+_list_location_s.Add((Object)("Lugway"));
+ //BA.debugLineNum = 1308;BA.debugLine="list_location_s.Add(\"Ubay\")";
+_list_location_s.Add((Object)("Ubay"));
+ //BA.debugLineNum = 1309;BA.debugLine="list_location_s.Add(\"Fisheries\")";
+_list_location_s.Add((Object)("Fisheries"));
+ //BA.debugLineNum = 1310;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1311;BA.debugLine="list_location_s.Add(\"Calasa\")";
+_list_location_s.Add((Object)("Calasa"));
+ //BA.debugLineNum = 1312;BA.debugLine="list_location_s.Add(\"Hda. Serafin\")";
+_list_location_s.Add((Object)("Hda. Serafin"));
+ //BA.debugLineNum = 1313;BA.debugLine="list_location_s.Add(\"Patay na suba\")";
+_list_location_s.Add((Object)("Patay na suba"));
+ //BA.debugLineNum = 1314;BA.debugLine="list_location_s.Add(\"Lumanog\")";
+_list_location_s.Add((Object)("Lumanog"));
+ //BA.debugLineNum = 1315;BA.debugLine="list_location_s.Add(\"San agustin\")";
+_list_location_s.Add((Object)("San agustin"));
+ //BA.debugLineNum = 1316;BA.debugLine="list_location_s.Add(\"San jose\")";
+_list_location_s.Add((Object)("San jose"));
+ //BA.debugLineNum = 1317;BA.debugLine="list_location_s.Add(\"Maglantay\")";
+_list_location_s.Add((Object)("Maglantay"));
+ //BA.debugLineNum = 1318;BA.debugLine="list_location_s.Add(\"San juan\")";
+_list_location_s.Add((Object)("San juan"));
+ //BA.debugLineNum = 1319;BA.debugLine="list_location_s.Add(\"Magsaha\")";
+_list_location_s.Add((Object)("Magsaha"));
+ //BA.debugLineNum = 1320;BA.debugLine="list_location_s.Add(\"Tagmanok\")";
+_list_location_s.Add((Object)("Tagmanok"));
+ //BA.debugLineNum = 1321;BA.debugLine="list_location_s.Add(\"Butong\")";
+_list_location_s.Add((Object)("Butong"));
+ }else if(_position==6) { 
+ //BA.debugLineNum = 1323;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1324;BA.debugLine="list_location_s.Add(\"Saisi\")";
+_list_location_s.Add((Object)("Saisi"));
+ //BA.debugLineNum = 1325;BA.debugLine="list_location_s.Add(\"Paloypoy\")";
+_list_location_s.Add((Object)("Paloypoy"));
+ //BA.debugLineNum = 1326;BA.debugLine="list_location_s.Add(\"Tigue\")";
+_list_location_s.Add((Object)("Tigue"));
+ }else if(_position==7) { 
+ //BA.debugLineNum = 1328;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1329;BA.debugLine="list_location_s.Add(\"Tonggo\")";
+_list_location_s.Add((Object)("Tonggo"));
+ //BA.debugLineNum = 1330;BA.debugLine="list_location_s.Add(\"Iling iling\")";
+_list_location_s.Add((Object)("Iling iling"));
+ //BA.debugLineNum = 1331;BA.debugLine="list_location_s.Add(\"Campayas\")";
+_list_location_s.Add((Object)("Campayas"));
+ //BA.debugLineNum = 1332;BA.debugLine="list_location_s.Add(\"Palayan\")";
+_list_location_s.Add((Object)("Palayan"));
+ //BA.debugLineNum = 1333;BA.debugLine="list_location_s.Add(\"Guia\")";
+_list_location_s.Add((Object)("Guia"));
+ //BA.debugLineNum = 1334;BA.debugLine="list_location_s.Add(\"An-an\")";
+_list_location_s.Add((Object)("An-an"));
+ //BA.debugLineNum = 1335;BA.debugLine="list_location_s.Add(\"An-an 2\")";
+_list_location_s.Add((Object)("An-an 2"));
+ //BA.debugLineNum = 1336;BA.debugLine="list_location_s.Add(\"Sta. rita\")";
+_list_location_s.Add((Object)("Sta. rita"));
+ //BA.debugLineNum = 1337;BA.debugLine="list_location_s.Add(\"Benedicto\")";
+_list_location_s.Add((Object)("Benedicto"));
+ //BA.debugLineNum = 1338;BA.debugLine="list_location_s.Add(\"Sta. cruz/ bunggol\")";
+_list_location_s.Add((Object)("Sta. cruz/ bunggol"));
+ //BA.debugLineNum = 1339;BA.debugLine="list_location_s.Add(\"Olalia\")";
+_list_location_s.Add((Object)("Olalia"));
+ //BA.debugLineNum = 1340;BA.debugLine="list_location_s.Add(\"Banuyo\")";
+_list_location_s.Add((Object)("Banuyo"));
+ //BA.debugLineNum = 1341;BA.debugLine="list_location_s.Add(\"Carmen\")";
+_list_location_s.Add((Object)("Carmen"));
+ //BA.debugLineNum = 1342;BA.debugLine="list_location_s.Add(\"Riverside\")";
+_list_location_s.Add((Object)("Riverside"));
+ }else if(_position==8) { 
+ //BA.debugLineNum = 1344;BA.debugLine="list_location_s.Add(\"Balangga-an\")";
+_list_location_s.Add((Object)("Balangga-an"));
+ //BA.debugLineNum = 1345;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1346;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1347;BA.debugLine="list_location_s.Add(\"Ruiz\")";
+_list_location_s.Add((Object)("Ruiz"));
+ //BA.debugLineNum = 1348;BA.debugLine="list_location_s.Add(\"Bakyas\")";
+_list_location_s.Add((Object)("Bakyas"));
+ }else if(_position==9) { 
+ //BA.debugLineNum = 1350;BA.debugLine="list_location_s.Add(\"Cunalom\")";
+_list_location_s.Add((Object)("Cunalom"));
+ //BA.debugLineNum = 1351;BA.debugLine="list_location_s.Add(\"Tara\")";
+_list_location_s.Add((Object)("Tara"));
+ //BA.debugLineNum = 1352;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1353;BA.debugLine="list_location_s.Add(\"Casipungan\")";
+_list_location_s.Add((Object)("Casipungan"));
+ //BA.debugLineNum = 1354;BA.debugLine="list_location_s.Add(\"Carmen\")";
+_list_location_s.Add((Object)("Carmen"));
+ //BA.debugLineNum = 1355;BA.debugLine="list_location_s.Add(\"Lanipga\")";
+_list_location_s.Add((Object)("Lanipga"));
+ //BA.debugLineNum = 1356;BA.debugLine="list_location_s.Add(\"Bulod\")";
+_list_location_s.Add((Object)("Bulod"));
+ //BA.debugLineNum = 1357;BA.debugLine="list_location_s.Add(\"Bonton\")";
+_list_location_s.Add((Object)("Bonton"));
+ //BA.debugLineNum = 1358;BA.debugLine="list_location_s.Add(\"Poblador\")";
+_list_location_s.Add((Object)("Poblador"));
+ }else if(_position==10) { 
+ //BA.debugLineNum = 1360;BA.debugLine="list_location_s.Add(\"Ruiz\")";
+_list_location_s.Add((Object)("Ruiz"));
+ //BA.debugLineNum = 1361;BA.debugLine="list_location_s.Add(\"Balisong\")";
+_list_location_s.Add((Object)("Balisong"));
+ //BA.debugLineNum = 1362;BA.debugLine="list_location_s.Add(\"Purok 1\")";
+_list_location_s.Add((Object)("Purok 1"));
+ //BA.debugLineNum = 1363;BA.debugLine="list_location_s.Add(\"Purok 2\")";
+_list_location_s.Add((Object)("Purok 2"));
+ //BA.debugLineNum = 1364;BA.debugLine="list_location_s.Add(\"Purok 3\")";
+_list_location_s.Add((Object)("Purok 3"));
+ //BA.debugLineNum = 1365;BA.debugLine="list_location_s.Add(\"Purok 4\")";
+_list_location_s.Add((Object)("Purok 4"));
+ //BA.debugLineNum = 1366;BA.debugLine="list_location_s.Add(\"Dubdub\")";
+_list_location_s.Add((Object)("Dubdub"));
+ //BA.debugLineNum = 1367;BA.debugLine="list_location_s.Add(\"Hda. San jose valing\")";
+_list_location_s.Add((Object)("Hda. San jose valing"));
+ }else if(_position==11) { 
+ //BA.debugLineNum = 1369;BA.debugLine="list_location_s.Add(\"Acapulco\")";
+_list_location_s.Add((Object)("Acapulco"));
+ //BA.debugLineNum = 1370;BA.debugLine="list_location_s.Add(\"Liki\")";
+_list_location_s.Add((Object)("Liki"));
+ //BA.debugLineNum = 1371;BA.debugLine="list_location_s.Add(\"500\")";
+_list_location_s.Add((Object)("500"));
+ //BA.debugLineNum = 1372;BA.debugLine="list_location_s.Add(\"Aglatong\")";
+_list_location_s.Add((Object)("Aglatong"));
+ //BA.debugLineNum = 1373;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1374;BA.debugLine="list_location_s.Add(\"Baptist\")";
+_list_location_s.Add((Object)("Baptist"));
+ }else if(_position==12) { 
+ //BA.debugLineNum = 1376;BA.debugLine="list_location_s.Add(\"Lizares\")";
+_list_location_s.Add((Object)("Lizares"));
+ //BA.debugLineNum = 1377;BA.debugLine="list_location_s.Add(\"Pakol\")";
+_list_location_s.Add((Object)("Pakol"));
+ //BA.debugLineNum = 1378;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1379;BA.debugLine="list_location_s.Add(\"Lanete\")";
+_list_location_s.Add((Object)("Lanete"));
+ //BA.debugLineNum = 1380;BA.debugLine="list_location_s.Add(\"Kasoy\")";
+_list_location_s.Add((Object)("Kasoy"));
+ //BA.debugLineNum = 1381;BA.debugLine="list_location_s.Add(\"Bato\")";
+_list_location_s.Add((Object)("Bato"));
+ //BA.debugLineNum = 1382;BA.debugLine="list_location_s.Add(\"Frande\")";
+_list_location_s.Add((Object)("Frande"));
+ //BA.debugLineNum = 1383;BA.debugLine="list_location_s.Add(\"Bajay\")";
+_list_location_s.Add((Object)("Bajay"));
+ //BA.debugLineNum = 1384;BA.debugLine="list_location_s.Add(\"Poblador\")";
+_list_location_s.Add((Object)("Poblador"));
+ //BA.debugLineNum = 1385;BA.debugLine="list_location_s.Add(\"Culban\")";
+_list_location_s.Add((Object)("Culban"));
+ //BA.debugLineNum = 1386;BA.debugLine="list_location_s.Add(\"Calansi\")";
+_list_location_s.Add((Object)("Calansi"));
+ //BA.debugLineNum = 1387;BA.debugLine="list_location_s.Add(\"Carmen\")";
+_list_location_s.Add((Object)("Carmen"));
+ //BA.debugLineNum = 1388;BA.debugLine="list_location_s.Add(\"Dama\")";
+_list_location_s.Add((Object)("Dama"));
+ }else if(_position==13) { 
+ //BA.debugLineNum = 1390;BA.debugLine="list_location_s.Add(\"Purok 1\")";
+_list_location_s.Add((Object)("Purok 1"));
+ //BA.debugLineNum = 1391;BA.debugLine="list_location_s.Add(\"Purok 2\")";
+_list_location_s.Add((Object)("Purok 2"));
+ //BA.debugLineNum = 1392;BA.debugLine="list_location_s.Add(\"Purok 3\")";
+_list_location_s.Add((Object)("Purok 3"));
+ //BA.debugLineNum = 1393;BA.debugLine="list_location_s.Add(\"Purok 4\")";
+_list_location_s.Add((Object)("Purok 4"));
+ //BA.debugLineNum = 1394;BA.debugLine="list_location_s.Add(\"Purok 5\")";
+_list_location_s.Add((Object)("Purok 5"));
+ //BA.debugLineNum = 1395;BA.debugLine="list_location_s.Add(\"Purok 6\")";
+_list_location_s.Add((Object)("Purok 6"));
+ }else if(_position==14) { 
+ //BA.debugLineNum = 1397;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1398;BA.debugLine="list_location_s.Add(\"Calubihan\")";
+_list_location_s.Add((Object)("Calubihan"));
+ //BA.debugLineNum = 1399;BA.debugLine="list_location_s.Add(\"Mapulang duta\")";
+_list_location_s.Add((Object)("Mapulang duta"));
+ //BA.debugLineNum = 1400;BA.debugLine="list_location_s.Add(\"Abud\")";
+_list_location_s.Add((Object)("Abud"));
+ //BA.debugLineNum = 1401;BA.debugLine="list_location_s.Add(\"Molo\")";
+_list_location_s.Add((Object)("Molo"));
+ //BA.debugLineNum = 1402;BA.debugLine="list_location_s.Add(\"Balabag\")";
+_list_location_s.Add((Object)("Balabag"));
+ //BA.debugLineNum = 1403;BA.debugLine="list_location_s.Add(\"Pandan\")";
+_list_location_s.Add((Object)("Pandan"));
+ //BA.debugLineNum = 1404;BA.debugLine="list_location_s.Add(\"Nahulop\")";
+_list_location_s.Add((Object)("Nahulop"));
+ //BA.debugLineNum = 1405;BA.debugLine="list_location_s.Add(\"Cubay\")";
+_list_location_s.Add((Object)("Cubay"));
+ //BA.debugLineNum = 1406;BA.debugLine="list_location_s.Add(\"Aglaoa\")";
+_list_location_s.Add((Object)("Aglaoa"));
+ }else if(_position==15) { 
+ //BA.debugLineNum = 1408;BA.debugLine="list_location_s.Add(\"Purok 1\")";
+_list_location_s.Add((Object)("Purok 1"));
+ //BA.debugLineNum = 1409;BA.debugLine="list_location_s.Add(\"Purok 2\")";
+_list_location_s.Add((Object)("Purok 2"));
+ //BA.debugLineNum = 1410;BA.debugLine="list_location_s.Add(\"Purok 3\")";
+_list_location_s.Add((Object)("Purok 3"));
+ //BA.debugLineNum = 1411;BA.debugLine="list_location_s.Add(\"Purok 4\")";
+_list_location_s.Add((Object)("Purok 4"));
+ }else if(_position==16) { 
+ //BA.debugLineNum = 1413;BA.debugLine="list_location_s.Add(\"ORS\")";
+_list_location_s.Add((Object)("ORS"));
+ //BA.debugLineNum = 1414;BA.debugLine="list_location_s.Add(\"Aloe vera\")";
+_list_location_s.Add((Object)("Aloe vera"));
+ //BA.debugLineNum = 1415;BA.debugLine="list_location_s.Add(\"SCAD\")";
+_list_location_s.Add((Object)("SCAD"));
+ //BA.debugLineNum = 1416;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1417;BA.debugLine="list_location_s.Add(\"Sampaguita\")";
+_list_location_s.Add((Object)("Sampaguita"));
+ //BA.debugLineNum = 1418;BA.debugLine="list_location_s.Add(\"Bonguinvilla\")";
+_list_location_s.Add((Object)("Bonguinvilla"));
+ //BA.debugLineNum = 1419;BA.debugLine="list_location_s.Add(\"Cagay\")";
+_list_location_s.Add((Object)("Cagay"));
+ //BA.debugLineNum = 1420;BA.debugLine="list_location_s.Add(\"Naga\")";
+_list_location_s.Add((Object)("Naga"));
+ }else if(_position==17) { 
+ //BA.debugLineNum = 1422;BA.debugLine="list_location_s.Add(\"Hda. Naval\")";
+_list_location_s.Add((Object)("Hda. Naval"));
+ //BA.debugLineNum = 1423;BA.debugLine="list_location_s.Add(\"Antipolo\")";
+_list_location_s.Add((Object)("Antipolo"));
+ //BA.debugLineNum = 1424;BA.debugLine="list_location_s.Add(\"Rizal st.\")";
+_list_location_s.Add((Object)("Rizal st."));
+ //BA.debugLineNum = 1425;BA.debugLine="list_location_s.Add(\"Punta talaban\")";
+_list_location_s.Add((Object)("Punta talaban"));
+ //BA.debugLineNum = 1426;BA.debugLine="list_location_s.Add(\"Batang guwaan\")";
+_list_location_s.Add((Object)("Batang guwaan"));
+ //BA.debugLineNum = 1427;BA.debugLine="list_location_s.Add(\"Batang sulod\")";
+_list_location_s.Add((Object)("Batang sulod"));
+ //BA.debugLineNum = 1428;BA.debugLine="list_location_s.Add(\"Mabini st.\")";
+_list_location_s.Add((Object)("Mabini st."));
+ //BA.debugLineNum = 1429;BA.debugLine="list_location_s.Add(\"Cubay\")";
+_list_location_s.Add((Object)("Cubay"));
+ //BA.debugLineNum = 1430;BA.debugLine="list_location_s.Add(\"Hacienda silos\")";
+_list_location_s.Add((Object)("Hacienda silos"));
+ //BA.debugLineNum = 1431;BA.debugLine="list_location_s.Add(\"Lopez jeana 1\")";
+_list_location_s.Add((Object)("Lopez jeana 1"));
+ //BA.debugLineNum = 1432;BA.debugLine="list_location_s.Add(\"Lopez jeana 2\")";
+_list_location_s.Add((Object)("Lopez jeana 2"));
+ }else if(_position==18) { 
+ //BA.debugLineNum = 1434;BA.debugLine="list_location_s.Add(\"Ilawod\")";
+_list_location_s.Add((Object)("Ilawod"));
+ //BA.debugLineNum = 1435;BA.debugLine="list_location_s.Add(\"Buhian\")";
+_list_location_s.Add((Object)("Buhian"));
+ //BA.debugLineNum = 1436;BA.debugLine="list_location_s.Add(\"Proper\")";
+_list_location_s.Add((Object)("Proper"));
+ //BA.debugLineNum = 1437;BA.debugLine="list_location_s.Add(\"Mambato\")";
+_list_location_s.Add((Object)("Mambato"));
+ };
+ //BA.debugLineNum = 1440;BA.debugLine="brgy_index = Position";
+_brgy_index = _position;
+ //BA.debugLineNum = 1441;BA.debugLine="location_spin_street.AddAll(list_location_s)";
+mostCurrent._location_spin_street.AddAll(_list_location_s);
+ //BA.debugLineNum = 1444;BA.debugLine="End Sub";
+return "";
+}
+public static String  _location_spin_street_itemclick(int _position,Object _value) throws Exception{
+ //BA.debugLineNum = 1445;BA.debugLine="Sub location_spin_street_ItemClick (Position As In";
+ //BA.debugLineNum = 1446;BA.debugLine="street_index = Position";
+_street_index = _position;
+ //BA.debugLineNum = 1447;BA.debugLine="street_lat_lng";
+_street_lat_lng();
+ //BA.debugLineNum = 1448;BA.debugLine="End Sub";
+return "";
+}
+public static String  _pnl_bday_body_click() throws Exception{
+ //BA.debugLineNum = 561;BA.debugLine="Sub pnl_bday_body_click";
+ //BA.debugLineNum = 563;BA.debugLine="End Sub";
+return "";
+}
+public static String  _pnl_blood_body_click() throws Exception{
+ //BA.debugLineNum = 606;BA.debugLine="Sub pnl_blood_body_click";
+ //BA.debugLineNum = 608;BA.debugLine="End Sub";
+return "";
+}
+public static String  _pnl_body_click() throws Exception{
+ //BA.debugLineNum = 686;BA.debugLine="Sub pnl_body_click";
+ //BA.debugLineNum = 688;BA.debugLine="End Sub";
+return "";
+}
+public static String  _pnl_donated_body_click() throws Exception{
+ //BA.debugLineNum = 492;BA.debugLine="Sub pnl_donated_body_click";
+ //BA.debugLineNum = 494;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 6;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 10;BA.debugLine="End Sub";
+ //BA.debugLineNum = 9;BA.debugLine="Dim list_all_info As List";
+_list_all_info = new anywheresoftware.b4a.objects.collections.List();
+ //BA.debugLineNum = 10;BA.debugLine="Dim list_bloodgroup As List";
+_list_bloodgroup = new anywheresoftware.b4a.objects.collections.List();
+ //BA.debugLineNum = 11;BA.debugLine="Dim list_donated As List";
+_list_donated = new anywheresoftware.b4a.objects.collections.List();
+ //BA.debugLineNum = 12;BA.debugLine="Dim list_day,list_month,list_year As List";
+_list_day = new anywheresoftware.b4a.objects.collections.List();
+_list_month = new anywheresoftware.b4a.objects.collections.List();
+_list_year = new anywheresoftware.b4a.objects.collections.List();
+ //BA.debugLineNum = 13;BA.debugLine="Dim users_string_login As String";
+_users_string_login = "";
+ //BA.debugLineNum = 15;BA.debugLine="Dim blood_selected As String : blood_selected = \"";
+_blood_selected = "";
+ //BA.debugLineNum = 15;BA.debugLine="Dim blood_selected As String : blood_selected = \"";
+_blood_selected = "A";
+ //BA.debugLineNum = 16;BA.debugLine="Dim bday_day_selected As String : bday_day_select";
+_bday_day_selected = "";
+ //BA.debugLineNum = 16;BA.debugLine="Dim bday_day_selected As String : bday_day_select";
+_bday_day_selected = "1";
+ //BA.debugLineNum = 17;BA.debugLine="Dim bday_month_selected As String : bday_month_se";
+_bday_month_selected = "";
+ //BA.debugLineNum = 17;BA.debugLine="Dim bday_month_selected As String : bday_month_se";
+_bday_month_selected = "1";
+ //BA.debugLineNum = 18;BA.debugLine="Dim bday_year_selected As String : bday_year_sele";
+_bday_year_selected = "";
+ //BA.debugLineNum = 18;BA.debugLine="Dim bday_year_selected As String : bday_year_sele";
+_bday_year_selected = "2017";
+ //BA.debugLineNum = 19;BA.debugLine="Dim location_brgy_selected As String : location_b";
+_location_brgy_selected = "";
+ //BA.debugLineNum = 19;BA.debugLine="Dim location_brgy_selected As String : location_b";
+_location_brgy_selected = "Brgy 1";
+ //BA.debugLineNum = 20;BA.debugLine="Dim location_street_selected As String : location";
+_location_street_selected = "";
+ //BA.debugLineNum = 20;BA.debugLine="Dim location_street_selected As String : location";
+_location_street_selected = "Rizal St.";
+ //BA.debugLineNum = 21;BA.debugLine="Dim is_donated As String : is_donated = \"Yes\"";
+_is_donated = "";
+ //BA.debugLineNum = 21;BA.debugLine="Dim is_donated As String : is_donated = \"Yes\"";
+_is_donated = "Yes";
+ //BA.debugLineNum = 22;BA.debugLine="Dim lat As String : lat = \"10.098014\"";
+_lat = "";
+ //BA.debugLineNum = 22;BA.debugLine="Dim lat As String : lat = \"10.098014\"";
+_lat = "10.098014";
+ //BA.debugLineNum = 23;BA.debugLine="Dim lng As String : lng = \"122.869168\"";
+_lng = "";
+ //BA.debugLineNum = 23;BA.debugLine="Dim lng As String : lng = \"122.869168\"";
+_lng = "122.869168";
+ //BA.debugLineNum = 24;BA.debugLine="Dim brgy_index As Int : brgy_index = 0";
+_brgy_index = 0;
+ //BA.debugLineNum = 24;BA.debugLine="Dim brgy_index As Int : brgy_index = 0";
+_brgy_index = (int) (0);
+ //BA.debugLineNum = 25;BA.debugLine="Dim street_index As Int : street_index = 0";
+_street_index = 0;
+ //BA.debugLineNum = 25;BA.debugLine="Dim street_index As Int : street_index = 0";
+_street_index = (int) (0);
+ //BA.debugLineNum = 26;BA.debugLine="Dim list_location_b,list_location_s,list_location";
+_list_location_b = new anywheresoftware.b4a.objects.collections.List();
+_list_location_s = new anywheresoftware.b4a.objects.collections.List();
+_list_location_p = new anywheresoftware.b4a.objects.collections.List();
+ //BA.debugLineNum = 27;BA.debugLine="End Sub";
 return "";
 }
 public static String  _profile_click() throws Exception{
- //BA.debugLineNum = 184;BA.debugLine="Sub profile_Click";
- //BA.debugLineNum = 186;BA.debugLine="End Sub";
+anywheresoftware.b4a.objects.streams.File.TextWriterWrapper _textwriters = null;
+b4a.example.calculations _url_back = null;
+String _all_users_info = "";
+ //BA.debugLineNum = 240;BA.debugLine="Sub profile_Click";
+ //BA.debugLineNum = 241;BA.debugLine="ProgressDialogShow2(\"Please Wait..\",False)";
+anywheresoftware.b4a.keywords.Common.ProgressDialogShow2(mostCurrent.activityBA,"Please Wait..",anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 242;BA.debugLine="Dim TextWriters As TextWriter";
+_textwriters = new anywheresoftware.b4a.objects.streams.File.TextWriterWrapper();
+ //BA.debugLineNum = 243;BA.debugLine="TextWriters.Initialize(File.OpenOutput(File.DirIn";
+_textwriters.Initialize((java.io.OutputStream)(anywheresoftware.b4a.keywords.Common.File.OpenOutput(anywheresoftware.b4a.keywords.Common.File.getDirInternalCache(),"users_all_info.txt",anywheresoftware.b4a.keywords.Common.False).getObject()));
+ //BA.debugLineNum = 245;BA.debugLine="Dim url_back As calculations";
+_url_back = new b4a.example.calculations();
+ //BA.debugLineNum = 246;BA.debugLine="url_back.Initialize";
+_url_back._initialize(processBA);
+ //BA.debugLineNum = 247;BA.debugLine="Dim all_users_info As String";
+_all_users_info = "";
+ //BA.debugLineNum = 249;BA.debugLine="all_info_query.Initialize(\"all_info_query\",Me)";
+mostCurrent._all_info_query._initialize(processBA,"all_info_query",menu_form.getObject());
+ //BA.debugLineNum = 250;BA.debugLine="all_users_info = url_back.php_email_url(\"/bloodli";
+_all_users_info = _url_back._php_email_url("/bloodlifePHP/search_all_users_data.php");
+ //BA.debugLineNum = 251;BA.debugLine="all_info_query.Download2(all_users_info,Array As";
+mostCurrent._all_info_query._download2(_all_users_info,new String[]{"all_info","SELECT * FROM `bloodlife_db`.`person_info` where `id`='"+mostCurrent._login_form._id_query+"';"});
+ //BA.debugLineNum = 253;BA.debugLine="scroll_profile_pnl.Initialize(90%y)";
+mostCurrent._scroll_profile_pnl.Initialize(mostCurrent.activityBA,anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (90),mostCurrent.activityBA));
+ //BA.debugLineNum = 254;BA.debugLine="profile_panel.Initialize(\"profile_panel\")";
+mostCurrent._profile_panel.Initialize(mostCurrent.activityBA,"profile_panel");
+ //BA.debugLineNum = 255;BA.debugLine="scroll_profile_pnl.Panel.LoadLayout(\"update_all";
+mostCurrent._scroll_profile_pnl.getPanel().LoadLayout("update_all_inputs",mostCurrent.activityBA);
+ //BA.debugLineNum = 256;BA.debugLine="scroll_profile_pnl.Color = Colors.Transparent";
+mostCurrent._scroll_profile_pnl.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
+ //BA.debugLineNum = 257;BA.debugLine="all_inputs.SetBackgroundImage(LoadBitmap(File.Di";
+mostCurrent._all_inputs.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"modal_bg.png").getObject()));
+ //BA.debugLineNum = 259;BA.debugLine="lab_fullname.SetBackgroundImage(LoadBitmap(File.";
+mostCurrent._lab_fullname.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-4-user.png").getObject()));
+ //BA.debugLineNum = 260;BA.debugLine="lab_bloodgroup.SetBackgroundImage(LoadBitmap(Fil";
+mostCurrent._lab_bloodgroup.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-93-tint.png").getObject()));
+ //BA.debugLineNum = 261;BA.debugLine="lab_email.SetBackgroundImage(LoadBitmap(File.Dir";
+mostCurrent._lab_email.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-social-40-e-mail.png").getObject()));
+ //BA.debugLineNum = 262;BA.debugLine="lab_phonenumber.SetBackgroundImage(LoadBitmap(Fi";
+mostCurrent._lab_phonenumber.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-354-nameplate-alt1.png").getObject()));
+ //BA.debugLineNum = 263;BA.debugLine="lab_phonenumber2.SetBackgroundImage(LoadBitmap(F";
+mostCurrent._lab_phonenumber2.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-354-nameplate-alt2.png").getObject()));
+ //BA.debugLineNum = 264;BA.debugLine="lab_location.SetBackgroundImage(LoadBitmap(File.";
+mostCurrent._lab_location.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-21-home.png").getObject()));
+ //BA.debugLineNum = 265;BA.debugLine="lab_question.SetBackgroundImage(LoadBitmap(File.";
+mostCurrent._lab_question.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-353-nameplate.png").getObject()));
+ //BA.debugLineNum = 266;BA.debugLine="lab_donate_confirm.SetBackgroundImage(LoadBitmap";
+mostCurrent._lab_donate_confirm.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-152-new-window.png").getObject()));
+ //BA.debugLineNum = 267;BA.debugLine="lab_bday.SetBackgroundImage(LoadBitmap(File.DirA";
+mostCurrent._lab_bday.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-46-calendar.png").getObject()));
+ //BA.debugLineNum = 270;BA.debugLine="all_inputs.Width = scroll_profile_pnl.Panel.Widt";
+mostCurrent._all_inputs.setWidth(mostCurrent._scroll_profile_pnl.getPanel().getWidth());
+ //BA.debugLineNum = 271;BA.debugLine="all_inputs.Height = scroll_profile_pnl.Panel.Hei";
+mostCurrent._all_inputs.setHeight(mostCurrent._scroll_profile_pnl.getPanel().getHeight());
+ //BA.debugLineNum = 275;BA.debugLine="Activity.AddView(scroll_profile_pnl,5%x,3%y,90%x";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._scroll_profile_pnl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (90),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (90),mostCurrent.activityBA));
+ //BA.debugLineNum = 277;BA.debugLine="End Sub";
+return "";
+}
+public static String  _profiled_click() throws Exception{
+anywheresoftware.b4a.objects.LabelWrapper _title = null;
+anywheresoftware.b4a.objects.EditTextWrapper _fulln = null;
+anywheresoftware.b4a.objects.LabelWrapper _blood_sel = null;
+anywheresoftware.b4a.objects.EditTextWrapper _email = null;
+anywheresoftware.b4a.objects.EditTextWrapper _phone1 = null;
+anywheresoftware.b4a.objects.EditTextWrapper _phone2 = null;
+anywheresoftware.b4a.objects.LabelWrapper _location = null;
+anywheresoftware.b4a.objects.LabelWrapper _bday = null;
+anywheresoftware.b4a.objects.EditTextWrapper _nickn = null;
+anywheresoftware.b4a.objects.LabelWrapper _isdonated = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_fulln = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_blood_sel = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_email = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_phone1 = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_phone2 = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_location = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_bday = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_nickn = null;
+anywheresoftware.b4a.objects.ImageViewWrapper _img_isdonated = null;
+ //BA.debugLineNum = 332;BA.debugLine="Sub profiled_Click";
+ //BA.debugLineNum = 334;BA.debugLine="profile_panel.Initialize(\"profile_panel\")";
+mostCurrent._profile_panel.Initialize(mostCurrent.activityBA,"profile_panel");
+ //BA.debugLineNum = 336;BA.debugLine="profile_panel.SetBackgroundImage(LoadBitmap(File";
+mostCurrent._profile_panel.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"modal_bg.png").getObject()));
+ //BA.debugLineNum = 337;BA.debugLine="Dim title As Label : title.Initialize(\"\")";
+_title = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 337;BA.debugLine="Dim title As Label : title.Initialize(\"\")";
+_title.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 338;BA.debugLine="Dim fullN As EditText : fullN.Initialize(\"\")";
+_fulln = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 338;BA.debugLine="Dim fullN As EditText : fullN.Initialize(\"\")";
+_fulln.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 339;BA.debugLine="Dim blood_sel As Label : blood_sel.Initialize(\"\"";
+_blood_sel = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 339;BA.debugLine="Dim blood_sel As Label : blood_sel.Initialize(\"\"";
+_blood_sel.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 340;BA.debugLine="Dim email As EditText : email.Initialize(\"\")";
+_email = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 340;BA.debugLine="Dim email As EditText : email.Initialize(\"\")";
+_email.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 341;BA.debugLine="Dim phone1 As EditText : phone1.Initialize(\"\")";
+_phone1 = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 341;BA.debugLine="Dim phone1 As EditText : phone1.Initialize(\"\")";
+_phone1.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 342;BA.debugLine="Dim phone2 As EditText : phone2.Initialize(\"\")";
+_phone2 = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 342;BA.debugLine="Dim phone2 As EditText : phone2.Initialize(\"\")";
+_phone2.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 343;BA.debugLine="Dim location As Label : location.Initialize(\"\")";
+_location = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 343;BA.debugLine="Dim location As Label : location.Initialize(\"\")";
+_location.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 344;BA.debugLine="Dim bday As Label : bday.Initialize(\"\")";
+_bday = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 344;BA.debugLine="Dim bday As Label : bday.Initialize(\"\")";
+_bday.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 345;BA.debugLine="Dim nickN As EditText : nickN.Initialize(\"\")";
+_nickn = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 345;BA.debugLine="Dim nickN As EditText : nickN.Initialize(\"\")";
+_nickn.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 346;BA.debugLine="Dim isDonated As Label : isDonated.Initialize(\"\"";
+_isdonated = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 346;BA.debugLine="Dim isDonated As Label : isDonated.Initialize(\"\"";
+_isdonated.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 347;BA.debugLine="Dim img_fullN As ImageView : img_fullN.Initiali";
+_img_fulln = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 347;BA.debugLine="Dim img_fullN As ImageView : img_fullN.Initiali";
+_img_fulln.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 348;BA.debugLine="Dim img_blood_sel As ImageView : img_blood_sel.";
+_img_blood_sel = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 348;BA.debugLine="Dim img_blood_sel As ImageView : img_blood_sel.";
+_img_blood_sel.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 349;BA.debugLine="Dim img_email As ImageView : img_email.Initiali";
+_img_email = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 349;BA.debugLine="Dim img_email As ImageView : img_email.Initiali";
+_img_email.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 350;BA.debugLine="Dim img_phone1 As ImageView : img_phone1.Initia";
+_img_phone1 = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 350;BA.debugLine="Dim img_phone1 As ImageView : img_phone1.Initia";
+_img_phone1.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 351;BA.debugLine="Dim img_phone2 As ImageView : img_phone2.Initia";
+_img_phone2 = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 351;BA.debugLine="Dim img_phone2 As ImageView : img_phone2.Initia";
+_img_phone2.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 352;BA.debugLine="Dim img_location As ImageView : img_location.In";
+_img_location = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 352;BA.debugLine="Dim img_location As ImageView : img_location.In";
+_img_location.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 353;BA.debugLine="Dim img_bday As ImageView : img_bday.Initialize";
+_img_bday = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 353;BA.debugLine="Dim img_bday As ImageView : img_bday.Initialize";
+_img_bday.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 354;BA.debugLine="Dim img_nickN As ImageView : img_nickN.Initiali";
+_img_nickn = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 354;BA.debugLine="Dim img_nickN As ImageView : img_nickN.Initiali";
+_img_nickn.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 355;BA.debugLine="Dim img_isDonated As ImageView : img_isDonated.";
+_img_isdonated = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 355;BA.debugLine="Dim img_isDonated As ImageView : img_isDonated.";
+_img_isdonated.Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 356;BA.debugLine="title.Text = \"My Information\" '' titte";
+_title.setText((Object)("My Information"));
+ //BA.debugLineNum = 357;BA.debugLine="title.Gravity = Gravity.CENTER";
+_title.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
+ //BA.debugLineNum = 358;BA.debugLine="title.TextSize = 20 '''-------";
+_title.setTextSize((float) (20));
+ //BA.debugLineNum = 360;BA.debugLine="blood_sel.Text = \"A\"";
+_blood_sel.setText((Object)("A"));
+ //BA.debugLineNum = 361;BA.debugLine="bday.Text = \"may/13/1993\"";
+_bday.setText((Object)("may/13/1993"));
+ //BA.debugLineNum = 362;BA.debugLine="location.Text = \"hinigaran neg occ\"";
+_location.setText((Object)("hinigaran neg occ"));
+ //BA.debugLineNum = 363;BA.debugLine="img_fullN.SetBackgroundImage(LoadBitmap(File.Di";
+_img_fulln.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-4-user.png").getObject()));
+ //BA.debugLineNum = 364;BA.debugLine="img_blood_sel.SetBackgroundImage(LoadBitmap(Fil";
+_img_blood_sel.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-93-tint.png").getObject()));
+ //BA.debugLineNum = 365;BA.debugLine="img_email.SetBackgroundImage(LoadBitmap(File.Di";
+_img_email.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-social-40-e-mail.png").getObject()));
+ //BA.debugLineNum = 366;BA.debugLine="img_phone1.SetBackgroundImage(LoadBitmap(File.D";
+_img_phone1.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-354-nameplate-alt1.png").getObject()));
+ //BA.debugLineNum = 367;BA.debugLine="img_phone2.SetBackgroundImage(LoadBitmap(File.D";
+_img_phone2.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-354-nameplate-alt2.png").getObject()));
+ //BA.debugLineNum = 368;BA.debugLine="img_location.SetBackgroundImage(LoadBitmap(File";
+_img_location.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-21-home.png").getObject()));
+ //BA.debugLineNum = 369;BA.debugLine="img_bday.SetBackgroundImage(LoadBitmap(File.Dir";
+_img_bday.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-40-notes.png").getObject()));
+ //BA.debugLineNum = 370;BA.debugLine="img_nickN.SetBackgroundImage(LoadBitmap(File.Di";
+_img_nickn.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-265-vcard.png").getObject()));
+ //BA.debugLineNum = 371;BA.debugLine="img_isDonated.SetBackgroundImage(LoadBitmap(Fil";
+_img_isdonated.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"glyphicons-91-eyedropper.png").getObject()));
+ //BA.debugLineNum = 374;BA.debugLine="profile_panel.AddView(title,0,1%y,90%x,8%y) '";
+mostCurrent._profile_panel.AddView((android.view.View)(_title.getObject()),(int) (0),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (1),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (90),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 375;BA.debugLine="profile_panel.AddView(img_fullN,5%x, title.Top+t";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_fulln.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_title.getTop()+_title.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 376;BA.debugLine="profile_panel.AddView(fullN, img_fullN.Left+img_";
+mostCurrent._profile_panel.AddView((android.view.View)(_fulln.getObject()),(int) (_img_fulln.getLeft()+_img_fulln.getWidth()),(int) (_title.getTop()+_title.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 378;BA.debugLine="profile_panel.AddView(img_blood_sel,5%x,fullN.To";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_blood_sel.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_fulln.getTop()+_fulln.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 379;BA.debugLine="profile_panel.AddView(blood_sel,img_blood_sel.Le";
+mostCurrent._profile_panel.AddView((android.view.View)(_blood_sel.getObject()),(int) (_img_blood_sel.getLeft()+_img_blood_sel.getWidth()),_img_blood_sel.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 381;BA.debugLine="profile_panel.AddView(img_email,5%x,img_blood_se";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_email.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_img_blood_sel.getTop()+_img_blood_sel.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 382;BA.debugLine="profile_panel.AddView(email,img_email.Left+img_e";
+mostCurrent._profile_panel.AddView((android.view.View)(_email.getObject()),(int) (_img_email.getLeft()+_img_email.getWidth()),_img_email.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 384;BA.debugLine="profile_panel.AddView(img_phone1,5%x,img_email.T";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_phone1.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_img_email.getTop()+_img_email.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 385;BA.debugLine="profile_panel.AddView(phone1,img_phone1.Left+img";
+mostCurrent._profile_panel.AddView((android.view.View)(_phone1.getObject()),(int) (_img_phone1.getLeft()+_img_phone1.getWidth()),_img_phone1.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 387;BA.debugLine="profile_panel.AddView(img_phone2,5%x,img_phone1.";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_phone2.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_img_phone1.getTop()+_img_phone1.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 388;BA.debugLine="profile_panel.AddView(phone2,img_phone2.Left+img";
+mostCurrent._profile_panel.AddView((android.view.View)(_phone2.getObject()),(int) (_img_phone2.getLeft()+_img_phone2.getWidth()),_img_phone2.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 390;BA.debugLine="profile_panel.AddView(img_location,5%x,img_phone";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_location.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_img_phone2.getTop()+_img_phone2.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 391;BA.debugLine="profile_panel.AddView(location,img_location.Left";
+mostCurrent._profile_panel.AddView((android.view.View)(_location.getObject()),(int) (_img_location.getLeft()+_img_location.getWidth()),_img_location.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 393;BA.debugLine="profile_panel.AddView(img_bday,5%x,img_location.";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_bday.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_img_location.getTop()+_img_location.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 394;BA.debugLine="profile_panel.AddView(bday,img_bday.Left+img_bda";
+mostCurrent._profile_panel.AddView((android.view.View)(_bday.getObject()),(int) (_img_bday.getLeft()+_img_bday.getWidth()),_img_bday.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 396;BA.debugLine="profile_panel.AddView(img_nickN,5%x,img_bday.Top";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_nickn.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_img_bday.getTop()+_img_bday.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 397;BA.debugLine="profile_panel.AddView(nickN,img_nickN.Left+img_n";
+mostCurrent._profile_panel.AddView((android.view.View)(_nickn.getObject()),(int) (_img_nickn.getLeft()+_img_nickn.getWidth()),_img_nickn.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 399;BA.debugLine="profile_panel.AddView(img_isDonated,5%x,img_nick";
+mostCurrent._profile_panel.AddView((android.view.View)(_img_isdonated.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),(int) (_img_nickn.getTop()+_img_nickn.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (10),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
+ //BA.debugLineNum = 400;BA.debugLine="profile_panel.AddView(isDonated,img_isDonated.Le";
+mostCurrent._profile_panel.AddView((android.view.View)(_isdonated.getObject()),(int) (_img_isdonated.getLeft()+_img_isdonated.getWidth()),_img_isdonated.getTop(),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (8),mostCurrent.activityBA));
+ //BA.debugLineNum = 403;BA.debugLine="scroll_profile_pnl.Panel.AddView(profile_panel,0";
+mostCurrent._scroll_profile_pnl.getPanel().AddView((android.view.View)(mostCurrent._profile_panel.getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (90),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (90),mostCurrent.activityBA));
+ //BA.debugLineNum = 404;BA.debugLine="Activity.AddView(scroll_profile_pnl,5%x,3%y,90%x";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._scroll_profile_pnl.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (5),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (90),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (90),mostCurrent.activityBA));
+ //BA.debugLineNum = 406;BA.debugLine="End Sub";
 return "";
 }
 public static String  _search_blood_click() throws Exception{
- //BA.debugLineNum = 181;BA.debugLine="Sub search_blood_Click";
- //BA.debugLineNum = 182;BA.debugLine="StartActivity(\"search_frame\")";
+ //BA.debugLineNum = 237;BA.debugLine="Sub search_blood_Click";
+ //BA.debugLineNum = 238;BA.debugLine="StartActivity(\"search_frame\")";
 anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("search_frame"));
- //BA.debugLineNum = 183;BA.debugLine="End Sub";
+ //BA.debugLineNum = 239;BA.debugLine="End Sub";
+return "";
+}
+public static String  _spin_bloodgroup_itemclick(int _position,Object _value) throws Exception{
+ //BA.debugLineNum = 609;BA.debugLine="Sub spin_bloodgroup_ItemClick (Position As Int, Va";
+ //BA.debugLineNum = 610;BA.debugLine="blood_selected = Value";
+_blood_selected = BA.ObjectToString(_value);
+ //BA.debugLineNum = 611;BA.debugLine="End Sub";
+return "";
+}
+public static String  _spin_day_itemclick(int _position,Object _value) throws Exception{
+ //BA.debugLineNum = 541;BA.debugLine="Sub spin_day_ItemClick (Position As Int, Value As";
+ //BA.debugLineNum = 542;BA.debugLine="bday_day_selected = Value";
+_bday_day_selected = BA.ObjectToString(_value);
+ //BA.debugLineNum = 543;BA.debugLine="Log(\"day: \"&Value)";
+anywheresoftware.b4a.keywords.Common.Log("day: "+BA.ObjectToString(_value));
+ //BA.debugLineNum = 544;BA.debugLine="End Sub";
+return "";
+}
+public static String  _spin_donated_itemclick(int _position,Object _value) throws Exception{
+ //BA.debugLineNum = 482;BA.debugLine="Sub spin_donated_ItemClick (Position As Int, Value";
+ //BA.debugLineNum = 483;BA.debugLine="is_donated = Value";
+_is_donated = BA.ObjectToString(_value);
+ //BA.debugLineNum = 484;BA.debugLine="End Sub";
+return "";
+}
+public static String  _spin_month_itemclick(int _position,Object _value) throws Exception{
+ //BA.debugLineNum = 545;BA.debugLine="Sub spin_month_ItemClick (Position As Int, Value A";
+ //BA.debugLineNum = 546;BA.debugLine="bday_month_selected = Value";
+_bday_month_selected = BA.ObjectToString(_value);
+ //BA.debugLineNum = 547;BA.debugLine="Log(\"month: \"&Value)";
+anywheresoftware.b4a.keywords.Common.Log("month: "+BA.ObjectToString(_value));
+ //BA.debugLineNum = 548;BA.debugLine="End Sub";
+return "";
+}
+public static String  _spin_year_itemclick(int _position,Object _value) throws Exception{
+ //BA.debugLineNum = 549;BA.debugLine="Sub spin_year_ItemClick (Position As Int, Value As";
+ //BA.debugLineNum = 550;BA.debugLine="bday_year_selected =  Value";
+_bday_year_selected = BA.ObjectToString(_value);
+ //BA.debugLineNum = 551;BA.debugLine="Log(\"year: \"&Value)";
+anywheresoftware.b4a.keywords.Common.Log("year: "+BA.ObjectToString(_value));
+ //BA.debugLineNum = 552;BA.debugLine="End Sub";
+return "";
+}
+public static String  _street_lat_lng() throws Exception{
+ //BA.debugLineNum = 693;BA.debugLine="Sub street_lat_lng";
+ //BA.debugLineNum = 694;BA.debugLine="If brgy_index == 0 And street_index == 0 Then";
+if (_brgy_index==0 && _street_index==0) { 
+ //BA.debugLineNum = 695;BA.debugLine="lat = \"10.098014\"";
+_lat = "10.098014";
+ //BA.debugLineNum = 696;BA.debugLine="lng = \"122.869168\"";
+_lng = "122.869168";
+ }else if(_brgy_index==0 && _street_index==1) { 
+ //BA.debugLineNum = 698;BA.debugLine="lat = \"10.097226\"";
+_lat = "10.097226";
+ //BA.debugLineNum = 699;BA.debugLine="lng = \"122.870659\"";
+_lng = "122.870659";
+ }else if(_brgy_index==0 && _street_index==2) { 
+ //BA.debugLineNum = 701;BA.debugLine="lat = \"10.097711\"";
+_lat = "10.097711";
+ //BA.debugLineNum = 702;BA.debugLine="lng = \"122.868378\"";
+_lng = "122.868378";
+ }else if(_brgy_index==0 && _street_index==3) { 
+ //BA.debugLineNum = 704;BA.debugLine="lat = \"10.098293\"";
+_lat = "10.098293";
+ //BA.debugLineNum = 705;BA.debugLine="lng = \"122.868977\"";
+_lng = "122.868977";
+ }else if(_brgy_index==0 && _street_index==4) { 
+ //BA.debugLineNum = 707;BA.debugLine="lat = \"10.097031\"";
+_lat = "10.097031";
+ //BA.debugLineNum = 708;BA.debugLine="lng = \"122.868764\"";
+_lng = "122.868764";
+ }else if(_brgy_index==0 && _street_index==5) { 
+ //BA.debugLineNum = 710;BA.debugLine="lat = \"10.096021\"";
+_lat = "10.096021";
+ //BA.debugLineNum = 711;BA.debugLine="lng = \"122.869737\"";
+_lng = "122.869737";
+ }else if(_brgy_index==0 && _street_index==6) { 
+ //BA.debugLineNum = 713;BA.debugLine="lat = \"10.095142\"";
+_lat = "10.095142";
+ //BA.debugLineNum = 714;BA.debugLine="lng = \"122.868317\"";
+_lng = "122.868317";
+ }else if(_brgy_index==0 && _street_index==7) { 
+ //BA.debugLineNum = 716;BA.debugLine="lat = \"10.095303\"";
+_lat = "10.095303";
+ //BA.debugLineNum = 717;BA.debugLine="lng = \"122.869509\"";
+_lng = "122.869509";
+ };
+ //BA.debugLineNum = 720;BA.debugLine="If brgy_index == 1 And street_index == 0 Then 'br";
+if (_brgy_index==1 && _street_index==0) { 
+ //BA.debugLineNum = 721;BA.debugLine="lat = \"10.101356\"";
+_lat = "10.101356";
+ //BA.debugLineNum = 722;BA.debugLine="lng = \"122.870075\"";
+_lng = "122.870075";
+ }else if(_brgy_index==1 && _street_index==1) { 
+ //BA.debugLineNum = 724;BA.debugLine="lat = \"10.100583\"";
+_lat = "10.100583";
+ //BA.debugLineNum = 725;BA.debugLine="lng = \"122.870176\"";
+_lng = "122.870176";
+ }else if(_brgy_index==1 && _street_index==2) { 
+ //BA.debugLineNum = 727;BA.debugLine="lat = \"10.100031\"";
+_lat = "10.100031";
+ //BA.debugLineNum = 728;BA.debugLine="lng = \"122.870623\"";
+_lng = "122.870623";
+ }else if(_brgy_index==1 && _street_index==3) { 
+ //BA.debugLineNum = 730;BA.debugLine="lat = \"10.101327\"";
+_lat = "10.101327";
+ //BA.debugLineNum = 731;BA.debugLine="lng = \"122.871177\"";
+_lng = "122.871177";
+ }else if(_brgy_index==1 && _street_index==4) { 
+ //BA.debugLineNum = 733;BA.debugLine="lat = \"10.103330\"";
+_lat = "10.103330";
+ //BA.debugLineNum = 734;BA.debugLine="lng = \"122.871391\"";
+_lng = "122.871391";
+ }else if(_brgy_index==1 && _street_index==5) { 
+ //BA.debugLineNum = 736;BA.debugLine="lat = \"10.102317\"";
+_lat = "10.102317";
+ //BA.debugLineNum = 737;BA.debugLine="lng = \"122.870755\"";
+_lng = "122.870755";
+ }else if(_brgy_index==1 && _street_index==6) { 
+ //BA.debugLineNum = 739;BA.debugLine="lat = \"10.104250\"";
+_lat = "10.104250";
+ //BA.debugLineNum = 740;BA.debugLine="lng = \"122.882834\"";
+_lng = "122.882834";
+ }else if(_brgy_index==1 && _street_index==7) { 
+ //BA.debugLineNum = 742;BA.debugLine="lat = \"10.104943\"";
+_lat = "10.104943";
+ //BA.debugLineNum = 743;BA.debugLine="lng = \"122.885207\"";
+_lng = "122.885207";
+ }else if(_brgy_index==1 && _street_index==8) { 
+ //BA.debugLineNum = 745;BA.debugLine="lat = \"10.101843\"";
+_lat = "10.101843";
+ //BA.debugLineNum = 746;BA.debugLine="lng = \"122.871020\"";
+_lng = "122.871020";
+ }else if(_brgy_index==1 && _street_index==9) { 
+ //BA.debugLineNum = 748;BA.debugLine="lat = \"10.103477\"";
+_lat = "10.103477";
+ //BA.debugLineNum = 749;BA.debugLine="lng = \"122.870042\"";
+_lng = "122.870042";
+ }else if(_brgy_index==1 && _street_index==10) { 
+ //BA.debugLineNum = 751;BA.debugLine="lat = \"10.100710\"";
+_lat = "10.100710";
+ //BA.debugLineNum = 752;BA.debugLine="lng = \"122.870889\"";
+_lng = "122.870889";
+ };
+ //BA.debugLineNum = 755;BA.debugLine="If brgy_index == 2 And street_index == 0 Then 'br";
+if (_brgy_index==2 && _street_index==0) { 
+ //BA.debugLineNum = 756;BA.debugLine="lat = \"10.095478\"";
+_lat = "10.095478";
+ //BA.debugLineNum = 757;BA.debugLine="lng = \"122.871176\"";
+_lng = "122.871176";
+ }else if(_brgy_index==2 && _street_index==1) { 
+ //BA.debugLineNum = 759;BA.debugLine="lat = \"10.098599\"";
+_lat = "10.098599";
+ //BA.debugLineNum = 760;BA.debugLine="lng = \"122.871761\"";
+_lng = "122.871761";
+ }else if(_brgy_index==2 && _street_index==2) { 
+ //BA.debugLineNum = 762;BA.debugLine="lat = \"10.094573\"";
+_lat = "10.094573";
+ //BA.debugLineNum = 763;BA.debugLine="lng = \"122.870340\"";
+_lng = "122.870340";
+ }else if(_brgy_index==2 && _street_index==3) { 
+ //BA.debugLineNum = 765;BA.debugLine="lat = \"10.098313\"";
+_lat = "10.098313";
+ //BA.debugLineNum = 766;BA.debugLine="lng = \"122.875223\"";
+_lng = "122.875223";
+ }else if(_brgy_index==2 && _street_index==4) { 
+ //BA.debugLineNum = 768;BA.debugLine="lat = \"10.092235\"";
+_lat = "10.092235";
+ //BA.debugLineNum = 769;BA.debugLine="lng = \"122.874356\"";
+_lng = "122.874356";
+ }else if(_brgy_index==2 && _street_index==5) { 
+ //BA.debugLineNum = 771;BA.debugLine="lat = \"10.103982\"";
+_lat = "10.103982";
+ //BA.debugLineNum = 772;BA.debugLine="lng = \"122.885996\"";
+_lng = "122.885996";
+ }else if(_brgy_index==2 && _street_index==6) { 
+ //BA.debugLineNum = 774;BA.debugLine="lat = \"10.102170\"";
+_lat = "10.102170";
+ //BA.debugLineNum = 775;BA.debugLine="lng = \"122.882390\"";
+_lng = "122.882390";
+ }else if(_brgy_index==2 && _street_index==7) { 
+ //BA.debugLineNum = 777;BA.debugLine="lat = \"10.103272\"";
+_lat = "10.103272";
+ //BA.debugLineNum = 778;BA.debugLine="lng = \"122.883948\"";
+_lng = "122.883948";
+ }else if(_brgy_index==2 && _street_index==8) { 
+ //BA.debugLineNum = 780;BA.debugLine="lat = \"10.103849\"";
+_lat = "10.103849";
+ //BA.debugLineNum = 781;BA.debugLine="lng = \"122.884602\"";
+_lng = "122.884602";
+ }else if(_brgy_index==2 && _street_index==9) { 
+ //BA.debugLineNum = 783;BA.debugLine="lat = \"10.101033\"";
+_lat = "10.101033";
+ //BA.debugLineNum = 784;BA.debugLine="lng = \"122.874480\"";
+_lng = "122.874480";
+ };
+ //BA.debugLineNum = 787;BA.debugLine="If brgy_index == 3 And street_index == 0 Then 'b";
+if (_brgy_index==3 && _street_index==0) { 
+ //BA.debugLineNum = 788;BA.debugLine="lat = \"10.121855\"";
+_lat = "10.121855";
+ //BA.debugLineNum = 789;BA.debugLine="lng = \"122.872266\"";
+_lng = "122.872266";
+ }else if(_brgy_index==3 && _street_index==1) { 
+ //BA.debugLineNum = 791;BA.debugLine="lat = \"10.116699\"";
+_lat = "10.116699";
+ //BA.debugLineNum = 792;BA.debugLine="lng = \"122.871783\"";
+_lng = "122.871783";
+ }else if(_brgy_index==3 && _street_index==2) { 
+ //BA.debugLineNum = 794;BA.debugLine="lat = \"10.116024\"";
+_lat = "10.116024";
+ //BA.debugLineNum = 795;BA.debugLine="lng = \"122.872477\"";
+_lng = "122.872477";
+ }else if(_brgy_index==3 && _street_index==3) { 
+ //BA.debugLineNum = 797;BA.debugLine="lat = \"10.114588\"";
+_lat = "10.114588";
+ //BA.debugLineNum = 798;BA.debugLine="lng = \"122.872515\"";
+_lng = "122.872515";
+ }else if(_brgy_index==3 && _street_index==4) { 
+ //BA.debugLineNum = 800;BA.debugLine="lat = \"10.112140\"";
+_lat = "10.112140";
+ //BA.debugLineNum = 801;BA.debugLine="lng = \"122.872161\"";
+_lng = "122.872161";
+ }else if(_brgy_index==3 && _street_index==5) { 
+ //BA.debugLineNum = 803;BA.debugLine="lat = \"10.111531\"";
+_lat = "10.111531";
+ //BA.debugLineNum = 804;BA.debugLine="lng = \"122.871542\"";
+_lng = "122.871542";
+ }else if(_brgy_index==3 && _street_index==6) { 
+ //BA.debugLineNum = 806;BA.debugLine="lat = \"10.107168\"";
+_lat = "10.107168";
+ //BA.debugLineNum = 807;BA.debugLine="lng = \"122.871766\"";
+_lng = "122.871766";
+ }else if(_brgy_index==3 && _street_index==7) { 
+ //BA.debugLineNum = 809;BA.debugLine="lat = \"10.106570\"";
+_lat = "10.106570";
+ //BA.debugLineNum = 810;BA.debugLine="lng = \"122.875197\"";
+_lng = "122.875197";
+ }else if(_brgy_index==3 && _street_index==8) { 
+ //BA.debugLineNum = 812;BA.debugLine="lat = \"10.105759\"";
+_lat = "10.105759";
+ //BA.debugLineNum = 813;BA.debugLine="lng = \"122.871537\"";
+_lng = "122.871537";
+ };
+ //BA.debugLineNum = 816;BA.debugLine="If brgy_index == 4 And street_index == 0 Then 'A";
+if (_brgy_index==4 && _street_index==0) { 
+ //BA.debugLineNum = 817;BA.debugLine="lat = \"10.165214\"";
+_lat = "10.165214";
+ //BA.debugLineNum = 818;BA.debugLine="lng = \"122.865433\"";
+_lng = "122.865433";
+ }else if(_brgy_index==4 && _street_index==1) { 
+ //BA.debugLineNum = 820;BA.debugLine="lat = \"10.154170\"";
+_lat = "10.154170";
+ //BA.debugLineNum = 821;BA.debugLine="lng = \"122.867255\"";
+_lng = "122.867255";
+ }else if(_brgy_index==4 && _street_index==2) { 
+ //BA.debugLineNum = 823;BA.debugLine="lat = \"10.161405\"";
+_lat = "10.161405";
+ //BA.debugLineNum = 824;BA.debugLine="lng = \"122.862692\"";
+_lng = "122.862692";
+ }else if(_brgy_index==4 && _street_index==3) { 
+ //BA.debugLineNum = 826;BA.debugLine="lat = \"10.168471\"";
+_lat = "10.168471";
+ //BA.debugLineNum = 827;BA.debugLine="lng = \"122.860955\"";
+_lng = "122.860955";
+ }else if(_brgy_index==4 && _street_index==4) { 
+ //BA.debugLineNum = 829;BA.debugLine="lat = \"10.172481\"";
+_lat = "10.172481";
+ //BA.debugLineNum = 830;BA.debugLine="lng = \"122.858629\"";
+_lng = "122.858629";
+ }else if(_brgy_index==4 && _street_index==5) { 
+ //BA.debugLineNum = 832;BA.debugLine="lat = \"10.166561\"";
+_lat = "10.166561";
+ //BA.debugLineNum = 833;BA.debugLine="lng = \"122.859428\"";
+_lng = "122.859428";
+ }else if(_brgy_index==4 && _street_index==6) { 
+ //BA.debugLineNum = 835;BA.debugLine="lat = \"10.163510\"";
+_lat = "10.163510";
+ //BA.debugLineNum = 836;BA.debugLine="lng = \"122.860074\"";
+_lng = "122.860074";
+ }else if(_brgy_index==4 && _street_index==7) { 
+ //BA.debugLineNum = 838;BA.debugLine="lat = \"10.161033\"";
+_lat = "10.161033";
+ //BA.debugLineNum = 839;BA.debugLine="lng = \"122.859773\"";
+_lng = "122.859773";
+ }else if(_brgy_index==4 && _street_index==8) { 
+ //BA.debugLineNum = 841;BA.debugLine="lat = \"10.159280\"";
+_lat = "10.159280";
+ //BA.debugLineNum = 842;BA.debugLine="lng = \"122.861621\"";
+_lng = "122.861621";
+ }else if(_brgy_index==4 && _street_index==9) { 
+ //BA.debugLineNum = 844;BA.debugLine="lat = \"10.159062\"";
+_lat = "10.159062";
+ //BA.debugLineNum = 845;BA.debugLine="lng = \"122.860209\"";
+_lng = "122.860209";
+ }else if(_brgy_index==4 && _street_index==10) { 
+ //BA.debugLineNum = 847;BA.debugLine="lat = \"10.181112\"";
+_lat = "10.181112";
+ //BA.debugLineNum = 848;BA.debugLine="lng = \"122.864670\"";
+_lng = "122.864670";
+ }else if(_brgy_index==4 && _street_index==11) { 
+ //BA.debugLineNum = 850;BA.debugLine="lat = \"10.167295\"";
+_lat = "10.167295";
+ //BA.debugLineNum = 851;BA.debugLine="lng = \"122.857858\"";
+_lng = "122.857858";
+ };
+ //BA.debugLineNum = 854;BA.debugLine="If brgy_index == 5 And street_index == 0 Then 'ca";
+if (_brgy_index==5 && _street_index==0) { 
+ //BA.debugLineNum = 855;BA.debugLine="lat = \"10.092993\"";
+_lat = "10.092993";
+ //BA.debugLineNum = 856;BA.debugLine="lng = \"122.861694\"";
+_lng = "122.861694";
+ }else if(_brgy_index==5 && _street_index==1) { 
+ //BA.debugLineNum = 858;BA.debugLine="lat = \"10.090587\"";
+_lat = "10.090587";
+ //BA.debugLineNum = 859;BA.debugLine="lng = \"122.868414\"";
+_lng = "122.868414";
+ }else if(_brgy_index==5 && _street_index==2) { 
+ //BA.debugLineNum = 861;BA.debugLine="lat = \"10.091551\"";
+_lat = "10.091551";
+ //BA.debugLineNum = 862;BA.debugLine="lng = \"122.869249\"";
+_lng = "122.869249";
+ }else if(_brgy_index==5 && _street_index==3) { 
+ //BA.debugLineNum = 864;BA.debugLine="lat = \"10.086452\"";
+_lat = "10.086452";
+ //BA.debugLineNum = 865;BA.debugLine="lng = \"122.865742\"";
+_lng = "122.865742";
+ }else if(_brgy_index==5 && _street_index==4) { 
+ //BA.debugLineNum = 867;BA.debugLine="lat = \"10.083507\"";
+_lat = "10.083507";
+ //BA.debugLineNum = 868;BA.debugLine="lng = \"122.858928\"";
+_lng = "122.858928";
+ }else if(_brgy_index==5 && _street_index==5) { 
+ //BA.debugLineNum = 870;BA.debugLine="lat = \"10.077131\"";
+_lat = "10.077131";
+ //BA.debugLineNum = 871;BA.debugLine="lng = \"122.864236\"";
+_lng = "122.864236";
+ }else if(_brgy_index==5 && _street_index==6) { 
+ //BA.debugLineNum = 873;BA.debugLine="lat = \"10.081722\"";
+_lat = "10.081722";
+ //BA.debugLineNum = 874;BA.debugLine="lng = \"122.882661\"";
+_lng = "122.882661";
+ }else if(_brgy_index==5 && _street_index==7) { 
+ //BA.debugLineNum = 876;BA.debugLine="lat = \"10.081822\"";
+_lat = "10.081822";
+ //BA.debugLineNum = 877;BA.debugLine="lng = \"122.868295\"";
+_lng = "122.868295";
+ }else if(_brgy_index==5 && _street_index==8) { 
+ //BA.debugLineNum = 879;BA.debugLine="lat = \"10.079513\"";
+_lat = "10.079513";
+ //BA.debugLineNum = 880;BA.debugLine="lng = \"122.876610\"";
+_lng = "122.876610";
+ }else if(_brgy_index==5 && _street_index==9) { 
+ //BA.debugLineNum = 882;BA.debugLine="lat = \"10.068560\"";
+_lat = "10.068560";
+ //BA.debugLineNum = 883;BA.debugLine="lng = \"122.887366\"";
+_lng = "122.887366";
+ }else if(_brgy_index==5 && _street_index==10) { 
+ //BA.debugLineNum = 885;BA.debugLine="lat = \"10.066934\"";
+_lat = "10.066934";
+ //BA.debugLineNum = 886;BA.debugLine="lng = \"122.871963\"";
+_lng = "122.871963";
+ }else if(_brgy_index==5 && _street_index==11) { 
+ //BA.debugLineNum = 888;BA.debugLine="lat = \"10.064251\"";
+_lat = "10.064251";
+ //BA.debugLineNum = 889;BA.debugLine="lng = \"122.883023\"";
+_lng = "122.883023";
+ }else if(_brgy_index==5 && _street_index==12) { 
+ //BA.debugLineNum = 891;BA.debugLine="lat = \"10.058546\"";
+_lat = "10.058546";
+ //BA.debugLineNum = 892;BA.debugLine="lng = \"122.882968\"";
+_lng = "122.882968";
+ }else if(_brgy_index==5 && _street_index==13) { 
+ //BA.debugLineNum = 894;BA.debugLine="lat = \"10.054104\"";
+_lat = "10.054104";
+ //BA.debugLineNum = 895;BA.debugLine="lng = \"122.885506\"";
+_lng = "122.885506";
+ }else if(_brgy_index==5 && _street_index==14) { 
+ //BA.debugLineNum = 897;BA.debugLine="lat = \"10.049464\"";
+_lat = "10.049464";
+ //BA.debugLineNum = 898;BA.debugLine="lng = \"122.885667\"";
+_lng = "122.885667";
+ }else if(_brgy_index==5 && _street_index==15) { 
+ //BA.debugLineNum = 900;BA.debugLine="lat = \"10.041580\"";
+_lat = "10.041580";
+ //BA.debugLineNum = 901;BA.debugLine="lng = \"122.900269\"";
+_lng = "122.900269";
+ }else if(_brgy_index==5 && _street_index==16) { 
+ //BA.debugLineNum = 903;BA.debugLine="lat = \"10.041395\"";
+_lat = "10.041395";
+ //BA.debugLineNum = 904;BA.debugLine="lng = \"122.906248\"";
+_lng = "122.906248";
+ };
+ //BA.debugLineNum = 907;BA.debugLine="If brgy_index == 6 And street_index == 0 Then 'Bu";
+if (_brgy_index==6 && _street_index==0) { 
+ //BA.debugLineNum = 908;BA.debugLine="lat = \"10.035728\"";
+_lat = "10.035728";
+ //BA.debugLineNum = 909;BA.debugLine="lng = \"122.847547\"";
+_lng = "122.847547";
+ }else if(_brgy_index==6 && _street_index==1) { 
+ //BA.debugLineNum = 911;BA.debugLine="lat = \"10.000603\"";
+_lat = "10.000603";
+ //BA.debugLineNum = 912;BA.debugLine="lng = \"122.885243\"";
+_lng = "122.885243";
+ }else if(_brgy_index==6 && _street_index==2) { 
+ //BA.debugLineNum = 914;BA.debugLine="lat = \"10.000521\"";
+_lat = "10.000521";
+ //BA.debugLineNum = 915;BA.debugLine="lng = \"122.895867\"";
+_lng = "122.895867";
+ }else if(_brgy_index==6 && _street_index==3) { 
+ //BA.debugLineNum = 917;BA.debugLine="lat = \"9.943276\"";
+_lat = "9.943276";
+ //BA.debugLineNum = 918;BA.debugLine="lng = \"122.975801\"";
+_lng = "122.975801";
+ };
+ //BA.debugLineNum = 921;BA.debugLine="If brgy_index == 7 And street_index == 0 Then '";
+if (_brgy_index==7 && _street_index==0) { 
+ //BA.debugLineNum = 922;BA.debugLine="lat = \"10.156301\"";
+_lat = "10.156301";
+ //BA.debugLineNum = 923;BA.debugLine="lng = \"122.941207\"";
+_lng = "122.941207";
+ }else if(_brgy_index==7 && _street_index==1) { 
+ //BA.debugLineNum = 925;BA.debugLine="lat = \"10.142692\"";
+_lat = "10.142692";
+ //BA.debugLineNum = 926;BA.debugLine="lng = \"122.947560\"";
+_lng = "122.947560";
+ }else if(_brgy_index==7 && _street_index==2) { 
+ //BA.debugLineNum = 928;BA.debugLine="lat = \"10.139494\"";
+_lat = "10.139494";
+ //BA.debugLineNum = 929;BA.debugLine="lng = \"122.942788\"";
+_lng = "122.942788";
+ }else if(_brgy_index==7 && _street_index==3) { 
+ //BA.debugLineNum = 931;BA.debugLine="lat = \"10.110265\"";
+_lat = "10.110265";
+ //BA.debugLineNum = 932;BA.debugLine="lng = \"122.947908\"";
+_lng = "122.947908";
+ }else if(_brgy_index==7 && _street_index==4) { 
+ //BA.debugLineNum = 934;BA.debugLine="lat = \"10.127828\"";
+_lat = "10.127828";
+ //BA.debugLineNum = 935;BA.debugLine="lng = \"122.950197\"";
+_lng = "122.950197";
+ }else if(_brgy_index==7 && _street_index==5) { 
+ //BA.debugLineNum = 937;BA.debugLine="lat = \"10.125287\"";
+_lat = "10.125287";
+ //BA.debugLineNum = 938;BA.debugLine="lng = \"122.945735\"";
+_lng = "122.945735";
+ }else if(_brgy_index==7 && _street_index==6) { 
+ //BA.debugLineNum = 940;BA.debugLine="lat = \"10.143975\"";
+_lat = "10.143975";
+ //BA.debugLineNum = 941;BA.debugLine="lng = \"122.930610\"";
+_lng = "122.930610";
+ }else if(_brgy_index==7 && _street_index==7) { 
+ //BA.debugLineNum = 943;BA.debugLine="lat = \"10.137563\"";
+_lat = "10.137563";
+ //BA.debugLineNum = 944;BA.debugLine="lng = \"122.939870\"";
+_lng = "122.939870";
+ }else if(_brgy_index==7 && _street_index==8) { 
+ //BA.debugLineNum = 946;BA.debugLine="lat = \"10.150449\"";
+_lat = "10.150449";
+ //BA.debugLineNum = 947;BA.debugLine="lng = \"122.933761\"";
+_lng = "122.933761";
+ }else if(_brgy_index==7 && _street_index==9) { 
+ //BA.debugLineNum = 949;BA.debugLine="lat = \"10.150286\"";
+_lat = "10.150286";
+ //BA.debugLineNum = 950;BA.debugLine="lng = \"122.948956\"";
+_lng = "122.948956";
+ }else if(_brgy_index==7 && _street_index==10) { 
+ //BA.debugLineNum = 952;BA.debugLine="lat = \"10.148481\"";
+_lat = "10.148481";
+ //BA.debugLineNum = 953;BA.debugLine="lng = \"122.943230\"";
+_lng = "122.943230";
+ }else if(_brgy_index==7 && _street_index==11) { 
+ //BA.debugLineNum = 955;BA.debugLine="lat = \"10.106200\"";
+_lat = "10.106200";
+ //BA.debugLineNum = 956;BA.debugLine="lng = \"122.948051\"";
+_lng = "122.948051";
+ }else if(_brgy_index==7 && _street_index==12) { 
+ //BA.debugLineNum = 958;BA.debugLine="lat = \"10.152073\"";
+_lat = "10.152073";
+ //BA.debugLineNum = 959;BA.debugLine="lng = \"122.926593\"";
+_lng = "122.926593";
+ }else if(_brgy_index==7 && _street_index==13) { 
+ //BA.debugLineNum = 961;BA.debugLine="lat = \"10.120798\"";
+_lat = "10.120798";
+ //BA.debugLineNum = 962;BA.debugLine="lng = \"122.938371\"";
+_lng = "122.938371";
+ }else if(_brgy_index==7 && _street_index==14) { 
+ //BA.debugLineNum = 964;BA.debugLine="lat = \"10.153217\"";
+_lat = "10.153217";
+ //BA.debugLineNum = 965;BA.debugLine="lng = \"122.951714\"";
+_lng = "122.951714";
+ };
+ //BA.debugLineNum = 968;BA.debugLine="If brgy_index == 8 And street_index == 0 Then";
+if (_brgy_index==8 && _street_index==0) { 
+ //BA.debugLineNum = 969;BA.debugLine="lat = \"10.157177\"";
+_lat = "10.157177";
+ //BA.debugLineNum = 970;BA.debugLine="lng = \"122.895986\"";
+_lng = "122.895986";
+ }else if(_brgy_index==8 && _street_index==1) { 
+ //BA.debugLineNum = 972;BA.debugLine="lat = \"10.180004\"";
+_lat = "10.180004";
+ //BA.debugLineNum = 973;BA.debugLine="lng = \"122.897999\"";
+_lng = "122.897999";
+ }else if(_brgy_index==8 && _street_index==2) { 
+ //BA.debugLineNum = 975;BA.debugLine="lat = \"10.192848\"";
+_lat = "10.192848";
+ //BA.debugLineNum = 976;BA.debugLine="lng = \"122.900234\"";
+_lng = "122.900234";
+ }else if(_brgy_index==8 && _street_index==3) { 
+ //BA.debugLineNum = 978;BA.debugLine="lat = \"10.179993\"";
+_lat = "10.179993";
+ //BA.debugLineNum = 979;BA.debugLine="lng = \"122.904299\"";
+_lng = "122.904299";
+ }else if(_brgy_index==8 && _street_index==4) { 
+ //BA.debugLineNum = 981;BA.debugLine="lat = \"10.183439\"";
+_lat = "10.183439";
+ //BA.debugLineNum = 982;BA.debugLine="lng = \"122.889622\"";
+_lng = "122.889622";
+ };
+ //BA.debugLineNum = 985;BA.debugLine="If brgy_index == 9 And street_index == 0 Then 'Ca";
+if (_brgy_index==9 && _street_index==0) { 
+ //BA.debugLineNum = 986;BA.debugLine="lat = \"10.074128\"";
+_lat = "10.074128";
+ //BA.debugLineNum = 987;BA.debugLine="lng = \"122.981978\"";
+_lng = "122.981978";
+ }else if(_brgy_index==9 && _street_index==1) { 
+ //BA.debugLineNum = 989;BA.debugLine="lat = \"10.109208\"";
+_lat = "10.109208";
+ //BA.debugLineNum = 990;BA.debugLine="lng = \"122.896717\"";
+_lng = "122.896717";
+ }else if(_brgy_index==9 && _street_index==2) { 
+ //BA.debugLineNum = 992;BA.debugLine="lat = \"10.097119\"";
+_lat = "10.097119";
+ //BA.debugLineNum = 993;BA.debugLine="lng = \"122.947066\"";
+_lng = "122.947066";
+ }else if(_brgy_index==9 && _street_index==3) { 
+ //BA.debugLineNum = 995;BA.debugLine="lat = \"10.099023\"";
+_lat = "10.099023";
+ //BA.debugLineNum = 996;BA.debugLine="lng = \"122.971723\"";
+_lng = "122.971723";
+ }else if(_brgy_index==9 && _street_index==4) { 
+ //BA.debugLineNum = 998;BA.debugLine="lat = \"10.119761\"";
+_lat = "10.119761";
+ //BA.debugLineNum = 999;BA.debugLine="lng = \"122.901613\"";
+_lng = "122.901613";
+ }else if(_brgy_index==9 && _street_index==5) { 
+ //BA.debugLineNum = 1001;BA.debugLine="lat = \"10.099402\"";
+_lat = "10.099402";
+ //BA.debugLineNum = 1002;BA.debugLine="lng = \"122.896454\"";
+_lng = "122.896454";
+ }else if(_brgy_index==9 && _street_index==6) { 
+ //BA.debugLineNum = 1004;BA.debugLine="lat = \"10.097102\"";
+_lat = "10.097102";
+ //BA.debugLineNum = 1005;BA.debugLine="lng = \"122.922368\"";
+_lng = "122.922368";
+ }else if(_brgy_index==9 && _street_index==7) { 
+ //BA.debugLineNum = 1007;BA.debugLine="lat = \"10.095304\"";
+_lat = "10.095304";
+ //BA.debugLineNum = 1008;BA.debugLine="lng = \"122.929242\"";
+_lng = "122.929242";
+ }else if(_brgy_index==9 && _street_index==8) { 
+ //BA.debugLineNum = 1010;BA.debugLine="lat = \"10.114128\"";
+_lat = "10.114128";
+ //BA.debugLineNum = 1011;BA.debugLine="lng = \"122.893868\"";
+_lng = "122.893868";
+ };
+ //BA.debugLineNum = 1014;BA.debugLine="If brgy_index == 10 And street_index == 0 Then 'L";
+if (_brgy_index==10 && _street_index==0) { 
+ //BA.debugLineNum = 1015;BA.debugLine="lat = \"10.1799469\"";
+_lat = "10.1799469";
+ //BA.debugLineNum = 1016;BA.debugLine="lng = \"122.9068577\"";
+_lng = "122.9068577";
+ }else if(_brgy_index==10 && _street_index==1) { 
+ //BA.debugLineNum = 1018;BA.debugLine="lat = \"10.180524\"";
+_lat = "10.180524";
+ //BA.debugLineNum = 1019;BA.debugLine="lng = \"122.906798\"";
+_lng = "122.906798";
+ }else if(_brgy_index==10 && _street_index==2) { 
+ //BA.debugLineNum = 1021;BA.debugLine="lat = \"10.173336\"";
+_lat = "10.173336";
+ //BA.debugLineNum = 1022;BA.debugLine="lng = \"122.9118842\"";
+_lng = "122.9118842";
+ }else if(_brgy_index==10 && _street_index==3) { 
+ //BA.debugLineNum = 1024;BA.debugLine="lat = \"10.177359\"";
+_lat = "10.177359";
+ //BA.debugLineNum = 1025;BA.debugLine="lng = \"122.913033\"";
+_lng = "122.913033";
+ }else if(_brgy_index==10 && _street_index==4) { 
+ //BA.debugLineNum = 1027;BA.debugLine="lat = \"10.179847\"";
+_lat = "10.179847";
+ //BA.debugLineNum = 1028;BA.debugLine="lng = \"122.914160\"";
+_lng = "122.914160";
+ }else if(_brgy_index==10 && _street_index==5) { 
+ //BA.debugLineNum = 1030;BA.debugLine="lat = \"10.182718\"";
+_lat = "10.182718";
+ //BA.debugLineNum = 1031;BA.debugLine="lng = \"122.915228\"";
+_lng = "122.915228";
+ }else if(_brgy_index==10 && _street_index==6) { 
+ //BA.debugLineNum = 1033;BA.debugLine="lat = \"10.186454\"";
+_lat = "10.186454";
+ //BA.debugLineNum = 1034;BA.debugLine="lng = \"122.916278\"";
+_lng = "122.916278";
+ }else if(_brgy_index==10 && _street_index==7) { 
+ //BA.debugLineNum = 1036;BA.debugLine="lat = \"10.168057\"";
+_lat = "10.168057";
+ //BA.debugLineNum = 1037;BA.debugLine="lng = \"122.924501\"";
+_lng = "122.924501";
+ };
+ //BA.debugLineNum = 1040;BA.debugLine="If brgy_index == 11 And street_index == 0 Then 'M";
+if (_brgy_index==11 && _street_index==0) { 
+ //BA.debugLineNum = 1041;BA.debugLine="lat = \"10.050418\"";
+_lat = "10.050418";
+ //BA.debugLineNum = 1042;BA.debugLine="lng = \"122.867097\"";
+_lng = "122.867097";
+ }else if(_brgy_index==11 && _street_index==1) { 
+ //BA.debugLineNum = 1044;BA.debugLine="lat = \"10.027855\"";
+_lat = "10.027855";
+ //BA.debugLineNum = 1045;BA.debugLine="lng = \"122.906833\"";
+_lng = "122.906833";
+ }else if(_brgy_index==11 && _street_index==2) { 
+ //BA.debugLineNum = 1047;BA.debugLine="lat = \"10.027522\"";
+_lat = "10.027522";
+ //BA.debugLineNum = 1048;BA.debugLine="lng = \"122.876637\"";
+_lng = "122.876637";
+ }else if(_brgy_index==11 && _street_index==3) { 
+ //BA.debugLineNum = 1050;BA.debugLine="lat = \"10.017254\"";
+_lat = "10.017254";
+ //BA.debugLineNum = 1051;BA.debugLine="lng = \"122.900969\"";
+_lng = "122.900969";
+ }else if(_brgy_index==11 && _street_index==4) { 
+ //BA.debugLineNum = 1053;BA.debugLine="lat = \"10.028535\"";
+_lat = "10.028535";
+ //BA.debugLineNum = 1054;BA.debugLine="lng = \"122.900364\"";
+_lng = "122.900364";
+ }else if(_brgy_index==11 && _street_index==5) { 
+ //BA.debugLineNum = 1056;BA.debugLine="lat = \"10.025485\"";
+_lat = "10.025485";
+ //BA.debugLineNum = 1057;BA.debugLine="lng = \"122.890023\"";
+_lng = "122.890023";
+ };
+ //BA.debugLineNum = 1060;BA.debugLine="If brgy_index == 12 And street_index == 0 Then 'M";
+if (_brgy_index==12 && _street_index==0) { 
+ //BA.debugLineNum = 1061;BA.debugLine="lat = \"10.137572\"";
+_lat = "10.137572";
+ //BA.debugLineNum = 1062;BA.debugLine="lng = \"122.939888\"";
+_lng = "122.939888";
+ }else if(_brgy_index==12 && _street_index==1) { 
+ //BA.debugLineNum = 1064;BA.debugLine="lat = \"10.132195\"";
+_lat = "10.132195";
+ //BA.debugLineNum = 1065;BA.debugLine="lng = \"122.899837\"";
+_lng = "122.899837";
+ }else if(_brgy_index==12 && _street_index==2) { 
+ //BA.debugLineNum = 1067;BA.debugLine="lat = \"10.123430\"";
+_lat = "10.123430";
+ //BA.debugLineNum = 1068;BA.debugLine="lng = \"122.892250\"";
+_lng = "122.892250";
+ }else if(_brgy_index==12 && _street_index==3) { 
+ //BA.debugLineNum = 1070;BA.debugLine="lat = \"10.130383\"";
+_lat = "10.130383";
+ //BA.debugLineNum = 1071;BA.debugLine="lng = \"122.893010\"";
+_lng = "122.893010";
+ }else if(_brgy_index==12 && _street_index==4) { 
+ //BA.debugLineNum = 1073;BA.debugLine="lat = \"10.123127\"";
+_lat = "10.123127";
+ //BA.debugLineNum = 1074;BA.debugLine="lng = \"122.887952\"";
+_lng = "122.887952";
+ }else if(_brgy_index==12 && _street_index==5) { 
+ //BA.debugLineNum = 1076;BA.debugLine="lat = \"10.131098\"";
+_lat = "10.131098";
+ //BA.debugLineNum = 1077;BA.debugLine="lng = \"122.879801\"";
+_lng = "122.879801";
+ }else if(_brgy_index==12 && _street_index==6) { 
+ //BA.debugLineNum = 1079;BA.debugLine="lat = \"10.137485\"";
+_lat = "10.137485";
+ //BA.debugLineNum = 1080;BA.debugLine="lng = \"122.911434\"";
+_lng = "122.911434";
+ }else if(_brgy_index==12 && _street_index==7) { 
+ //BA.debugLineNum = 1082;BA.debugLine="lat = \"10.106803\"";
+_lat = "10.106803";
+ //BA.debugLineNum = 1083;BA.debugLine="lng = \"122.885727\"";
+_lng = "122.885727";
+ }else if(_brgy_index==12 && _street_index==8) { 
+ //BA.debugLineNum = 1085;BA.debugLine="lat = \"10.115220\"";
+_lat = "10.115220";
+ //BA.debugLineNum = 1086;BA.debugLine="lng = \"122.890515\"";
+_lng = "122.890515";
+ }else if(_brgy_index==12 && _street_index==9) { 
+ //BA.debugLineNum = 1088;BA.debugLine="lat = \"10.108754\"";
+_lat = "10.108754";
+ //BA.debugLineNum = 1089;BA.debugLine="lng = \"122.894130\"";
+_lng = "122.894130";
+ }else if(_brgy_index==12 && _street_index==10) { 
+ //BA.debugLineNum = 1091;BA.debugLine="lat = \"10.149506\"";
+_lat = "10.149506";
+ //BA.debugLineNum = 1092;BA.debugLine="lng = \"122.897389\"";
+_lng = "122.897389";
+ }else if(_brgy_index==12 && _street_index==11) { 
+ //BA.debugLineNum = 1094;BA.debugLine="lat = \"10.122215\"";
+_lat = "10.122215";
+ //BA.debugLineNum = 1095;BA.debugLine="lng = \"122.892160\"";
+_lng = "122.892160";
+ }else if(_brgy_index==12 && _street_index==12) { 
+ //BA.debugLineNum = 1097;BA.debugLine="lat = \"10.142698\"";
+_lat = "10.142698";
+ //BA.debugLineNum = 1098;BA.debugLine="lng = \"122.898168\"";
+_lng = "122.898168";
+ };
+ //BA.debugLineNum = 1101;BA.debugLine="If brgy_index == 13 And street_index == 0 Then 'N";
+if (_brgy_index==13 && _street_index==0) { 
+ //BA.debugLineNum = 1102;BA.debugLine="lat = \"10.161629\"";
+_lat = "10.161629";
+ //BA.debugLineNum = 1103;BA.debugLine="lng = \"122.872772\"";
+_lng = "122.872772";
+ }else if(_brgy_index==13 && _street_index==1) { 
+ //BA.debugLineNum = 1105;BA.debugLine="lat = \"10.161863\"";
+_lat = "10.161863";
+ //BA.debugLineNum = 1106;BA.debugLine="lng = \"122.876192\"";
+_lng = "122.876192";
+ }else if(_brgy_index==13 && _street_index==2) { 
+ //BA.debugLineNum = 1108;BA.debugLine="lat = \"10.157407\"";
+_lat = "10.157407";
+ //BA.debugLineNum = 1109;BA.debugLine="lng = \"122.885663\"";
+_lng = "122.885663";
+ }else if(_brgy_index==13 && _street_index==3) { 
+ //BA.debugLineNum = 1111;BA.debugLine="lat = \"10.167497\"";
+_lat = "10.167497";
+ //BA.debugLineNum = 1112;BA.debugLine="lng = \"122.879777\"";
+_lng = "122.879777";
+ }else if(_brgy_index==13 && _street_index==4) { 
+ //BA.debugLineNum = 1114;BA.debugLine="lat = \"10.176260\"";
+_lat = "10.176260";
+ //BA.debugLineNum = 1115;BA.debugLine="lng = \"122.880815\"";
+_lng = "122.880815";
+ }else if(_brgy_index==13 && _street_index==5) { 
+ //BA.debugLineNum = 1117;BA.debugLine="lat = \"10.170524\"";
+_lat = "10.170524";
+ //BA.debugLineNum = 1118;BA.debugLine="lng = \"122.883603\"";
+_lng = "122.883603";
+ };
+ //BA.debugLineNum = 1121;BA.debugLine="If brgy_index == 14 And street_index == 0 Then 'S";
+if (_brgy_index==14 && _street_index==0) { 
+ //BA.debugLineNum = 1122;BA.debugLine="lat = \"10.071514\"";
+_lat = "10.071514";
+ //BA.debugLineNum = 1123;BA.debugLine="lng = \"122.916010\"";
+_lng = "122.916010";
+ }else if(_brgy_index==14 && _street_index==1) { 
+ //BA.debugLineNum = 1125;BA.debugLine="lat = \"10.069622\"";
+_lat = "10.069622";
+ //BA.debugLineNum = 1126;BA.debugLine="lng = \"122.909890\"";
+_lng = "122.909890";
+ }else if(_brgy_index==14 && _street_index==2) { 
+ //BA.debugLineNum = 1128;BA.debugLine="lat = \"10.076890\"";
+_lat = "10.076890";
+ //BA.debugLineNum = 1129;BA.debugLine="lng = \"122.894231\"";
+_lng = "122.894231";
+ }else if(_brgy_index==14 && _street_index==3) { 
+ //BA.debugLineNum = 1131;BA.debugLine="lat = \"10.086207\"";
+_lat = "10.086207";
+ //BA.debugLineNum = 1132;BA.debugLine="lng = \"122.914044\"";
+_lng = "122.914044";
+ }else if(_brgy_index==14 && _street_index==4) { 
+ //BA.debugLineNum = 1134;BA.debugLine="lat = \"10.067393\"";
+_lat = "10.067393";
+ //BA.debugLineNum = 1135;BA.debugLine="lng = \"122.900935\"";
+_lng = "122.900935";
+ }else if(_brgy_index==14 && _street_index==5) { 
+ //BA.debugLineNum = 1137;BA.debugLine="lat = \"10.071900\"";
+_lat = "10.071900";
+ //BA.debugLineNum = 1138;BA.debugLine="lng = \"122.906250\"";
+_lng = "122.906250";
+ }else if(_brgy_index==14 && _street_index==6) { 
+ //BA.debugLineNum = 1140;BA.debugLine="lat = \"10.061702\"";
+_lat = "10.061702";
+ //BA.debugLineNum = 1141;BA.debugLine="lng = \"122.896226\"";
+_lng = "122.896226";
+ }else if(_brgy_index==14 && _street_index==7) { 
+ //BA.debugLineNum = 1143;BA.debugLine="lat = \"10.054802\"";
+_lat = "10.054802";
+ //BA.debugLineNum = 1144;BA.debugLine="lng = \"122.938688\"";
+_lng = "122.938688";
+ }else if(_brgy_index==14 && _street_index==8) { 
+ //BA.debugLineNum = 1146;BA.debugLine="lat = \"10.071827\"";
+_lat = "10.071827";
+ //BA.debugLineNum = 1147;BA.debugLine="lng = \"122.921092\"";
+_lng = "122.921092";
+ }else if(_brgy_index==14 && _street_index==9) { 
+ //BA.debugLineNum = 1149;BA.debugLine="lat = \"10.050849\"";
+_lat = "10.050849";
+ //BA.debugLineNum = 1150;BA.debugLine="lng = \"122.907632\"";
+_lng = "122.907632";
+ };
+ //BA.debugLineNum = 1153;BA.debugLine="If brgy_index == 15 And street_index == 0 Then 'S";
+if (_brgy_index==15 && _street_index==0) { 
+ //BA.debugLineNum = 1154;BA.debugLine="lat = \"10.155844\"";
+_lat = "10.155844";
+ //BA.debugLineNum = 1155;BA.debugLine="lng = \"122.861129\"";
+_lng = "122.861129";
+ }else if(_brgy_index==15 && _street_index==1) { 
+ //BA.debugLineNum = 1157;BA.debugLine="lat = \"10.152073\"";
+_lat = "10.152073";
+ //BA.debugLineNum = 1158;BA.debugLine="lng = \"122.861669\"";
+_lng = "122.861669";
+ }else if(_brgy_index==15 && _street_index==2) { 
+ //BA.debugLineNum = 1160;BA.debugLine="lat = \"10.147663\"";
+_lat = "10.147663";
+ //BA.debugLineNum = 1161;BA.debugLine="lng = \"122.862471\"";
+_lng = "122.862471";
+ }else if(_brgy_index==15 && _street_index==3) { 
+ //BA.debugLineNum = 1163;BA.debugLine="lat = \"10.144440\"";
+_lat = "10.144440";
+ //BA.debugLineNum = 1164;BA.debugLine="lng = \"122.862524\"";
+_lng = "122.862524";
+ };
+ //BA.debugLineNum = 1167;BA.debugLine="If brgy_index == 16 And street_index == 0 Then 'S";
+if (_brgy_index==16 && _street_index==0) { 
+ //BA.debugLineNum = 1168;BA.debugLine="lat = \"10.053680\"";
+_lat = "10.053680";
+ //BA.debugLineNum = 1169;BA.debugLine="lng = \"122.843876\"";
+_lng = "122.843876";
+ }else if(_brgy_index==16 && _street_index==1) { 
+ //BA.debugLineNum = 1171;BA.debugLine="lat = \"10.055961\"";
+_lat = "10.055961";
+ //BA.debugLineNum = 1172;BA.debugLine="lng = \"122.841980\"";
+_lng = "122.841980";
+ }else if(_brgy_index==16 && _street_index==2) { 
+ //BA.debugLineNum = 1174;BA.debugLine="lat = \"10.053363\"";
+_lat = "10.053363";
+ //BA.debugLineNum = 1175;BA.debugLine="lng = \"122.843295\"";
+_lng = "122.843295";
+ }else if(_brgy_index==16 && _street_index==3) { 
+ //BA.debugLineNum = 1177;BA.debugLine="lat = \"10.053032\"";
+_lat = "10.053032";
+ //BA.debugLineNum = 1178;BA.debugLine="lng = \"122.842594\"";
+_lng = "122.842594";
+ }else if(_brgy_index==16 && _street_index==4) { 
+ //BA.debugLineNum = 1180;BA.debugLine="lat = \"10.052328\"";
+_lat = "10.052328";
+ //BA.debugLineNum = 1181;BA.debugLine="lng = \"122.842835\"";
+_lng = "122.842835";
+ }else if(_brgy_index==16 && _street_index==5) { 
+ //BA.debugLineNum = 1183;BA.debugLine="lat = \"10.052573\"";
+_lat = "10.052573";
+ //BA.debugLineNum = 1184;BA.debugLine="lng = \"122.844229\"";
+_lng = "122.844229";
+ }else if(_brgy_index==16 && _street_index==6) { 
+ //BA.debugLineNum = 1186;BA.debugLine="lat = \"10.046957\"";
+_lat = "10.046957";
+ //BA.debugLineNum = 1187;BA.debugLine="lng = \"122.839610\"";
+_lng = "122.839610";
+ }else if(_brgy_index==16 && _street_index==7) { 
+ //BA.debugLineNum = 1189;BA.debugLine="lat = \"10.035813\"";
+_lat = "10.035813";
+ //BA.debugLineNum = 1190;BA.debugLine="lng = \"122.835364\"";
+_lng = "122.835364";
+ };
+ //BA.debugLineNum = 1193;BA.debugLine="If brgy_index == 17 And street_index == 0 Then 'T";
+if (_brgy_index==17 && _street_index==0) { 
+ //BA.debugLineNum = 1194;BA.debugLine="lat = \"10.148233\"";
+_lat = "10.148233";
+ //BA.debugLineNum = 1195;BA.debugLine="lng = \"122.869741\"";
+_lng = "122.869741";
+ }else if(_brgy_index==17 && _street_index==1) { 
+ //BA.debugLineNum = 1197;BA.debugLine="lat = \"10.139867\"";
+_lat = "10.139867";
+ //BA.debugLineNum = 1198;BA.debugLine="lng = \"122.869882\"";
+_lng = "122.869882";
+ }else if(_brgy_index==17 && _street_index==2) { 
+ //BA.debugLineNum = 1200;BA.debugLine="lat = \"10.126453\"";
+_lat = "10.126453";
+ //BA.debugLineNum = 1201;BA.debugLine="lng = \"122.868927\"";
+_lng = "122.868927";
+ }else if(_brgy_index==17 && _street_index==3) { 
+ //BA.debugLineNum = 1203;BA.debugLine="lat = \"10.127470\"";
+_lat = "10.127470";
+ //BA.debugLineNum = 1204;BA.debugLine="lng = \"122.862942\"";
+_lng = "122.862942";
+ }else if(_brgy_index==17 && _street_index==4) { 
+ //BA.debugLineNum = 1206;BA.debugLine="lat = \"10.117998\"";
+_lat = "10.117998";
+ //BA.debugLineNum = 1207;BA.debugLine="lng = \"122.866817\"";
+_lng = "122.866817";
+ }else if(_brgy_index==17 && _street_index==5) { 
+ //BA.debugLineNum = 1209;BA.debugLine="lat = \"10.108173\"";
+_lat = "10.108173";
+ //BA.debugLineNum = 1210;BA.debugLine="lng = \"122.864592\"";
+_lng = "122.864592";
+ }else if(_brgy_index==17 && _street_index==6) { 
+ //BA.debugLineNum = 1212;BA.debugLine="lat = \"10.126115\"";
+_lat = "10.126115";
+ //BA.debugLineNum = 1213;BA.debugLine="lng = \"122.871073\"";
+_lng = "122.871073";
+ }else if(_brgy_index==17 && _street_index==7) { 
+ //BA.debugLineNum = 1215;BA.debugLine="lat = \"10.129412\"";
+_lat = "10.129412";
+ //BA.debugLineNum = 1216;BA.debugLine="lng = \"122.869408\"";
+_lng = "122.869408";
+ }else if(_brgy_index==17 && _street_index==8) { 
+ //BA.debugLineNum = 1218;BA.debugLine="lat = \"10.134647\"";
+_lat = "10.134647";
+ //BA.debugLineNum = 1219;BA.debugLine="lng = \"122.871841\"";
+_lng = "122.871841";
+ }else if(_brgy_index==17 && _street_index==9) { 
+ //BA.debugLineNum = 1221;BA.debugLine="lat = \"10.124801\"";
+_lat = "10.124801";
+ //BA.debugLineNum = 1222;BA.debugLine="lng = \"122.868277\"";
+_lng = "122.868277";
+ }else if(_brgy_index==17 && _street_index==10) { 
+ //BA.debugLineNum = 1224;BA.debugLine="lat = \"10.124422\"";
+_lat = "10.124422";
+ //BA.debugLineNum = 1225;BA.debugLine="lng = \"122.866917\"";
+_lng = "122.866917";
+ };
+ //BA.debugLineNum = 1228;BA.debugLine="If brgy_index == 18 And street_index == 0 Then 'T";
+if (_brgy_index==18 && _street_index==0) { 
+ //BA.debugLineNum = 1229;BA.debugLine="lat = \"10.065086\"";
+_lat = "10.065086";
+ //BA.debugLineNum = 1230;BA.debugLine="lng = \"122.843793\"";
+_lng = "122.843793";
+ }else if(_brgy_index==18 && _street_index==1) { 
+ //BA.debugLineNum = 1232;BA.debugLine="lat = \"10.071356\"";
+_lat = "10.071356";
+ //BA.debugLineNum = 1233;BA.debugLine="lng = \"122.853102\"";
+_lng = "122.853102";
+ }else if(_brgy_index==18 && _street_index==2) { 
+ //BA.debugLineNum = 1235;BA.debugLine="lat = \"10.060206\"";
+_lat = "10.060206";
+ //BA.debugLineNum = 1236;BA.debugLine="lng = \"122.850172\"";
+_lng = "122.850172";
+ }else if(_brgy_index==18 && _street_index==3) { 
+ //BA.debugLineNum = 1238;BA.debugLine="lat = \"10.057640\"";
+_lat = "10.057640";
+ //BA.debugLineNum = 1239;BA.debugLine="lng = \"122.859242\"";
+_lng = "122.859242";
+ };
+ //BA.debugLineNum = 1242;BA.debugLine="Log(\"lat: \"&lat&CRLF&\"lng: \"&lng)";
+anywheresoftware.b4a.keywords.Common.Log("lat: "+_lat+anywheresoftware.b4a.keywords.Common.CRLF+"lng: "+_lng);
+ //BA.debugLineNum = 1243;BA.debugLine="End Sub";
+return "";
+}
+public static String  _update_all_inputs_click() throws Exception{
+ //BA.debugLineNum = 278;BA.debugLine="Sub update_all_inputs_click";
+ //BA.debugLineNum = 280;BA.debugLine="End Sub";
+return "";
+}
+public static String  _update_btn_click() throws Exception{
+b4a.example.calculations _url_back = null;
+String _ins = "";
+String _m_1 = "";
+String _m_2 = "";
+String _merge = "";
+int _confirmr = 0;
+ //BA.debugLineNum = 421;BA.debugLine="Sub update_btn_Click";
+ //BA.debugLineNum = 422;BA.debugLine="ProgressDialogShow2(\"Updating Please wait...\",Fal";
+anywheresoftware.b4a.keywords.Common.ProgressDialogShow2(mostCurrent.activityBA,"Updating Please wait...",anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 423;BA.debugLine="update_job.Initialize(\"update_job\",Me)";
+mostCurrent._update_job._initialize(processBA,"update_job",menu_form.getObject());
+ //BA.debugLineNum = 424;BA.debugLine="Dim url_back As calculations";
+_url_back = new b4a.example.calculations();
+ //BA.debugLineNum = 425;BA.debugLine="url_back.Initialize";
+_url_back._initialize(processBA);
+ //BA.debugLineNum = 427;BA.debugLine="Dim ins,m_1,m_2,merge As String";
+_ins = "";
+_m_1 = "";
+_m_2 = "";
+_merge = "";
+ //BA.debugLineNum = 429;BA.debugLine="If text_fn.Text == \"\"  Or text_email.Text == \"";
+if ((mostCurrent._text_fn.getText()).equals("") || (mostCurrent._text_email.getText()).equals("") || (mostCurrent._text_phonenumber2.getText()).equals("") || (mostCurrent._text_phonenumber.getText()).equals("") || (mostCurrent._text_answer.getText()).equals("")) { 
+ //BA.debugLineNum = 430;BA.debugLine="ProgressDialogHide";
+anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
+ //BA.debugLineNum = 431;BA.debugLine="Msgbox(\"Error: Fill up those empty fields before";
+anywheresoftware.b4a.keywords.Common.Msgbox("Error: Fill up those empty fields before you update!","C O N F I R M A T I O N",mostCurrent.activityBA);
+ }else {
+ //BA.debugLineNum = 433;BA.debugLine="m_1 = \"UPDATE `bloodlife_db`.`person_info` SET `";
+_m_1 = "UPDATE `bloodlife_db`.`person_info` SET `full_name`='"+mostCurrent._text_fn.getText()+"',`blood_type`='"+_blood_selected+"', `phone_number1`='"+mostCurrent._text_phonenumber.getText()+"', `phone_number2`='"+mostCurrent._text_phonenumber2.getText()+"', `location_brgy`='"+_location_brgy_selected+"', `location_street`='"+_location_street_selected+"', ";
+ //BA.debugLineNum = 434;BA.debugLine="m_2 = \"`location_purok`='', `bday_month`='\"&bday";
+_m_2 = "`location_purok`='', `bday_month`='"+_bday_month_selected+"',`bday_day`='"+_bday_day_selected+"', `bday_year`='"+_bday_year_selected+"', `nick_name`='"+mostCurrent._text_answer.getText()+"', `donate_boolean`='"+_is_donated+"', `lat`='"+_lat+"', `long`='"+_lng+"' WHERE  `id`="+mostCurrent._login_form._id_query+";";
+ //BA.debugLineNum = 435;BA.debugLine="merge = m_1&m_2";
+_merge = _m_1+_m_2;
+ //BA.debugLineNum = 436;BA.debugLine="ins = url_back.php_email_url(\"/bloodlifePHP/upda";
+_ins = _url_back._php_email_url("/bloodlifePHP/updating.php");
+ //BA.debugLineNum = 437;BA.debugLine="update_job.Download2(ins,Array As String(\"update";
+mostCurrent._update_job._download2(_ins,new String[]{"update",""+_merge});
+ //BA.debugLineNum = 438;BA.debugLine="ProgressDialogHide";
+anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
+ //BA.debugLineNum = 439;BA.debugLine="scroll_profile_pnl.RemoveView";
+mostCurrent._scroll_profile_pnl.RemoveView();
+ //BA.debugLineNum = 440;BA.debugLine="Dim confirmR As Int";
+_confirmr = 0;
+ //BA.debugLineNum = 441;BA.debugLine="confirmR = Msgbox2(\"Successfuly Update!\",\"C O N";
+_confirmr = anywheresoftware.b4a.keywords.Common.Msgbox2("Successfuly Update!","C O N F I R M A T I O N","OK","","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
+ //BA.debugLineNum = 442;BA.debugLine="If confirmR == DialogResponse.POSITIVE Then";
+if (_confirmr==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
+ //BA.debugLineNum = 443;BA.debugLine="users_out_lbl.text = text_answer.Text";
+mostCurrent._users_out_lbl.setText((Object)(mostCurrent._text_answer.getText()));
+ }else {
+ };
+ };
+ //BA.debugLineNum = 449;BA.debugLine="End Sub";
 return "";
 }
 }

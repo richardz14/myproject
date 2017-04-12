@@ -11,7 +11,7 @@ B4A=true
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
-	Public id_query As String : id_query = ""
+	Public id_query As String : id_query = "1"
 	Public name_query As String : name_query = "Me"
 End Sub
 
@@ -73,6 +73,7 @@ Public Sub JobDone(job As HttpJob)
 	     	Case "nick_name_get"
 				Log(job.GetString)
 				name_query = job.GetString.Trim
+				calcs.name = job.GetString.Trim
 			'name_query = job.GetString.Trim
 			End Select
 		''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -80,19 +81,24 @@ Public Sub JobDone(job As HttpJob)
 		If booleanCount = 4 Then '''''''' 1st statement
 			ProgressDialogHide
 			If text_email.Text == Null Or text_password.Text == Null Then ''''' 2nd statement
- 						Msgbox("Error email address or password.!","Confirmation")
+ 						Msgbox("Error email address or password.!","C O N F I R M A T I O N")
 			Else If text_email.Text == "" And text_password.Text == "" Then
 						Msgbox("Error empty field.!","Confirmation")
 			Else
-				If text_email.Text == Email And text_password.Text == pass Then ''''''' 3rd statement
+				If text_email.Text.Contains(Email) == True And text_password.Text.Contains(pass) == true Then ''''''' 3rd statement
 							'Dim calc As calculations
 							'calc.Initialize
 							'name = calc.getting_fulln(calc.php_email_url("/bloodlifePHP/index3.php"),text_email.Text,text_password.Text)
-						Msgbox("Welcome "&name,"Confirmation")
+						Dim dialogR As Int
+						dialogR = Msgbox2("Welcome "&name,"C O N F I R M A T I O N","OK","","",Null)
 						booleanCount = 0
+						If  dialogR == DialogResponse.POSITIVE Then
 						StartActivity("menu_form")
+						Else
+						End If
 				Else
-						Msgbox("Error email address or password.!","Confirmation")
+						Msgbox("Error email address or password.!","C O N F I R M A T I O N")
+						text_password.Text = ""
 						booleanCount = 0
 				End If ''''''''''''' 3rd statement
 			End If	''''''''' 2nd statement
@@ -103,7 +109,7 @@ Public Sub JobDone(job As HttpJob)
 	Else If job.Success == False Then
 	ProgressDialogHide
 		If booleanCount = 4 Then
-		Msgbox("Error: Error connecting to server, try again laiter.!","Confirmation")
+		Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N")
 		booleanCount = 0
 		Else
 		booleanCount = 4

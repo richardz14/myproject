@@ -12,7 +12,8 @@ $phone1 = $_REQUEST["phone1"];
 $sql_query = mysql_query($phone1);
 
        while($row = mysql_fetch_array($sql_query)){
-           echo ''.$row["phone1"];
+           //echo ''.$row["phone_number1"];
+		     printf(''.$row["phone_number1"]."\xA");
        }
         
 ?>
