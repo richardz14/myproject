@@ -294,6 +294,13 @@ Sub spinners_list_data
 	list_bloodgroup.Add("O")
 	list_bloodgroup.Add("AB")
 	list_bloodgroup.Add("A+")
+	list_bloodgroup.Add("B+")
+	list_bloodgroup.Add("O+")
+	list_bloodgroup.Add("AB+")
+	list_bloodgroup.Add("A-")
+	list_bloodgroup.Add("B-")
+	list_bloodgroup.Add("O-")
+	list_bloodgroup.Add("AB-")
 	spin_bloodgroup.AddAll(list_bloodgroup)
 	''
 	list_donate_confirm.Add("YES")

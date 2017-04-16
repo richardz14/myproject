@@ -65,6 +65,7 @@ Public Sub JobDone(job As HttpJob)
 			pass = job.GetString.Trim
 			Case "full_name_get"
 				Log(job.GetString)
+			name_query = job.GetString.Trim
 			name = job.GetString.Trim
 			Case "user_id_get"
 				Log(job.GetString)
@@ -72,7 +73,7 @@ Public Sub JobDone(job As HttpJob)
 			'id_query = job.GetString.Trim
 	     	Case "nick_name_get"
 				Log(job.GetString)
-				name_query = job.GetString.Trim
+				'name_query = job.GetString.Trim
 				calcs.name = job.GetString.Trim
 			'name_query = job.GetString.Trim
 			End Select
@@ -85,7 +86,7 @@ Public Sub JobDone(job As HttpJob)
 			Else If text_email.Text == "" And text_password.Text == "" Then
 						Msgbox("Error empty field.!","Confirmation")
 			Else
-				If text_email.Text.Contains(Email) == True And text_password.Text.Contains(pass) == true Then ''''''' 3rd statement
+				If text_email.Text.Contains(Email) == True And text_password.Text.Contains(pass) == True Then ''''''' 3rd statement
 							'Dim calc As calculations
 							'calc.Initialize
 							'name = calc.getting_fulln(calc.php_email_url("/bloodlifePHP/index3.php"),text_email.Text,text_password.Text)

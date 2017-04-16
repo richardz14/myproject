@@ -29,6 +29,7 @@ Sub Process_Globals
 	Dim brgy_index As Int : brgy_index = 0
 	Dim street_index As Int : street_index = 0
 	Dim list_location_b,list_location_s,list_location_p As List
+	Dim optionSelected as string
 End Sub
 
 Sub Globals
@@ -65,6 +66,7 @@ Sub Globals
 	
 	Dim profile_panel As Panel
 	Dim scroll_profile_pnl As ScrollView
+		Dim profile_all_body As Panel
 	Private all_inputs As Panel
 	Dim pnl_body As Panel
 	Dim pnl_blood_body As Panel
@@ -231,6 +233,7 @@ Sub load_activity_layout
 		help.SetBackgroundImage(LoadBitmap(File.DirAssets,"HELP.png"))
 		profile.SetBackgroundImage(LoadBitmap(File.DirAssets,"my_profile.png"))
 		exit_btn.SetBackgroundImage(LoadBitmap(File.DirAssets,"EXIT.png"))
+	
 End Sub
 Sub Activity_Resume
 
@@ -244,12 +247,15 @@ Sub search_blood_Click
 End Sub
 Sub profile_Click
 	ProgressDialogShow2("Please Wait..",False)
+	optionSelected = "pofileView"
 	Dim TextWriters As TextWriter
 	TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "users_all_info.txt", False))
 	
 		Dim url_back As calculations 
 		url_back.Initialize
 	Dim all_users_info As String
+
+	profile_all_body.Initialize("profile_all_body")
 	'Log(url_back.users_id)
 	all_info_query.Initialize("all_info_query",Me)
 	all_users_info = url_back.php_email_url("/bloodlifePHP/search_all_users_data.php")
@@ -277,10 +283,25 @@ Sub profile_Click
 		'profile_panel.AddView(scroll_profile_pnl,5%x,3%y,90%x,75%y)
 		'profile_panel.AddView(cancel_btn,15%x,scroll_profile_pnl.Top+scroll_profile_pnl.Height+3%y,35%x,9%y)
 		'profile_panel.AddView(update_btn,cancel_btn.Left + cancel_btn.Width+10%x,scroll_profile_pnl.Top+scroll_profile_pnl.Height+3%y,35%x,9%y)
-		Activity.AddView(scroll_profile_pnl,5%x,3%y,90%x,90%y)
-		
+		profile_all_body.Color = Colors.ARGB(128,128,128,.50)
+		profile_all_body.AddView(scroll_profile_pnl,5%x,3%y,90%x,90%y)
+		Activity.AddView(profile_all_body,0,0,100%x,100%y)
+			
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		update_btn.Background = V_btn
+		cancel_btn.Background = C_btn
 End Sub
 Sub update_all_inputs_click
+	''don't delete this sub
+End Sub
+Sub profile_all_body_click
 	''don't delete this sub
 End Sub
 Sub all_input_on_list
@@ -295,7 +316,6 @@ Sub all_input_on_list
     Loop
     TextReader_phone2.Close
 	
-		
 	text_fn.Text = list_all_info.Get(0)
 	text_blood.Text = list_all_info.Get(1)
 	blood_selected = list_all_info.Get(1)
@@ -326,10 +346,22 @@ Public Sub JobDone(job As HttpJob)
 			  'Log(job.GetString.Trim)
 			End Select
 		''''''''''''''''''''''''''''''''''''''''''''''''''
-			all_input_on_list
+			If optionSelected == "pofileView" Then
+				all_input_on_list
+			Else
+				ProgressDialogHide	
+				profile_all_body.RemoveView
+				Dim confirmR As Int
+				confirmR = Msgbox2("Successfuly Update!","C O N F I R M A T I O N","OK","","",Null)
+				If confirmR == DialogResponse.POSITIVE Then
+		  		users_out_lbl.text = text_answer.Text
+		'' login_form.name_query = text_answer.Text
+			Else
+			End If
+			End If
 		else If job.Success == False Then
 			ProgressDialogHide
-			scroll_profile_pnl.RemoveView
+			profile_all_body.RemoveView
 			Msgbox("Error connecting to server, try again!","C O N F I R M A T I O N")	
 	End If
 	
@@ -420,11 +452,12 @@ Sub exit_btn_Click
 End Sub
 
 Sub cancel_btn_Click
-	scroll_profile_pnl.RemoveView
+	profile_all_body.RemoveView
 End Sub
 
 Sub update_btn_Click
 	ProgressDialogShow2("Updating Please wait...",False)
+	optionSelected = "updated_click"
 	update_job.Initialize("update_job",Me)
 	Dim url_back As calculations 
 		url_back.Initialize
@@ -440,15 +473,7 @@ Sub update_btn_Click
 		merge = m_1&m_2
 		ins = url_back.php_email_url("/bloodlifePHP/updating.php")
 		update_job.Download2(ins,Array As String("update",""&merge))
-		ProgressDialogHide	
-		scroll_profile_pnl.RemoveView
-		Dim confirmR As Int
-		confirmR = Msgbox2("Successfuly Update!","C O N F I R M A T I O N","OK","","",Null)
-		If confirmR == DialogResponse.POSITIVE Then
-			users_out_lbl.text = text_answer.Text
-		'' login_form.name_query = text_answer.Text
-			Else
-			End If
+		
 	End If
 	
 End Sub
@@ -467,6 +492,16 @@ Sub donated_edit_Click
 	title_lbl.Initialize("")
 	edit_ok_btn.Text = "OK"
 	edit_can_btn.Text = "CANCEL"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		edit_ok_btn.Background = V_btn
+		edit_can_btn.Background = C_btn
 	title_lbl.Text = "SELECT DONATED STATUS"
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
@@ -481,7 +516,7 @@ Sub donated_edit_Click
 	pnl_donated_body.AddView(pnl,13%x,((Activity.Height/2)/2),74%x,33%y)
 	pnl_donated_body.BringToFront
 	'pnl_body.Enabled = False
-	
+		'pnl_donated_body.Color = Colors.ARGB(128,128,128,.50)
 	Activity.AddView(pnl_donated_body,0,0,100%x,100%y)	
 End Sub
 Sub spin_donated_ItemClick (Position As Int, Value As Object)
@@ -524,6 +559,16 @@ Sub bday_edit_Click
 	title_lbl.Initialize("")
 	edit_ok_btn.Text = "OK"
 	edit_can_btn.Text = "CANCEL"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		edit_ok_btn.Background = V_btn
+		edit_can_btn.Background = C_btn
 	title_lbl.Text = "SELECT BIRTH DATE"
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
@@ -540,7 +585,7 @@ Sub bday_edit_Click
 	pnl_bday_body.AddView(pnl,13%x,((Activity.Height/2)/2),74%x,33%y)
 	pnl_bday_body.BringToFront
 	'pnl_body.Enabled = False
-	
+	'pnl_bday_body.Color = Colors.ARGB(128,128,128,.50)
 	Activity.AddView(pnl_bday_body,0,0,100%x,100%y)	
 End Sub
 Sub spin_day_ItemClick (Position As Int, Value As Object)
@@ -575,6 +620,13 @@ Sub blood_edit_Click
 	list_bloodgroup.Add("O")
 	list_bloodgroup.Add("AB")
 	list_bloodgroup.Add("A+")
+	list_bloodgroup.Add("B+")
+	list_bloodgroup.Add("O+")
+	list_bloodgroup.Add("AB+")
+	list_bloodgroup.Add("A-")
+	list_bloodgroup.Add("B-")
+	list_bloodgroup.Add("O-")
+	list_bloodgroup.Add("AB-")
 	spin_bloodgroup.AddAll(list_bloodgroup)
 	Dim pnl As Panel
 	Dim edit_ok_btn,edit_can_btn As Button
@@ -582,6 +634,16 @@ Sub blood_edit_Click
 	title_lbl.Initialize("")
 	edit_ok_btn.Initialize("edit_blood_ok_btn")
 	edit_can_btn.Initialize("edit_blood_can_btn")
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		edit_ok_btn.Background = V_btn
+		edit_can_btn.Background = C_btn
 	edit_ok_btn.Text = "OK"
 	edit_can_btn.Text = "CANCEL"
 	pnl.Initialize("pnl")
@@ -598,7 +660,7 @@ Sub blood_edit_Click
 	pnl_blood_body.AddView(pnl,13%x,((Activity.Height/2)/2),74%x,33%y)
 	pnl_blood_body.BringToFront
 	'pnl_body.Enabled = False
-	
+	'pnl_blood_body.Color = Colors.ARGB(128,128,128,.50)
 	Activity.AddView(pnl_blood_body,0,0,100%x,100%y)	
 End Sub
 Sub edit_blood_ok_btn_click
@@ -656,6 +718,16 @@ Sub locate_edit_Click
 	Dim title_lbl As Label
 	edit_ok_btn.Initialize("edit_ok_btn")
 	edit_can_btn.Initialize("edit_can_btn")
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		edit_ok_btn.Background = V_btn
+		edit_can_btn.Background = C_btn
 	title_lbl.Initialize("")
 	edit_ok_btn.Text = "OK"
 	edit_can_btn.Text = "CANCEL"
@@ -674,7 +746,7 @@ Sub locate_edit_Click
 	pnl_body.AddView(pnl,13%x,((Activity.Height/2)/2),74%x,33%y)
 	pnl_body.BringToFront
 	'pnl_body.Enabled = False
-	
+	'pnl_body.Color = Colors.ARGB(128,128,128,.50)
 	Activity.AddView(pnl_body,0,0,100%x,100%y)	
 End Sub
 Sub edit_can_btn_click

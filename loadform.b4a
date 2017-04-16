@@ -120,7 +120,7 @@ File103=search_frame.bal
 File104=searchbloodtype.png
 File105=update_all_inputs.bal
 File106=VIEW ALL.png
-NumberOfLibraries=8
+NumberOfLibraries=9
 Library1=core
 Library2=scrollview2d
 Library3=httpserver
@@ -129,6 +129,7 @@ Library5=stringutils
 Library6=jsinterface
 Library7=dialogs
 Library8=webviewextras
+Library9=gps
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: bloodlife system

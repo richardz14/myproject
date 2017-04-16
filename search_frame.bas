@@ -25,6 +25,15 @@ Dim nickname_list As List
 Dim phone1_list As List
 Dim phone2_list As List
 Dim is_complete As Int : is_complete = 0
+
+Dim gpsClient As GPS
+Dim userLocation As Location
+Dim is_check_true As Boolean : is_check_true = False
+
+Dim row_click As String
+
+	Dim earth_radius As Float	: earth_radius = 6373 'default earth rotational radius
+	Dim pi As Float : pi = 3.1416 'the default value of pi in matematical expression
 End Sub
 
 Sub Globals
@@ -56,6 +65,9 @@ Sub Globals
 	Private data_query_phone1 As HttpJob
 	Private data_query_phone2 As HttpJob
 	Private query_marker As HttpJob
+	Private isGPSon As CheckBox
+	Dim view_info_pnl As Panel
+	Dim view_data_info_person As Panel
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -74,6 +86,11 @@ Sub Activity_Create(FirstTime As Boolean)
 	
     query_marker.Initialize("query_marker_get",Me)
 	map_extras.addJavascriptInterface(map_webview,"B4A")
+	
+	If FirstTime Then
+		gpsClient.Initialize("gpsClient")
+		userLocation.Initialize
+	End If
 	is_initialize
 	all_layout_load
 	load_list
@@ -107,6 +124,7 @@ Sub all_layout_load
 	 toolkit_pnl.Left = 0
 	 list_panel.Left = 0
 	 map_webview.Left = 0
+	 isGPSon.Left = map_webview.Width - isGPSon.Width - 5%x
 	 
 	 list_btn.Left = ((list_panel.Width/2)/2)
 	  search_lbl.Left = ((toolkit_pnl.Left + 3%x)+2%x)
@@ -114,6 +132,7 @@ Sub all_layout_load
 	    search_btn.Left = (search_spiner.Left + search_spiner.Width)
 	''top
 	 toolkit_pnl.Top = 0
+	 isGPSon.Top = toolkit_pnl.Top + toolkit_pnl.Height + 1%y
 	map_webview.Top = (toolkit_pnl.Top + toolkit_pnl.Height)
 	 list_panel.Top = (map_webview.Top + map_webview.Height)
 	 
@@ -129,6 +148,13 @@ Sub load_list
 	list_bloodgroup.Add("O")
 	list_bloodgroup.Add("AB")
 	list_bloodgroup.Add("A+")
+	list_bloodgroup.Add("B+")
+	list_bloodgroup.Add("O+")
+	list_bloodgroup.Add("AB+")
+	list_bloodgroup.Add("A-")
+	list_bloodgroup.Add("B-")
+	list_bloodgroup.Add("O-")
+	list_bloodgroup.Add("AB-")
 	search_spiner.AddAll(list_bloodgroup)
 	spin_item_click = "A";
 End Sub
@@ -175,18 +201,61 @@ Sub search_btn_Click
 	'data_query_id.Initialize("data_query_location_get",Me)
 
 End Sub
+Sub isGPSon_CheckedChange(Checked As Boolean)
+	is_check_true = Checked
+	If Checked == True Then
+		If gpsClient.GPSEnabled=False Then
+		ToastMessageShow("Please enable your device's GPS capabilities", True)
+		isGPSon.Checked = False
+        StartActivity(gpsClient.LocationSettingsIntent)
+		Else
+		gpsClient.Start(10.1799469, 122.9068577)
+		ProgressDialogShow("Waiting for GPS location")
+		End If
+	Else
+		create_map
+	End If
+End Sub
+Sub gpsClient_LocationChanged (gpsLocation As Location)
+	ProgressDialogHide
+	userLocation=gpsLocation
+	create_map
+	gpsClient.Stop
+End Sub
 Sub create_map
-	ProgressDialogShow2("Creating the map, please wait...",False)
-		Dim htmlString1,htmlString2,htmlString3 As String
+	ProgressDialogShow2("Creating the map, please wait...",True)
+	Dim htmlString1,htmlString1_1,htmlString2,htmlString3 As String
+	Dim GPSlat,GPSlng,TOlat,TOlng As Double
+	Dim distance,distanceMeter As Int
 	htmlString1 = File.GetText(File.DirAssets, "location_top.txt")
 	htmlString1 = htmlString1 & " var markers=[]; var contents = []; var infowindows = []; "
 	Dim location As TextWriter
    					 location.Initialize(File.OpenOutput(File.DirInternalCache, "all_marker_location.txt", False))
     		    location.WriteLine(htmlString1)
-  			
+		If is_check_true == True Then		
+		GPSlat = userLocation.Latitude
+		GPSlng = userLocation.Longitude	
+  		htmlString1_1 = " var markerc = new google.maps.Marker({ position: new google.maps.LatLng("&userLocation.Latitude&", "&userLocation.Longitude&"), map: map, title: 'My Location', content: 'I am here!', clickable: True, icon: 'http://www.google.com/mapfiles/arrow.png' });"	
+		location.WriteLine(htmlString1_1)
+		Else
+		End If
+		
 	For i=0 To id_list.Size-1
-	htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'http://www.google.com/mapfiles/dd-end.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Nickname: <b>"&nickname_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
-	location.WriteLine(htmlString2)
+		If is_check_true == True Then		
+			TOlat = lat_list.Get(i)
+			TOlng = lng_list.Get(i)
+			distance = earth_radius * ACos( Cos( ( 90 - GPSlat ) * ( pi / 180 ) ) * Cos( ( 90 - TOlat ) * ( pi / 180 ) ) +  Sin( ( 90 - GPSlat ) * ( pi / 180 ) ) * Sin( ( 90 - TOlat ) * ( pi / 180 ) ) * Cos( ( GPSlng - TOlng ) * ( pi / 180 ) ) ) 
+			distanceMeter = distance*1000
+			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'http://www.google.com/mapfiles/dd-end.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4><h4><b>You are "&distanceMeter&"m away from the donor!</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
+			location.WriteLine(htmlString2)	
+		Else
+			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'http://www.google.com/mapfiles/dd-end.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
+			location.WriteLine(htmlString2)
+		End If
+	'distance = earth_radius * ACos( Cos( ( 90 - lats1 ) * ( pi / 180 ) ) * Cos( ( 90 - lats2 ) * ( pi / 180 ) ) +  Sin( ( 90 - lats1 ) * ( pi / 180 ) ) * Sin( ( 90 - lats2 ) * ( pi / 180 ) ) * Cos( ( lon1 - lon2 ) * ( pi / 180 ) ) )
+	'htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'http://www.google.com/mapfiles/dd-end.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
+	'location.WriteLine(htmlString2)
+	
 	'Log(id_list.Get(i))
 	'htmlString = htmlString & " var marker"&i&" = new google.maps.Marker({	position: new google.maps.LatLng("&lat_list.Get(i)&","&lng_list.Get(i)&"),map: map, title: '"&fullN_llist.Get(i)&"',clickable: true,icon: 'http://www.google.com/mapfiles/dd-end.png' });"
 	'html_content = "<div align='left'><b><h2>Full Name: "&fullN_llist.Get(i)&"</h2></b><br>"
@@ -435,11 +504,182 @@ Sub data_list_Click
 	Send=Sender
 	row=Floor(Send.Tag/10) '20
 		item=row
-	Log(row)
-	Log(CRLF&"Item "&item)
-
+		row_click = row
+	Log(row)	
+	'Log(CRLF&"Item "&item)
+	'' for modal VIEW and CANCEL 
+	'''''''''''''''''''''''''''''''''''
+	If view_info_pnl.IsInitialized == True Then
+		view_info_pnl.RemoveView
+	End If
+	view_info_pnl.Initialize("view_info_pnl")
+	Dim view_panl As Panel
+	Dim vie_btn,can_btn As Button
+	Dim lbl_tittle As Label
+	lbl_tittle.Initialize("")
+	view_panl.Initialize("view_panl")
+	vie_btn.Initialize("vie_btn")
+	can_btn.Initialize("can_btn")
+	vie_btn.Text = "VIEW"
+	can_btn.Text = "CANCEL"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		vie_btn.Background = V_btn
+		can_btn.Background = C_btn
+	lbl_tittle.Text = "SELECT ACTION"
+	lbl_tittle.Gravity = Gravity.CENTER
+	lbl_tittle.TextColor = Colors.White
+	view_panl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	view_panl.AddView(lbl_tittle,1%x,2%y,72%x,8%y)
+	view_panl.AddView(vie_btn,5%x,lbl_tittle.Top + lbl_tittle.Height + 1%y,31%x,8%y)
+	view_panl.AddView(can_btn,vie_btn.Left+vie_btn.Width+2%x,vie_btn.Top,31%x,8%y)
+	view_info_pnl.AddView(view_panl,13%x,((Activity.Height/2)/2),74%x,20%y)
+	Activity.AddView(view_info_pnl,0,0,100%x,100%y)
 End Sub
-
+Sub view_info_pnl_click
+	''don't delete this line
+End Sub
+Sub vie_btn_click
+	view_info_pnl.RemoveView
+		If view_data_info_person.IsInitialized == True Then
+		view_data_info_person.RemoveView	
+	Else
+	End If
+	view_data_info_person.Initialize("view_data_info_person")
+	Dim view_panl As Panel
+	Dim tittle,fullname,location,donated,email,phone1,phone2 As Label
+	Dim fn_pnl,loc_pnl,don_pnl,ema_pnl,ph1_pnl,ph2_pnl,btn_pnl As Panel
+	Dim fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img As ImageView
+					fn_img.Initialize("")
+					loc_img.Initialize("")
+					don_img.Initialize("")
+					ema_img.Initialize("")
+					ph1_img.Initialize("")
+					ph2_img.Initialize("")
+			fn_pnl.Initialize("")
+			loc_pnl.Initialize("")
+			don_pnl.Initialize("")
+			ema_pnl.Initialize("")
+			ph1_pnl.Initialize("")
+			ph2_pnl.Initialize("")
+			btn_pnl.Initialize("")
+	Dim ok_vie_btn As Button
+		ok_vie_btn.Initialize("ok_vie_btn")
+		tittle.Initialize("")
+		fullname.Initialize("")
+		location.Initialize("")
+		donated.Initialize("")
+		email.Initialize("")
+		phone1.Initialize("")
+		phone2.Initialize("")
+	view_panl.Initialize("")
+	fullname.Text = fullN_llist.Get(row_click)			'string outputs
+	location.Text = ": "&location_list.Get(row_click)
+	donated.Text = ": "&donated_list.Get(row_click)
+	email.Text = ": "&email_list.Get(row_click)
+	phone1.Text = ": "&phone1_list.Get(row_click)
+	phone2.Text = ": "&phone2_list.Get(row_click)   	'string outputs
+			location.Gravity = Gravity.CENTER_VERTICAL
+			donated.Gravity = Gravity.CENTER_VERTICAL
+			email.Gravity = Gravity.CENTER_VERTICAL
+			phone1.Gravity = Gravity.CENTER_VERTICAL
+			phone2.Gravity = Gravity.CENTER_VERTICAL
+				
+				fullname.TextColor = Colors.Black
+				location.TextColor = Colors.Black
+				donated.TextColor = Colors.Black
+				email.TextColor = Colors.Black
+				phone1.TextColor = Colors.Black
+				phone2.TextColor = Colors.Black
+				ok_vie_btn.TextColor = Colors.Black
+	'tittle.Text = "Pofile Info"
+	'tittle.Gravity = Gravity.CENTER
+	fullname.Gravity = Gravity.CENTER
+	ok_vie_btn.Text = "OK"
+	view_panl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	'view_panl.AddView(tittle,1%x,2%y,72%x,8%y) ' title of modal
+				loc_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-21-home.png"))
+				don_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-152-new-window.png"))
+				ema_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-social-40-e-mail.png"))
+				ph1_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-354-nameplate-alt1.png"))
+				ph2_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-354-nameplate-alt2.png"))
+			
+			Dim fn_grad,don_grad,ema_grad,ph1_grad,ph2_grad,loc_grad,btn_grad,ok_btn_grad As GradientDrawable
+			Dim colorG(2),btn_color(2),panl_btn(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+				btn_color(0) = Colors.Red
+				btn_color(1) = Colors.White
+					panl_btn(0) = Colors.Gray
+					panl_btn(1) = Colors.Red
+			fn_grad.Initialize("TOP_BOTTOM",colorG)
+			don_grad.Initialize("TOP_BOTTOM",colorG)
+			ema_grad.Initialize("TOP_BOTTOM",colorG)
+			ph1_grad.Initialize("TOP_BOTTOM",colorG)
+			ph2_grad.Initialize("TOP_BOTTOM",colorG)
+			loc_grad.Initialize("TOP_BOTTOM",colorG)
+				btn_grad.Initialize("TOP_BOTTOM",panl_btn)
+				ok_btn_grad.Initialize("TOP_BOTTOM",btn_color)
+			fn_grad.CornerRadius = 10dip
+			ok_btn_grad.CornerRadius = 50dip
+		fn_pnl.Background = fn_grad		'fn_pnl.Color = Colors.LightGray
+		don_pnl.Background = don_grad		'don_pnl.Color = Colors.LightGray
+		ema_pnl.Background = ema_grad		'ema_pnl.Color = Colors.LightGray
+		ph1_pnl.Background = ph1_grad		'ph1_pnl.Color = Colors.LightGray
+		ph2_pnl.Background = ph2_grad		'ph2_pnl.Color = Colors.LightGray
+		loc_pnl.Background = loc_grad		'loc_pnl.Color = Colors.LightGray
+			btn_pnl.Background = btn_grad
+		ok_vie_btn.Background = ok_btn_grad	
+	view_panl.AddView(fn_pnl,1%x,1%y,72%x,10%y) ' full name
+		'fn_pnl.AddView(fullname,0,1%y,72%x,8%y) ' full name image
+		fn_pnl.AddView(fullname,0,0,72%x,fn_pnl.Height) ' full name
+		fullname.TextSize = 30
+		''
+	view_panl.AddView(don_pnl,1%x,fn_pnl.Top + fn_pnl.Height,72%x,7%y) 
+		don_pnl.AddView(don_img,5%x,1%y,5%x,5%y) '' image of donation boolean
+		don_pnl.AddView(donated,don_img.Left + don_img.Width + 1%x,1%y,50%x,5%y) 
+		''
+	view_panl.AddView(ema_pnl,1%x,don_pnl.Top + don_pnl.Height,72%x,7%y) 
+		ema_pnl.AddView(ema_img,5%x,1%y,5%x,5%y) '' image of email address
+		ema_pnl.AddView(email,ema_img.Left + ema_img.Width + 1%x,1%y,50%x,5%y) 
+		''
+	view_panl.AddView(ph1_pnl,1%x,ema_pnl.Top + ema_pnl.Height,72%x,7%y) 
+		ph1_pnl.AddView(ph1_img,5%x,1%y,5%x,5%y) '' image of phone number 1
+		ph1_pnl.AddView(phone1,ph1_img.Left + ph1_img.Width + 1%x,1%y,50%x,5%y) 
+		''
+	view_panl.AddView(ph2_pnl,1%x,ph1_pnl.Top + ph1_pnl.Height,72%x,7%y) 
+		ph2_pnl.AddView(ph2_img,5%x,1%y,5%x,5%y) '' image of phone number 2
+		ph2_pnl.AddView(phone2,ph2_img.Left + ph2_img.Width + 1%x,1%y,50%x,5%y) 
+		''
+	view_panl.AddView(loc_pnl,1%x,ph2_pnl.Top + ph2_pnl.Height,72%x,7%y) 
+		loc_pnl.AddView(loc_img,5%x,1%y,5%x,5%y) '' image of location
+		loc_pnl.AddView(location,loc_img.Left + loc_img.Width + 1%x,1%y,50%x,5%y) 
+			'btn_pnl
+	view_panl.AddView(btn_pnl,1%x,loc_pnl.Top + loc_pnl.Height,72%x,13.5%y) 
+	btn_pnl.AddView(ok_vie_btn,((74%x/2)/2),((13.5%y/2)/2),37%x,6.25%y) 
+	
+		view_data_info_person.Color = Colors.ARGB(128,128,128,.70)
+	view_data_info_person.AddView(view_panl,13%x,(((Activity.Height/2)/2)/2),74%x,60%y)
+	Activity.AddView(view_data_info_person,0,0,100%x,100%y)
+End Sub
+Sub ok_vie_btn_click
+	view_data_info_person.RemoveView
+End Sub
+Sub ok_vie_btn_LongClick
+	view_data_info_person.RemoveView
+End Sub
+Sub can_btn_click
+	view_info_pnl.RemoveView
+End Sub
+Sub view_data_info_person_click
+	''don't delete this SUB
+End Sub
 Sub reading_txt
 		id_list.Initialize
 		fullN_llist.Initialize
@@ -648,6 +888,13 @@ Sub list_btn_Click
 	dialog_panel_tittle.Initialize("dialog_panel_tittle")
 	dialog_panel_tittle.Text = "LIST OF PEOPLE"
 	dialog_panel_can_btn.Text = "SEARCH"
+			Dim se_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			se_btn.Initialize("TOP_BOTTOM",colorG)
+			se_btn.CornerRadius = 50dip
+		dialog_panel_can_btn.Background = se_btn
 	dialog_panel_tittle.TextSize = 30
 	dialog_panel_tittle.Gravity = Gravity.CENTER
 	dialog_panel_can_btn.Gravity = Gravity.CENTER
@@ -655,7 +902,8 @@ Sub list_btn_Click
 	dialog_panel.AddView(scrolllista,5%x,dialog_panel_tittle.Top + dialog_panel_tittle.Height+1%y,75%x,69%y)
 	dialog_panel.AddView(btn_panel,1%x,79%y,83%x,10%y)
 	btn_panel.AddView(dialog_panel_can_btn,((btn_panel.Width/2)/2),1%y,42%x,8%y)
-	dialog_all_panel.AddView(dialog_panel,5%x,5%y,85%x,90%y)
+	dialog_all_panel.AddView(dialog_panel,7.5%x,5%y,85%x,90%y)
+	dialog_all_panel.Color = Colors.ARGB(128,128,128,.50)
 	Activity.AddView(dialog_all_panel,0,0,100%x,100%y)
 	'cd.AddView(dialog_panel,75%x,78%y)
 	''cd.AddView(pnl, 77%x, 80%y) ' sizing relative to the screen size is probably best
