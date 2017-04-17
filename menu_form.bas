@@ -29,7 +29,7 @@ Sub Process_Globals
 	Dim brgy_index As Int : brgy_index = 0
 	Dim street_index As Int : street_index = 0
 	Dim list_location_b,list_location_s,list_location_p As List
-	Dim optionSelected as string
+	Dim optionSelected As String
 End Sub
 
 Sub Globals
