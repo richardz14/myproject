@@ -24,6 +24,7 @@ Dim email_list As List
 Dim nickname_list As List
 Dim phone1_list As List
 Dim phone2_list As List
+Dim image_list As List
 Dim is_complete As Int : is_complete = 0
 
 Dim gpsClient As GPS
@@ -64,6 +65,7 @@ Sub Globals
 	Private data_query_nickname As HttpJob
 	Private data_query_phone1 As HttpJob
 	Private data_query_phone2 As HttpJob
+	Private data_query_image As HttpJob
 	Private query_marker As HttpJob
 	Private isGPSon As CheckBox
 	Dim view_info_pnl As Panel
@@ -83,7 +85,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	data_query_nickname.Initialize("data_query_nickname_get",Me)
 	data_query_phone1.Initialize("data_query_phone1_get",Me)
 	data_query_phone2.Initialize("data_query_phone2_get",Me)
-	
+	data_query_image.Initialize("data_query_image",Me)
     query_marker.Initialize("query_marker_get",Me)
 	map_extras.addJavascriptInterface(map_webview,"B4A")
 	
@@ -171,7 +173,7 @@ Sub search_btn_Click
 	ProgressDialogShow2("please wait.!!",False)
 	
 	Dim url_back As calculations
-	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phone1,phone2 As String
+	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phone1,phone2,image As String
 	url_back.Initialize
 	url_id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
 	full_name = url_back.php_email_url("/bloodlifePHP/search_blood_fullN.php")
@@ -183,6 +185,7 @@ Sub search_btn_Click
 	nickname = url_back.php_email_url("/bloodlifePHP/search_blood_nickN.php")
 	phone1 = url_back.php_email_url("/bloodlifePHP/search_blood_phone1.php")
 	phone2 = url_back.php_email_url("/bloodlifePHP/search_blood_phone2.php")
+	image = url_back.php_email_url("/bloodlifePHP/search_blood_image.php")
 	''url_id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
 	'Log(full_name&" "&spin_item_click)
 	data_query_id.Download2(url_id,Array As String("id","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
@@ -196,6 +199,8 @@ Sub search_btn_Click
 	data_query_nickname.Download2(nickname,Array As String("nick","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	data_query_phone1.Download2(phone1,Array As String("phone1","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	data_query_phone2.Download2(phone2,Array As String("phone2","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	
+	data_query_image.Download2(image,Array As String("image","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	'data_query_id.Initialize("data_query_id_get",Me)
 	'data_query_id.Initialize("data_query_fullN_get",Me)
 	'data_query_id.Initialize("data_query_location_get",Me)
@@ -219,39 +224,48 @@ End Sub
 Sub gpsClient_LocationChanged (gpsLocation As Location)
 	ProgressDialogHide
 	userLocation=gpsLocation
-	create_map
+
 	gpsClient.Stop
+	create_map
+	'isGPSon.Checked = False
 End Sub
 Sub create_map
 	ProgressDialogShow2("Creating the map, please wait...",True)
 	Dim htmlString1,htmlString1_1,htmlString2,htmlString3 As String
-	Dim GPSlat,GPSlng,TOlat,TOlng As Double
-	Dim distance,distanceMeter As Int
+	Dim GPSlat,GPSlng,TOlat,TOlng,distance As Double
+	Dim distanceMeter As Int
 	htmlString1 = File.GetText(File.DirAssets, "location_top.txt")
 	htmlString1 = htmlString1 & " var markers=[]; var contents = []; var infowindows = []; "
 	Dim location As TextWriter
    					 location.Initialize(File.OpenOutput(File.DirInternalCache, "all_marker_location.txt", False))
     		    location.WriteLine(htmlString1)
-		If is_check_true == True Then		
+		If is_check_true == True Then
 		GPSlat = userLocation.Latitude
-		GPSlng = userLocation.Longitude	
-  		htmlString1_1 = " var markerc = new google.maps.Marker({ position: new google.maps.LatLng("&userLocation.Latitude&", "&userLocation.Longitude&"), map: map, title: 'My Location', content: 'I am here!', clickable: True, icon: 'http://www.google.com/mapfiles/arrow.png' });"	
+		GPSlng = userLocation.Longitude
+		Log("lat: "&GPSlat)
+		Log("long: "&GPSlng)
+  		'htmlString1_1 = " new google.maps.Marker({ position: new google.maps.LatLng("&userLocation.Latitude&", "&userLocation.Longitude&"), map: map, title: 'My Location', content: 'I am here!', clickable: True, icon: 'http://www.google.com/mapfiles/arrow.png' }); " 'markers
+		htmlString1_1 = " new google.maps.Marker({ position: new google.maps.LatLng("&GPSlat&", "&GPSlng&"), map: map, title: 'My Location', clickable: true, icon: 'http://www.google.com/mapfiles/dd-end.png' }); "
 		location.WriteLine(htmlString1_1)
-		Else
+		Else		
+	
 		End If
 		
 	For i=0 To id_list.Size-1
 		If is_check_true == True Then		
 			TOlat = lat_list.Get(i)
 			TOlng = lng_list.Get(i)
+		
 			distance = earth_radius * ACos( Cos( ( 90 - GPSlat ) * ( pi / 180 ) ) * Cos( ( 90 - TOlat ) * ( pi / 180 ) ) +  Sin( ( 90 - GPSlat ) * ( pi / 180 ) ) * Sin( ( 90 - TOlat ) * ( pi / 180 ) ) * Cos( ( GPSlng - TOlng ) * ( pi / 180 ) ) ) 
 			distanceMeter = distance*1000
+			'htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4><h4><b>You are "&distanceMeter&"m away from the donor!</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 			location.WriteLine(htmlString2)	
 		Else
 			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 			location.WriteLine(htmlString2)
 		End If
+		
 	'distance = earth_radius * ACos( Cos( ( 90 - lats1 ) * ( pi / 180 ) ) * Cos( ( 90 - lats2 ) * ( pi / 180 ) ) +  Sin( ( 90 - lats1 ) * ( pi / 180 ) ) * Sin( ( 90 - lats2 ) * ( pi / 180 ) ) * Cos( ( lon1 - lon2 ) * ( pi / 180 ) ) )
 	'htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'http://www.google.com/mapfiles/dd-end.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 	'location.WriteLine(htmlString2)
@@ -301,7 +315,7 @@ Sub create_map
 	  	 ' TextReader_fullN.Close
 	map_webview.LoadHtml(File.ReadString(File.DirInternalCache,"all_marker_location.txt"))
 	
-	Log(File.ReadString(File.DirInternalCache,"all_marker_location.txt"))
+	'Log(File.ReadString(File.DirInternalCache,"all_marker_location.txt"))
 
 End Sub
 Sub map_shows_PageFinished (Url As String)
@@ -319,6 +333,7 @@ Sub is_initialize
 	 TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_nickname.txt", False))
 	  TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_phone1.txt", False))
 	  TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_phone2.txt", False))
+	    TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_image.txt", False))
 End Sub
 Public Sub JobDone(job As HttpJob)
 	If job.Success Then
@@ -383,8 +398,13 @@ Public Sub JobDone(job As HttpJob)
     		    TextWriter_phone2.WriteLine(job.GetString.Trim)
 				TextWriter_phone2.Close 
 				'Log("9")
+			  Case "data_query_image"
+			  	Dim TextWriter_image As TextWriter
+   					 TextWriter_image.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_image.txt", False))
+    		    TextWriter_image.WriteLine(job.GetString.Trim)
+				TextWriter_image.Close 	
 			End Select	
-	If is_complete == 9 Then
+	If is_complete == 10 Then
 		ProgressDialogHide
 		is_complete = 0
 		reading_txt
@@ -691,6 +711,7 @@ Sub reading_txt
 		nickname_list.Initialize
 		phone1_list.Initialize
 		phone2_list.Initialize
+		image_list.Initialize
 	''for id
 	Dim TextReader_id As TextReader
     TextReader_id.Initialize(File.OpenInput(File.DirInternalCache, "data_query_id.txt"))
@@ -793,6 +814,16 @@ Sub reading_txt
         line_phone2 = TextReader_phone2.ReadLine
     Loop
     TextReader_phone2.Close
+	
+		Dim TextReader_image As TextReader
+    TextReader_image.Initialize(File.OpenInput(File.DirInternalCache, "data_query_image.txt"))
+    Dim line_image As String
+    line_image = TextReader_image.ReadLine    
+    Do While line_image <> Null
+		image_list.Add(line_image)
+        line_image = TextReader_image.ReadLine
+    Loop
+    TextReader_image.Close
 	
 End Sub
 Sub list_btn_Click

@@ -199,9 +199,19 @@ Private Sub existing_result
 				Dim url_back As calculations
 				Dim ins,m_1,m_2,merge As String
 				url_back.Initialize	
+				
+				Dim img_string As String
+					Dim su As StringUtils
+					Dim out1 As OutputStream
+					
+					out1.InitializeToBytesArray(0) 'size not really important
+					File.Copy2(File.OpenInput(File.DirAssets, "male_clip.png"), out1)
+					img_string=su.EncodeBase64(out1.ToBytesArray)
+					'Log(img_string)
+					
 				'street_lat_lng
-				m_1 = "INSERT INTO `bloodlife_db`.`person_info` (`full_name`,`blood_type`,`email`,`password`,`phone_number1`,`phone_number2`,`location_brgy`,`location_street`,`bday_month`,`bday_day`,`bday_year`,`nick_name`,`donate_boolean`,`lat`,`long`) "
-				m_2 = "VALUES ('"&full_name&"', '"&blood_type&"','"&email&"',ENCODE('"&password2&"','goroy'),'"&phone_number1&"','"&phone_number2&"','"&brgy&"','"&street&"','"&month&"','"&day&"','"&year&"','"&answer&"','"&donate_boolean&"','"&lat&"','"&lng&"');"
+				m_1 = "INSERT INTO `bloodlife_db`.`person_info` (`full_name`,`blood_type`,`email`,`password`,`phone_number1`,`phone_number2`,`location_brgy`,`location_street`,`bday_month`,`bday_day`,`bday_year`,`nick_name`,`donate_boolean`,`lat`,`long`,`image`) "
+				m_2 = "VALUES ('"&full_name&"', '"&blood_type&"','"&email&"',ENCODE('"&password2&"','goroy'),'"&phone_number1&"','"&phone_number2&"','"&brgy&"','"&street&"','"&month&"','"&day&"','"&year&"','"&answer&"','"&donate_boolean&"','"&lat&"','"&lng&"','"&img_string&"');"
 				merge = m_1&m_2
 				ins = url_back.php_email_url("/bloodlifePHP/inserting.php")
 				insert_job.Download2(ins,Array As String("insert",""&merge))

@@ -435,8 +435,8 @@ return "";
 }
 public static String  _start_button_click() throws Exception{
  //BA.debugLineNum = 45;BA.debugLine="Sub start_button_Click";
- //BA.debugLineNum = 47;BA.debugLine="StartActivity (\"menu_form\")";
-anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("menu_form"));
+ //BA.debugLineNum = 47;BA.debugLine="StartActivity (\"search_frame\")";
+anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("search_frame"));
  //BA.debugLineNum = 48;BA.debugLine="End Sub";
 return "";
 }

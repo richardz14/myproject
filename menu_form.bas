@@ -30,6 +30,8 @@ Sub Process_Globals
 	Dim street_index As Int : street_index = 0
 	Dim list_location_b,list_location_s,list_location_p As List
 	Dim optionSelected As String
+	
+	Private image_container As String
 End Sub
 
 Sub Globals
@@ -40,6 +42,8 @@ Sub Globals
 	Dim spin_bloodgroup As Spinner
 	Dim spin_day,spin_month,spin_year As Spinner
 	Dim spin_donated As Spinner
+	Dim dlgFileExpl As ClsExplorer	
+		
 		
 	Private search_blood As Button
 	Private about As Button
@@ -98,6 +102,7 @@ Sub Globals
 	Private text_donated As EditText
 	Private cancel_btn As Button
 	Private update_btn As Button
+	Private usr_img As ImageView
 End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
@@ -333,7 +338,51 @@ Sub all_input_on_list
 	text_donated.Text = list_all_info.Get(11)
 	is_donated = list_all_info.Get(11)
 	
+	Dim inp As InputStream
+	Dim bmp As Bitmap
+	Dim su As StringUtils
+	Dim bytes() As Byte
+	bytes = su.DecodeBase64(list_all_info.Get(12))
+	image_container = list_all_info.Get(12)
+	inp.InitializeFromBytesArray(bytes,0,bytes.Length)
+	bmp.Initialize2(inp)
+	usr_img.SetBackgroundImage(bmp)
+	'Log(list_all_info.Get(12))
+	
 	ProgressDialogHide
+End Sub
+Sub Activity_KeyPress(KeyCode As Int) As Boolean
+	' Not mandatory, it depends on your app and device
+	If dlgFileExpl.IsInitialized Then
+		If dlgFileExpl.IsActive Then Return True
+	End If
+End Sub
+Sub usr_img_click
+	dlgFileExpl.Initialize(Activity, "/mnt/sdcard", ".bmp,.gif,.jpg,.png", True, False, "OK")
+	dlgFileExpl.FastScrollEnabled = True
+	dlgFileExpl.Explorer2(True)
+	If Not(dlgFileExpl.Selection.Canceled Or dlgFileExpl.Selection.ChosenFile = "") Then
+	'Msgbox("Picture:" & CRLF & dlgFileExpl.Selection.ChosenPath & "/" & dlgFileExpl.Selection.ChosenFile, "Your choice")
+					Dim img_string As String
+					Dim su As StringUtils
+					Dim out1 As OutputStream
+					
+					out1.InitializeToBytesArray(0) 'size not really important
+					File.Copy2(File.OpenInput(dlgFileExpl.Selection.ChosenPath, dlgFileExpl.Selection.ChosenFile), out1)
+					img_string=su.EncodeBase64(out1.ToBytesArray)
+					image_container = img_string
+					'''
+					Dim inp As InputStream
+	Dim bmp As Bitmap
+	Dim su As StringUtils
+	Dim bytes() As Byte
+	bytes = su.DecodeBase64(img_string)
+	inp.InitializeFromBytesArray(bytes,0,bytes.Length)
+	bmp.Initialize2(inp)
+	usr_img.SetBackgroundImage(bmp)
+					Log(img_string)
+	End If
+	
 End Sub
 Public Sub JobDone(job As HttpJob)
 	If job.Success Then
@@ -390,6 +439,7 @@ Sub profiled_Click
 			Dim img_bday As ImageView : img_bday.Initialize("")
 			Dim img_nickN As ImageView : img_nickN.Initialize("")
 			Dim img_isDonated As ImageView : img_isDonated.Initialize("")
+			
 		title.Text = "My Information" '' titte
 		title.Gravity = Gravity.CENTER
 		title.TextSize = 20 '''-------
@@ -469,7 +519,7 @@ Sub update_btn_Click
 		Msgbox("Error: Fill up those empty fields before you update!","C O N F I R M A T I O N")
 	Else
 		m_1 = "UPDATE `bloodlife_db`.`person_info` SET `full_name`='"&text_fn.Text&"',`blood_type`='"&blood_selected&"', `phone_number1`='"&text_phonenumber.Text&"', `phone_number2`='"&text_phonenumber2.Text&"', `location_brgy`='"&location_brgy_selected&"', `location_street`='"&location_street_selected&"', "
-		m_2 = "`location_purok`='', `bday_month`='"&bday_month_selected&"',`bday_day`='"&bday_day_selected&"', `bday_year`='"&bday_year_selected&"', `nick_name`='"&text_answer.Text&"', `donate_boolean`='"&is_donated&"', `lat`='"&lat&"', `long`='"&lng&"' WHERE  `id`="&login_form.id_query&";"
+		m_2 = "`location_purok`='', `bday_month`='"&bday_month_selected&"',`bday_day`='"&bday_day_selected&"', `bday_year`='"&bday_year_selected&"', `nick_name`='"&text_answer.Text&"', `donate_boolean`='"&is_donated&"', `lat`='"&lat&"', `long`='"&lng&"', `image`='"&image_container&"' WHERE  `id`="&login_form.id_query&";"
 		merge = m_1&m_2
 		ins = url_back.php_email_url("/bloodlifePHP/updating.php")
 		update_job.Download2(ins,Array As String("update",""&merge))

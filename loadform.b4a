@@ -1,5 +1,5 @@
 ﻿Version=5.8
-NumberOfModules=10
+NumberOfModules=12
 Module1=login_form
 Module2=create_account
 Module3=calculations
@@ -10,10 +10,12 @@ Module7=HttpUtils2Service
 Module8=my_profile
 Module9=about_frame
 Module10=help_frame
+Module11=ClsExplorer
+Module12=ClsCheckList
 Build1=Default,b4a.example
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
 IconFile=
-NumberOfFiles=106
+NumberOfFiles=108
 File1=ABOUT US.png
 File2=about_frame.bal
 File3=ABOUT_US.png
@@ -34,93 +36,95 @@ File17=ehelp.png
 File18=emyprofile.png
 File19=esearch.png
 File20=EXIT.png
-File21=glyphicons-144-database-ban.png
-File22=glyphicons-145-folder-open.png
-File23=glyphicons-146-folder-plus.png
-File24=glyphicons-147-folder-minus.png
-File25=glyphicons-148-folder-lock.png
-File26=glyphicons-149-folder-flag.png
-File27=glyphicons-150-folder-new.png
-File28=glyphicons-151-edit.png
-File29=glyphicons-152-new-window.png
-File30=glyphicons-153-check.png
-File31=glyphicons-154-unchecked.png
-File32=glyphicons-155-more-windows.png
-File33=glyphicons-156-show-big-thumbnails.png
-File34=glyphicons-157-show-thumbnails.png
-File35=glyphicons-158-show-thumbnails-with-lines.png
-File36=glyphicons-199-ok-circle.png
-File37=glyphicons-200-ban-circle.png
-File38=glyphicons-21-home.png
-File39=glyphicons-25-parents.png
-File40=glyphicons-265-vcard.png
-File41=glyphicons-279-birthday-cake.png
-File42=glyphicons-27-road.png
-File43=glyphicons-28-search.png
-File44=glyphicons-29-cars.png
-File45=glyphicons-30-notes-2.png
-File46=glyphicons-331-blog.png
-File47=glyphicons-353-nameplate.png
-File48=glyphicons-354-nameplate-alt.png
-File49=glyphicons-354-nameplate-alt1.png
-File50=glyphicons-354-nameplate-alt2.png
-File51=glyphicons-35-old-man.png
-File52=glyphicons-37-file.png
-File53=glyphicons-39-plane.png
-File54=glyphicons-40-notes.png
-File55=glyphicons-44-group.png
-File56=glyphicons-46-calendar.png
-File57=glyphicons-47-router.png
-File58=glyphicons-48-camera-small.png
-File59=glyphicons-49-star-empty.png
-File60=glyphicons-4-user.png
-File61=glyphicons-500-family.png
-File62=glyphicons-50-star.png
-File63=glyphicons-58-history.png
-File64=glyphicons-59-truck.png
-File65=glyphicons-5-girl.png
-File66=glyphicons-60-cargo.png
-File67=glyphicons-65-lightbulb.png
-File68=glyphicons-67-tags.png
-File69=glyphicons-68-cleaning.png
-File70=glyphicons-69-ruler.png
-File71=glyphicons-70-gift.png
-File72=glyphicons-72-book.png
-File73=glyphicons-750-hash.png
-File74=glyphicons-77-headphones.png
-File75=glyphicons-7-user-add.png
-File76=glyphicons-89-address-book.png
-File77=glyphicons-8-user-remove.png
-File78=glyphicons-90-building.png
-File79=glyphicons-91-eyedropper.png
-File80=glyphicons-92-adjust.png
-File81=glyphicons-93-tint.png
-File82=glyphicons-social-40-e-mail.png
-File83=HELP.png
-File84=help_frame.bal
-File85=listlabel.txt
-File86=load_form.bal
-File87=location_buttom.txt
-File88=location_top.txt
-File89=LOG_IN.png
-File90=login_form.bal
-File91=logo02.png
-File92=logo1.jpg
-File93=logo1.png
-File94=menu_frame.bal
-File95=menu_search.png
-File96=MENU1.png
-File97=modal_bg.png
-File98=my profile.png
-File99=my_profile.bal
-File100=my_profile.png
-File101=REGISTER.png
-File102=SEARCH.png
-File103=search_frame.bal
-File104=searchbloodtype.png
-File105=update_all_inputs.bal
-File106=VIEW ALL.png
-NumberOfLibraries=9
+File21=female_clip.png
+File22=glyphicons-144-database-ban.png
+File23=glyphicons-145-folder-open.png
+File24=glyphicons-146-folder-plus.png
+File25=glyphicons-147-folder-minus.png
+File26=glyphicons-148-folder-lock.png
+File27=glyphicons-149-folder-flag.png
+File28=glyphicons-150-folder-new.png
+File29=glyphicons-151-edit.png
+File30=glyphicons-152-new-window.png
+File31=glyphicons-153-check.png
+File32=glyphicons-154-unchecked.png
+File33=glyphicons-155-more-windows.png
+File34=glyphicons-156-show-big-thumbnails.png
+File35=glyphicons-157-show-thumbnails.png
+File36=glyphicons-158-show-thumbnails-with-lines.png
+File37=glyphicons-199-ok-circle.png
+File38=glyphicons-200-ban-circle.png
+File39=glyphicons-21-home.png
+File40=glyphicons-25-parents.png
+File41=glyphicons-265-vcard.png
+File42=glyphicons-279-birthday-cake.png
+File43=glyphicons-27-road.png
+File44=glyphicons-28-search.png
+File45=glyphicons-29-cars.png
+File46=glyphicons-30-notes-2.png
+File47=glyphicons-331-blog.png
+File48=glyphicons-353-nameplate.png
+File49=glyphicons-354-nameplate-alt.png
+File50=glyphicons-354-nameplate-alt1.png
+File51=glyphicons-354-nameplate-alt2.png
+File52=glyphicons-35-old-man.png
+File53=glyphicons-37-file.png
+File54=glyphicons-39-plane.png
+File55=glyphicons-40-notes.png
+File56=glyphicons-44-group.png
+File57=glyphicons-46-calendar.png
+File58=glyphicons-47-router.png
+File59=glyphicons-48-camera-small.png
+File60=glyphicons-49-star-empty.png
+File61=glyphicons-4-user.png
+File62=glyphicons-500-family.png
+File63=glyphicons-50-star.png
+File64=glyphicons-58-history.png
+File65=glyphicons-59-truck.png
+File66=glyphicons-5-girl.png
+File67=glyphicons-60-cargo.png
+File68=glyphicons-65-lightbulb.png
+File69=glyphicons-67-tags.png
+File70=glyphicons-68-cleaning.png
+File71=glyphicons-69-ruler.png
+File72=glyphicons-70-gift.png
+File73=glyphicons-72-book.png
+File74=glyphicons-750-hash.png
+File75=glyphicons-77-headphones.png
+File76=glyphicons-7-user-add.png
+File77=glyphicons-89-address-book.png
+File78=glyphicons-8-user-remove.png
+File79=glyphicons-90-building.png
+File80=glyphicons-91-eyedropper.png
+File81=glyphicons-92-adjust.png
+File82=glyphicons-93-tint.png
+File83=glyphicons-social-40-e-mail.png
+File84=HELP.png
+File85=help_frame.bal
+File86=listlabel.txt
+File87=load_form.bal
+File88=location_buttom.txt
+File89=location_top.txt
+File90=LOG_IN.png
+File91=login_form.bal
+File92=logo02.png
+File93=logo1.jpg
+File94=logo1.png
+File95=male_clip.png
+File96=menu_frame.bal
+File97=menu_search.png
+File98=MENU1.png
+File99=modal_bg.png
+File100=my profile.png
+File101=my_profile.bal
+File102=my_profile.png
+File103=REGISTER.png
+File104=SEARCH.png
+File105=search_frame.bal
+File106=searchbloodtype.png
+File107=update_all_inputs.bal
+File108=VIEW ALL.png
+NumberOfLibraries=12
 Library1=core
 Library2=scrollview2d
 Library3=httpserver
@@ -130,6 +134,9 @@ Library6=jsinterface
 Library7=dialogs
 Library8=webviewextras
 Library9=gps
+Library10=byteconverter
+Library11=animation
+Library12=reflection
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: bloodlife system
@@ -163,8 +170,8 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("load_form")
-	all_settings_layout
-
+	all_settings_layout	
+	
 End Sub
 
 Sub Activity_Resume
@@ -177,7 +184,7 @@ End Sub
 
 Sub start_button_Click
 'StartActivity ("login_form")
-	StartActivity ("menu_form")
+	StartActivity ("search_frame")
 End Sub
 
 Public Sub all_settings_layout
