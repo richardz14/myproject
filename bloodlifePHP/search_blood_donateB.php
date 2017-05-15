@@ -13,7 +13,7 @@ $sql_query = mysql_query($donate_b);
 
        while($row = mysql_fetch_array($sql_query)){
            //echo ''.$row["donate_boolean"];
-		    printf(''.$row["donate_boolean"]."\xA");
+		    printf(''.$row["donate_boolean"]." (".$row["date_donated"].")"."\xA");
        }
         
 ?>

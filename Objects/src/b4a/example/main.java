@@ -317,10 +317,10 @@ public b4a.example.login_form _login_form = null;
 public b4a.example.create_account _create_account = null;
 public b4a.example.search_frame _search_frame = null;
 public b4a.example.menu_form _menu_form = null;
+public b4a.example.help_frame _help_frame = null;
 public b4a.example.httputils2service _httputils2service = null;
 public b4a.example.my_profile _my_profile = null;
 public b4a.example.about_frame _about_frame = null;
-public b4a.example.help_frame _help_frame = null;
 
 public static boolean isAnyActivityVisible() {
     boolean vis = false;
@@ -329,9 +329,9 @@ vis = vis | (login_form.mostCurrent != null);
 vis = vis | (create_account.mostCurrent != null);
 vis = vis | (search_frame.mostCurrent != null);
 vis = vis | (menu_form.mostCurrent != null);
+vis = vis | (help_frame.mostCurrent != null);
 vis = vis | (my_profile.mostCurrent != null);
 vis = vis | (about_frame.mostCurrent != null);
-vis = vis | (help_frame.mostCurrent != null);
 return vis;}
 public static String  _activity_create(boolean _firsttime) throws Exception{
  //BA.debugLineNum = 30;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
@@ -419,10 +419,10 @@ login_form._process_globals();
 create_account._process_globals();
 search_frame._process_globals();
 menu_form._process_globals();
+help_frame._process_globals();
 httputils2service._process_globals();
 my_profile._process_globals();
 about_frame._process_globals();
-help_frame._process_globals();
 		
         } catch (Exception e) {
 			throw new RuntimeException(e);
@@ -435,8 +435,8 @@ return "";
 }
 public static String  _start_button_click() throws Exception{
  //BA.debugLineNum = 45;BA.debugLine="Sub start_button_Click";
- //BA.debugLineNum = 47;BA.debugLine="StartActivity (\"search_frame\")";
-anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("search_frame"));
+ //BA.debugLineNum = 47;BA.debugLine="StartActivity (\"login_form\")";
+anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("login_form"));
  //BA.debugLineNum = 48;BA.debugLine="End Sub";
 return "";
 }

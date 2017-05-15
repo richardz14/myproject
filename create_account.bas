@@ -15,12 +15,19 @@ Sub Process_Globals
 	Dim list_donate_confirm As List
 	Dim list_bday_m,list_bday_d,list_bday_y As List
 	Dim list_location_b,list_location_s,list_location_p As List
-	
+		Dim list_day,list_month,list_year As List
+		Dim list_gender As List
+		
 	Dim lat As String : lat = "10.098014"
 	Dim lng As String : lng = "122.869168"
 	Dim brgy_index As Int : brgy_index = 0
 	Dim street_index As Int : street_index = 0
+	Dim gender_index As Int : gender_index = 0
+	Dim ageGet As Int
 	
+		Dim isDonateDate As String
+		Dim spin_donate_pos As Int : spin_donate_pos =0
+		Dim donate_m_pos,donate_d_pos,donate_y_pos As Int
 End Sub
 
 Sub Globals
@@ -62,6 +69,7 @@ Sub Globals
 	Private bday_spin_month As Spinner
 	Private bday_spin_day As Spinner
 	Private bday_spin_year As Spinner
+		Dim spin_day,spin_month,spin_year As Spinner
 	'Private text_question As EditText
 	Private bday_panel As Panel
 	Private location_panel As Panel
@@ -72,6 +80,10 @@ Sub Globals
 	Private existing_email As HttpJob
 	Private email_exists As String
 	'Private email_list As List
+	
+	Dim pnl_bday_body As Panel
+	Private is_donate_date As Label
+	Private spin_gender As Spinner
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -135,6 +147,24 @@ Sub reg_button_Click
 	Dim answer As String : answer = text_answer.Text
 	Dim donate_boolean As String : donate_boolean = spin_donate_confirm.SelectedItem
 	
+	Dim Nmonth,Nday,Nyear As Int
+	   Nday = DateTime.GetDayOfMonth(DateTime.Now)
+	  Nmonth = DateTime.GetMonth(DateTime.Now)
+	  Nyear = DateTime.GetYear(DateTime.Now)
+	  
+		Dim age,Pyear,Pmonth,Pday As Int
+		Pyear = year
+		Pmonth = month
+		Pday = day
+		age = Nyear - Pyear
+		If Pmonth <= Nmonth And Pday <= Nday Then
+           'year_sub = year_sub+1;
+		   ageGet = age
+       Else
+            ageGet = age-1
+       End If
+	   
+	  Log("date: "&Nmonth&"/"&Nday&"/"&Nyear&"  =  "&ageGet)
 	'' registering process...
 		''comparing empty fields...
 	If text_fn.Text == ""  Or text_email.Text == "" Or text_password.Text == "" Or text_password2.Text == "" Or text_phonenumber.Text == "" Or text_phonenumber2.Text == "" Or text_password2.Text == "" Or text_answer.Text == "" Then
@@ -147,7 +177,10 @@ Sub reg_button_Click
 			text_password.Text = ""
 			text_password2.Text = ""
 			Msgbox("Error: Password did not match!","C O N F I R M A T I O N")
-		Else
+		Else if ageGet <= 18 Then
+			ProgressDialogHide	
+			Msgbox("Error: Age must be 18 above to register!","C O N F I R M A T I O N")
+			Else
 			ProgressDialogHide
 			email_existance
 			'	Msgbox("Error: Email Address are already existed.!","Confirmation")
@@ -194,24 +227,35 @@ Private Sub existing_result
 	Dim answer As String : answer = text_answer.Text
 	Dim donate_boolean As String : donate_boolean = spin_donate_confirm.SelectedItem
 	
+		If spin_donate_pos == 0 Then
+			isDonateDate = "NONE"
+		Else
+			
+		End If
 	''
 				'ProgressDialogShow2("Registering, Please wait...",False)
 				Dim url_back As calculations
 				Dim ins,m_1,m_2,merge As String
+				Dim gender_string As String
 				url_back.Initialize	
 				
+				gender_string = spin_gender.GetItem(gender_index)
 				Dim img_string As String
 					Dim su As StringUtils
 					Dim out1 As OutputStream
 					
 					out1.InitializeToBytesArray(0) 'size not really important
+					If gender_index == 0 Then
 					File.Copy2(File.OpenInput(File.DirAssets, "male_clip.png"), out1)
+					Else
+					File.Copy2(File.OpenInput(File.DirAssets, "female_clip.png"), out1)	
+					End If
 					img_string=su.EncodeBase64(out1.ToBytesArray)
 					'Log(img_string)
 					
 				'street_lat_lng
-				m_1 = "INSERT INTO `bloodlife_db`.`person_info` (`full_name`,`blood_type`,`email`,`password`,`phone_number1`,`phone_number2`,`location_brgy`,`location_street`,`bday_month`,`bday_day`,`bday_year`,`nick_name`,`donate_boolean`,`lat`,`long`,`image`) "
-				m_2 = "VALUES ('"&full_name&"', '"&blood_type&"','"&email&"',ENCODE('"&password2&"','goroy'),'"&phone_number1&"','"&phone_number2&"','"&brgy&"','"&street&"','"&month&"','"&day&"','"&year&"','"&answer&"','"&donate_boolean&"','"&lat&"','"&lng&"','"&img_string&"');"
+				m_1 = "INSERT INTO `bloodlife_db`.`person_info` (`full_name`,`blood_type`,`email`,`password`,`phone_number1`,`phone_number2`,`location_brgy`,`location_street`,`bday_month`,`bday_day`,`bday_year`,`nick_name`,`donate_boolean`,`lat`,`long`,`image`,`age`,`date_donated`,`gender`) "
+				m_2 = "VALUES ('"&full_name&"', '"&blood_type&"','"&email&"',ENCODE('"&password2&"','goroy'),'"&phone_number1&"','"&phone_number2&"','"&brgy&"','"&street&"','"&month&"','"&day&"','"&year&"','"&answer&"','"&donate_boolean&"','"&lat&"','"&lng&"','"&img_string&"','"&ageGet&"','"&isDonateDate&"','"&gender_string&"');"
 				merge = m_1&m_2
 				ins = url_back.php_email_url("/bloodlifePHP/inserting.php")
 				insert_job.Download2(ins,Array As String("insert",""&merge))
@@ -248,6 +292,8 @@ Public Sub all_settings_layout
 	ban_picture.Width = 80%x
 	ban_logo.Width = ban_panel.Width - ban_picture.Width
 	indicator.Width = 100%x
+	
+	reg_button.Width = 50%x
 		'location_panel
 	'location_spin_brgy.Width = location_panel.Width - 52%x
 	'location_spin_street.Width = location_panel.Width - 51%x
@@ -265,7 +311,7 @@ Public Sub all_settings_layout
 	create_panel.Top = Activity.Height - create_panel.Height
 	uptext_panel.Top = ban_panel.Top + ban_panel.Height
 	indicator.Top = (uptext_panel.Height/2) - 8dip
-	reg_button.Top = 4%y
+	reg_button.Top = ((create_panel.Height/2)/2) '4%y
 	
 	'' left
 	ban_panel.Left = Activity.Left
@@ -277,11 +323,20 @@ Public Sub all_settings_layout
 	'indicator.Left = uptext_panel.Left + ((uptext_panel.Width/2) - (uptext_panel.Width/8.5))
 	indicator.Left = uptext_panel.Left
 	indicator.Gravity = Gravity.CENTER_HORIZONTAL
-	reg_button.Left = create_panel.Left + ((create_panel.Width/2) - (create_panel.Width/5))
+	reg_button.Left = 25%x'create_panel.Left + ((create_panel.Width/2) - (create_panel.Width/5))
 	
 	'location_spin_brgy.Left = 2%X
 	'location_spin_street.Left = location_spin_brgy.Left + location_spin_brgy.Width
 	''
+	Dim gradiant As GradientDrawable
+		Dim col(2) As Int
+		col(0) = Colors.Red
+		col(1) = Colors.LightGray
+		gradiant.Initialize("TOP_BOTTOM",col)
+		gradiant.CornerRadius = 5dip
+		'ban_create.Background = gradiant
+		reg_button.Background = gradiant
+	
 	Dim calc As calculations
 	calc.Initialize
 	h = calc.sums_height(Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height)
@@ -297,6 +352,7 @@ Sub spinners_list_data
 	list_bday_y.Initialize
 	list_location_b.Initialize
 	list_location_s.Initialize
+	list_gender.Initialize
 	'list_location_p.Initialize
 	''
 	list_bloodgroup.Add("A")
@@ -313,15 +369,22 @@ Sub spinners_list_data
 	list_bloodgroup.Add("AB-")
 	spin_bloodgroup.AddAll(list_bloodgroup)
 	''
-	list_donate_confirm.Add("YES")
 	list_donate_confirm.Add("NO")
+	list_donate_confirm.Add("YES")
 	spin_donate_confirm.AddAll(list_donate_confirm)
+	''
+	list_gender.Add("Male")
+	list_gender.Add("Female")
+	spin_gender.AddAll(list_gender)
 	''
 	 For i = 1 To 31
 	  	list_bday_d.Add(i)
 	  Next
-	  For ii = 1940 To 2017
-	  	list_bday_y.Add(ii)
+	 Dim iNowYear As Int
+	 iNowYear = DateTime.GetYear(DateTime.Now)
+	  For ii = 1950 To DateTime.GetYear(DateTime.Now)
+	  	list_bday_y.Add(iNowYear)
+		iNowYear = iNowYear-1
 	  Next
 		For iii = 1 To 12
 			list_bday_m.Add(iii)
@@ -354,7 +417,6 @@ Sub spinners_list_data
 '	list_location_p.Add("Gwapo")
 	
 	
-	
 	list_location_s.Add("Rizal st.")
 	list_location_s.Add("Valega st.")
 	list_location_s.Add("Sarmiento st.")
@@ -369,8 +431,8 @@ Sub spinners_list_data
 
 End Sub
 Sub scrolling
-	
-	scrool_2d.Initialize(100%x,Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height + 5%y,"scroll2d")
+	'scrool_2d.Initialize(100%x,Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height + 5%y,"scroll2d")
+	scrool_2d.Initialize(100%x,112%y,"scroll2d")
 	'scrool_2d.Panel.AddView(create_all_inputs,0,uptext_panel.Top - uptext_panel.Height,100%x,Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height)
 	scrool_2d.Panel.LoadLayout("create_all_inputs")
 	scrool_2d.ScrollbarsVisibility(False,False)
@@ -1140,4 +1202,106 @@ End Sub
 Sub location_spin_street_ItemClick (Position As Int, Value As Object)
 	street_index = Position
 	street_lat_lng
+End Sub
+Sub spin_donate_confirm_ItemClick (Position As Int, Value As Object)
+	spin_donate_pos = Position
+	Log("pos: "&spin_donate_pos)
+	If Position == 0 Then
+			is_donate_date.Text = " "
+			isDonateDate = "NONE"
+	Else
+		isDonate_edit_
+	End If
+End Sub
+Sub isDonate_edit_
+		list_day.Initialize
+		list_month.Initialize
+		list_year.Initialize
+		spin_day.Initialize("donate_spin_day")	
+		spin_month.Initialize("donate_spin_month")	
+		spin_year.Initialize("donate_spin_year")	
+	  For i = 1 To 31
+	  	list_day.Add(i)
+	  Next
+	   Dim iNowYear As Int
+	 iNowYear = DateTime.GetYear(DateTime.Now)
+	  For ii = 1950 To DateTime.GetYear(DateTime.Now)
+	  	list_year.Add(iNowYear)
+		iNowYear = iNowYear-1
+	  Next
+		For iii = 1 To 12
+			list_month.Add(iii)
+		Next
+		spin_day.AddAll(list_day)
+		spin_month.AddAll(list_month)
+		spin_year.AddAll(list_year)
+	Dim pnl As Panel
+	Dim edit_ok_btn,edit_can_btn As Button
+	Dim title_lbl As Label
+	edit_ok_btn.Initialize("isdonated_ok_btn")
+	edit_can_btn.Initialize("isdonated_can_btn")
+	title_lbl.Initialize("")
+	edit_ok_btn.Text = "OK"
+	edit_can_btn.Text = "CANCEL"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		edit_ok_btn.Background = V_btn
+		edit_can_btn.Background = C_btn
+	title_lbl.Text = "SELECT DONATED DATE"
+	title_lbl.Gravity = Gravity.CENTER
+	pnl.Initialize("pnl")
+	pnl_bday_body.Initialize("pnl_bday_body")
+	pnl_bday_body.Color = Colors.Transparent
+	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)
+	pnl.AddView(spin_day,2%x,title_lbl.Top + title_lbl.Height + 1%y,20%x,8%y)
+	pnl.AddView(spin_month,spin_day.Left+spin_day.Width+1%X,spin_day.Top,20%x,8%y)
+	pnl.AddView(spin_year,spin_month.Left+spin_month.Width+1%x,spin_month.Top,20%x,8%y)
+	pnl.AddView(edit_ok_btn,15%x,spin_year.Top+spin_year.Height+3%y,20%x,8%y)
+	pnl.AddView(edit_can_btn,edit_ok_btn.Left+edit_ok_btn.Width+2%x,spin_year.Top+spin_year.Height+3%y,20%x,8%y)
+
+	pnl_bday_body.AddView(pnl,13%x,((Activity.Height/2)/2),74%x,33%y)
+	pnl_bday_body.BringToFront
+	'pnl_body.Enabled = False
+	'pnl_bday_body.Color = Colors.ARGB(128,128,128,.50)
+	Activity.AddView(pnl_bday_body,0,0,100%x,100%y)	
+End Sub
+Sub pnl_bday_body_click
+	''can't delete
+End Sub
+Sub donate_spin_day_ItemClick (Position As Int, Value As Object)
+	donate_d_pos = Position
+	'donate_m_pos,donate_d_pos,donate_y_pos
+End Sub
+Sub donate_spin_month_ItemClick (Position As Int, Value As Object)
+	donate_m_pos = Position
+	'donate_m_pos,donate_d_pos,donate_y_pos
+End Sub
+Sub donate_spin_year_ItemClick (Position As Int, Value As Object)
+	donate_y_pos = Position
+	'donate_m_pos,donate_d_pos,donate_y_pos
+End Sub
+Sub isdonated_ok_btn_click
+	Dim day,month,year As String
+	day = spin_day.GetItem(donate_d_pos)
+	month = spin_month.GetItem(donate_m_pos)
+	year = spin_year.GetItem(donate_y_pos)
+	isDonateDate = month&"/"&day&"/"&year
+	is_donate_date.Text = "("&isDonateDate&")"		
+	Msgbox(""&month&"/"&day&"/"&year,"Date Selected")
+	Log(isDonateDate)
+	pnl_bday_body.RemoveView
+End Sub
+Sub isdonated_can_btn_click
+	pnl_bday_body.RemoveView
+End Sub
+
+Sub spin_gender_ItemClick (Position As Int, Value As Object)
+	gender_index = Position
 End Sub

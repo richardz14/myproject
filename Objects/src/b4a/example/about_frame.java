@@ -314,9 +314,9 @@ public b4a.example.login_form _login_form = null;
 public b4a.example.create_account _create_account = null;
 public b4a.example.search_frame _search_frame = null;
 public b4a.example.menu_form _menu_form = null;
+public b4a.example.help_frame _help_frame = null;
 public b4a.example.httputils2service _httputils2service = null;
 public b4a.example.my_profile _my_profile = null;
-public b4a.example.help_frame _help_frame = null;
 
 public static void initializeProcessGlobals() {
              try {

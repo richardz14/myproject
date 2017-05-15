@@ -25,6 +25,8 @@ Dim nickname_list As List
 Dim phone1_list As List
 Dim phone2_list As List
 Dim image_list As List
+Dim age_list As List
+Dim gender_list As List
 Dim is_complete As Int : is_complete = 0
 
 Dim gpsClient As GPS
@@ -66,10 +68,15 @@ Sub Globals
 	Private data_query_phone1 As HttpJob
 	Private data_query_phone2 As HttpJob
 	Private data_query_image As HttpJob
+	Private data_query_age As HttpJob
+	Private data_query_gender As HttpJob
 	Private query_marker As HttpJob
 	Private isGPSon As CheckBox
 	Dim view_info_pnl As Panel
 	Dim view_data_info_person As Panel
+	
+	Dim scroll_view_info As ScrollView2D
+	Dim user_img_panl As Panel
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -86,6 +93,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	data_query_phone1.Initialize("data_query_phone1_get",Me)
 	data_query_phone2.Initialize("data_query_phone2_get",Me)
 	data_query_image.Initialize("data_query_image",Me)
+	data_query_age.Initialize("data_query_age_get",Me)
+	data_query_gender.Initialize("data_query_gender_get",Me)
     query_marker.Initialize("query_marker_get",Me)
 	map_extras.addJavascriptInterface(map_webview,"B4A")
 	
@@ -173,7 +182,7 @@ Sub search_btn_Click
 	ProgressDialogShow2("please wait.!!",False)
 	
 	Dim url_back As calculations
-	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phone1,phone2,image As String
+	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phone1,phone2,image,age,gender As String
 	url_back.Initialize
 	url_id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
 	full_name = url_back.php_email_url("/bloodlifePHP/search_blood_fullN.php")
@@ -186,6 +195,9 @@ Sub search_btn_Click
 	phone1 = url_back.php_email_url("/bloodlifePHP/search_blood_phone1.php")
 	phone2 = url_back.php_email_url("/bloodlifePHP/search_blood_phone2.php")
 	image = url_back.php_email_url("/bloodlifePHP/search_blood_image.php")
+	age = url_back.php_email_url("/bloodlifePHP/search_blood_age.php")
+	gender = url_back.php_email_url("/bloodlifePHP/search_blood_gender.php")
+	
 	''url_id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
 	'Log(full_name&" "&spin_item_click)
 	data_query_id.Download2(url_id,Array As String("id","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
@@ -201,6 +213,9 @@ Sub search_btn_Click
 	data_query_phone2.Download2(phone2,Array As String("phone2","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	
 	data_query_image.Download2(image,Array As String("image","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	
+	data_query_age.Download2(age,Array As String("age","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_gender.Download2(gender,Array As String("gender","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	'data_query_id.Initialize("data_query_id_get",Me)
 	'data_query_id.Initialize("data_query_fullN_get",Me)
 	'data_query_id.Initialize("data_query_location_get",Me)
@@ -259,10 +274,10 @@ Sub create_map
 			distance = earth_radius * ACos( Cos( ( 90 - GPSlat ) * ( pi / 180 ) ) * Cos( ( 90 - TOlat ) * ( pi / 180 ) ) +  Sin( ( 90 - GPSlat ) * ( pi / 180 ) ) * Sin( ( 90 - TOlat ) * ( pi / 180 ) ) * Cos( ( GPSlng - TOlng ) * ( pi / 180 ) ) ) 
 			distanceMeter = distance*1000
 			'htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
-			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4><h4><b>You are "&distanceMeter&"m away from the donor!</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
+			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""iw-container""><div class=""iw-title"">Personal Information</div><div class=""iw-content""><b><h2><center>"&fullN_llist.Get(i)&"</center></h2></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Age: <b>"&age_list.Get(i)&"</b></h4><h4>Age: <b>"&gender_list.Get(i)&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4><h4><b>You are "&distanceMeter&"m away from the donor!</b></h4></div></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 350 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 			location.WriteLine(htmlString2)	
 		Else
-			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
+			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""iw-container""><div class=""iw-title"">Personal Information</div><div class=""iw-content""><b><h2><center>"&fullN_llist.Get(i)&"</center></h2></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Age: <b>"&age_list.Get(i)&"</b></h4><h4>Age: <b>"&gender_list.Get(i)&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 350}); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 			location.WriteLine(htmlString2)
 		End If
 		
@@ -334,6 +349,8 @@ Sub is_initialize
 	  TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_phone1.txt", False))
 	  TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_phone2.txt", False))
 	    TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_image.txt", False))
+		TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_age.txt", False))
+		TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_gender.txt", False))
 End Sub
 Public Sub JobDone(job As HttpJob)
 	If job.Success Then
@@ -371,7 +388,7 @@ Public Sub JobDone(job As HttpJob)
 			  Case "data_query_donated_get"
 			  	Dim TextWriter_donate As TextWriter
    					 TextWriter_donate.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_donated.txt", False))
-    		    TextWriter_donate.WriteLine(job.GetString.Trim)
+    		    TextWriter_donate.WriteLine(job.GetString)
 				TextWriter_donate.Close 
 				'Log("5")
 			  Case "data_query_email_get"
@@ -403,12 +420,28 @@ Public Sub JobDone(job As HttpJob)
    					 TextWriter_image.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_image.txt", False))
     		    TextWriter_image.WriteLine(job.GetString.Trim)
 				TextWriter_image.Close 	
+			  Case "data_query_age_get"
+			  	Dim TextWriter_age As TextWriter
+   					 TextWriter_age.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_age.txt", False))
+    		    TextWriter_age.WriteLine(job.GetString.Trim)
+				TextWriter_age.Close 	
+			  Case "data_query_gender_get"
+			  	Dim TextWriter_gender As TextWriter
+   					 TextWriter_gender.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_gender.txt", False))
+    		    TextWriter_gender.WriteLine(job.GetString.Trim)
+				TextWriter_gender.Close 	
 			End Select	
-	If is_complete == 10 Then
+		
+			Log("datas: "&is_complete)
+	If is_complete == 12 Then
 		ProgressDialogHide
 		is_complete = 0
+		Try
 		reading_txt
 		create_map
+		Catch
+			Log(LastException.Message)
+		End Try
 	End If
 	is_complete = is_complete + 1
 		Else If job.Success == False Then
@@ -566,22 +599,29 @@ Sub view_info_pnl_click
 	''don't delete this line
 End Sub
 Sub vie_btn_click
-	view_info_pnl.RemoveView
+
+	view_info_pnl.RemoveView	
 		If view_data_info_person.IsInitialized == True Then
 		view_data_info_person.RemoveView	
+		scroll_view_info.RemoveView		
 	Else
 	End If
 	view_data_info_person.Initialize("view_data_info_person")
-	Dim view_panl As Panel
-	Dim tittle,fullname,location,donated,email,phone1,phone2 As Label
-	Dim fn_pnl,loc_pnl,don_pnl,ema_pnl,ph1_pnl,ph2_pnl,btn_pnl As Panel
-	Dim fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img As ImageView
+	scroll_view_info.Initialize(74%x,57%y,"scroll_view_info")
+		
+	Dim view_panl,view_for_image,view_for_btn As Panel
+	Dim tittle,fullname,location,donated,email,phone1,phone2,age,gender As Label
+	Dim fn_pnl,loc_pnl,don_pnl,ema_pnl,ph1_pnl,ph2_pnl,btn_pnl,age_pnl,gender_pnl As Panel
+	Dim user_image,fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img,age_img,gender_img As ImageView
 					fn_img.Initialize("")
 					loc_img.Initialize("")
 					don_img.Initialize("")
 					ema_img.Initialize("")
 					ph1_img.Initialize("")
 					ph2_img.Initialize("")
+					user_image.Initialize("user_image")
+					age_img.Initialize("")
+					gender_img.Initialize("")
 			fn_pnl.Initialize("")
 			loc_pnl.Initialize("")
 			don_pnl.Initialize("")
@@ -589,6 +629,8 @@ Sub vie_btn_click
 			ph1_pnl.Initialize("")
 			ph2_pnl.Initialize("")
 			btn_pnl.Initialize("")
+			age_pnl.Initialize("")
+			gender_pnl.Initialize("")
 	Dim ok_vie_btn As Button
 		ok_vie_btn.Initialize("ok_vie_btn")
 		tittle.Initialize("")
@@ -598,19 +640,26 @@ Sub vie_btn_click
 		email.Initialize("")
 		phone1.Initialize("")
 		phone2.Initialize("")
+		age.Initialize("")
+		gender.Initialize("")
 	view_panl.Initialize("")
+	view_for_image.Initialize("")
+	view_for_btn.Initialize("")
 	fullname.Text = fullN_llist.Get(row_click)			'string outputs
 	location.Text = ": "&location_list.Get(row_click)
 	donated.Text = ": "&donated_list.Get(row_click)
 	email.Text = ": "&email_list.Get(row_click)
 	phone1.Text = ": "&phone1_list.Get(row_click)
 	phone2.Text = ": "&phone2_list.Get(row_click)   	'string outputs
+	age.Text = ": "&age_list.Get(row_click) 
+	gender.Text = ": "&gender_list.Get(row_click) 
 			location.Gravity = Gravity.CENTER_VERTICAL
 			donated.Gravity = Gravity.CENTER_VERTICAL
 			email.Gravity = Gravity.CENTER_VERTICAL
 			phone1.Gravity = Gravity.CENTER_VERTICAL
 			phone2.Gravity = Gravity.CENTER_VERTICAL
-				
+			age.Gravity = Gravity.CENTER_VERTICAL
+			gender.Gravity = Gravity.CENTER_VERTICAL
 				fullname.TextColor = Colors.Black
 				location.TextColor = Colors.Black
 				donated.TextColor = Colors.Black
@@ -618,19 +667,56 @@ Sub vie_btn_click
 				phone1.TextColor = Colors.Black
 				phone2.TextColor = Colors.Black
 				ok_vie_btn.TextColor = Colors.Black
+				age.TextColor = Colors.Black
+				gender.TextColor = Colors.Black
 	'tittle.Text = "Pofile Info"
 	'tittle.Gravity = Gravity.CENTER
 	fullname.Gravity = Gravity.CENTER
 	ok_vie_btn.Text = "OK"
 	view_panl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
 	'view_panl.AddView(tittle,1%x,2%y,72%x,8%y) ' title of modal
-				loc_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-21-home.png"))
-				don_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-152-new-window.png"))
-				ema_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-social-40-e-mail.png"))
-				ph1_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-354-nameplate-alt1.png"))
-				ph2_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-354-nameplate-alt2.png"))
-			
-			Dim fn_grad,don_grad,ema_grad,ph1_grad,ph2_grad,loc_grad,btn_grad,ok_btn_grad As GradientDrawable
+				'loc_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-21-home.png"))
+				'don_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-152-new-window.png"))
+				'ema_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-social-40-e-mail.png"))
+				'ph1_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-354-nameplate-alt1.png"))
+				'ph2_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-354-nameplate-alt2.png"))
+				Dim loc_bitd,don_bitd,ema_bitd,ph1_bitd,ph2_bitd,age_bitd,gender_bitd As BitmapDrawable
+				Dim loc_bit,don_bit,ema_bit,ph1_bit,ph2_bit,age_bit,gender_bit  As Bitmap
+					loc_bit.Initialize(File.DirAssets,"glyphicons-21-home.png")
+					don_bit.Initialize(File.DirAssets,"glyphicons-152-new-window.png")
+					ema_bit.Initialize(File.DirAssets,"glyphicons-social-40-e-mail.png")
+					ph1_bit.Initialize(File.DirAssets,"glyphicons-354-nameplate-alt1.png")
+					ph2_bit.Initialize(File.DirAssets,"glyphicons-354-nameplate-alt2.png")
+					age_bit.Initialize(File.DirAssets,"glyphicons-577-uk-rat-r18.png")
+					gender_bit.Initialize(File.DirAssets,"glyphicons-25-parents.png")
+						loc_bitd.Initialize(loc_bit)
+						don_bitd.Initialize(don_bit)
+						ema_bitd.Initialize(ema_bit)
+						ph1_bitd.Initialize(ph1_bit)
+						ph2_bitd.Initialize(ph2_bit)
+						age_bitd.Initialize(age_bit)
+						gender_bitd.Initialize(gender_bit)
+				loc_img.Background = loc_bitd
+				don_img.Background = don_bitd
+				ema_img.Background = ema_bitd
+				ph1_img.Background = ph1_bitd
+				ph2_img.Background = ph2_bitd
+				age_img.Background = age_bitd
+				gender_img.Background = gender_bitd
+	Dim inp As InputStream
+	Dim bmp As Bitmap
+	Dim su As StringUtils
+	Dim bytes() As Byte
+	bytes = su.DecodeBase64(image_list.Get(row_click))
+	inp.InitializeFromBytesArray(bytes,0,bytes.Length)
+	bmp.Initialize2(inp)
+	''
+	Dim bd As BitmapDrawable
+	bd.Initialize(bmp)
+	user_image.Background = bd
+	'user_image.SetBackgroundImage(bmp)
+		
+			Dim fn_grad,don_grad,ema_grad,ph1_grad,ph2_grad,loc_grad,btn_grad,ok_btn_grad,age_grad,gender_grad As GradientDrawable
 			Dim colorG(2),btn_color(2),panl_btn(2) As Int
 			colorG(0) = Colors.White
 			colorG(1) = Colors.Red
@@ -644,6 +730,8 @@ Sub vie_btn_click
 			ph1_grad.Initialize("TOP_BOTTOM",colorG)
 			ph2_grad.Initialize("TOP_BOTTOM",colorG)
 			loc_grad.Initialize("TOP_BOTTOM",colorG)
+			age_grad.Initialize("TOP_BOTTOM",colorG)
+			gender_grad.Initialize("TOP_BOTTOM",colorG)
 				btn_grad.Initialize("TOP_BOTTOM",panl_btn)
 				ok_btn_grad.Initialize("TOP_BOTTOM",btn_color)
 			fn_grad.CornerRadius = 10dip
@@ -654,38 +742,60 @@ Sub vie_btn_click
 		ph1_pnl.Background = ph1_grad		'ph1_pnl.Color = Colors.LightGray
 		ph2_pnl.Background = ph2_grad		'ph2_pnl.Color = Colors.LightGray
 		loc_pnl.Background = loc_grad		'loc_pnl.Color = Colors.LightGray
+		age_pnl.Background = loc_grad
+		gender_pnl.Background = loc_grad
 			btn_pnl.Background = btn_grad
 		ok_vie_btn.Background = ok_btn_grad	
-	view_panl.AddView(fn_pnl,1%x,1%y,72%x,10%y) ' full name
+		
+		
+	view_for_image.AddView(fn_pnl,0,0,74%x,30%y) ' full name
 		'fn_pnl.AddView(fullname,0,1%y,72%x,8%y) ' full name image
-		fn_pnl.AddView(fullname,0,0,72%x,fn_pnl.Height) ' full name
-		fullname.TextSize = 30
+		fn_pnl.AddView(user_image,((fn_pnl.Width/2)/2)-2%x,1.2%y,39%x,17%y)
+		fn_pnl.AddView(fullname,0,user_image.Top + user_image.Height,72%x,10%y) ' full name
+		
+		fullname.TextSize = 25
 		''
-	view_panl.AddView(don_pnl,1%x,fn_pnl.Top + fn_pnl.Height,72%x,7%y) 
-		don_pnl.AddView(don_img,5%x,1%y,5%x,5%y) '' image of donation boolean
-		don_pnl.AddView(donated,don_img.Left + don_img.Width + 1%x,1%y,50%x,5%y) 
+	view_panl.AddView(age_pnl,1%x,0,72%x,8%y) 
+		age_pnl.AddView(age_img,4%x,1%y,6%x,6%y) ''  image of age boolean
+		age_pnl.AddView(age,age_img.Left + age_img.Width + 1%x,1%y,50%x,6%y) 
 		''
-	view_panl.AddView(ema_pnl,1%x,don_pnl.Top + don_pnl.Height,72%x,7%y) 
-		ema_pnl.AddView(ema_img,5%x,1%y,5%x,5%y) '' image of email address
-		ema_pnl.AddView(email,ema_img.Left + ema_img.Width + 1%x,1%y,50%x,5%y) 
+	view_panl.AddView(gender_pnl,1%x,age_pnl.Top + age_pnl.Height,72%x,8%y) 
+		gender_pnl.AddView(gender_img,4%x,1%y,6%x,6%y) '' image of gender boolean
+		gender_pnl.AddView(gender,gender_img.Left + gender_img.Width + 1%x,1%y,50%x,6%y) 
+		''	
+	view_panl.AddView(don_pnl,1%x,gender_pnl.Top + gender_pnl.Height,72%x,8%y) 
+		don_pnl.AddView(don_img,4%x,1%y,6%x,6%y) '' image of donation boolean
+		don_pnl.AddView(donated,don_img.Left + don_img.Width + 1%x,1%y,50%x,6%y) 
 		''
-	view_panl.AddView(ph1_pnl,1%x,ema_pnl.Top + ema_pnl.Height,72%x,7%y) 
-		ph1_pnl.AddView(ph1_img,5%x,1%y,5%x,5%y) '' image of phone number 1
-		ph1_pnl.AddView(phone1,ph1_img.Left + ph1_img.Width + 1%x,1%y,50%x,5%y) 
+	view_panl.AddView(ema_pnl,1%x,don_pnl.Top + don_pnl.Height,72%x,8%y) 
+		ema_pnl.AddView(ema_img,4%x,1%y,6%x,6%y) '' image of email address
+		ema_pnl.AddView(email,ema_img.Left + ema_img.Width + 1%x,1%y,50%x,6%y) 
 		''
-	view_panl.AddView(ph2_pnl,1%x,ph1_pnl.Top + ph1_pnl.Height,72%x,7%y) 
-		ph2_pnl.AddView(ph2_img,5%x,1%y,5%x,5%y) '' image of phone number 2
-		ph2_pnl.AddView(phone2,ph2_img.Left + ph2_img.Width + 1%x,1%y,50%x,5%y) 
+	view_panl.AddView(ph1_pnl,1%x,ema_pnl.Top + ema_pnl.Height,72%x,8%y) 
+		ph1_pnl.AddView(ph1_img,4%x,1%y,6%x,6%y) '' image of phone number 1
+		ph1_pnl.AddView(phone1,ph1_img.Left + ph1_img.Width + 1%x,1%y,50%x,6%y) 
 		''
-	view_panl.AddView(loc_pnl,1%x,ph2_pnl.Top + ph2_pnl.Height,72%x,7%y) 
-		loc_pnl.AddView(loc_img,5%x,1%y,5%x,5%y) '' image of location
-		loc_pnl.AddView(location,loc_img.Left + loc_img.Width + 1%x,1%y,50%x,5%y) 
+	view_panl.AddView(ph2_pnl,1%x,ph1_pnl.Top + ph1_pnl.Height,72%x,8%y) 
+		ph2_pnl.AddView(ph2_img,4%x,1%y,6%x,6%y) '' image of phone number 2
+		ph2_pnl.AddView(phone2,ph2_img.Left + ph2_img.Width + 1%x,1%y,50%x,6%y) 
+		''
+	view_panl.AddView(loc_pnl,1%x,ph2_pnl.Top + ph2_pnl.Height,72%x,8%y) 
+		loc_pnl.AddView(loc_img,4%x,1%y,6%x,6%y) '' image of location
+		loc_pnl.AddView(location,loc_img.Left + loc_img.Width + 1%x,1%y,50%x,6%y) 
 			'btn_pnl
-	view_panl.AddView(btn_pnl,1%x,loc_pnl.Top + loc_pnl.Height,72%x,13.5%y) 
-	btn_pnl.AddView(ok_vie_btn,((74%x/2)/2),((13.5%y/2)/2),37%x,6.25%y) 
+	'view_for_btn.AddView(btn_pnl,13%x,loc_pnl.Top + loc_pnl.Height,72%x,10%y) 
+	btn_pnl.AddView(ok_vie_btn,((74%x/2)/2),1%y,37%x,8%y) 
 	
 		view_data_info_person.Color = Colors.ARGB(128,128,128,.70)
-	view_data_info_person.AddView(view_panl,13%x,(((Activity.Height/2)/2)/2),74%x,60%y)
+	'scroll_view_info.Panel.AddView(view_panl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,83%y)
+	'view_data_info_person.AddView(scroll_view_info,0,0,74%x,83%y)
+		scroll_view_info.ScrollbarsVisibility(False,False)
+		scroll_view_info.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	scroll_view_info.Panel.AddView(view_panl,0,0,74%x,57%y)
+	view_data_info_person.AddView(view_for_image,13%x,((((Activity.Height/2)/2)/2)/2),74%x,31%y)
+	view_data_info_person.AddView(scroll_view_info,13%x,view_for_image.Top + view_for_image.Height - .7%y,74%x,40%y)
+	view_data_info_person.AddView(btn_pnl,13%x,scroll_view_info.Top + scroll_view_info.Height,74%x,10%y)
+	
 	Activity.AddView(view_data_info_person,0,0,100%x,100%y)
 End Sub
 Sub ok_vie_btn_click
@@ -696,6 +806,62 @@ Sub ok_vie_btn_LongClick
 End Sub
 Sub can_btn_click
 	view_info_pnl.RemoveView
+End Sub
+Sub user_image_click
+	If user_img_panl.IsInitialized == True Then
+		user_img_panl.RemoveView
+	End If
+	user_img_panl.Initialize("user_img_panl")
+	Dim pnl As Panel
+	Dim user_imgClose_btn As Button
+	Dim img_user_webview As WebView
+	Dim user_img_view As ImageView
+	user_imgClose_btn.Initialize("user_imgClose_btn")
+	user_img_view.Initialize("user_img_view")
+	user_imgClose_btn.Text = "CLOSE"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		user_imgClose_btn.Background = V_btn
+	pnl.Initialize("pnl")
+	img_user_webview.Initialize("img_user_webview")
+	user_img_panl.Color = Colors.Transparent
+	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	
+	Dim inp As InputStream
+	Dim bmp As Bitmap
+	Dim su As StringUtils
+	Dim bytes() As Byte
+	bytes = su.DecodeBase64(image_list.Get(row_click))
+	inp.InitializeFromBytesArray(bytes,0,bytes.Length)
+	bmp.Initialize2(inp)
+	''
+	Dim bd As BitmapDrawable
+	bd.Initialize(bmp)
+	'usr_img.Bitmap = bd
+	user_img_view.Background = bd
+	
+
+	'img_user_webview.LoadHtml("<html><body><img src='"&bd&"'></body></html>")
+	
+	pnl.AddView(user_img_view,1%x,1%y,86%x,75%y)
+	pnl.AddView(user_imgClose_btn,1%x,user_img_view.Top + user_img_view.Height + 1%y,86%x,8%y)
+	user_img_panl.AddView(pnl,6%x,(((((Activity.Height/2)/2)/2)/2)/2),88%x,89%y)
+	user_img_panl.BringToFront
+	'pnl_body.Enabled = False
+		'pnl_donated_body.Color = Colors.ARGB(128,128,128,.50)
+	Activity.AddView(user_img_panl,0,0,100%x,100%y)	
+End Sub
+Sub user_imgClose_btn_click
+	user_img_panl.RemoveView
+End Sub
+Sub user_img_panl_click
+	'' don't delete this sub
 End Sub
 Sub view_data_info_person_click
 	''don't delete this SUB
@@ -712,6 +878,8 @@ Sub reading_txt
 		phone1_list.Initialize
 		phone2_list.Initialize
 		image_list.Initialize
+		age_list.Initialize
+		gender_list.Initialize
 	''for id
 	Dim TextReader_id As TextReader
     TextReader_id.Initialize(File.OpenInput(File.DirInternalCache, "data_query_id.txt"))
@@ -825,6 +993,25 @@ Sub reading_txt
     Loop
     TextReader_image.Close
 	
+		Dim TextReader_age As TextReader
+    TextReader_age.Initialize(File.OpenInput(File.DirInternalCache, "data_query_age.txt"))
+    Dim line_age As String
+    line_age = TextReader_age.ReadLine    
+    Do While line_age <> Null
+		age_list.Add(line_age)
+        line_age = TextReader_age.ReadLine
+    Loop
+    TextReader_age.Close
+	
+	Dim TextReader_gender As TextReader
+    TextReader_gender.Initialize(File.OpenInput(File.DirInternalCache, "data_query_gender.txt"))
+    Dim line_gender As String
+    line_gender = TextReader_gender.ReadLine    
+    Do While line_gender <> Null
+		gender_list.Add(line_gender)
+        line_gender = TextReader_gender.ReadLine
+    Loop
+    TextReader_gender.Close
 End Sub
 Sub list_btn_Click
 	ProgressDialogShow2("Loading data, Please Wait...",False)

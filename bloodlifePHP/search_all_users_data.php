@@ -25,6 +25,8 @@ $sql_query = mysql_query($all_info);
 		   printf(''.$row["location_street"]."\xA"); //9
 		   printf(''.$row["nick_name"]."\xA"); //10
 		   printf(''.$row["donate_boolean"]."\xA"); //11
+		   printf(''.$row["image"]."\xA"); //12
+		    printf(''.$row["gender"]."\xA"); // 13
        }
         
 ?>

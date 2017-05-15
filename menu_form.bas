@@ -4,7 +4,7 @@ ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
 #Region  Activity Attributes 
-	#FullScreen: False
+	#FullScreen: true
 	#IncludeTitle: True
 #End Region
 
@@ -14,16 +14,20 @@ Sub Process_Globals
 	Dim list_all_info As List
 	Dim list_bloodgroup As List
 	Dim list_donated As List
+	Dim list_is_gender As List
 	Dim list_day,list_month,list_year As List
 	Dim users_string_login As String
 	
 	Dim blood_selected As String : blood_selected = "A" 
 	Dim bday_day_selected As String : bday_day_selected = "1"
 	Dim bday_month_selected As String : bday_month_selected = "1"
-	Dim bday_year_selected As String : bday_year_selected = "2017"
+	Dim bday_year_selected As String : bday_year_selected = DateTime.GetYear(DateTime.Now)
 	Dim location_brgy_selected As String : location_brgy_selected = "Brgy 1"
 	Dim location_street_selected As String : location_street_selected = "Rizal St."
+	Dim gender_string_data As String : gender_string_data = "Male"
 	Dim is_donated As String : is_donated = "Yes"
+	Dim donated_index As Int : donated_index = 0
+	Dim is_gender_index As Int : is_gender_index = 0
 	Dim lat As String : lat = "10.098014"
 	Dim lng As String : lng = "122.869168"
 	Dim brgy_index As Int : brgy_index = 0
@@ -31,6 +35,8 @@ Sub Process_Globals
 	Dim list_location_b,list_location_s,list_location_p As List
 	Dim optionSelected As String
 	
+	Dim isDonateDate As String
+	Dim donate_m_pos,donate_d_pos,donate_y_pos As Int
 	Private image_container As String
 End Sub
 
@@ -42,6 +48,7 @@ Sub Globals
 	Dim spin_bloodgroup As Spinner
 	Dim spin_day,spin_month,spin_year As Spinner
 	Dim spin_donated As Spinner
+	Dim spin_gender As Spinner
 	Dim dlgFileExpl As ClsExplorer	
 		
 		
@@ -76,6 +83,7 @@ Sub Globals
 	Dim pnl_blood_body As Panel
 	Dim pnl_bday_body As Panel
 	Dim pnl_donated_body As Panel
+	Dim pnl_gender_body As Panel
 	''update infos
 	Private all_info_query As HttpJob
 	Private update_job As HttpJob
@@ -103,6 +111,25 @@ Sub Globals
 	Private cancel_btn As Button
 	Private update_btn As Button
 	Private usr_img As ImageView
+	Private all_inputs_top As Panel
+	
+	'' scrolling
+		Private scroll_myprof As ScrollView2D
+	Private all_inputs_down As Panel
+	Private tittle As Label
+	Private donated_edit As Label
+	Private bday_edit As Label
+	Private locate_edit As Label
+	Private blood_edit As Label
+	Private lab_gender As Label
+	Private text_gender As EditText
+	Private edit_gender As Label
+	
+	Private about_us_pnl As Panel
+	Private help_pnl As Panel
+	
+	Dim about_sc2d As ScrollView2D
+	Dim help_sc2d As ScrollView2D
 End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
@@ -257,21 +284,32 @@ Sub profile_Click
 	TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "users_all_info.txt", False))
 	
 		Dim url_back As calculations 
+		Dim update_top_pnl As Panel
+		update_top_pnl.Initialize("update_top_pnl")
 		url_back.Initialize
 	Dim all_users_info As String
-
+	all_inputs_down.Initialize("all_inputs_down")
 	profile_all_body.Initialize("profile_all_body")
 	'Log(url_back.users_id)
 	all_info_query.Initialize("all_info_query",Me)
 	all_users_info = url_back.php_email_url("/bloodlifePHP/search_all_users_data.php")
 	all_info_query.Download2(all_users_info,Array As String("all_info","SELECT * FROM `bloodlife_db`.`person_info` where `id`='"&login_form.id_query&"';"))
 		'scroll_profile_pnl.Initialize(100%x,100%y,"scroll_pnl")
-		scroll_profile_pnl.Initialize(90%y)
-		profile_panel.Initialize("profile_panel")
-			scroll_profile_pnl.Panel.LoadLayout("update_all_inputs")
-		scroll_profile_pnl.Color = Colors.Transparent
-		all_inputs.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
-
+		'scroll_profile_pnl.Initialize(90%y)
+		'profile_panel.Initialize("profile_panel")
+		'	scroll_profile_pnl.Panel.LoadLayout("update_all_inputs")
+		'scroll_profile_pnl.Color = Colors.Transparent
+		'''
+		scroll_myprof.Initialize(90%x,73%y,"scroll_myprof")
+		scroll_myprof.Panel.LoadLayout("update_all_inputs")
+		scroll_myprof.Color = Colors.Transparent
+		scroll_myprof.ScrollbarsVisibility(False,False)
+		update_top_pnl.LoadLayout("update_all_top")
+		
+		scroll_myprof.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+		all_inputs.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+		all_inputs_top.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+		all_inputs_down.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
 	 lab_fullname.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-4-user.png"))
 	 lab_bloodgroup.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-93-tint.png"))
 	 lab_email.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-social-40-e-mail.png"))
@@ -281,15 +319,55 @@ Sub profile_Click
 	 lab_question.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-353-nameplate.png"))
 	 lab_donate_confirm.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-152-new-window.png"))
 	 lab_bday.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-46-calendar.png"))
-
-	
-		all_inputs.Width = scroll_profile_pnl.Panel.Width
-		all_inputs.Height = scroll_profile_pnl.Panel.Height
-		'profile_panel.AddView(scroll_profile_pnl,5%x,3%y,90%x,75%y)
-		'profile_panel.AddView(cancel_btn,15%x,scroll_profile_pnl.Top+scroll_profile_pnl.Height+3%y,35%x,9%y)
-		'profile_panel.AddView(update_btn,cancel_btn.Left + cancel_btn.Width+10%x,scroll_profile_pnl.Top+scroll_profile_pnl.Height+3%y,35%x,9%y)
+	 lab_gender.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-25-parents.png"))
+		
+		all_inputs_top.Width = 90%x
+		all_inputs_top.Height = 32%y
+			tittle.SetLayout(1%x,1%y,88%x,9%y)
+			usr_img.SetLayout(((88%x/2)/2)+3%x,tittle.Top+tittle.Height,40%x,19%y)
+		''
+		all_inputs.Width = 90%x
+		all_inputs.Height = 73%y	
+		  lab_fullname.SetLayout(2%x,2%y,7%x,6%y)	
+		  lab_bloodgroup.SetLayout(2%x,lab_fullname.Top+lab_fullname.Height+1%y,7%x,6%y)	
+		  lab_email.SetLayout(2%x,lab_bloodgroup.Top+lab_bloodgroup.Height+1%y,7%x,6%y)	
+		  lab_phonenumber.SetLayout(2%x,lab_email.Top+lab_email.Height+1%y,7%x,6%y)	
+		  lab_phonenumber2.SetLayout(2%x,lab_phonenumber.Top+lab_phonenumber.Height+1%y,7%x,6%y)	
+		  lab_bday.SetLayout(2%x,lab_phonenumber2.Top+lab_phonenumber2.Height+1%y,7%x,6%y)	
+		  lab_location.SetLayout(2%x,lab_bday.Top+lab_bday.Height+1%y,7%x,6%y)	
+		  lab_question.SetLayout(2%x,lab_location.Top+lab_location.Height+1%y,7%x,6%y)	
+		  lab_donate_confirm.SetLayout(2%x,lab_question.Top+lab_question.Height+1%y,7%x,6%y)	
+		  lab_gender.SetLayout(2%x,lab_donate_confirm.Top+lab_donate_confirm.Height+1%y,7%x,6%y)	
+		  
+			text_fn.SetLayout(lab_fullname.Left+lab_fullname.Width,2%y,79%x,6%y)
+			text_blood.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_bloodgroup.Top,69%x,6%y)
+			text_email.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_email.Top,79%x,6%y)
+			text_phonenumber.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_phonenumber.Top,79%x,6%y)
+			text_phonenumber2.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_phonenumber2.Top,79%x,6%y)
+			text_bday.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_bday.Top,69%x,6%y)
+			text_location.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_location.Top,69%x,6%y)
+			text_answer.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_question.Top,79%x,6%y)
+			text_donated.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_donate_confirm.Top,69%x,6%y)
+			text_gender.SetLayout(lab_fullname.Left+lab_fullname.Width,lab_gender.Top,69%x,6%y)
+				
+				blood_edit.SetLayout(text_blood.Left+text_blood.Width,text_blood.Top,10%x,6%y)
+				bday_edit.SetLayout(text_bday.Left+text_bday.Width,text_bday.Top,10%x,6%y)
+				locate_edit.SetLayout(text_location.Left+text_location.Width,text_location.Top,10%x,6%y)
+				donated_edit.SetLayout(text_donated.Left+text_donated.Width,text_donated.Top,10%x,6%y)
+				edit_gender.SetLayout(text_gender.Left+text_gender.Width,text_gender.Top,10%x,6%y)
+				
+		update_btn.Initialize("update_btn")
+		cancel_btn.Initialize("cancel_btn")	
+			update_btn.Text = "UPDATE"
+			cancel_btn.Text = "CANCEL"	
+				all_inputs_down.AddView(update_btn,6%x,1%y,35%x,9%y)
+				all_inputs_down.AddView(cancel_btn,update_btn.Left+update_btn.Width+5%x,1%y,35%x,9%y)
+					
 		profile_all_body.Color = Colors.ARGB(128,128,128,.50)
-		profile_all_body.AddView(scroll_profile_pnl,5%x,3%y,90%x,90%y)
+		'profile_all_body.AddView(scroll_profile_pnl,5%x,3%y,90%x,90%y) 'update_top_pnl
+		profile_all_body.AddView(update_top_pnl,5%x,2%y,90%x,90%y)
+		profile_all_body.AddView(scroll_myprof,5%x,all_inputs_top.Top + all_inputs_top.Height+2%y,90%x,47%y)
+		profile_all_body.AddView(all_inputs_down,5%x,scroll_myprof.Top+scroll_myprof.Height - 1%y,90%x,13%y)
 		Activity.AddView(profile_all_body,0,0,100%x,100%y)
 			
 			Dim V_btn,C_btn As GradientDrawable
@@ -337,6 +415,8 @@ Sub all_input_on_list
 	text_answer.Text = list_all_info.Get(10)
 	text_donated.Text = list_all_info.Get(11)
 	is_donated = list_all_info.Get(11)
+	text_gender.Text = list_all_info.Get(13)
+	gender_string_data = list_all_info.Get(13)
 	
 	Dim inp As InputStream
 	Dim bmp As Bitmap
@@ -356,6 +436,20 @@ Sub Activity_KeyPress(KeyCode As Int) As Boolean
 	If dlgFileExpl.IsInitialized Then
 		If dlgFileExpl.IsActive Then Return True
 	End If
+	 If KeyCode == KeyCodes.KEYCODE_BACK Then
+		Dim confirm As Int
+		confirm = Msgbox2("Would you to log out your account?","C O N F I R M A T I O N","YES","","NO",Null)
+		If confirm == DialogResponse.POSITIVE Then
+			login_form.is_log_in = False
+			ExitApplication
+			StartActivity("login_form")
+			'ExitApplication
+		Else
+			
+		End If
+	End If
+	
+    Return True
 End Sub
 Sub usr_img_click
 	dlgFileExpl.Initialize(Activity, "/mnt/sdcard", ".bmp,.gif,.jpg,.png", True, False, "OK")
@@ -366,23 +460,39 @@ Sub usr_img_click
 					Dim img_string As String
 					Dim su As StringUtils
 					Dim out1 As OutputStream
-					
+				
 					out1.InitializeToBytesArray(0) 'size not really important
 					File.Copy2(File.OpenInput(dlgFileExpl.Selection.ChosenPath, dlgFileExpl.Selection.ChosenFile), out1)
 					img_string=su.EncodeBase64(out1.ToBytesArray)
+					Log(img_string)
 					image_container = img_string
 					'''
-					Dim inp As InputStream
+	Dim inp As InputStream
 	Dim bmp As Bitmap
 	Dim su As StringUtils
 	Dim bytes() As Byte
 	bytes = su.DecodeBase64(img_string)
 	inp.InitializeFromBytesArray(bytes,0,bytes.Length)
 	bmp.Initialize2(inp)
-	usr_img.SetBackgroundImage(bmp)
-					Log(img_string)
+	''
+	Dim bd As BitmapDrawable
+	bd.Initialize(bmp)
+	'usr_img.Bitmap = bd
+	usr_img.Background = bd
+	'usr_img.SetBackgroundImage(bmp)
+	'Log(img_string)
 	End If
-	
+
+End Sub
+Sub ResizeBitmap(original As Bitmap, width As Int, height As Int) As Bitmap
+    Dim new As Bitmap
+    new.InitializeMutable(width, height)
+    Dim c As Canvas
+    c.Initialize2(new)
+    Dim destRect As Rect
+    destRect.Initialize(0, 0, width, height)
+    c.DrawBitmap(original, Null, destRect)
+    Return new
 End Sub
 Public Sub JobDone(job As HttpJob)
 	If job.Success Then
@@ -491,16 +601,22 @@ Sub profiled_Click
 		Activity.AddView(scroll_profile_pnl,5%x,3%y,90%x,90%y)
 	'' end of person's infox
 End Sub
-Sub about_Click
-	
-End Sub
-Sub help_Click
-	
-End Sub
 Sub exit_btn_Click
-	
+	If login_form.is_log_in == True Then
+		Dim confirm As Int
+		confirm = Msgbox2("Would you to log out your account, and exit the application?","C O N F I R M A T I O N","YES","","NO",Null)
+		If confirm == DialogResponse.POSITIVE Then
+			login_form.is_log_in = False
+				
+			ExitApplication
+		Else
+			
+		End If
+			
+	Else
+		
+	End If
 End Sub
-
 Sub cancel_btn_Click
 	profile_all_body.RemoveView
 End Sub
@@ -510,29 +626,130 @@ Sub update_btn_Click
 	optionSelected = "updated_click"
 	update_job.Initialize("update_job",Me)
 	Dim url_back As calculations 
+	Dim male_c,female_c As String
+	male_c = File.GetText(File.DirAssets, "male_string.txt")	
+	female_c = File.GetText(File.DirAssets, "female_string.txt")
+	
+	If image_container == male_c Or image_container == female_c Then
+					Dim img_string As String
+					Dim su As StringUtils
+					Dim out1 As OutputStream
+		If is_gender_index == 0 Then
+					out1.InitializeToBytesArray(0) 'size not really important
+					File.Copy2(File.OpenInput(File.DirAssets, "male_clip.png"), out1)
+					img_string=su.EncodeBase64(out1.ToBytesArray)
+					'Log(img_string.Length)
+					image_container = img_string
+		Else	
+				out1.InitializeToBytesArray(0) 'size not really important
+					File.Copy2(File.OpenInput(File.DirAssets, "female_clip.png"), out1)
+					img_string=su.EncodeBase64(out1.ToBytesArray)
+					'Log(img_string.Length)
+					image_container = img_string
+		End If
+		
+	Else
+		''
+	End If
+			'' age calculating
+				Dim Nmonth,Nday,Nyear,ageGet As Int
+	   			Nday = DateTime.GetDayOfMonth(DateTime.Now)
+	 			 Nmonth = DateTime.GetMonth(DateTime.Now)
+	  			Nyear = DateTime.GetYear(DateTime.Now)
+	  
+				Dim age,Pyear,Pmonth,Pday As Int
+				Pyear = bday_year_selected
+				Pmonth = bday_month_selected
+				Pday = bday_day_selected
+				age = Nyear - Pyear
+				If Pmonth <= Nmonth And Pday <= Nday Then
+          		 'year_sub = year_sub+1;
+		  		 ageGet = age
+      			 Else
+           		 ageGet = age-1
+      			 End If
+			''-----------------
+			
 		url_back.Initialize
 	'Dim all_users_info As String
-	Dim ins,m_1,m_2,merge As String
+	Dim ins,m_1,m_2,m_3,merge As String
 
     If text_fn.Text == ""  Or text_email.Text == "" Or text_phonenumber2.Text == "" Or text_phonenumber.Text == "" Or text_answer.Text == "" Then
 		ProgressDialogHide
 		Msgbox("Error: Fill up those empty fields before you update!","C O N F I R M A T I O N")
 	Else
 		m_1 = "UPDATE `bloodlife_db`.`person_info` SET `full_name`='"&text_fn.Text&"',`blood_type`='"&blood_selected&"', `phone_number1`='"&text_phonenumber.Text&"', `phone_number2`='"&text_phonenumber2.Text&"', `location_brgy`='"&location_brgy_selected&"', `location_street`='"&location_street_selected&"', "
-		m_2 = "`location_purok`='', `bday_month`='"&bday_month_selected&"',`bday_day`='"&bday_day_selected&"', `bday_year`='"&bday_year_selected&"', `nick_name`='"&text_answer.Text&"', `donate_boolean`='"&is_donated&"', `lat`='"&lat&"', `long`='"&lng&"', `image`='"&image_container&"' WHERE  `id`="&login_form.id_query&";"
-		merge = m_1&m_2
+		m_2 = "`location_purok`='', `bday_month`='"&bday_month_selected&"',`bday_day`='"&bday_day_selected&"', `bday_year`='"&bday_year_selected&"', `nick_name`='"&text_answer.Text&"', `donate_boolean`='"&is_donated&"', `lat`='"&lat&"', `long`='"&lng&"', `image`='"&image_container&"', "
+		m_3 = "`age`='"&ageGet&"',`date_donated`='"&isDonateDate&"',`gender`='"&gender_string_data&"' WHERE `id`="&login_form.id_query&";"
+		merge = m_1&m_2&m_3
 		ins = url_back.php_email_url("/bloodlifePHP/updating.php")
 		update_job.Download2(ins,Array As String("update",""&merge))
 		
 	End If
 	
 End Sub
+Sub edit_gender_Click
+	list_is_gender.Initialize
+	spin_gender.Initialize("spin_gender")
+	list_is_gender.Add("Male")
+	list_is_gender.Add("Female")
+	spin_gender.AddAll(list_is_gender)
+	Dim pnl As Panel
+	Dim edit_ok_btn,edit_can_btn As Button
+	Dim title_lbl As Label
+	edit_ok_btn.Initialize("edit_gender_ok_btn")
+	edit_can_btn.Initialize("edit_gender_can_btn")
+	title_lbl.Initialize("")
+	edit_ok_btn.Text = "OK"
+	edit_can_btn.Text = "CANCEL"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		edit_ok_btn.Background = V_btn
+		edit_can_btn.Background = C_btn
+	title_lbl.Text = "SELECT GENDER"
+	title_lbl.Gravity = Gravity.CENTER
+	pnl.Initialize("pnl")
+	pnl_gender_body.Initialize("pnl_gender_body")
+	pnl_gender_body.Color = Colors.Transparent
+	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)
+	pnl.AddView(spin_gender,2%x,title_lbl.Top+title_lbl.Height+1%y,68%x,8%y)
+	pnl.AddView(edit_ok_btn,15%x,spin_gender.Top+spin_gender.Height+3%y,20%x,8%y)
+	pnl.AddView(edit_can_btn,edit_ok_btn.Left+edit_ok_btn.Width+2%x,spin_gender.Top+spin_gender.Height+3%y,20%x,8%y)
 
+	pnl_gender_body.AddView(pnl,13%x,((Activity.Height/2)/2),74%x,33%y)
+	pnl_gender_body.BringToFront
+	'pnl_body.Enabled = False
+		'pnl_donated_body.Color = Colors.ARGB(128,128,128,.50)
+	Activity.AddView(pnl_gender_body,0,0,100%x,100%y)	
+End Sub
+
+Sub spin_gender_ItemClick (Position As Int, Value As Object)
+	is_gender_index = Position
+End Sub
+Sub edit_gender_ok_btn_click
+	'is_gender_index = 0
+	text_gender.Text = list_is_gender.Get(is_gender_index)
+	gender_string_data = list_is_gender.Get(is_gender_index)
+	pnl_gender_body.RemoveView
+End Sub
+Sub edit_gender_can_btn_click
+	pnl_gender_body.RemoveView
+End Sub
+Sub pnl_gender_body_click
+	''
+End Sub
 Sub donated_edit_Click
 	list_donated.Initialize
 	spin_donated.Initialize("spin_donated")
-	list_donated.Add("YES")
 	list_donated.Add("NO")
+	list_donated.Add("YES")
 	spin_donated.AddAll(list_donated)
 	Dim pnl As Panel
 	Dim edit_ok_btn,edit_can_btn As Button
@@ -570,12 +787,117 @@ Sub donated_edit_Click
 	Activity.AddView(pnl_donated_body,0,0,100%x,100%y)	
 End Sub
 Sub spin_donated_ItemClick (Position As Int, Value As Object)
+	Log(Position)
 	is_donated = Value
+	donated_index = Position
 End Sub
 Sub edit_donated_ok_btn_click
-	text_donated.Text = is_donated
+	If donated_index == 0 Then
+		is_donated = "NO"
+		isDonateDate = "NONE"
+		text_donated.Text = "NO"
+	Else
+		isDonate_edit_
+	End If
+	
+	
 	pnl_donated_body.RemoveView
 End Sub
+Sub isDonate_edit_
+	donated_index = 0
+		list_day.Initialize
+		list_month.Initialize
+		list_year.Initialize
+		spin_day.Initialize("donate_spin_day")	
+		spin_month.Initialize("donate_spin_month")	
+		spin_year.Initialize("donate_spin_year")	
+	  For i = 1 To 31
+	  	list_day.Add(i)
+	  Next
+	   Dim iNowYear As Int
+	 iNowYear = DateTime.GetYear(DateTime.Now)
+	  For ii = 1950 To DateTime.GetYear(DateTime.Now)
+	  	list_year.Add(iNowYear)
+		iNowYear = iNowYear-1
+	  Next
+		For iii = 1 To 12
+			list_month.Add(iii)
+		Next
+		spin_day.AddAll(list_day)
+		spin_month.AddAll(list_month)
+		spin_year.AddAll(list_year)
+	Dim pnl As Panel
+	Dim edit_ok_btn,edit_can_btn As Button
+	Dim title_lbl As Label
+	edit_ok_btn.Initialize("isdonated_ok_btn")
+	edit_can_btn.Initialize("isdonated_can_btn")
+	title_lbl.Initialize("")
+	edit_ok_btn.Text = "OK"
+	edit_can_btn.Text = "CANCEL"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		edit_ok_btn.Background = V_btn
+		edit_can_btn.Background = C_btn
+	title_lbl.Text = "SELECT DONATED DATE"
+	title_lbl.Gravity = Gravity.CENTER
+	pnl.Initialize("pnl")
+	pnl_bday_body.Initialize("pnl_bday_body")
+	pnl_bday_body.Color = Colors.Transparent
+	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)
+	pnl.AddView(spin_day,2%x,title_lbl.Top + title_lbl.Height + 1%y,20%x,8%y)
+	pnl.AddView(spin_month,spin_day.Left+spin_day.Width+1%X,spin_day.Top,20%x,8%y)
+	pnl.AddView(spin_year,spin_month.Left+spin_month.Width+1%x,spin_month.Top,20%x,8%y)
+	pnl.AddView(edit_ok_btn,15%x,spin_year.Top+spin_year.Height+3%y,20%x,8%y)
+	pnl.AddView(edit_can_btn,edit_ok_btn.Left+edit_ok_btn.Width+2%x,spin_year.Top+spin_year.Height+3%y,20%x,8%y)
+
+	pnl_bday_body.AddView(pnl,13%x,((Activity.Height/2)/2),74%x,33%y)
+	pnl_bday_body.BringToFront
+	'pnl_body.Enabled = False
+	'pnl_bday_body.Color = Colors.ARGB(128,128,128,.50)
+	Activity.AddView(pnl_bday_body,0,0,100%x,100%y)	
+End Sub
+Sub donate_spin_day_ItemClick (Position As Int, Value As Object)
+	donate_d_pos = Position
+	'donate_m_pos,donate_d_pos,donate_y_pos
+End Sub
+Sub donate_spin_month_ItemClick (Position As Int, Value As Object)
+	donate_m_pos = Position
+	'donate_m_pos,donate_d_pos,donate_y_pos
+End Sub
+Sub donate_spin_year_ItemClick (Position As Int, Value As Object)
+	donate_y_pos = Position
+	'donate_m_pos,donate_d_pos,donate_y_pos
+End Sub
+Sub isdonated_ok_btn_click
+	Dim day,month,year As String
+	day = spin_day.GetItem(donate_d_pos)
+	month = spin_month.GetItem(donate_m_pos)
+	year = spin_year.GetItem(donate_y_pos)
+	isDonateDate = month&"/"&day&"/"&year
+	'is_donate_date.Text = "("&isDonateDate&")"		
+	Msgbox(""&month&"/"&day&"/"&year,"Date Selected")
+		text_donated.Text = is_donated
+	Log(isDonateDate)
+	pnl_bday_body.RemoveView
+End Sub
+Sub isdonated_can_btn_click
+	pnl_bday_body.RemoveView
+	If text_donated.Text == "NO" Then
+	text_donated.Text = "NO"
+	Else
+	text_donated.Text = "YES"
+	End If
+	
+End Sub
+
+'''
 Sub edit_donated_can_btn_click
 	pnl_donated_body.RemoveView
 End Sub
@@ -592,8 +914,11 @@ Sub bday_edit_Click
 	  For i = 1 To 31
 	  	list_day.Add(i)
 	  Next
-	  For ii = 1940 To 2017
-	  	list_year.Add(ii)
+	  Dim iNowYear As Int
+	 iNowYear = DateTime.GetYear(DateTime.Now)
+	  For ii = 1950 To DateTime.GetYear(DateTime.Now)
+	  	list_year.Add(iNowYear)
+		iNowYear = iNowYear-1
 	  Next
 		For iii = 1 To 12
 			list_month.Add(iii)
@@ -1572,4 +1897,141 @@ End Sub
 Sub location_spin_street_ItemClick (Position As Int, Value As Object)
 	street_index = Position
 	street_lat_lng
+End Sub
+Sub about_Click
+	Dim pnl As Panel
+	Dim about_ok_btn As Button
+	Dim title_lbl,about_data,for_h As Label
+	'Dim h1,h2,hh As String
+	for_h.Initialize("")
+	Dim sus As StringUtils
+	
+	'h1 = "•	{ib}Becgrajhon2013{ib} was the developer and designer of the LIFEBLOOD WITH GIS mobile app. It was started when the developer saw the posted in NONESCOST IT building that there was a boy that need a certain blood to help cure his illness."
+	'h2 = "•	{iib}Philippines{iib} is facing a blood shortage and even Himamaylan City. People not only have to run from their respective place to other barangay or other city as well because they need some donor, they will be go to Bacolod City to process the blood donation procedure of the government. This LIFEBLOOD WITH GIS will help the NOT only in people of HIMAMAYLAN CITY but in other neighboring municipalities and cities in finding blood donors."
+	'hh = h1&h2
+	about_us_pnl.Initialize("about_us_pnl")
+	about_ok_btn.Initialize("about_ok_btn")
+	title_lbl.Initialize("")
+	about_data.Initialize("")
+	about_ok_btn.Text = "OK"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+		about_ok_btn.Background = V_btn
+	title_lbl.Text = "ABOUT"
+	title_lbl.TextSize = 25
+	title_lbl.Typeface = Typeface.DEFAULT_BOLD
+	title_lbl.Background = C_btn
+	title_lbl.TextColor = Colors.Black
+	''for string of about us design...
+	Dim rs As RichString
+	Dim f_string,s_string As String
+	f_string = CRLF&"•	{ib}{bg1}Becgrajhon2013{bg1}{ib} was the developer and designer of the LIFEBLOOD WITH GIS mobile app. It was started when the developer saw the posted in NONESCOST IT building that there was a boy that need a certain blood to help cure his illness."
+	s_string = CRLF&CRLF&"•	{iib}{bg2}Philippines{bg2}{iib} is facing a blood shortage and even Himamaylan City. People not only have to run from their respective place to other barangay or other city as well because they need some donor, they will be go to Bacolod City to process the blood donation procedure of the government. This LIFEBLOOD WITH GIS will help the NOT only in people of HIMAMAYLAN CITY but in other neighboring municipalities and cities in finding blood donors."
+	rs.Initialize(f_string&s_string)
+	rs.Style2(rs.STYLE_BOLD_ITALIC, "{ib}")
+	rs.Style2(rs.STYLE_BOLD_ITALIC, "{iib}")
+	rs.BackColor2(Colors.DarkGray,"{bg1}")
+	rs.BackColor2(Colors.DarkGray,"{bg2}")
+	about_data.Text = rs '' to set the string output
+	about_data.TextSize = 17
+		for_h.Text = rs
+		about_us_pnl.AddView(for_h,0,0,50%x,50%y)
+		for_h.Visible = False
+		Dim string_h As Int : string_h= sus.MeasureMultilineTextHeight(for_h,for_h.Text)
+	''-------------------------------
+			about_sc2d.Initialize(68%x,string_h+7%Y,"about_sc2d")
+			about_sc2d.ScrollbarsVisibility(False,False)
+	title_lbl.Gravity = Gravity.CENTER
+	pnl.Initialize("pnl")
+	about_us_pnl.Color = Colors.Transparent
+	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)
+	
+	about_sc2d.Panel.AddView(about_data,0,0,69%x,string_h + 7%Y)
+	pnl.AddView(about_sc2d,2%x,title_lbl.Top + title_lbl.Height,70%x,60%y)
+	pnl.AddView(about_ok_btn,3%x,about_sc2d.Top + about_sc2d.Height,68%x,8%y)
+	
+	about_us_pnl.AddView(pnl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,80%y)
+	about_us_pnl.BringToFront
+		
+	'pnl_body.Enabled = False
+	'pnl_bday_body.Color = Colors.ARGB(128,128,128,.50)
+	Activity.AddView(about_us_pnl,0,0,100%x,100%y)	
+End Sub
+Sub about_ok_btn_click
+	about_us_pnl.RemoveView
+End Sub
+Sub about_us_pnl_click
+	''
+End Sub
+Sub help_Click
+		Dim pnl As Panel
+	Dim help_ok_btn As Button
+	Dim title_lbl,help_data,for_h As Label
+	for_h.Initialize("")
+	Dim sus As StringUtils
+	help_ok_btn.Initialize("help_ok_btn")
+	title_lbl.Initialize("")
+	help_data.Initialize("")
+	help_ok_btn.Text = "OK"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			'C_btn.CornerRadius = 50dip
+		help_ok_btn.Background = V_btn
+	title_lbl.Text = "HELP"
+	title_lbl.TextSize = 25
+	title_lbl.Typeface = Typeface.DEFAULT_BOLD
+	title_lbl.Background = C_btn
+	title_lbl.TextColor = Colors.Black
+	''for string of about us design...
+	Dim rs As RichString
+	Dim f_string,s_string,t_string,fo_string,fi_string,s_string As String
+	f_string = CRLF&"•	Once you gave your name and your contact number, all your information will be shown to all this mobile app users.  "
+	s_string = CRLF&CRLF&"•  Your mobile number will be call you once the recipient found you that you are one of the possible donors. "
+	t_string = CRLF&CRLF&"•  DO NOT do a search and contact just to test app. If you do TEST the SEARCH button and contact the donor and tell the donor that you only testing the app the donor might be disappointed. You will waste not only your time and effort but you will waste a patient’s who is really need a donor."
+	fo_string = CRLF&CRLF&"•  Using call button is more effective than sending message to the donor. It saves time and effort."
+	fi_string = CRLF&CRLF&"•  Select the correct Feedback given to this app so that it will help in boosting the confident of the developer and will be making more community based app like this LIFEBLOOD WITH GIS."
+	s_string = CRLF&CRLF&"•  Please share this app and let us build a community that cares."
+	rs.Initialize(f_string&s_string&t_string&fo_string&fi_string&s_string)
+	help_data.Text = rs '' to set the string output
+	help_data.TextSize = 17
+		for_h.Text = rs
+		help_pnl.AddView(for_h,0,0,50%x,50%y)
+		for_h.Visible = False
+		Dim string_h As Int : string_h= sus.MeasureMultilineTextHeight(for_h,for_h.Text)
+	''-------------------------------
+			help_sc2d.Initialize(68%x,string_h+15%Y,"help_sc2d")
+			help_sc2d.ScrollbarsVisibility(False,False)
+	title_lbl.Gravity = Gravity.CENTER
+	pnl.Initialize("pnl")
+	help_pnl.Initialize("help_pnl")
+	help_pnl.Color = Colors.Transparent
+	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	pnl.AddView(title_lbl,2%x,2%y,70%x,8%y)
+	
+	pnl.AddView(help_sc2d,2%x,title_lbl.Top + title_lbl.Height,70%x,60%y)
+	help_sc2d.Panel.AddView(help_data,0,0,70%x,string_h+15%Y)
+	pnl.AddView(help_ok_btn,1%x,help_sc2d.Top + help_sc2d.Height,72%x,8%y)
+
+	help_pnl.AddView(pnl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,80%y)
+	help_pnl.BringToFront
+	'pnl_body.Enabled = False
+	'pnl_bday_body.Color = Colors.ARGB(128,128,128,.50)
+	Activity.AddView(help_pnl,0,0,100%x,100%y)	
+End Sub
+Sub help_ok_btn_click
+	help_pnl.RemoveView
+End Sub
+Sub help_pnl_click
+	''
 End Sub
