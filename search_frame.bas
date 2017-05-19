@@ -82,6 +82,7 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("search_frame")
+	Activity.Title = "SEARCH"
 	data_query_id.Initialize("data_query_id_get",Me)
 	data_query_fullN.Initialize("data_query_fullN_get",Me)
 	data_query_location.Initialize("data_query_location_get",Me)

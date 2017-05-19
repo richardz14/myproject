@@ -15,7 +15,7 @@ Module12=ClsCheckList
 Build1=Default,b4a.example
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
 IconFile=
-NumberOfFiles=112
+NumberOfFiles=113
 File1=ABOUT US.png
 File2=about_frame.bal
 File3=ABOUT_US.png
@@ -121,14 +121,15 @@ File102=modal_bg.png
 File103=my profile.png
 File104=my_profile.bal
 File105=my_profile.png
-File106=REGISTER.png
-File107=SEARCH.png
-File108=search_frame.bal
-File109=searchbloodtype.png
-File110=update_all_inputs.bal
-File111=update_all_top.bal
-File112=VIEW ALL.png
-NumberOfLibraries=13
+File106=mydb.db
+File107=REGISTER.png
+File108=SEARCH.png
+File109=search_frame.bal
+File110=searchbloodtype.png
+File111=update_all_inputs.bal
+File112=update_all_top.bal
+File113=VIEW ALL.png
+NumberOfLibraries=14
 Library1=core
 Library2=scrollview2d
 Library3=httpserver
@@ -142,6 +143,7 @@ Library10=byteconverter
 Library11=animation
 Library12=reflection
 Library13=richstring
+Library14=sql
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: bloodlife system
@@ -160,7 +162,8 @@ Library13=richstring
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
-
+	Dim sqlLite As SQL
+	
 End Sub
 
 Sub Globals
@@ -175,21 +178,55 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("load_form")
-	all_settings_layout	
+	Activity.Title = "MAIN"
 	
+	all_settings_layout	
+	database_init
+	
+	sqlLite.Initialize(File.DirInternal,"mydb.db",True)
 End Sub
-
+Sub database_init
+	If File.Exists(File.DirInternal,"mydb.db") = False Then
+	File.Copy(File.DirAssets,"mydb.db",File.DirInternal,"mydb.db")
+	Else
+	End If
+End Sub
 Sub Activity_Resume
-
+	Dim set_cursor As Cursor
+	set_cursor = sqlLite.ExecQuery("select * from data where `id`=1;")
+						For i = 0 To set_cursor.RowCount - 1
+							set_cursor.Position = i
+							If set_cursor.GetString("isStart") == 1 Then
+								StartActivity("login_form")
+								ExitApplication
+								
+								Else
+									
+							End If
+						Next
 End Sub
-
+Sub Activity_KeyPress(KeyCode As Int) As Boolean
+	' Not mandatory, it depends on your app and device
+		If KeyCode == KeyCodes.KEYCODE_BACK Then
+			Dim choose As Int : choose = Msgbox2("would you like to exit this application?","C O N F I R M A T I O N","YES","","NO",Null)		
+									If choose == DialogResponse.POSITIVE Then
+										ExitApplication
+									Else
+									End If
+		End If
+	
+    Return True
+End Sub
 Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
 Sub start_button_Click
 'StartActivity ("login_form")
+		'sqlLite.ExecNonQuery("update from data set `isStart`=1 where `id`=1;")
+		sqlLite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';")	
 	StartActivity ("login_form")
+	
 End Sub
 
 Public Sub all_settings_layout

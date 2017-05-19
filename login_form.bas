@@ -15,6 +15,7 @@ Sub Process_Globals
 	Public name_query As String : name_query = "Me"
 	Private log_click As Boolean
 	Public is_log_in As Boolean : is_log_in = True
+	Dim sqlLite As SQL
 End Sub
 
 Sub Globals
@@ -54,6 +55,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("login_form")
 	''http utils initialization
+	Activity.Title = "LOG IN"
 	calcs.Initialize
 		h_email.Initialize("email_get",Me)
 		h_pass.Initialize("pass_get",Me)
@@ -69,6 +71,38 @@ Sub Activity_Create(FirstTime As Boolean)
 	nickN_forgot.Initialize("")
 	newPass.Initialize("")
 	renewPass.Initialize("")
+	
+	database_init
+	sqlLite.Initialize(File.DirInternal,"mydb.db",True)
+End Sub
+Sub database_init
+		If File.Exists(File.DirInternal,"mydb.db") = False Then
+	File.Copy(File.DirAssets,"mydb.db",File.DirInternal,"mydb.db")
+	Else
+	End If
+End Sub
+Sub Activity_KeyPress(KeyCode As Int) As Boolean
+	' Not mandatory, it depends on your app and device	
+	If KeyCode == KeyCodes.KEYCODE_BACK Then
+		Dim set_cursor As Cursor
+	set_cursor = sqlLite.ExecQuery("select * from data where `id`=1;")
+						For i = 0 To set_cursor.RowCount - 1
+							set_cursor.Position = i	
+								If set_cursor.GetString("isStart") == 1 Then
+									Dim choose As Int
+									choose = Msgbox2("would you like to exit this application?","C O N F I R M A T I O N","YES","","NO",Null)		
+									If choose == DialogResponse.POSITIVE Then
+										ExitApplication
+									Else
+									End If
+								Else
+									
+							End If
+						Next
+		Else
+	End If
+    
+	Return True
 End Sub
 Public Sub JobDone(job As HttpJob)
 	If job.Success Then

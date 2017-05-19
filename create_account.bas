@@ -89,6 +89,7 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("create_account")
+	Activity.Title = "CREATE ACCOUNT"
 	all_settings_layout
 	scrolling
 		location_panel.Color = Colors.Transparent
