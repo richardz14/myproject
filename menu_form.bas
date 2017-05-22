@@ -38,6 +38,8 @@ Sub Process_Globals
 	Dim isDonateDate As String
 	Dim donate_m_pos,donate_d_pos,donate_y_pos As Int
 	Private image_container As String
+	Private panel_click_ As Int : panel_click_ = 0
+	Private edit_panel_click_ As Int : edit_panel_click_ = 0
 End Sub
 
 Sub Globals
@@ -126,7 +128,7 @@ Sub Globals
 	Private edit_gender As Label
 	
 	Private about_us_pnl As Panel
-	Private help_pnl As Panel
+	Private help_us_pnl As Panel
 	
 	Dim about_sc2d As ScrollView2D
 	Dim help_sc2d As ScrollView2D
@@ -280,6 +282,8 @@ Sub search_blood_Click
 End Sub
 Sub profile_Click
 	ProgressDialogShow2("Please Wait..",False)
+	panel_click_ = 1
+	edit_panel_click_ = 0
 	optionSelected = "pofileView"
 	Dim TextWriters As TextWriter
 	TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "users_all_info.txt", False))
@@ -438,16 +442,50 @@ Sub Activity_KeyPress(KeyCode As Int) As Boolean
 		If dlgFileExpl.IsActive Then Return True
 	End If
 	 If KeyCode == KeyCodes.KEYCODE_BACK Then
-		Dim confirm As Int
-		confirm = Msgbox2("Would you to log out your account?","C O N F I R M A T I O N","YES","","NO",Null)
-		If confirm == DialogResponse.POSITIVE Then
-			login_form.is_log_in = False
-			ExitApplication
-			StartActivity("login_form")
-			'ExitApplication
-		Else
+		If panel_click_ == 0 Then
+		''for exiting application
+				Dim confirm As Int
+			confirm = Msgbox2("Would you to log out your account?","C O N F I R M A T I O N","YES","","NO",Null)
+			If confirm == DialogResponse.POSITIVE Then
+				login_form.is_log_in = False
+				ExitApplication
+				StartActivity("login_form")
+				'ExitApplication
+			Else
 			
+			End If
+			''------------------
+		else if panel_click_ == 1 Then
+		  	'''
+			If edit_panel_click_ == 1 Then
+					pnl_blood_body.RemoveView
+					edit_panel_click_ = 0
+			else if edit_panel_click_ == 2 Then
+				pnl_bday_body.RemoveView
+				 edit_panel_click_ = 0
+			else if edit_panel_click_ == 3 Then
+				pnl_body.RemoveView
+				edit_panel_click_  = 0
+			else if edit_panel_click_ == 4 Then
+				pnl_donated_body.RemoveView
+				edit_panel_click_ = 0
+			else if edit_panel_click_ == 5 Then
+				pnl_gender_body.RemoveView
+				edit_panel_click_ = 0
+			Else
+				profile_all_body.RemoveView
+				edit_panel_click_ = 0
+				 panel_click_ = 0
+			End If
+			''''
+		 else if panel_click_ == 2 Then
+		 	about_us_pnl.RemoveView
+			panel_click_ = 0
+		else if panel_click_ == 3 Then
+			help_us_pnl.RemoveView
+			panel_click_ = 0
 		End If
+
 	End If
 	
     Return True
@@ -466,7 +504,7 @@ Sub usr_img_click
 					File.Copy2(File.OpenInput(dlgFileExpl.Selection.ChosenPath, dlgFileExpl.Selection.ChosenFile), out1)
 					img_string=su.EncodeBase64(out1.ToBytesArray)
 					Log(img_string)
-					image_container = img_string
+					'image_container = img_string
 					'''
 	Dim inp As InputStream
 	Dim bmp As Bitmap
@@ -690,6 +728,7 @@ Sub update_btn_Click
 	
 End Sub
 Sub edit_gender_Click
+	edit_panel_click_ = 5
 	list_is_gender.Initialize
 	spin_gender.Initialize("spin_gender")
 	list_is_gender.Add("Male")
@@ -747,6 +786,7 @@ Sub pnl_gender_body_click
 	''
 End Sub
 Sub donated_edit_Click
+	edit_panel_click_ = 4
 	list_donated.Initialize
 	spin_donated.Initialize("spin_donated")
 	list_donated.Add("NO")
@@ -806,6 +846,7 @@ Sub edit_donated_ok_btn_click
 End Sub
 Sub isDonate_edit_
 	donated_index = 0
+	'edit_panel_click_ = 4
 		list_day.Initialize
 		list_month.Initialize
 		list_year.Initialize
@@ -906,6 +947,7 @@ Sub pnl_donated_body_click
 	'' this is for modal body... please don't delete.
 End Sub
 Sub bday_edit_Click
+		edit_panel_click_ = 2
 		list_day.Initialize
 		list_month.Initialize
 		list_year.Initialize
@@ -989,16 +1031,17 @@ Sub pnl_bday_body_click
 End Sub
 Sub blood_edit_Click
 	'Log("its me")
+	edit_panel_click_ = 1
 	list_bloodgroup.Initialize
 	spin_bloodgroup.Initialize("spin_bloodgroup")
 	list_bloodgroup.Add("A")
 	list_bloodgroup.Add("B")
 	list_bloodgroup.Add("O")
 	list_bloodgroup.Add("AB")
-	list_bloodgroup.Add("A+")
-	list_bloodgroup.Add("B+")
-	list_bloodgroup.Add("O+")
-	list_bloodgroup.Add("AB+")
+	'list_bloodgroup.Add("A+")
+	'list_bloodgroup.Add("B+")
+	'list_bloodgroup.Add("O+")
+	'list_bloodgroup.Add("AB+")
 	list_bloodgroup.Add("A-")
 	list_bloodgroup.Add("B-")
 	list_bloodgroup.Add("O-")
@@ -1054,6 +1097,7 @@ Sub spin_bloodgroup_ItemClick (Position As Int, Value As Object)
 End Sub
 
 Sub locate_edit_Click
+		edit_panel_click_ = 3
 	list_location_b.Initialize
 		location_spin_street.Initialize("location_spin_street")
 		location_spin_brgy.Initialize("location_spin_brgy")
@@ -1900,6 +1944,7 @@ Sub location_spin_street_ItemClick (Position As Int, Value As Object)
 	street_lat_lng
 End Sub
 Sub about_Click
+	panel_click_ = 2
 	Dim pnl As Panel
 	Dim about_ok_btn As Button
 	Dim title_lbl,about_data,for_h As Label
@@ -1971,6 +2016,7 @@ Sub about_us_pnl_click
 	''
 End Sub
 Sub help_Click
+	panel_click_ = 3
 		Dim pnl As Panel
 	Dim help_ok_btn As Button
 	Dim title_lbl,help_data,for_h As Label
@@ -1995,6 +2041,7 @@ Sub help_Click
 	title_lbl.Background = C_btn
 	title_lbl.TextColor = Colors.Black
 	''for string of about us design...
+		help_us_pnl.Initialize("help_us_pnl")
 	Dim rs As RichString
 	Dim f_string,s_string,t_string,fo_string,fi_string,s_string As String
 	f_string = CRLF&"•	Once you gave your name and your contact number, all your information will be shown to all this mobile app users.  "
@@ -2007,7 +2054,7 @@ Sub help_Click
 	help_data.Text = rs '' to set the string output
 	help_data.TextSize = 17
 		for_h.Text = rs
-		help_pnl.AddView(for_h,0,0,50%x,50%y)
+		help_us_pnl.AddView(for_h,0,0,50%x,50%y)
 		for_h.Visible = False
 		Dim string_h As Int : string_h= sus.MeasureMultilineTextHeight(for_h,for_h.Text)
 	''-------------------------------
@@ -2015,8 +2062,8 @@ Sub help_Click
 			help_sc2d.ScrollbarsVisibility(False,False)
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
-	help_pnl.Initialize("help_pnl")
-	help_pnl.Color = Colors.Transparent
+	'help_us_pnl.Initialize("help_us_pnl")
+	help_us_pnl.Color = Colors.Transparent
 	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
 	pnl.AddView(title_lbl,2%x,2%y,70%x,8%y)
 	
@@ -2024,15 +2071,15 @@ Sub help_Click
 	help_sc2d.Panel.AddView(help_data,0,0,70%x,string_h+15%Y)
 	pnl.AddView(help_ok_btn,1%x,help_sc2d.Top + help_sc2d.Height,72%x,8%y)
 
-	help_pnl.AddView(pnl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,80%y)
-	help_pnl.BringToFront
+	help_us_pnl.AddView(pnl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,80%y)
+	help_us_pnl.BringToFront
 	'pnl_body.Enabled = False
 	'pnl_bday_body.Color = Colors.ARGB(128,128,128,.50)
-	Activity.AddView(help_pnl,0,0,100%x,100%y)	
+	Activity.AddView(help_us_pnl,0,0,100%x,100%y)	
 End Sub
 Sub help_ok_btn_click
-	help_pnl.RemoveView
+	help_us_pnl.RemoveView
 End Sub
-Sub help_pnl_click
+Sub help_us_pnl_click
 	''
 End Sub

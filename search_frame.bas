@@ -77,6 +77,9 @@ Sub Globals
 	
 	Dim scroll_view_info As ScrollView2D
 	Dim user_img_panl As Panel
+	
+	Private ph1_pnl,ph2_pnl As Panel
+	Private phone1,phone2 as Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -159,16 +162,16 @@ Sub load_list
 	list_bloodgroup.Add("B")
 	list_bloodgroup.Add("O")
 	list_bloodgroup.Add("AB")
-	list_bloodgroup.Add("A+")
-	list_bloodgroup.Add("B+")
-	list_bloodgroup.Add("O+")
-	list_bloodgroup.Add("AB+")
+	'list_bloodgroup.Add("A+")
+	'list_bloodgroup.Add("B+")
+	'list_bloodgroup.Add("O+")
+	'list_bloodgroup.Add("AB+")
 	list_bloodgroup.Add("A-")
 	list_bloodgroup.Add("B-")
 	list_bloodgroup.Add("O-")
 	list_bloodgroup.Add("AB-")
 	search_spiner.AddAll(list_bloodgroup)
-	spin_item_click = "A";
+	spin_item_click = "A"
 End Sub
 
 
@@ -183,7 +186,7 @@ Sub search_btn_Click
 	ProgressDialogShow2("please wait.!!",False)
 	
 	Dim url_back As calculations
-	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phone1,phone2,image,age,gender As String
+	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phoneq1,phoneq2,image,age,gender As String
 	url_back.Initialize
 	url_id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
 	full_name = url_back.php_email_url("/bloodlifePHP/search_blood_fullN.php")
@@ -193,8 +196,8 @@ Sub search_btn_Click
 	donated = url_back.php_email_url("/bloodlifePHP/search_blood_donateB.php")
 	email = url_back.php_email_url("/bloodlifePHP/search_blood_email.php")
 	nickname = url_back.php_email_url("/bloodlifePHP/search_blood_nickN.php")
-	phone1 = url_back.php_email_url("/bloodlifePHP/search_blood_phone1.php")
-	phone2 = url_back.php_email_url("/bloodlifePHP/search_blood_phone2.php")
+	phoneq1 = url_back.php_email_url("/bloodlifePHP/search_blood_phone1.php")
+	phoneq2 = url_back.php_email_url("/bloodlifePHP/search_blood_phone2.php")
 	image = url_back.php_email_url("/bloodlifePHP/search_blood_image.php")
 	age = url_back.php_email_url("/bloodlifePHP/search_blood_age.php")
 	gender = url_back.php_email_url("/bloodlifePHP/search_blood_gender.php")
@@ -210,8 +213,8 @@ Sub search_btn_Click
 	data_query_donated.Download2(donated,Array As String("donate_b","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	data_query_email.Download2(email,Array As String("email","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	data_query_nickname.Download2(nickname,Array As String("nick","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_phone1.Download2(phone1,Array As String("phone1","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_phone2.Download2(phone2,Array As String("phone2","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_phone1.Download2(phoneq1,Array As String("phone1","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_phone2.Download2(phoneq2,Array As String("phone2","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	
 	data_query_image.Download2(image,Array As String("image","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
 	
@@ -599,6 +602,14 @@ End Sub
 Sub view_info_pnl_click
 	''don't delete this line
 End Sub
+Sub phone1_view_call_click
+	Dim ph As PhoneCalls
+	StartActivity(ph.Call(phone1.Text))
+End Sub
+Sub phone2_view_call_click
+		Dim ph As PhoneCalls
+	StartActivity(ph.Call(phone2.Text))
+End Sub
 Sub vie_btn_click
 
 	view_info_pnl.RemoveView	
@@ -611,8 +622,8 @@ Sub vie_btn_click
 	scroll_view_info.Initialize(74%x,57%y,"scroll_view_info")
 		
 	Dim view_panl,view_for_image,view_for_btn As Panel
-	Dim tittle,fullname,location,donated,email,phone1,phone2,age,gender As Label
-	Dim fn_pnl,loc_pnl,don_pnl,ema_pnl,ph1_pnl,ph2_pnl,btn_pnl,age_pnl,gender_pnl As Panel
+	Dim tittle,fullname,location,donated,email,age,gender As Label
+	Dim fn_pnl,loc_pnl,don_pnl,ema_pnl,btn_pnl,age_pnl,gender_pnl As Panel
 	Dim user_image,fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img,age_img,gender_img As ImageView
 					fn_img.Initialize("")
 					loc_img.Initialize("")
@@ -627,8 +638,8 @@ Sub vie_btn_click
 			loc_pnl.Initialize("")
 			don_pnl.Initialize("")
 			ema_pnl.Initialize("")
-			ph1_pnl.Initialize("")
-			ph2_pnl.Initialize("")
+			ph1_pnl.Initialize("phone1_view_call")
+			ph2_pnl.Initialize("phone2_view_call")
 			btn_pnl.Initialize("")
 			age_pnl.Initialize("")
 			gender_pnl.Initialize("")

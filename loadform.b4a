@@ -7,12 +7,12 @@ Module4=search_frame
 Module5=menu_form
 Module6=help_frame
 Module7=ClsExplorer
-Module8=HttpJob
-Module9=HttpUtils2Service
-Module10=my_profile
-Module11=about_frame
-Module12=ClsCheckList
-Build1=Default,b4a.example
+Module8=ClsCheckList
+Module9=HttpJob
+Module10=HttpUtils2Service
+Module11=my_profile
+Module12=about_frame
+Build1=Default,bloodlife.system
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
 IconFile=
 NumberOfFiles=113
@@ -129,7 +129,7 @@ File110=searchbloodtype.png
 File111=update_all_inputs.bal
 File112=update_all_top.bal
 File113=VIEW ALL.png
-NumberOfLibraries=14
+NumberOfLibraries=15
 Library1=core
 Library2=scrollview2d
 Library3=httpserver
@@ -144,6 +144,7 @@ Library11=animation
 Library12=reflection
 Library13=richstring
 Library14=sql
+Library15=phone
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: bloodlife system
@@ -186,7 +187,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	sqlLite.Initialize(File.DirInternal,"mydb.db",True)
 End Sub
 Sub database_init
-	If File.Exists(File.DirInternal,"mydb.db") = False Then
+	If File.Exists(File.DirInternal,"mydb.db") = True Then
 	File.Copy(File.DirAssets,"mydb.db",File.DirInternal,"mydb.db")
 	Else
 	End If
@@ -225,7 +226,7 @@ Sub start_button_Click
 'StartActivity ("login_form")
 		'sqlLite.ExecNonQuery("update from data set `isStart`=1 where `id`=1;")
 		sqlLite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';")	
-	StartActivity ("login_form")
+	StartActivity ("menu_form")
 	
 End Sub
 

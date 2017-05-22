@@ -1,4 +1,4 @@
-﻿VisibleModules=1,2,3,4,5,6,7
+﻿VisibleModules=1,2,3,4,5,6,7,8
 ModuleBreakpoints0=
 ModuleClosedNodes0=
 ModuleBreakpoints1=
@@ -8,9 +8,9 @@ ModuleClosedNodes2=14,15
 ModuleBreakpoints3=
 ModuleClosedNodes3=
 ModuleBreakpoints4=
-ModuleClosedNodes4=5,9,12,15,18,19
+ModuleClosedNodes4=5,12,15,18,19
 ModuleBreakpoints5=
-ModuleClosedNodes5=16,54,55
+ModuleClosedNodes5=12,16,54,55
 ModuleBreakpoints6=
 ModuleClosedNodes6=
 ModuleBreakpoints7=

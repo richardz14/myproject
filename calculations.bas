@@ -11,7 +11,7 @@ Sub Class_Globals
 	Public scroll_left As Double
 	Public name As String
 	Private ip As String
-	ip = "http://192.168.254.100:80"
+	ip = "http://192.168.1.5:80"
 	Public users_id As String : users_id = 1
 	Public users_nick_name As String
 	'Private full_name As HttpJob
