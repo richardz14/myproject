@@ -92,6 +92,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.Title = "CREATE ACCOUNT"
 	all_settings_layout
 	scrolling
+		lab_needReset.Visible = False 'for the need reset label can't see..
 		location_panel.Color = Colors.Transparent
 	bday_panel.Color = Colors.Transparent
 	insert_job.Initialize("inserting",Me)
@@ -102,9 +103,9 @@ Private Sub email_existance
 	Dim email_url As String
 	Dim url_back As calculations
 	url_back.Initialize
-	email_url = url_back.php_email_url("/bloodlifePHP/index.php")
+	email_url = url_back.php_email_url("index.php")
 	'email_list.Initialize
-	existing_email.Download2(email_url,Array As String("email","SELECT email FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
+	existing_email.Download2(email_url,Array As String("email","SELECT email FROM `person_info` where `email`='"&text_email.Text&"';"))
 End Sub
 Public Sub JobDone(job As HttpJob)
 
@@ -190,10 +191,10 @@ Sub reg_button_Click
 			'	Dim url_back As calculations
 			'	Dim ins,m_1,m_2,merge As String
 			'	url_back.Initialize	
-			'	m_1 = "INSERT INTO `bloodlife_db`.`person_info` (`full_name`,`blood_type`,`email`,`password`,`phone_number1`,`phone_number2`,`location_brgy`,`location_street`,`location_purok`,`bday_month`,`bday_day`,`bday_year`,`nick_name`,`donate_boolean`) "
+			'	m_1 = "INSERT INTO `person_info` (`full_name`,`blood_type`,`email`,`password`,`phone_number1`,`phone_number2`,`location_brgy`,`location_street`,`location_purok`,`bday_month`,`bday_day`,`bday_year`,`nick_name`,`donate_boolean`) "
 			'	m_2 = "VALUES ('"&full_name&"', '"&blood_type&"','"&email&"',ENCODE('"&password2&"','goroy'),'"&phone_number1&"','"&phone_number2&"','"&brgy&"','"&street&"','"&purok&"','"&month&"','"&day&"','"&year&"','"&answer&"','"&donate_boolean&"');"
 			'	merge = m_1&m_2
-			'	ins = url_back.php_email_url("/bloodlifePHP/inserting.php")
+			'	ins = url_back.php_email_url("inserting.php")
 			'	insert_job.Download2(ins,Array As String("insert",""&merge))
 			''
 			'Dim choose As Int : choose = Msgbox2("Sucessfuly Registered","Confirmation","OK","","",Null)
@@ -255,10 +256,10 @@ Private Sub existing_result
 					'Log(img_string)
 					
 				'street_lat_lng
-				m_1 = "INSERT INTO `bloodlife_db`.`person_info` (`full_name`,`blood_type`,`email`,`password`,`phone_number1`,`phone_number2`,`location_brgy`,`location_street`,`bday_month`,`bday_day`,`bday_year`,`nick_name`,`donate_boolean`,`lat`,`long`,`image`,`age`,`date_donated`,`gender`) "
+				m_1 = "INSERT INTO `person_info` (`full_name`,`blood_type`,`email`,`password`,`phone_number1`,`phone_number2`,`location_brgy`,`location_street`,`bday_month`,`bday_day`,`bday_year`,`nick_name`,`donate_boolean`,`lat`,`long`,`image`,`age`,`date_donated`,`gender`) "
 				m_2 = "VALUES ('"&full_name&"', '"&blood_type&"','"&email&"',ENCODE('"&password2&"','goroy'),'"&phone_number1&"','"&phone_number2&"','"&brgy&"','"&street&"','"&month&"','"&day&"','"&year&"','"&answer&"','"&donate_boolean&"','"&lat&"','"&lng&"','"&img_string&"','"&ageGet&"','"&isDonateDate&"','"&gender_string&"');"
 				merge = m_1&m_2
-				ins = url_back.php_email_url("/bloodlifePHP/inserting.php")
+				ins = url_back.php_email_url("inserting.php")
 				insert_job.Download2(ins,Array As String("insert",""&merge))
 				ProgressDialogHide
 			''
@@ -1244,6 +1245,8 @@ Sub isDonate_edit_
 	title_lbl.Initialize("")
 	edit_ok_btn.Text = "OK"
 	edit_can_btn.Text = "CANCEL"
+	edit_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+	edit_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 			Dim V_btn,C_btn As GradientDrawable
 			Dim colorG(2) As Int
 			colorG(0) = Colors.White
@@ -1255,6 +1258,7 @@ Sub isDonate_edit_
 		edit_ok_btn.Background = V_btn
 		edit_can_btn.Background = C_btn
 	title_lbl.Text = "SELECT DONATED DATE"
+	title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
 	pnl_bday_body.Initialize("pnl_bday_body")

@@ -297,8 +297,8 @@ Sub profile_Click
 	profile_all_body.Initialize("profile_all_body")
 	'Log(url_back.users_id)
 	all_info_query.Initialize("all_info_query",Me)
-	all_users_info = url_back.php_email_url("/bloodlifePHP/search_all_users_data.php")
-	all_info_query.Download2(all_users_info,Array As String("all_info","SELECT * FROM `bloodlife_db`.`person_info` where `id`='"&login_form.id_query&"';"))
+	all_users_info = url_back.php_email_url("search_all_users_data.php")
+	all_info_query.Download2(all_users_info,Array As String("all_info","SELECT * FROM `person_info` where `id`='"&login_form.id_query&"';"))
 		'scroll_profile_pnl.Initialize(100%x,100%y,"scroll_pnl")
 		'scroll_profile_pnl.Initialize(90%y)
 		'profile_panel.Initialize("profile_panel")
@@ -491,6 +491,7 @@ Sub Activity_KeyPress(KeyCode As Int) As Boolean
     Return True
 End Sub
 Sub usr_img_click
+	Try
 	dlgFileExpl.Initialize(Activity, "/mnt/sdcard", ".bmp,.gif,.jpg,.png", True, False, "OK")
 	dlgFileExpl.FastScrollEnabled = True
 	dlgFileExpl.Explorer2(True)
@@ -521,7 +522,9 @@ Sub usr_img_click
 	'usr_img.SetBackgroundImage(bmp)
 	'Log(img_string)
 	End If
-
+	Catch
+		Log(LastException.Message)
+	End Try
 End Sub
 Sub ResizeBitmap(original As Bitmap, width As Int, height As Int) As Bitmap
     Dim new As Bitmap
@@ -590,6 +593,7 @@ Sub profiled_Click
 			Dim img_isDonated As ImageView : img_isDonated.Initialize("")
 			
 		title.Text = "My Information" '' titte
+				title.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 		title.Gravity = Gravity.CENTER
 		title.TextSize = 20 '''-------
 		''images 
@@ -717,11 +721,11 @@ Sub update_btn_Click
 		ProgressDialogHide
 		Msgbox("Error: Fill up those empty fields before you update!","C O N F I R M A T I O N")
 	Else
-		m_1 = "UPDATE `bloodlife_db`.`person_info` SET `full_name`='"&text_fn.Text&"',`blood_type`='"&blood_selected&"', `phone_number1`='"&text_phonenumber.Text&"', `phone_number2`='"&text_phonenumber2.Text&"', `location_brgy`='"&location_brgy_selected&"', `location_street`='"&location_street_selected&"', "
+		m_1 = "UPDATE `person_info` SET `full_name`='"&text_fn.Text&"',`blood_type`='"&blood_selected&"', `phone_number1`='"&text_phonenumber.Text&"', `phone_number2`='"&text_phonenumber2.Text&"', `location_brgy`='"&location_brgy_selected&"', `location_street`='"&location_street_selected&"', "
 		m_2 = "`location_purok`='', `bday_month`='"&bday_month_selected&"',`bday_day`='"&bday_day_selected&"', `bday_year`='"&bday_year_selected&"', `nick_name`='"&text_answer.Text&"', `donate_boolean`='"&is_donated&"', `lat`='"&lat&"', `long`='"&lng&"', `image`='"&image_container&"', "
 		m_3 = "`age`='"&ageGet&"',`date_donated`='"&isDonateDate&"',`gender`='"&gender_string_data&"' WHERE `id`="&login_form.id_query&";"
 		merge = m_1&m_2&m_3
-		ins = url_back.php_email_url("/bloodlifePHP/updating.php")
+		ins = url_back.php_email_url("updating.php")
 		update_job.Download2(ins,Array As String("update",""&merge))
 		
 	End If
@@ -753,6 +757,9 @@ Sub edit_gender_Click
 		edit_ok_btn.Background = V_btn
 		edit_can_btn.Background = C_btn
 	title_lbl.Text = "SELECT GENDER"
+			edit_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		edit_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
 	pnl_gender_body.Initialize("pnl_gender_body")
@@ -811,6 +818,9 @@ Sub donated_edit_Click
 		edit_ok_btn.Background = V_btn
 		edit_can_btn.Background = C_btn
 	title_lbl.Text = "SELECT DONATED STATUS"
+			edit_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		edit_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
 	pnl_donated_body.Initialize("pnl_donated_body")
@@ -887,6 +897,9 @@ Sub isDonate_edit_
 		edit_ok_btn.Background = V_btn
 		edit_can_btn.Background = C_btn
 	title_lbl.Text = "SELECT DONATED DATE"
+			edit_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		edit_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
 	pnl_bday_body.Initialize("pnl_bday_body")
@@ -988,6 +1001,9 @@ Sub bday_edit_Click
 		edit_ok_btn.Background = V_btn
 		edit_can_btn.Background = C_btn
 	title_lbl.Text = "SELECT BIRTH DATE"
+				edit_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		edit_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
 	pnl_bday_body.Initialize("pnl_bday_body")
@@ -1070,6 +1086,9 @@ Sub blood_edit_Click
 	pnl_blood_body.Color = Colors.Transparent
 	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
 	title_lbl.Text = "SELECT BLOOD TYPE"
+			edit_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		edit_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)
 	pnl.AddView(spin_bloodgroup,2%x,title_lbl.Top + title_lbl.Height + 1%y,68%x,8%y)
@@ -1152,6 +1171,9 @@ Sub locate_edit_Click
 	edit_ok_btn.Text = "OK"
 	edit_can_btn.Text = "CANCEL"
 	title_lbl.Text = "SELECT LOCATION"
+		edit_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		edit_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.Gravity =  Gravity.CENTER
 	pnl.Initialize("pnl")
 	pnl_body.Initialize("pnl_body")
@@ -1960,6 +1982,7 @@ Sub about_Click
 	title_lbl.Initialize("")
 	about_data.Initialize("")
 	about_ok_btn.Text = "OK"
+	about_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 			Dim V_btn,C_btn As GradientDrawable
 			Dim colorG(2) As Int
 			colorG(0) = Colors.White
@@ -1970,9 +1993,10 @@ Sub about_Click
 		about_ok_btn.Background = V_btn
 	title_lbl.Text = "ABOUT"
 	title_lbl.TextSize = 25
-	title_lbl.Typeface = Typeface.DEFAULT_BOLD
-	title_lbl.Background = C_btn
-	title_lbl.TextColor = Colors.Black
+	title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+	'title_lbl.Background = C_btn
+	title_lbl.SetBackgroundImage(LoadBitmap(File.DirAssets,"bgs.jpg"))
+	title_lbl.TextColor = Colors.White
 	''for string of about us design...
 	Dim rs As RichString
 	Dim f_string,s_string As String
@@ -1984,6 +2008,7 @@ Sub about_Click
 	rs.BackColor2(Colors.DarkGray,"{bg1}")
 	rs.BackColor2(Colors.DarkGray,"{bg2}")
 	about_data.Text = rs '' to set the string output
+	about_data.Typeface = Typeface.LoadFromAssets("ZINGBISD.otf")
 	about_data.TextSize = 17
 		for_h.Text = rs
 		about_us_pnl.AddView(for_h,0,0,50%x,50%y)
@@ -1996,11 +2021,11 @@ Sub about_Click
 	pnl.Initialize("pnl")
 	about_us_pnl.Color = Colors.Transparent
 	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
-	pnl.AddView(title_lbl,2%x,2%y,68%x,8%y)
+	pnl.AddView(title_lbl,2%x,2%y,70.5%x,8%y)
 	
-	about_sc2d.Panel.AddView(about_data,0,0,69%x,string_h + 7%Y)
+	about_sc2d.Panel.AddView(about_data,2%x,0,66%x,string_h + 10%Y)
 	pnl.AddView(about_sc2d,2%x,title_lbl.Top + title_lbl.Height,70%x,60%y)
-	pnl.AddView(about_ok_btn,3%x,about_sc2d.Top + about_sc2d.Height,68%x,8%y)
+	pnl.AddView(about_ok_btn,1%x,about_sc2d.Top + about_sc2d.Height,72%x,8%y)
 	
 	about_us_pnl.AddView(pnl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,80%y)
 	about_us_pnl.BringToFront
@@ -2026,6 +2051,7 @@ Sub help_Click
 	title_lbl.Initialize("")
 	help_data.Initialize("")
 	help_ok_btn.Text = "OK"
+	help_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 			Dim V_btn,C_btn As GradientDrawable
 			Dim colorG(2) As Int
 			colorG(0) = Colors.White
@@ -2036,10 +2062,11 @@ Sub help_Click
 			'C_btn.CornerRadius = 50dip
 		help_ok_btn.Background = V_btn
 	title_lbl.Text = "HELP"
+	title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.TextSize = 25
-	title_lbl.Typeface = Typeface.DEFAULT_BOLD
-	title_lbl.Background = C_btn
-	title_lbl.TextColor = Colors.Black
+	'title_lbl.Background = C_btn
+	title_lbl.SetBackgroundImage(LoadBitmap(File.DirAssets,"bgs.jpg"))
+	title_lbl.TextColor = Colors.White
 	''for string of about us design...
 		help_us_pnl.Initialize("help_us_pnl")
 	Dim rs As RichString
@@ -2052,6 +2079,7 @@ Sub help_Click
 	s_string = CRLF&CRLF&"•  Please share this app and let us build a community that cares."
 	rs.Initialize(f_string&s_string&t_string&fo_string&fi_string&s_string)
 	help_data.Text = rs '' to set the string output
+	help_data.Typeface = Typeface.LoadFromAssets("ZINGBISD.otf")
 	help_data.TextSize = 17
 		for_h.Text = rs
 		help_us_pnl.AddView(for_h,0,0,50%x,50%y)
@@ -2068,7 +2096,7 @@ Sub help_Click
 	pnl.AddView(title_lbl,2%x,2%y,70%x,8%y)
 	
 	pnl.AddView(help_sc2d,2%x,title_lbl.Top + title_lbl.Height,70%x,60%y)
-	help_sc2d.Panel.AddView(help_data,0,0,70%x,string_h+15%Y)
+	help_sc2d.Panel.AddView(help_data,2%x,0,66%x,string_h+15%Y)
 	pnl.AddView(help_ok_btn,1%x,help_sc2d.Top + help_sc2d.Height,72%x,8%y)
 
 	help_us_pnl.AddView(pnl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,80%y)

@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="bloodlife.system"
 	android:versionCode="1"
-	android:versionName=""
+	android:versionName="1.0"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>

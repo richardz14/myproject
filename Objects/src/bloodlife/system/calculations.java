@@ -55,76 +55,76 @@ _scroll_left = 0;
 _name = "";
  //BA.debugLineNum = 8;BA.debugLine="Private ip As String";
 _ip = "";
- //BA.debugLineNum = 9;BA.debugLine="ip = \"http://192.168.1.5:80\"";
-_ip = "http://192.168.1.5:80";
- //BA.debugLineNum = 10;BA.debugLine="Public users_id As String : users_id = 1";
+ //BA.debugLineNum = 10;BA.debugLine="ip = \"http://192.168.43.2:80/bloodlifePHP/\" 'for";
+_ip = "http://192.168.43.2:80/bloodlifePHP/";
+ //BA.debugLineNum = 11;BA.debugLine="Public users_id As String : users_id = 1";
 _users_id = "";
- //BA.debugLineNum = 10;BA.debugLine="Public users_id As String : users_id = 1";
+ //BA.debugLineNum = 11;BA.debugLine="Public users_id As String : users_id = 1";
 _users_id = BA.NumberToString(1);
- //BA.debugLineNum = 11;BA.debugLine="Public users_nick_name As String";
+ //BA.debugLineNum = 12;BA.debugLine="Public users_nick_name As String";
 _users_nick_name = "";
- //BA.debugLineNum = 14;BA.debugLine="End Sub";
+ //BA.debugLineNum = 15;BA.debugLine="End Sub";
 return "";
 }
 public String  _initialize(anywheresoftware.b4a.BA _ba) throws Exception{
 innerInitialize(_ba);
- //BA.debugLineNum = 17;BA.debugLine="Public Sub Initialize";
- //BA.debugLineNum = 19;BA.debugLine="End Sub";
+ //BA.debugLineNum = 18;BA.debugLine="Public Sub Initialize";
+ //BA.debugLineNum = 20;BA.debugLine="End Sub";
 return "";
 }
 public String  _name_user(String _n) throws Exception{
- //BA.debugLineNum = 55;BA.debugLine="Public Sub name_user(n As String) As String";
- //BA.debugLineNum = 57;BA.debugLine="Return n";
+ //BA.debugLineNum = 56;BA.debugLine="Public Sub name_user(n As String) As String";
+ //BA.debugLineNum = 58;BA.debugLine="Return n";
 if (true) return _n;
- //BA.debugLineNum = 58;BA.debugLine="End Sub";
+ //BA.debugLineNum = 59;BA.debugLine="End Sub";
 return "";
 }
 public String  _php_email_url(String _email) throws Exception{
 String _merge_url = "";
- //BA.debugLineNum = 50;BA.debugLine="Public Sub php_email_url(email As String)";
- //BA.debugLineNum = 51;BA.debugLine="Dim merge_url As String";
+ //BA.debugLineNum = 51;BA.debugLine="Public Sub php_email_url(email As String) As Strin";
+ //BA.debugLineNum = 52;BA.debugLine="Dim merge_url As String";
 _merge_url = "";
- //BA.debugLineNum = 52;BA.debugLine="merge_url = ip&email";
+ //BA.debugLineNum = 53;BA.debugLine="merge_url = ip&email";
 _merge_url = _ip+_email;
- //BA.debugLineNum = 53;BA.debugLine="Return merge_url";
+ //BA.debugLineNum = 54;BA.debugLine="Return merge_url";
 if (true) return _merge_url;
- //BA.debugLineNum = 54;BA.debugLine="End Sub";
+ //BA.debugLineNum = 55;BA.debugLine="End Sub";
 return "";
 }
 public double  _sums_height(double _h) throws Exception{
- //BA.debugLineNum = 33;BA.debugLine="Public Sub sums_height(h As Double) As Double";
- //BA.debugLineNum = 34;BA.debugLine="scroll_height = h";
+ //BA.debugLineNum = 34;BA.debugLine="Public Sub sums_height(h As Double) As Double";
+ //BA.debugLineNum = 35;BA.debugLine="scroll_height = h";
 _scroll_height = _h;
- //BA.debugLineNum = 35;BA.debugLine="Return scroll_height";
+ //BA.debugLineNum = 36;BA.debugLine="Return scroll_height";
 if (true) return _scroll_height;
- //BA.debugLineNum = 36;BA.debugLine="End Sub";
+ //BA.debugLineNum = 37;BA.debugLine="End Sub";
 return 0;
 }
 public double  _sums_left(double _l) throws Exception{
- //BA.debugLineNum = 45;BA.debugLine="Public Sub sums_left(l As Double) As Double";
- //BA.debugLineNum = 46;BA.debugLine="scroll_left = l";
+ //BA.debugLineNum = 46;BA.debugLine="Public Sub sums_left(l As Double) As Double";
+ //BA.debugLineNum = 47;BA.debugLine="scroll_left = l";
 _scroll_left = _l;
- //BA.debugLineNum = 47;BA.debugLine="Return scroll_left";
+ //BA.debugLineNum = 48;BA.debugLine="Return scroll_left";
 if (true) return _scroll_left;
- //BA.debugLineNum = 48;BA.debugLine="End Sub";
+ //BA.debugLineNum = 49;BA.debugLine="End Sub";
 return 0;
 }
 public double  _sums_top(double _t) throws Exception{
- //BA.debugLineNum = 41;BA.debugLine="Public Sub sums_top(t As Double) As Double";
- //BA.debugLineNum = 42;BA.debugLine="scroll_top = t";
+ //BA.debugLineNum = 42;BA.debugLine="Public Sub sums_top(t As Double) As Double";
+ //BA.debugLineNum = 43;BA.debugLine="scroll_top = t";
 _scroll_top = _t;
- //BA.debugLineNum = 43;BA.debugLine="Return scroll_top";
+ //BA.debugLineNum = 44;BA.debugLine="Return scroll_top";
 if (true) return _scroll_top;
- //BA.debugLineNum = 44;BA.debugLine="End Sub";
+ //BA.debugLineNum = 45;BA.debugLine="End Sub";
 return 0;
 }
 public double  _sums_width(double _w) throws Exception{
- //BA.debugLineNum = 37;BA.debugLine="Public Sub sums_width(w As Double) As Double";
- //BA.debugLineNum = 38;BA.debugLine="scroll_width = w";
+ //BA.debugLineNum = 38;BA.debugLine="Public Sub sums_width(w As Double) As Double";
+ //BA.debugLineNum = 39;BA.debugLine="scroll_width = w";
 _scroll_width = _w;
- //BA.debugLineNum = 39;BA.debugLine="Return scroll_width";
+ //BA.debugLineNum = 40;BA.debugLine="Return scroll_width";
 if (true) return _scroll_width;
- //BA.debugLineNum = 40;BA.debugLine="End Sub";
+ //BA.debugLineNum = 41;BA.debugLine="End Sub";
 return 0;
 }
 public Object callSub(String sub, Object sender, Object[] args) throws Exception {

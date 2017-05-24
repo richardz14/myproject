@@ -11,7 +11,8 @@ Sub Class_Globals
 	Public scroll_left As Double
 	Public name As String
 	Private ip As String
-	ip = "http://192.168.1.5:80"
+	'ip = "http://bloodlifephp.byethost6.com/"	'For domain
+	ip = "http://192.168.43.2:80/bloodlifePHP/" 'for localhost
 	Public users_id As String : users_id = 1
 	Public users_nick_name As String
 	'Private full_name As HttpJob
@@ -23,7 +24,7 @@ Public Sub Initialize
 	'full_name.Initialize("get_full_name",Me)
 End Sub
 'Public Sub getting_fulln(url As String,email As String,pass As String) As String
-	'	full_name.Download2(url,Array As String("full_name","SELECT full_name FROM `bloodlife_db`.`person_info` where `email`='"&email&"' and password='"&pass&"';"))
+	'	full_name.Download2(url,Array As String("full_name","SELECT full_name FROM `person_info` where `email`='"&email&"' and password='"&pass&"';"))
 '	Return name
 'End Sub
 'Public Sub jobDone(job As HttpJob)
@@ -52,7 +53,7 @@ Public Sub sums_left(l As Double) As Double
 	Return scroll_left
 End Sub	
 
-Public Sub php_email_url(email As String)
+Public Sub php_email_url(email As String) As String
 	Dim merge_url As String
 	merge_url = ip&email
 	Return merge_url

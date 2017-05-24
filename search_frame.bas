@@ -37,6 +37,9 @@ Dim row_click As String
 
 	Dim earth_radius As Float	: earth_radius = 6373 'default earth rotational radius
 	Dim pi As Float : pi = 3.1416 'the default value of pi in matematical expression
+	
+	Private clicked_list_all As Int : clicked_list_all = 0
+	Private list_all_select As Int : list_all_select = 0
 End Sub
 
 Sub Globals
@@ -79,7 +82,7 @@ Sub Globals
 	Dim user_img_panl As Panel
 	
 	Private ph1_pnl,ph2_pnl As Panel
-	Private phone1,phone2 as Label
+	Private phone1,phone2 As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -156,6 +159,7 @@ Sub all_layout_load
 	  search_btn.top = ((toolkit_pnl.Height/2)/3)
 	  search_spiner.top = ((toolkit_pnl.Height/2)/3)
 End Sub
+
 Sub load_list
 	list_bloodgroup.Initialize
 	list_bloodgroup.Add("A")
@@ -173,7 +177,33 @@ Sub load_list
 	search_spiner.AddAll(list_bloodgroup)
 	spin_item_click = "A"
 End Sub
-
+Sub Activity_KeyPress(KeyCode As Int) As Boolean
+	' Not mandatory, it depends on your app and device
+		If KeyCode == KeyCodes.KEYCODE_BACK Then
+					If clicked_list_all == 0 Then
+						Dim choose As Int : choose = Msgbox2("Would you like to cancel searching?","C O N F I R M A T I O N","YES","","NO",Null)		
+									If choose == DialogResponse.POSITIVE Then
+										'ExitApplication
+										Activity.Finish
+									Else
+									End If
+					else if clicked_list_all == 1 Then
+						If list_all_select == 0 Then
+						dialog_all_panel.RemoveView
+						clicked_list_all = 0
+						Else if list_all_select == 1 Then
+						view_data_info_person.RemoveView
+						list_all_select = 0
+						Else
+						view_info_pnl.RemoveView
+						list_all_select = 0
+						End If
+					End If
+							
+		End If
+	
+    Return True
+End Sub
 
 Sub Activity_Resume
 
@@ -188,38 +218,38 @@ Sub search_btn_Click
 	Dim url_back As calculations
 	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phoneq1,phoneq2,image,age,gender As String
 	url_back.Initialize
-	url_id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
-	full_name = url_back.php_email_url("/bloodlifePHP/search_blood_fullN.php")
-	location = url_back.php_email_url("/bloodlifePHP/search_blood_location.php")
-	lat = url_back.php_email_url("/bloodlifePHP/search_blood_lat.php")
-	lng = url_back.php_email_url("/bloodlifePHP/search_blood_long.php")
-	donated = url_back.php_email_url("/bloodlifePHP/search_blood_donateB.php")
-	email = url_back.php_email_url("/bloodlifePHP/search_blood_email.php")
-	nickname = url_back.php_email_url("/bloodlifePHP/search_blood_nickN.php")
-	phoneq1 = url_back.php_email_url("/bloodlifePHP/search_blood_phone1.php")
-	phoneq2 = url_back.php_email_url("/bloodlifePHP/search_blood_phone2.php")
-	image = url_back.php_email_url("/bloodlifePHP/search_blood_image.php")
-	age = url_back.php_email_url("/bloodlifePHP/search_blood_age.php")
-	gender = url_back.php_email_url("/bloodlifePHP/search_blood_gender.php")
+	url_id = url_back.php_email_url("search_blood_id.php")
+	full_name = url_back.php_email_url("search_blood_fullN.php")
+	location = url_back.php_email_url("search_blood_location.php")
+	lat = url_back.php_email_url("search_blood_lat.php")
+	lng = url_back.php_email_url("search_blood_long.php")
+	donated = url_back.php_email_url("search_blood_donateB.php")
+	email = url_back.php_email_url("search_blood_email.php")
+	nickname = url_back.php_email_url("search_blood_nickN.php")
+	phoneq1 = url_back.php_email_url("search_blood_phone1.php")
+	phoneq2 = url_back.php_email_url("search_blood_phone2.php")
+	image = url_back.php_email_url("search_blood_image.php")
+	age = url_back.php_email_url("search_blood_age.php")
+	gender = url_back.php_email_url("search_blood_gender.php")
 	
-	''url_id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
+	''url_id = url_back.php_email_url("search_blood_id.php")
 	'Log(full_name&" "&spin_item_click)
-	data_query_id.Download2(url_id,Array As String("id","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_fullN.Download2(full_name,Array As String("full_name","SELECT full_name FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_location.Download2(location,Array As String("location","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	query_lat.Download2(lat,Array As String("lat","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	query_lng.Download2(lng,Array As String("long","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_id.Download2(url_id,Array As String("id","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_fullN.Download2(full_name,Array As String("full_name","SELECT full_name FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_location.Download2(location,Array As String("location","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	query_lat.Download2(lat,Array As String("lat","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	query_lng.Download2(lng,Array As String("long","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
 	
-	data_query_donated.Download2(donated,Array As String("donate_b","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_email.Download2(email,Array As String("email","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_nickname.Download2(nickname,Array As String("nick","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_phone1.Download2(phoneq1,Array As String("phone1","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_phone2.Download2(phoneq2,Array As String("phone2","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_donated.Download2(donated,Array As String("donate_b","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_email.Download2(email,Array As String("email","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_nickname.Download2(nickname,Array As String("nick","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_phone1.Download2(phoneq1,Array As String("phone1","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_phone2.Download2(phoneq2,Array As String("phone2","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
 	
-	data_query_image.Download2(image,Array As String("image","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_image.Download2(image,Array As String("image","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
 	
-	data_query_age.Download2(age,Array As String("age","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_gender.Download2(gender,Array As String("gender","SELECT * FROM `bloodlife_db`.`person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_age.Download2(age,Array As String("age","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_gender.Download2(gender,Array As String("gender","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
 	'data_query_id.Initialize("data_query_id_get",Me)
 	'data_query_id.Initialize("data_query_fullN_get",Me)
 	'data_query_id.Initialize("data_query_location_get",Me)
@@ -556,6 +586,7 @@ Sub list_btn_BACKUP_Click
 End Sub
 
 Sub data_list_Click
+	list_all_select = 2
 	Dim Send As View
 	Dim row As Int
 	Send=Sender
@@ -579,6 +610,8 @@ Sub data_list_Click
 	can_btn.Initialize("can_btn")
 	vie_btn.Text = "VIEW"
 	can_btn.Text = "CANCEL"
+	vie_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+	can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 			Dim V_btn,C_btn As GradientDrawable
 			Dim colorG(2) As Int
 			colorG(0) = Colors.White
@@ -590,6 +623,7 @@ Sub data_list_Click
 		vie_btn.Background = V_btn
 		can_btn.Background = C_btn
 	lbl_tittle.Text = "SELECT ACTION"
+	lbl_tittle.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	lbl_tittle.Gravity = Gravity.CENTER
 	lbl_tittle.TextColor = Colors.White
 	view_panl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
@@ -603,15 +637,25 @@ Sub view_info_pnl_click
 	''don't delete this line
 End Sub
 Sub phone1_view_call_click
+	Dim choose As Int 
+	choose = Msgbox2(""&phone1.Text,"Phone Number: ","CALL","","CANCEL",Null)
+	If choose == DialogResponse .POSITIVE Then
 	Dim ph As PhoneCalls
 	StartActivity(ph.Call(phone1.Text))
+	Else
+	End If
 End Sub
 Sub phone2_view_call_click
-		Dim ph As PhoneCalls
+	Dim choose As Int 
+	choose = Msgbox2(""&phone2.Text,"Phone Number: ","CALL","","CANCEL",Null)
+	If choose == DialogResponse .POSITIVE Then
+	Dim ph As PhoneCalls
 	StartActivity(ph.Call(phone2.Text))
+	Else
+	End If
 End Sub
 Sub vie_btn_click
-
+	list_all_select = 1
 	view_info_pnl.RemoveView	
 		If view_data_info_person.IsInitialized == True Then
 		view_data_info_person.RemoveView	
@@ -685,6 +729,7 @@ Sub vie_btn_click
 	'tittle.Gravity = Gravity.CENTER
 	fullname.Gravity = Gravity.CENTER
 	ok_vie_btn.Text = "OK"
+	ok_vie_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	view_panl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
 	'view_panl.AddView(tittle,1%x,2%y,72%x,8%y) ' title of modal
 				'loc_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-21-home.png"))
@@ -766,6 +811,7 @@ Sub vie_btn_click
 		fn_pnl.AddView(fullname,0,user_image.Top + user_image.Height,72%x,10%y) ' full name
 		
 		fullname.TextSize = 25
+		fullname.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
 		''
 	view_panl.AddView(age_pnl,1%x,0,72%x,8%y) 
 		age_pnl.AddView(age_img,4%x,1%y,6%x,6%y) ''  image of age boolean
@@ -1026,6 +1072,7 @@ Sub reading_txt
     TextReader_gender.Close
 End Sub
 Sub list_btn_Click
+	clicked_list_all = 1
 	ProgressDialogShow2("Loading data, Please Wait...",False)
 	If scrolllista.IsInitialized == True Then
 	scrolllista.RemoveView

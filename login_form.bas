@@ -143,7 +143,7 @@ Public Sub JobDone(job As HttpJob)
 				If text_email.Text.CompareTo(Email) == 0 And text_password.Text.CompareTo(pass) == 0  Then ''''''' 3rd statement
 							'Dim calc As calculations
 							'calc.Initialize
-							'name = calc.getting_fulln(calc.php_email_url("/bloodlifePHP/index3.php"),text_email.Text,text_password.Text)
+							'name = calc.getting_fulln(calc.php_email_url("index3.php"),text_email.Text,text_password.Text)
 						Dim dialogR As Int
 						dialogR = Msgbox2("Welcome "&name,"C O N F I R M A T I O N","OK","","",Null)
 						booleanCount = 0
@@ -174,8 +174,8 @@ Public Sub JobDone(job As HttpJob)
 				Dim url_back As calculations
 				Dim forgot_string As String
 				url_back.Initialize
-				forgot_string = url_back.php_email_url("/bloodlifePHP/forgot_pass.php")
-				forgot_recover_job.Download2(forgot_string,Array As String("recover","UPDATE `bloodlife_db`.`person_info` SET `password`=ENCODE('"&newPass.Text&"','goroy') WHERE  `email`='"&email_for&"' and `nick_name`='"&nickName_for&"';"))
+				forgot_string = url_back.php_email_url("forgot_pass.php")
+				forgot_recover_job.Download2(forgot_string,Array As String("recover","UPDATE `person_info` SET `password`=ENCODE('"&newPass.Text&"','goroy') WHERE  `email`='"&email_for&"' and `nick_name`='"&nickName_for&"';"))
 				ToastMessageShow("Successfully Recovered Account!",True)
 				forgot_pass_pnl.RemoveView
 			Else
@@ -210,18 +210,18 @@ log_click = True
 	Dim url_back As calculations
 	Dim url_email,url_pass,full_name,id,nickname As String
 	url_back.Initialize
-	url_email = url_back.php_email_url("/bloodlifePHP/index.php")
-	url_pass = url_back.php_email_url("/bloodlifePHP/index1.php")
-	full_name = url_back.php_email_url("/bloodlifePHP/search_blood_fullN.php")
-	id = url_back.php_email_url("/bloodlifePHP/search_blood_id.php")
-	nickname = url_back.php_email_url("/bloodlifePHP/search_blood_nickN.php")
+	url_email = url_back.php_email_url("index.php")
+	url_pass = url_back.php_email_url("index1.php")
+	full_name = url_back.php_email_url("search_blood_fullN.php")
+	id = url_back.php_email_url("search_blood_id.php")
+	nickname = url_back.php_email_url("search_blood_nickN.php")
 	
-	h_fullname.Download2(full_name,Array As String("full_name","SELECT full_name FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
-	user_id.Download2(id,Array As String("id","SELECT id FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
-	nick_name.Download2(nickname,Array As String("nick","SELECT nick_name FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
+	h_fullname.Download2(full_name,Array As String("full_name","SELECT full_name FROM `person_info` where `email`='"&text_email.Text&"';"))
+	user_id.Download2(id,Array As String("id","SELECT id FROM `person_info` where `email`='"&text_email.Text&"';"))
+	nick_name.Download2(nickname,Array As String("nick","SELECT nick_name FROM `person_info` where `email`='"&text_email.Text&"';"))
 	
-	h_email.Download2(url_email,Array As String("email","SELECT email FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
-	h_pass.Download2(url_pass,Array As String("pass","SELECT decode(password,'goroy') FROM `bloodlife_db`.`person_info` where `email`='"&text_email.Text&"';"))
+	h_email.Download2(url_email,Array As String("email","SELECT email FROM `person_info` where `email`='"&text_email.Text&"';"))
+	h_pass.Download2(url_pass,Array As String("pass","SELECT decode(password,'goroy') FROM `person_info` where `email`='"&text_email.Text&"';"))
 	
 End Sub
 Sub Activity_Resume
@@ -329,10 +329,10 @@ Sub forgot_recover_btn_click
 			Dim url_back As calculations
 			Dim url_email,nickname As String
 			url_back.Initialize
-			url_email = url_back.php_email_url("/bloodlifePHP/index.php")
-			nickname = url_back.php_email_url("/bloodlifePHP/search_blood_nickN.php")
-			forgot_email_job.Download2(url_email,Array As String("email","SELECT email FROM `bloodlife_db`.`person_info` where `email`='"&email_forgot.Text&"';"))
-			forgot_nick_job.Download2(nickname,Array As String("nick","SELECT nick_name FROM `bloodlife_db`.`person_info` where `nick_name`='"&nickN_forgot.Text&"';"))	
+			url_email = url_back.php_email_url("index.php")
+			nickname = url_back.php_email_url("search_blood_nickN.php")
+			forgot_email_job.Download2(url_email,Array As String("email","SELECT email FROM `person_info` where `email`='"&email_forgot.Text&"';"))
+			forgot_nick_job.Download2(nickname,Array As String("nick","SELECT nick_name FROM `person_info` where `nick_name`='"&nickN_forgot.Text&"';"))	
 		End If
 	End If
 	
@@ -357,11 +357,14 @@ Sub label_forgot_Click
 		edit_can_btn.Background = C_btn
 	edit_ok_btn.Text = "RECOVER"
 	edit_can_btn.Text = "CANCEL"
+	edit_ok_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+	edit_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	pnl.Initialize("pnl")
 	forgot_pass_pnl.Initialize("forgot_pass_pnl")
 	forgot_pass_pnl.Color = Colors.Transparent
 	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
 	title_lbl.Text = "RECOVERING ACCOUNT"
+	title_lbl.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 	title_lbl.Gravity = Gravity.CENTER
 	
 	email_forgot.Initialize("")
