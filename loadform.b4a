@@ -238,7 +238,7 @@ Sub start_button_Click
 'StartActivity ("login_form")
 		'sqlLite.ExecNonQuery("update from data set `isStart`=1 where `id`=1;")
 		sqlLite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';")	
-	StartActivity ("menu_form")
+	StartActivity ("login_form")
 	
 End Sub
 

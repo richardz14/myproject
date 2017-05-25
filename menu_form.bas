@@ -2005,8 +2005,10 @@ Sub about_Click
 	rs.Initialize(f_string&s_string)
 	rs.Style2(rs.STYLE_BOLD_ITALIC, "{ib}")
 	rs.Style2(rs.STYLE_BOLD_ITALIC, "{iib}")
-	rs.BackColor2(Colors.DarkGray,"{bg1}")
-	rs.BackColor2(Colors.DarkGray,"{bg2}")
+	'rs.BackColor2(Colors.DarkGray,"{bg1}")
+	'rs.BackColor2(Colors.DarkGray,"{bg2}")
+	rs.Underscore2("{bg1}")
+	rs.Underscore2("{bg2}")
 	about_data.Text = rs '' to set the string output
 	about_data.Typeface = Typeface.LoadFromAssets("ZINGBISD.otf")
 	about_data.TextSize = 17

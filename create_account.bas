@@ -338,7 +338,10 @@ Public Sub all_settings_layout
 		gradiant.CornerRadius = 5dip
 		'ban_create.Background = gradiant
 		reg_button.Background = gradiant
-	
+		
+	reg_button.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+	indicator.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+	indicator.TextSize = 18
 	Dim calc As calculations
 	calc.Initialize
 	h = calc.sums_height(Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height)

@@ -501,8 +501,8 @@ public static String  _start_button_click() throws Exception{
  //BA.debugLineNum = 77;BA.debugLine="Sub start_button_Click";
  //BA.debugLineNum = 80;BA.debugLine="sqlLite.ExecNonQuery(\"UPDATE data SET isStart='1";
 _sqllite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';");
- //BA.debugLineNum = 81;BA.debugLine="StartActivity (\"menu_form\")";
-anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("menu_form"));
+ //BA.debugLineNum = 81;BA.debugLine="StartActivity (\"login_form\")";
+anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("login_form"));
  //BA.debugLineNum = 83;BA.debugLine="End Sub";
 return "";
 }

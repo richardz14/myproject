@@ -186,18 +186,20 @@ Public Sub JobDone(job As HttpJob)
 		
 	Else If job.Success == False Then
 	ProgressDialogHide
-		If booleanCount = 4 Then
+		If booleanCount = 4 And booleanforgotcount = 1 Then
 		Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N")
 		booleanCount = 0
+		booleanforgotcount = 0
 		Else
 		booleanCount = 4
+		booleanforgotcount = 1
 		End If
-				If booleanforgotcount = 1 Then
-				Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N")
-				booleanforgotcount = 0
-				Else
-				booleanforgotcount = 1
-				End If
+				'If booleanforgotcount = 1 Then
+				'Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N")
+				
+				'Else
+				
+				'End If
 	End If
 
 End Sub
@@ -235,15 +237,20 @@ End Sub
 Public Sub all_settings_layout
 	Activity.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
 	ban_picture.SetBackgroundImage(LoadBitmap(File.DirAssets,"banner01.jpg"))
-	log_in_button.SetBackgroundImage(LoadBitmap(File.DirAssets,"LOG_IN.png"))
+	'log_in_button.SetBackgroundImage(LoadBitmap(File.DirAssets,"LOG_IN.png"))
 	'new_acc_button.SetBackgroundImage(LoadBitmap(File.DirAssets,"CREATE_ACOUNT.png"))
+	new_acc_button.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+	log_in_button.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+	label_forgot.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+	label_email.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+	label_password.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
 	
 	ban_tools.Color = Colors.Transparent
 	ban_create.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
 	
 	label_email.Gravity = Gravity.CENTER
 	label_password.Gravity = Gravity.CENTER
-	label_forgot.Gravity = Gravity.RIGHT
+	label_forgot.Gravity = Gravity.CENTER
 	''width
 		ban_panel.Width = 100%x
 		ban_picture.Width = ban_panel.Width
@@ -253,8 +260,8 @@ Public Sub all_settings_layout
 		label_password.Width = 30%x
 		text_email.Width = 50%x
 		text_password.Width = 50%x
-		label_forgot.Width = 50%x
-		log_in_button.Width = 30%x
+		label_forgot.Width = 60%x
+		log_in_button.Width = 40%x
 		new_acc_button.Width = 64%x
 	''height
 		ban_panel.Height = 25%y
@@ -295,17 +302,21 @@ Public Sub all_settings_layout
 		text_email.left =  label_email.left + label_email.Width
 		text_password.left = label_password.left + label_email.Width
 		label_forgot.left = text_password.left '+ (text_password.Width/2)
-		log_in_button.left = text_password.left + 10dip
+		log_in_button.left = 30%x 'text_password.left + 10dip
 		new_acc_button.left = 18%x
 		
-		Dim gradiant As GradientDrawable
+		Dim gradiant,log_grad As GradientDrawable
 		Dim col(2) As Int
 		col(0) = Colors.Red
 		col(1) = Colors.LightGray
 		gradiant.Initialize("TOP_BOTTOM",col)
+		log_grad.Initialize("TOP_BOTTOM",col)
 		gradiant.CornerRadius = 5dip
+		log_grad.CornerRadius = 5dip
 		'ban_create.Background = gradiant
 		new_acc_button.Background = gradiant
+		log_in_button.Background = log_grad
+		log_in_button.Text = "LOG IN"
 		new_acc_button.Text = "CREATE ACCOUNT"
 End Sub
 
