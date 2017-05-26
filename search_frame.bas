@@ -234,22 +234,22 @@ Sub search_btn_Click
 	
 	''url_id = url_back.php_email_url("search_blood_id.php")
 	'Log(full_name&" "&spin_item_click)
-	data_query_id.Download2(url_id,Array As String("id","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_fullN.Download2(full_name,Array As String("full_name","SELECT full_name FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_location.Download2(location,Array As String("location","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	query_lat.Download2(lat,Array As String("lat","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	query_lng.Download2(lng,Array As String("long","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_id.Download2(url_id,Array As String("id","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	data_query_fullN.Download2(full_name,Array As String("full_name","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	data_query_location.Download2(location,Array As String("location","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	query_lat.Download2(lat,Array As String("lat","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	query_lng.Download2(lng,Array As String("long","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
 	
-	data_query_donated.Download2(donated,Array As String("donate_b","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_email.Download2(email,Array As String("email","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_nickname.Download2(nickname,Array As String("nick","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_phone1.Download2(phoneq1,Array As String("phone1","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_phone2.Download2(phoneq2,Array As String("phone2","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_donated.Download2(donated,Array As String("donate_b","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	data_query_email.Download2(email,Array As String("email","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	data_query_nickname.Download2(nickname,Array As String("nick","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	data_query_phone1.Download2(phoneq1,Array As String("phone1","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	data_query_phone2.Download2(phoneq2,Array As String("phone2","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
 	
-	data_query_image.Download2(image,Array As String("image","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_image.Download2(image,Array As String("image","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
 	
-	data_query_age.Download2(age,Array As String("age","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
-	data_query_gender.Download2(gender,Array As String("gender","SELECT * FROM `person_info` where `blood_type`='"&spin_item_click&"';"))
+	data_query_age.Download2(age,Array As String("age","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	data_query_gender.Download2(gender,Array As String("gender","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
 	'data_query_id.Initialize("data_query_id_get",Me)
 	'data_query_id.Initialize("data_query_fullN_get",Me)
 	'data_query_id.Initialize("data_query_location_get",Me)
@@ -394,79 +394,82 @@ Public Sub JobDone(job As HttpJob)
    					 TextWriter_id.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_id.txt", False))
     		    TextWriter_id.WriteLine(job.GetString.Trim)
   			  TextWriter_id.Close
-				'Log("1")
+				Log("1")
 			Case "data_query_fullN_get"
 				 Dim TextWriter_full As TextWriter
    					 TextWriter_full.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_fullN.txt", False))
     		    TextWriter_full.WriteLine(job.GetString.Trim)
   			  TextWriter_full.Close
-			'Log("2")
+			Log("2")
 			Case "data_query_location_get"
 				Dim TextWriter_location As TextWriter
    					 TextWriter_location.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_location.txt", False))
     		    TextWriter_location.WriteLine(job.GetString.Trim)
   			  TextWriter_location.Close
-			  'Log("33")
+			  Log("33")
 			Case "data_query_lat_get"
 				Dim TextWriter_lat As TextWriter
    					 TextWriter_lat.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_lat.txt", False))
     		    TextWriter_lat.WriteLine(job.GetString.Trim)
-				'Log("3")
+				Log("3")
   			  TextWriter_lat.Close
 			 Case "data_query_lng_get"
 				Dim TextWriter_lng As TextWriter
    					 TextWriter_lng.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_lng.txt", False))
     		    TextWriter_lng.WriteLine(job.GetString.Trim)
-				'Log("4")
+				Log("4")
   			  TextWriter_lng.Close 
 			  Case "data_query_donated_get"
 			  	Dim TextWriter_donate As TextWriter
    					 TextWriter_donate.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_donated.txt", False))
     		    TextWriter_donate.WriteLine(job.GetString)
 				TextWriter_donate.Close 
-				'Log("5")
+				Log("5")
 			  Case "data_query_email_get"
 			  	Dim TextWriter_email As TextWriter
    					 TextWriter_email.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_email.txt", False))
     		    TextWriter_email.WriteLine(job.GetString.Trim)
 				TextWriter_email.Close 
-				'Log("6")
+				Log("6")
 			  Case "data_query_nickname_get"
 			  	Dim TextWriter_nickname As TextWriter
    					 TextWriter_nickname.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_nickname.txt", False))
     		    TextWriter_nickname.WriteLine(job.GetString.Trim)
 				TextWriter_nickname.Close 
-				'Log("7")
+				Log("7")
 			  Case "data_query_phone1_get"
 			  	Dim TextWriter_phone1 As TextWriter
    					 TextWriter_phone1.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_phone1.txt", False))
     		    TextWriter_phone1.WriteLine(job.GetString.Trim)
 				TextWriter_phone1.Close 
-				'Log("8")
+				Log("8")
 			  Case "data_query_phone2_get"
 			  	Dim TextWriter_phone2 As TextWriter
    					 TextWriter_phone2.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_phone2.txt", False))
     		    TextWriter_phone2.WriteLine(job.GetString.Trim)
 				TextWriter_phone2.Close 
-				'Log("9")
+				Log("9")
 			  Case "data_query_image"
 			  	Dim TextWriter_image As TextWriter
    					 TextWriter_image.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_image.txt", False))
     		    TextWriter_image.WriteLine(job.GetString.Trim)
 				TextWriter_image.Close 	
+				Log("10")
 			  Case "data_query_age_get"
 			  	Dim TextWriter_age As TextWriter
    					 TextWriter_age.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_age.txt", False))
     		    TextWriter_age.WriteLine(job.GetString.Trim)
 				TextWriter_age.Close 	
+				Log("11")
 			  Case "data_query_gender_get"
 			  	Dim TextWriter_gender As TextWriter
    					 TextWriter_gender.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_gender.txt", False))
     		    TextWriter_gender.WriteLine(job.GetString.Trim)
-				TextWriter_gender.Close 	
+				TextWriter_gender.Close 
+				Log("12")	
 			End Select	
 		
-			Log("datas: "&is_complete)
+		'Log("datas: "&is_complete)
 	If is_complete == 12 Then
 		ProgressDialogHide
 		is_complete = 0

@@ -46,13 +46,6 @@
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".search_frame"
-			android:label="bloodlife system"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
 			android:name=".menu_form"
 			android:label="bloodlife system"
 			android:screenOrientation="portrait">
@@ -79,6 +72,13 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".about_frame"
+			android:label="bloodlife system"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".search_frame"
 			android:label="bloodlife system"
 			android:screenOrientation="portrait">
 		</activity>

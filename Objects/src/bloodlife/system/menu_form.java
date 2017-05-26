@@ -422,11 +422,11 @@ public flm.b4a.scrollview2d.ScrollView2DWrapper _help_sc2d = null;
 public bloodlife.system.main _main = null;
 public bloodlife.system.login_form _login_form = null;
 public bloodlife.system.create_account _create_account = null;
-public bloodlife.system.search_frame _search_frame = null;
 public bloodlife.system.help_frame _help_frame = null;
 public bloodlife.system.httputils2service _httputils2service = null;
 public bloodlife.system.my_profile _my_profile = null;
 public bloodlife.system.about_frame _about_frame = null;
+public bloodlife.system.search_frame _search_frame = null;
 
 public static void initializeProcessGlobals() {
              try {

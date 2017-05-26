@@ -312,11 +312,11 @@ public anywheresoftware.b4a.keywords.Common __c = null;
 public bloodlife.system.main _main = null;
 public bloodlife.system.login_form _login_form = null;
 public bloodlife.system.create_account _create_account = null;
-public bloodlife.system.search_frame _search_frame = null;
 public bloodlife.system.menu_form _menu_form = null;
 public bloodlife.system.httputils2service _httputils2service = null;
 public bloodlife.system.my_profile _my_profile = null;
 public bloodlife.system.about_frame _about_frame = null;
+public bloodlife.system.search_frame _search_frame = null;
 
 public static void initializeProcessGlobals() {
              try {
