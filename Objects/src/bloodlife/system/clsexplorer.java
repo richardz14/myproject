@@ -69,10 +69,10 @@ public bloodlife.system.login_form _login_form = null;
 public bloodlife.system.create_account _create_account = null;
 public bloodlife.system.menu_form _menu_form = null;
 public bloodlife.system.help_frame _help_frame = null;
+public bloodlife.system.search_frame _search_frame = null;
 public bloodlife.system.httputils2service _httputils2service = null;
 public bloodlife.system.my_profile _my_profile = null;
 public bloodlife.system.about_frame _about_frame = null;
-public bloodlife.system.search_frame _search_frame = null;
 public static class _typresult{
 public boolean IsInitialized;
 public boolean Canceled;
@@ -754,7 +754,7 @@ _pnlcadre.AddView((android.view.View)(_pnlcartouche.getObject()),_marginbord,(in
 _pnlmasque.AddView((android.view.View)(_pnlcadre.getObject()),_dialogrect.getLeft(),_dialogrect.getTop(),_largeur,_hauteur);
  //BA.debugLineNum = 289;BA.debugLine="actEcran.AddView(pnlMasque, 0, 0, 100%x, 100%y)";
 _actecran.AddView((android.view.View)(_pnlmasque.getObject()),(int) (0),(int) (0),__c.PerXToCurrent((float) (100),ba),__c.PerYToCurrent((float) (100),ba));
- //BA.debugLineNum = 291;BA.debugLine="If strChemin.EndsWith(\"/\") AND strChemin <> \"/\" T";
+ //BA.debugLineNum = 291;BA.debugLine="If strChemin.EndsWith(\"/\") And strChemin <> \"/\" T";
 if (_strchemin.endsWith("/") && (_strchemin).equals("/") == false) { 
 _strchemin = _strchemin.substring((int) (0),_strchemin.length());};
  //BA.debugLineNum = 292;BA.debugLine="ReadFolder(strChemin)";

@@ -7,11 +7,11 @@ Module4=menu_form
 Module5=help_frame
 Module6=ClsExplorer
 Module7=ClsCheckList
-Module8=HttpJob
-Module9=HttpUtils2Service
-Module10=my_profile
-Module11=about_frame
-Module12=search_frame
+Module8=search_frame
+Module9=HttpJob
+Module10=HttpUtils2Service
+Module11=my_profile
+Module12=about_frame
 Build1=Default,bloodlife.system
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
 IconFile=
@@ -189,6 +189,8 @@ Sub Globals
 	Private but_panel As Panel
 	Private ban_picture As ImageView
 	Private start_button As Button
+	
+		Dim a1 As Animation
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -198,8 +200,16 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	all_settings_layout	
 	database_init
-	
+	for_btn_animation
 	sqlLite.Initialize(File.DirInternal,"mydb.db",True)
+End Sub
+Sub for_btn_animation
+
+	a1.InitializeAlpha("", 1, 0)
+	start_button.Tag = a1
+	a1.Duration = 400
+	a1.RepeatCount = 1
+	a1.RepeatMode = a1.REPEAT_REVERSE
 End Sub
 Sub database_init
 	If File.Exists(File.DirInternal,"mydb.db") = True Then
@@ -240,6 +250,7 @@ End Sub
 Sub start_button_Click
 'StartActivity ("login_form")
 		'sqlLite.ExecNonQuery("update from data set `isStart`=1 where `id`=1;")
+		a1.Start(start_button)
 		sqlLite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';")	
 	StartActivity ("menu_form")
 	

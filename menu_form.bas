@@ -132,6 +132,9 @@ Sub Globals
 	
 	Dim about_sc2d As ScrollView2D
 	Dim help_sc2d As ScrollView2D
+	
+		Dim a1, a2, a3, a4, a5, userImage As Animation
+		'Dim aa1,aa2,aa3,aa4,aa5 As Animation
 End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
@@ -139,6 +142,26 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout ("menu_frame")
 	Activity.Title = "MENU"
 	load_activity_layout
+	for_btn_animation
+End Sub
+Sub for_btn_animation
+	a1.InitializeAlpha("", 1, 0)
+	a2.InitializeAlpha("", 1, 0)
+	a3.InitializeAlpha("", 1, 0)
+	a4.InitializeAlpha("", 1, 0)
+	a5.InitializeAlpha("", 1, 0)
+	search_blood.Tag = a1
+	profile.Tag = a2
+	about.Tag = a3
+	help.Tag = a4
+	exit_btn.Tag = a5
+		Dim animations() As Animation
+	animations = Array As Animation(a1, a2, a3, a4, a5)
+	For i = 0 To animations.Length - 1
+		animations(i).Duration = 200
+		animations(i).RepeatCount = 1
+		animations(i).RepeatMode = animations(i).REPEAT_REVERSE
+	Next
 End Sub
 Sub load_activity_layout
 	Dim text_temp As calculations
@@ -278,9 +301,26 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 Sub search_blood_Click
+		Dim aa1 As Animation
+	aa1.InitializeAlpha("", 1, 0)
+	srch_blood_img.Tag = aa1
+	aa1.Duration = 200
+	aa1.RepeatCount = 1
+	aa1.RepeatMode = aa1.REPEAT_REVERSE
+		a1.Start(search_blood)
+		aa1.Start(srch_blood_img)
 	StartActivity("search_frame")
 End Sub
 Sub profile_Click
+	Dim aa1 As Animation
+	aa1.InitializeAlpha("", 1, 0)
+	profile_img.Tag = aa1
+	aa1.Duration = 200
+	aa1.RepeatCount = 1
+	aa1.RepeatMode = aa1.REPEAT_REVERSE
+		a2.Start(profile)
+		aa1.Start(profile_img)
+	
 	ProgressDialogShow2("Please Wait..",False)
 	panel_click_ = 1
 	edit_panel_click_ = 0
@@ -492,6 +532,13 @@ Sub Activity_KeyPress(KeyCode As Int) As Boolean
 End Sub
 Sub usr_img_click
 	Try
+		
+		userImage.InitializeAlpha("", 1, 0)
+		usr_img.Tag = userImage
+		userImage.Duration = 300
+		userImage.RepeatCount = 1
+		userImage.RepeatMode = userImage.REPEAT_REVERSE
+		userImage.Start(usr_img)
 	dlgFileExpl.Initialize(Activity, "/mnt/sdcard", ".bmp,.gif,.jpg,.png", True, False, "OK")
 	dlgFileExpl.FastScrollEnabled = True
 	dlgFileExpl.Explorer2(True)
@@ -645,6 +692,15 @@ Sub profiled_Click
 	'' end of person's infox
 End Sub
 Sub exit_btn_Click
+				Dim aa1 As Animation
+		aa1.InitializeAlpha("", 1, 0)
+		exit_img.Tag = aa1
+		aa1.Duration = 200
+		aa1.RepeatCount = 1
+		aa1.RepeatMode = aa1.REPEAT_REVERSE
+		a5.Start(exit_btn)
+		aa1.Start(exit_img)
+		
 	If login_form.is_log_in == True Then
 		Dim confirm As Int
 		confirm = Msgbox2("Would you to log out your account, and exit the application?","C O N F I R M A T I O N","YES","","NO",Null)
@@ -1966,6 +2022,14 @@ Sub location_spin_street_ItemClick (Position As Int, Value As Object)
 	street_lat_lng
 End Sub
 Sub about_Click
+			Dim aa1 As Animation
+			aa1.InitializeAlpha("", 1, 0)
+			about_img.Tag = aa1
+			aa1.Duration = 200
+			aa1.RepeatCount = 1
+			aa1.RepeatMode = aa1.REPEAT_REVERSE
+			a3.Start(about)
+			aa1.Start(about_img)
 	panel_click_ = 2
 	Dim pnl As Panel
 	Dim about_ok_btn As Button
@@ -2043,6 +2107,14 @@ Sub about_us_pnl_click
 	''
 End Sub
 Sub help_Click
+		Dim aa1 As Animation
+		aa1.InitializeAlpha("", 1, 0)
+		help_img.Tag = aa1
+		aa1.Duration = 200
+		aa1.RepeatCount = 1
+		aa1.RepeatMode = aa1.REPEAT_REVERSE
+		a4.Start(help)
+		aa1.Start(help_img)
 	panel_click_ = 3
 		Dim pnl As Panel
 	Dim help_ok_btn As Button

@@ -49,6 +49,8 @@ Sub Globals
 	Dim forgot_nick_job As HttpJob
 	Dim forgot_recover_job As HttpJob
 	Dim email_for,nickName_for As String
+	
+	Dim a1, a2, a3 As Animation
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -71,9 +73,25 @@ Sub Activity_Create(FirstTime As Boolean)
 	nickN_forgot.Initialize("")
 	newPass.Initialize("")
 	renewPass.Initialize("")
-	
+	for_btn_animation
 	database_init
 	sqlLite.Initialize(File.DirInternal,"mydb.db",True)
+End Sub
+Sub for_btn_animation
+	
+	a1.InitializeAlpha("", 1, 0)
+	a2.InitializeAlpha("", 1, 0)
+	a3.InitializeAlpha("", 1, 0)
+	new_acc_button.Tag = a2
+	log_in_button.Tag = a1
+	label_forgot.Tag = a3
+		Dim animations() As Animation
+	animations = Array As Animation(a1, a2, a3)
+	For i = 0 To animations.Length - 1
+		animations(i).Duration = 400
+		animations(i).RepeatCount = 1
+		animations(i).RepeatMode = animations(i).REPEAT_REVERSE
+	Next
 End Sub
 Sub database_init
 		If File.Exists(File.DirInternal,"mydb.db") = False Then
@@ -204,6 +222,7 @@ Public Sub JobDone(job As HttpJob)
 
 End Sub
 Sub log_in_button_click
+	a1.Start(log_in_button)
 ProgressDialogShow2("please wait.!!",False)
 Email = ""
 pass = ""
@@ -321,6 +340,7 @@ Public Sub all_settings_layout
 End Sub
 
 Sub new_acc_button_Click
+	a2.Start(new_acc_button)
 	StartActivity ("create_account")
 End Sub
 Sub forgot_recover_btn_click
@@ -350,6 +370,7 @@ Sub forgot_recover_btn_click
 End Sub
 Sub label_forgot_Click
 	'booleanforgotcount = 0
+	a3.Start(label_forgot)
 	Dim pnl As Panel
 	Dim edit_ok_btn,edit_can_btn As Button
 	Dim title_lbl As Label

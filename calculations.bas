@@ -11,8 +11,8 @@ Sub Class_Globals
 	Public scroll_left As Double
 	Public name As String
 	Private ip As String
-	ip = "https://bloodlifegoroy.000webhostapp.com/bloodlifePHP/"	'For domain
-	'ip = "http://192.168.43.2:80/bloodlifePHP/" 'for localhost
+	'ip = "https://bloodlifegoroy.000webhostapp.com/bloodlifePHP/"	'For domain
+	ip = "http://192.168.43.2:80/bloodlifePHP/" 'for localhost
 	Public users_id As String : users_id = 1
 	Public users_nick_name As String
 	'Private full_name As HttpJob

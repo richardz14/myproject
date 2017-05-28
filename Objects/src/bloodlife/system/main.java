@@ -314,14 +314,15 @@ public anywheresoftware.b4a.objects.PanelWrapper _ban_panel = null;
 public anywheresoftware.b4a.objects.PanelWrapper _but_panel = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _ban_picture = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _start_button = null;
+public anywheresoftware.b4a.objects.AnimationWrapper _a1 = null;
 public bloodlife.system.login_form _login_form = null;
 public bloodlife.system.create_account _create_account = null;
 public bloodlife.system.menu_form _menu_form = null;
 public bloodlife.system.help_frame _help_frame = null;
+public bloodlife.system.search_frame _search_frame = null;
 public bloodlife.system.httputils2service _httputils2service = null;
 public bloodlife.system.my_profile _my_profile = null;
 public bloodlife.system.about_frame _about_frame = null;
-public bloodlife.system.search_frame _search_frame = null;
 
 public static boolean isAnyActivityVisible() {
     boolean vis = false;
@@ -330,131 +331,148 @@ vis = vis | (login_form.mostCurrent != null);
 vis = vis | (create_account.mostCurrent != null);
 vis = vis | (menu_form.mostCurrent != null);
 vis = vis | (help_frame.mostCurrent != null);
+vis = vis | (search_frame.mostCurrent != null);
 vis = vis | (my_profile.mostCurrent != null);
 vis = vis | (about_frame.mostCurrent != null);
-vis = vis | (search_frame.mostCurrent != null);
 return vis;}
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 31;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 33;BA.debugLine="Activity.LoadLayout(\"load_form\")";
+ //BA.debugLineNum = 33;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 35;BA.debugLine="Activity.LoadLayout(\"load_form\")";
 mostCurrent._activity.LoadLayout("load_form",mostCurrent.activityBA);
- //BA.debugLineNum = 34;BA.debugLine="Activity.Title = \"MAIN\"";
+ //BA.debugLineNum = 36;BA.debugLine="Activity.Title = \"MAIN\"";
 mostCurrent._activity.setTitle((Object)("MAIN"));
- //BA.debugLineNum = 36;BA.debugLine="all_settings_layout";
+ //BA.debugLineNum = 38;BA.debugLine="all_settings_layout";
 _all_settings_layout();
- //BA.debugLineNum = 37;BA.debugLine="database_init";
+ //BA.debugLineNum = 39;BA.debugLine="database_init";
 _database_init();
- //BA.debugLineNum = 39;BA.debugLine="sqlLite.Initialize(File.DirInternal,\"mydb.db\",Tru";
+ //BA.debugLineNum = 40;BA.debugLine="for_btn_animation";
+_for_btn_animation();
+ //BA.debugLineNum = 41;BA.debugLine="sqlLite.Initialize(File.DirInternal,\"mydb.db\",Tru";
 _sqllite.Initialize(anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"mydb.db",anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 40;BA.debugLine="End Sub";
+ //BA.debugLineNum = 42;BA.debugLine="End Sub";
 return "";
 }
 public static boolean  _activity_keypress(int _keycode) throws Exception{
 int _choose = 0;
- //BA.debugLineNum = 61;BA.debugLine="Sub Activity_KeyPress(KeyCode As Int) As Boolean";
- //BA.debugLineNum = 63;BA.debugLine="If KeyCode == KeyCodes.KEYCODE_BACK Then";
+ //BA.debugLineNum = 71;BA.debugLine="Sub Activity_KeyPress(KeyCode As Int) As Boolean";
+ //BA.debugLineNum = 73;BA.debugLine="If KeyCode == KeyCodes.KEYCODE_BACK Then";
 if (_keycode==anywheresoftware.b4a.keywords.Common.KeyCodes.KEYCODE_BACK) { 
- //BA.debugLineNum = 64;BA.debugLine="Dim choose As Int : choose = Msgbox2(\"would you";
+ //BA.debugLineNum = 74;BA.debugLine="Dim choose As Int : choose = Msgbox2(\"would you";
 _choose = 0;
- //BA.debugLineNum = 64;BA.debugLine="Dim choose As Int : choose = Msgbox2(\"would you";
+ //BA.debugLineNum = 74;BA.debugLine="Dim choose As Int : choose = Msgbox2(\"would you";
 _choose = anywheresoftware.b4a.keywords.Common.Msgbox2("would you like to exit this application?","C O N F I R M A T I O N","YES","","NO",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
- //BA.debugLineNum = 65;BA.debugLine="If choose == DialogResponse.POSITIVE Then";
+ //BA.debugLineNum = 75;BA.debugLine="If choose == DialogResponse.POSITIVE Then";
 if (_choose==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
- //BA.debugLineNum = 66;BA.debugLine="ExitApplication";
+ //BA.debugLineNum = 76;BA.debugLine="ExitApplication";
 anywheresoftware.b4a.keywords.Common.ExitApplication();
  }else {
  };
  };
- //BA.debugLineNum = 71;BA.debugLine="Return True";
+ //BA.debugLineNum = 81;BA.debugLine="Return True";
 if (true) return anywheresoftware.b4a.keywords.Common.True;
- //BA.debugLineNum = 72;BA.debugLine="End Sub";
+ //BA.debugLineNum = 82;BA.debugLine="End Sub";
 return false;
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 73;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 75;BA.debugLine="End Sub";
+ //BA.debugLineNum = 83;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 85;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
 anywheresoftware.b4a.sql.SQL.CursorWrapper _set_cursor = null;
 int _i = 0;
- //BA.debugLineNum = 47;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 48;BA.debugLine="Dim set_cursor As Cursor";
+ //BA.debugLineNum = 57;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 58;BA.debugLine="Dim set_cursor As Cursor";
 _set_cursor = new anywheresoftware.b4a.sql.SQL.CursorWrapper();
- //BA.debugLineNum = 49;BA.debugLine="set_cursor = sqlLite.ExecQuery(\"select * from dat";
+ //BA.debugLineNum = 59;BA.debugLine="set_cursor = sqlLite.ExecQuery(\"select * from dat";
 _set_cursor.setObject((android.database.Cursor)(_sqllite.ExecQuery("select * from data where `id`=1;")));
- //BA.debugLineNum = 50;BA.debugLine="For i = 0 To set_cursor.RowCount - 1";
+ //BA.debugLineNum = 60;BA.debugLine="For i = 0 To set_cursor.RowCount - 1";
 {
 final int step3 = 1;
 final int limit3 = (int) (_set_cursor.getRowCount()-1);
 for (_i = (int) (0) ; (step3 > 0 && _i <= limit3) || (step3 < 0 && _i >= limit3); _i = ((int)(0 + _i + step3)) ) {
- //BA.debugLineNum = 51;BA.debugLine="set_cursor.Position = i";
+ //BA.debugLineNum = 61;BA.debugLine="set_cursor.Position = i";
 _set_cursor.setPosition(_i);
- //BA.debugLineNum = 52;BA.debugLine="If set_cursor.GetString(\"isStart\") == 1 The";
+ //BA.debugLineNum = 62;BA.debugLine="If set_cursor.GetString(\"isStart\") == 1 The";
 if ((_set_cursor.GetString("isStart")).equals(BA.NumberToString(1))) { 
- //BA.debugLineNum = 53;BA.debugLine="StartActivity(\"login_form\")";
+ //BA.debugLineNum = 63;BA.debugLine="StartActivity(\"login_form\")";
 anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("login_form"));
- //BA.debugLineNum = 54;BA.debugLine="ExitApplication";
+ //BA.debugLineNum = 64;BA.debugLine="ExitApplication";
 anywheresoftware.b4a.keywords.Common.ExitApplication();
  }else {
  };
  }
 };
- //BA.debugLineNum = 60;BA.debugLine="End Sub";
+ //BA.debugLineNum = 70;BA.debugLine="End Sub";
 return "";
 }
 public static String  _all_settings_layout() throws Exception{
- //BA.debugLineNum = 85;BA.debugLine="Public Sub all_settings_layout";
- //BA.debugLineNum = 86;BA.debugLine="ban_picture.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 96;BA.debugLine="Public Sub all_settings_layout";
+ //BA.debugLineNum = 97;BA.debugLine="ban_picture.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._ban_picture.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"banner01.jpg").getObject()));
- //BA.debugLineNum = 87;BA.debugLine="Activity.SetBackgroundImage(LoadBitmap(File.DirAs";
+ //BA.debugLineNum = 98;BA.debugLine="Activity.SetBackgroundImage(LoadBitmap(File.DirAs";
 mostCurrent._activity.SetBackgroundImage((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"bg.jpg").getObject()));
- //BA.debugLineNum = 88;BA.debugLine="but_panel.Color = Colors.Transparent";
+ //BA.debugLineNum = 99;BA.debugLine="but_panel.Color = Colors.Transparent";
 mostCurrent._but_panel.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
- //BA.debugLineNum = 90;BA.debugLine="ban_panel.Width = 100%x";
+ //BA.debugLineNum = 101;BA.debugLine="ban_panel.Width = 100%x";
 mostCurrent._ban_panel.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 91;BA.debugLine="ban_picture.Width = ban_panel.Width";
+ //BA.debugLineNum = 102;BA.debugLine="ban_picture.Width = ban_panel.Width";
 mostCurrent._ban_picture.setWidth(mostCurrent._ban_panel.getWidth());
- //BA.debugLineNum = 92;BA.debugLine="but_panel.Width = 100%x";
+ //BA.debugLineNum = 103;BA.debugLine="but_panel.Width = 100%x";
 mostCurrent._but_panel.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 93;BA.debugLine="start_button.Width =30%x";
+ //BA.debugLineNum = 104;BA.debugLine="start_button.Width =30%x";
 mostCurrent._start_button.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (30),mostCurrent.activityBA));
- //BA.debugLineNum = 95;BA.debugLine="ban_panel.Height = 45%y";
+ //BA.debugLineNum = 106;BA.debugLine="ban_panel.Height = 45%y";
 mostCurrent._ban_panel.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (45),mostCurrent.activityBA));
- //BA.debugLineNum = 96;BA.debugLine="ban_picture.Height = ban_panel.Height - 3dip";
+ //BA.debugLineNum = 107;BA.debugLine="ban_picture.Height = ban_panel.Height - 3dip";
 mostCurrent._ban_picture.setHeight((int) (mostCurrent._ban_panel.getHeight()-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (3))));
- //BA.debugLineNum = 97;BA.debugLine="but_panel.Height = Activity.Height - ban_panel.H";
+ //BA.debugLineNum = 108;BA.debugLine="but_panel.Height = Activity.Height - ban_panel.H";
 mostCurrent._but_panel.setHeight((int) (mostCurrent._activity.getHeight()-mostCurrent._ban_panel.getHeight()-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (3))));
- //BA.debugLineNum = 98;BA.debugLine="start_button.Height = 11%y";
+ //BA.debugLineNum = 109;BA.debugLine="start_button.Height = 11%y";
 mostCurrent._start_button.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (11),mostCurrent.activityBA));
- //BA.debugLineNum = 100;BA.debugLine="ban_panel.Top = Activity.Top";
+ //BA.debugLineNum = 111;BA.debugLine="ban_panel.Top = Activity.Top";
 mostCurrent._ban_panel.setTop(mostCurrent._activity.getTop());
- //BA.debugLineNum = 101;BA.debugLine="ban_picture.Top = ban_panel.Top + 2dip";
+ //BA.debugLineNum = 112;BA.debugLine="ban_picture.Top = ban_panel.Top + 2dip";
 mostCurrent._ban_picture.setTop((int) (mostCurrent._ban_panel.getTop()+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (2))));
- //BA.debugLineNum = 102;BA.debugLine="but_panel.Top = ban_panel.Top + ban_panel.Height";
+ //BA.debugLineNum = 113;BA.debugLine="but_panel.Top = ban_panel.Top + ban_panel.Height";
 mostCurrent._but_panel.setTop((int) (mostCurrent._ban_panel.getTop()+mostCurrent._ban_panel.getHeight()+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (3))));
- //BA.debugLineNum = 103;BA.debugLine="start_button.Top = 14%y";
+ //BA.debugLineNum = 114;BA.debugLine="start_button.Top = 14%y";
 mostCurrent._start_button.setTop(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (14),mostCurrent.activityBA));
- //BA.debugLineNum = 105;BA.debugLine="ban_panel.Left = 0";
+ //BA.debugLineNum = 116;BA.debugLine="ban_panel.Left = 0";
 mostCurrent._ban_panel.setLeft((int) (0));
- //BA.debugLineNum = 106;BA.debugLine="ban_picture.Left = 0";
+ //BA.debugLineNum = 117;BA.debugLine="ban_picture.Left = 0";
 mostCurrent._ban_picture.setLeft((int) (0));
- //BA.debugLineNum = 107;BA.debugLine="but_panel.Left = 0";
+ //BA.debugLineNum = 118;BA.debugLine="but_panel.Left = 0";
 mostCurrent._but_panel.setLeft((int) (0));
- //BA.debugLineNum = 108;BA.debugLine="start_button.Left = 36%x";
+ //BA.debugLineNum = 119;BA.debugLine="start_button.Left = 36%x";
 mostCurrent._start_button.setLeft(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (36),mostCurrent.activityBA));
- //BA.debugLineNum = 109;BA.debugLine="End Sub";
+ //BA.debugLineNum = 120;BA.debugLine="End Sub";
 return "";
 }
 public static String  _database_init() throws Exception{
- //BA.debugLineNum = 41;BA.debugLine="Sub database_init";
- //BA.debugLineNum = 42;BA.debugLine="If File.Exists(File.DirInternal,\"mydb.db\") = True";
+ //BA.debugLineNum = 51;BA.debugLine="Sub database_init";
+ //BA.debugLineNum = 52;BA.debugLine="If File.Exists(File.DirInternal,\"mydb.db\") = True";
 if (anywheresoftware.b4a.keywords.Common.File.Exists(anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"mydb.db")==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 43;BA.debugLine="File.Copy(File.DirAssets,\"mydb.db\",File.DirIntern";
+ //BA.debugLineNum = 53;BA.debugLine="File.Copy(File.DirAssets,\"mydb.db\",File.DirIntern";
 anywheresoftware.b4a.keywords.Common.File.Copy(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"mydb.db",anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"mydb.db");
  }else {
  };
- //BA.debugLineNum = 46;BA.debugLine="End Sub";
+ //BA.debugLineNum = 56;BA.debugLine="End Sub";
+return "";
+}
+public static String  _for_btn_animation() throws Exception{
+ //BA.debugLineNum = 43;BA.debugLine="Sub for_btn_animation";
+ //BA.debugLineNum = 45;BA.debugLine="a1.InitializeAlpha(\"\", 1, 0)";
+mostCurrent._a1.InitializeAlpha(mostCurrent.activityBA,"",(float) (1),(float) (0));
+ //BA.debugLineNum = 46;BA.debugLine="start_button.Tag = a1";
+mostCurrent._start_button.setTag((Object)(mostCurrent._a1.getObject()));
+ //BA.debugLineNum = 47;BA.debugLine="a1.Duration = 400";
+mostCurrent._a1.setDuration((long) (400));
+ //BA.debugLineNum = 48;BA.debugLine="a1.RepeatCount = 1";
+mostCurrent._a1.setRepeatCount((int) (1));
+ //BA.debugLineNum = 49;BA.debugLine="a1.RepeatMode = a1.REPEAT_REVERSE";
+mostCurrent._a1.setRepeatMode(mostCurrent._a1.REPEAT_REVERSE);
+ //BA.debugLineNum = 50;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
@@ -467,7 +485,9 @@ mostCurrent._but_panel = new anywheresoftware.b4a.objects.PanelWrapper();
 mostCurrent._ban_picture = new anywheresoftware.b4a.objects.ImageViewWrapper();
  //BA.debugLineNum = 28;BA.debugLine="Private start_button As Button";
 mostCurrent._start_button = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 29;BA.debugLine="End Sub";
+ //BA.debugLineNum = 30;BA.debugLine="Dim a1 As Animation";
+mostCurrent._a1 = new anywheresoftware.b4a.objects.AnimationWrapper();
+ //BA.debugLineNum = 31;BA.debugLine="End Sub";
 return "";
 }
 
@@ -481,10 +501,10 @@ login_form._process_globals();
 create_account._process_globals();
 menu_form._process_globals();
 help_frame._process_globals();
+search_frame._process_globals();
 httputils2service._process_globals();
 my_profile._process_globals();
 about_frame._process_globals();
-search_frame._process_globals();
 		
         } catch (Exception e) {
 			throw new RuntimeException(e);
@@ -498,12 +518,14 @@ _sqllite = new anywheresoftware.b4a.sql.SQL();
 return "";
 }
 public static String  _start_button_click() throws Exception{
- //BA.debugLineNum = 77;BA.debugLine="Sub start_button_Click";
- //BA.debugLineNum = 80;BA.debugLine="sqlLite.ExecNonQuery(\"UPDATE data SET isStart='1";
+ //BA.debugLineNum = 87;BA.debugLine="Sub start_button_Click";
+ //BA.debugLineNum = 90;BA.debugLine="a1.Start(start_button)";
+mostCurrent._a1.Start((android.view.View)(mostCurrent._start_button.getObject()));
+ //BA.debugLineNum = 91;BA.debugLine="sqlLite.ExecNonQuery(\"UPDATE data SET isStart='1";
 _sqllite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';");
- //BA.debugLineNum = 81;BA.debugLine="StartActivity (\"menu_form\")";
+ //BA.debugLineNum = 92;BA.debugLine="StartActivity (\"menu_form\")";
 anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("menu_form"));
- //BA.debugLineNum = 83;BA.debugLine="End Sub";
+ //BA.debugLineNum = 94;BA.debugLine="End Sub";
 return "";
 }
 }

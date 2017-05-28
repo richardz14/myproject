@@ -83,6 +83,10 @@ Sub Globals
 	
 	Private ph1_pnl,ph2_pnl As Panel
 	Private phone1,phone2 As Label
+	
+		Dim a1, a2 As Animation
+		Dim ph1_a1,ph2_a2,userI_a3 As Animation
+		dim user_image as ImageView
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -105,6 +109,7 @@ Sub Activity_Create(FirstTime As Boolean)
     query_marker.Initialize("query_marker_get",Me)
 	map_extras.addJavascriptInterface(map_webview,"B4A")
 	
+	isGPSon.Enabled = False ''' for disable the GPS checkbox
 	If FirstTime Then
 		gpsClient.Initialize("gpsClient")
 		userLocation.Initialize
@@ -112,8 +117,21 @@ Sub Activity_Create(FirstTime As Boolean)
 	is_initialize
 	all_layout_load
 	load_list
+	for_btn_animation
 End Sub
-
+Sub for_btn_animation
+	a1.InitializeAlpha("", 1, 0)
+	a2.InitializeAlpha("", 1, 0)
+	search_btn.Tag = a2
+	list_btn.Tag = a1
+		Dim animations() As Animation
+	animations = Array As Animation(a1, a2)
+	For i = 0 To animations.Length - 1
+		animations(i).Duration = 300
+		animations(i).RepeatCount = 1
+		animations(i).RepeatMode = animations(i).REPEAT_REVERSE
+	Next
+End Sub
 Sub all_layout_load
 	Activity.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
 	toolkit_pnl.Color = Colors.Transparent
@@ -124,6 +142,7 @@ Sub all_layout_load
 	  toolkit_pnl.Width = Activity.Width
 	  list_panel.Width = Activity.Width
 	  map_webview.Width = Activity.Width
+	  isGPSon.Width = 50%x
 	  
 	  list_btn.Width = 50%x
 	  search_lbl.Width = 14%x
@@ -142,7 +161,8 @@ Sub all_layout_load
 	 toolkit_pnl.Left = 0
 	 list_panel.Left = 0
 	 map_webview.Left = 0
-	 isGPSon.Left = map_webview.Width - isGPSon.Width - 5%x
+	 'isGPSon.Left = map_webview.Width - isGPSon.Width - 5%x
+	 isGPSon.Left = Activity.Width - isGPSon.Width
 	 
 	 list_btn.Left = ((list_panel.Width/2)/2)
 	  search_lbl.Left = ((toolkit_pnl.Left + 3%x)+2%x)
@@ -158,6 +178,8 @@ Sub all_layout_load
 	 search_lbl.top = ((toolkit_pnl.Height/2)/3)
 	  search_btn.top = ((toolkit_pnl.Height/2)/3)
 	  search_spiner.top = ((toolkit_pnl.Height/2)/3)
+	  
+	  isGPSon.Gravity = Gravity.RIGHT
 End Sub
 
 Sub load_list
@@ -213,8 +235,9 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 Sub search_btn_Click
+	a2.Start(search_btn)
 	ProgressDialogShow2("please wait.!!",False)
-	
+	isGPSon.Enabled = True
 	Dim url_back As calculations
 	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phoneq1,phoneq2,image,age,gender As String
 	url_back.Initialize
@@ -259,9 +282,16 @@ Sub isGPSon_CheckedChange(Checked As Boolean)
 	is_check_true = Checked
 	If Checked == True Then
 		If gpsClient.GPSEnabled=False Then
-		ToastMessageShow("Please enable your device's GPS capabilities", True)
-		isGPSon.Checked = False
-        StartActivity(gpsClient.LocationSettingsIntent)
+			'ToastMessageShow("Please enable your device's GPS capabilities", True)
+			Dim choose As Int
+			choose = Msgbox2("Please enable your device's GPS capabilities","C O N F I R M A T I O N","SETTINGS","CANCEL","",Null)
+			If choose == DialogResponse.POSITIVE Then
+				isGPSon.Checked = False
+       			 StartActivity(gpsClient.LocationSettingsIntent)
+			else If choose == DialogResponse.CANCEL Then
+				isGPSon.Checked = False
+			End If
+			
 		Else
 		gpsClient.Start(10.1799469, 122.9068577)
 		ProgressDialogShow("Waiting for GPS location")
@@ -482,10 +512,12 @@ Public Sub JobDone(job As HttpJob)
 	End If
 	is_complete = is_complete + 1
 		Else If job.Success == False Then
+		
 		ProgressDialogHide
+		isGPSon.Enabled = False
 		is_complete = 0
 		Msgbox("Error: Error connecting to server,please try again.!","C O N F I R M A T I O N")
-		
+
 
 	End If
 
@@ -640,6 +672,7 @@ Sub view_info_pnl_click
 	''don't delete this line
 End Sub
 Sub phone1_view_call_click
+	ph1_a1.Start(ph1_pnl)
 	Dim choose As Int 
 	choose = Msgbox2(""&phone1.Text,"Phone Number: ","CALL","","CANCEL",Null)
 	If choose == DialogResponse .POSITIVE Then
@@ -649,6 +682,7 @@ Sub phone1_view_call_click
 	End If
 End Sub
 Sub phone2_view_call_click
+		ph2_a2.Start(ph2_pnl)
 	Dim choose As Int 
 	choose = Msgbox2(""&phone2.Text,"Phone Number: ","CALL","","CANCEL",Null)
 	If choose == DialogResponse .POSITIVE Then
@@ -671,7 +705,7 @@ Sub vie_btn_click
 	Dim view_panl,view_for_image,view_for_btn As Panel
 	Dim tittle,fullname,location,donated,email,age,gender As Label
 	Dim fn_pnl,loc_pnl,don_pnl,ema_pnl,btn_pnl,age_pnl,gender_pnl As Panel
-	Dim user_image,fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img,age_img,gender_img As ImageView
+	Dim fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img,age_img,gender_img As ImageView
 					fn_img.Initialize("")
 					loc_img.Initialize("")
 					don_img.Initialize("")
@@ -858,6 +892,25 @@ Sub vie_btn_click
 	view_data_info_person.AddView(btn_pnl,13%x,scroll_view_info.Top + scroll_view_info.Height,74%x,10%y)
 	
 	Activity.AddView(view_data_info_person,0,0,100%x,100%y)
+	
+	for_phone_clik_animation
+End Sub
+Sub for_phone_clik_animation
+	ph1_a1.InitializeAlpha("", 1, 0)
+	ph2_a2.InitializeAlpha("", 1, 0)
+	userI_a3.InitializeAlpha("", 1, 0)
+	'a3.InitializeAlpha("", 1, 0)
+	ph2_pnl.Tag = ph2_a2
+	ph1_pnl.Tag = ph1_a1
+	user_image.Tag = userI_a3
+	'label_forgot.Tag = a3
+		Dim animations() As Animation
+	animations = Array As Animation(ph2_a2, ph1_a1, userI_a3)
+	For i = 0 To animations.Length - 1
+		animations(i).Duration = 300
+		animations(i).RepeatCount = 1
+		animations(i).RepeatMode = animations(i).REPEAT_REVERSE
+	Next
 End Sub
 Sub ok_vie_btn_click
 	view_data_info_person.RemoveView
@@ -869,6 +922,7 @@ Sub can_btn_click
 	view_info_pnl.RemoveView
 End Sub
 Sub user_image_click
+	userI_a3.Start(user_image)
 	If user_img_panl.IsInitialized == True Then
 		user_img_panl.RemoveView
 	End If
@@ -1075,6 +1129,7 @@ Sub reading_txt
     TextReader_gender.Close
 End Sub
 Sub list_btn_Click
+	a1.Start(list_btn)
 	clicked_list_all = 1
 	ProgressDialogShow2("Loading data, Please Wait...",False)
 	If scrolllista.IsInitialized == True Then

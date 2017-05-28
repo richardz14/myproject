@@ -84,6 +84,8 @@ Sub Globals
 	Dim pnl_bday_body As Panel
 	Private is_donate_date As Label
 	Private spin_gender As Spinner
+	
+		Dim a1 As Animation
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -92,11 +94,20 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.Title = "CREATE ACCOUNT"
 	all_settings_layout
 	scrolling
+	for_btn_animation
 		lab_needReset.Visible = False 'for the need reset label can't see..
 		location_panel.Color = Colors.Transparent
 	bday_panel.Color = Colors.Transparent
 	insert_job.Initialize("inserting",Me)
 	existing_email.Initialize("email_exist",Me)
+End Sub
+Sub for_btn_animation
+	
+	a1.InitializeAlpha("", 1, 0)
+	reg_button.Tag = a1
+	a1.Duration = 400
+	a1.RepeatCount = 1
+	a1.RepeatMode = a1.REPEAT_REVERSE
 End Sub
 Private Sub email_existance
 	ProgressDialogShow2("Please wait...",True)
@@ -131,6 +142,8 @@ Public Sub JobDone(job As HttpJob)
 	ProgressDialogHide
 End Sub
 Sub reg_button_Click
+	a1.Start(reg_button)
+	
 	Dim full_name As String : full_name = text_fn.Text
 	Dim blood_type As String : blood_type = spin_bloodgroup.SelectedItem
 	Dim email As String : email = text_email.Text

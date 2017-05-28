@@ -293,7 +293,7 @@ Public Sub Explorer As typResult
 	pnlMasque.AddView(pnlCadre, DialogRect.Left, DialogRect.Top, Largeur, Hauteur)
 	actEcran.AddView(pnlMasque, 0, 0, 100%x, 100%y)
 
-	If strChemin.EndsWith("/") AND strChemin <> "/" Then strChemin = strChemin.SubString2(0, strChemin.Length)
+	If strChemin.EndsWith("/") And strChemin <> "/" Then strChemin = strChemin.SubString2(0, strChemin.Length)
 	ReadFolder(strChemin)
 	CommonExplorer
 End Sub
