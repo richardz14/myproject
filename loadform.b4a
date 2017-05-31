@@ -4,10 +4,10 @@ Module1=login_form
 Module2=create_account
 Module3=calculations
 Module4=menu_form
-Module5=help_frame
-Module6=ClsExplorer
-Module7=ClsCheckList
-Module8=search_frame
+Module5=ClsExplorer
+Module6=ClsCheckList
+Module7=search_frame
+Module8=help_frame
 Module9=HttpJob
 Module10=HttpUtils2Service
 Module11=my_profile
@@ -174,12 +174,12 @@ Library15=phone
 	#FullScreen: true
 	#IncludeTitle: True
 #End Region
-
+'<uses-permission android:name=”android.permission.WRITE_EXTERNAL_STORAGE” />
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Dim sqlLite As SQL
-	
+	database_init
 End Sub
 
 Sub Globals
@@ -252,7 +252,7 @@ Sub start_button_Click
 		'sqlLite.ExecNonQuery("update from data set `isStart`=1 where `id`=1;")
 		a1.Start(start_button)
 		sqlLite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';")	
-	StartActivity ("menu_form")
+	StartActivity ("login_form")
 	
 End Sub
 

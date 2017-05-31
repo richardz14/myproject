@@ -53,14 +53,14 @@
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".help_frame"
+			android:name=".search_frame"
 			android:label="bloodlife system"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".search_frame"
+			android:name=".help_frame"
 			android:label="bloodlife system"
 			android:screenOrientation="portrait">
 		</activity>

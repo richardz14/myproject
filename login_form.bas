@@ -239,7 +239,7 @@ log_click = True
 	
 	h_fullname.Download2(full_name,Array As String("full_name","SELECT full_name FROM `person_info` where `email`='"&text_email.Text&"';"))
 	user_id.Download2(id,Array As String("id","SELECT id FROM `person_info` where `email`='"&text_email.Text&"';"))
-	nick_name.Download2(nickname,Array As String("nick","SELECT nick_name FROM `person_info` where `email`='"&text_email.Text&"';"))
+	'nick_name.Download2(nickname,Array As String("nick","SELECT nick_name FROM `person_info` where `email`='"&text_email.Text&"';"))
 	
 	h_email.Download2(url_email,Array As String("email","SELECT email FROM `person_info` where `email`='"&text_email.Text&"';"))
 	h_pass.Download2(url_pass,Array As String("pass","SELECT decode(password,'goroy') FROM `person_info` where `email`='"&text_email.Text&"';"))

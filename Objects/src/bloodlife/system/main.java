@@ -318,8 +318,8 @@ public anywheresoftware.b4a.objects.AnimationWrapper _a1 = null;
 public bloodlife.system.login_form _login_form = null;
 public bloodlife.system.create_account _create_account = null;
 public bloodlife.system.menu_form _menu_form = null;
-public bloodlife.system.help_frame _help_frame = null;
 public bloodlife.system.search_frame _search_frame = null;
+public bloodlife.system.help_frame _help_frame = null;
 public bloodlife.system.httputils2service _httputils2service = null;
 public bloodlife.system.my_profile _my_profile = null;
 public bloodlife.system.about_frame _about_frame = null;
@@ -330,8 +330,8 @@ vis = vis | (main.mostCurrent != null);
 vis = vis | (login_form.mostCurrent != null);
 vis = vis | (create_account.mostCurrent != null);
 vis = vis | (menu_form.mostCurrent != null);
-vis = vis | (help_frame.mostCurrent != null);
 vis = vis | (search_frame.mostCurrent != null);
+vis = vis | (help_frame.mostCurrent != null);
 vis = vis | (my_profile.mostCurrent != null);
 vis = vis | (about_frame.mostCurrent != null);
 return vis;}
@@ -500,8 +500,8 @@ public static void initializeProcessGlobals() {
 login_form._process_globals();
 create_account._process_globals();
 menu_form._process_globals();
-help_frame._process_globals();
 search_frame._process_globals();
+help_frame._process_globals();
 httputils2service._process_globals();
 my_profile._process_globals();
 about_frame._process_globals();
@@ -514,6 +514,8 @@ about_frame._process_globals();
  //BA.debugLineNum = 15;BA.debugLine="Sub Process_Globals";
  //BA.debugLineNum = 18;BA.debugLine="Dim sqlLite As SQL";
 _sqllite = new anywheresoftware.b4a.sql.SQL();
+ //BA.debugLineNum = 19;BA.debugLine="database_init";
+_database_init();
  //BA.debugLineNum = 20;BA.debugLine="End Sub";
 return "";
 }
@@ -523,8 +525,8 @@ public static String  _start_button_click() throws Exception{
 mostCurrent._a1.Start((android.view.View)(mostCurrent._start_button.getObject()));
  //BA.debugLineNum = 91;BA.debugLine="sqlLite.ExecNonQuery(\"UPDATE data SET isStart='1";
 _sqllite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';");
- //BA.debugLineNum = 92;BA.debugLine="StartActivity (\"menu_form\")";
-anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("menu_form"));
+ //BA.debugLineNum = 92;BA.debugLine="StartActivity (\"login_form\")";
+anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)("login_form"));
  //BA.debugLineNum = 94;BA.debugLine="End Sub";
 return "";
 }
