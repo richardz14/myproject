@@ -205,7 +205,7 @@ Public Sub JobDone(job As HttpJob)
 	Else If job.Success == False Then
 	ProgressDialogHide
 		If booleanCount = 4 And booleanforgotcount = 1 Then
-		Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N")
+		Msgbox("Error: Error connecting to server, try again later.!","C O N F I R M A T I O N")
 		booleanCount = 0
 		booleanforgotcount = 0
 		Else
@@ -213,7 +213,106 @@ Public Sub JobDone(job As HttpJob)
 		booleanforgotcount = 1
 		End If
 				'If booleanforgotcount = 1 Then
-				'Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N")
+				'Msgbox("Error: Error connecting to server, try again later.!","C O N F I R M A T I O N")
+				
+				'Else
+				
+				'End If
+	End If
+
+End Sub
+Public Sub back_up_JobDone(job As HttpJob)
+	If job.Success Then
+		Select job.JobName
+			Case "email_get"
+			Log(job.GetString)
+			Email = job.GetString.Trim
+			Case "pass_get"
+				Log(job.GetString)
+			pass = job.GetString.Trim
+			Case "full_name_get"
+				Log(job.GetString)
+			name_query = job.GetString.Trim
+			name = job.GetString.Trim
+			Case "user_id_get"
+				Log(job.GetString)
+				id_query = job.GetString.Trim
+			'id_query = job.GetString.Trim
+	     	Case "nick_name_get"
+				Log(job.GetString)
+				'name_query = job.GetString.Trim
+				calcs.name = job.GetString.Trim
+			Case "forgot_email_get"
+				email_for = job.GetString.Trim
+			Case "forgot_nick_get"
+				nickName_for = job.GetString.Trim
+			End Select
+		''''''''''''''''''''''''''''''''''''''''''''''''''
+	booleanforgotcount = booleanforgotcount + 1
+	booleanCount = booleanCount+1
+	
+	If log_click == True Then
+		If booleanCount = 4 Then '''''''' 1st statement
+			ProgressDialogHide
+			If text_email.Text == "" Or text_password.Text == "" Then ''''' 2nd statement
+ 						Msgbox("Error empty field.!","C O N F I R M A T I O N")
+			Else
+				If text_email.Text.CompareTo(Email) == 0 And text_password.Text.CompareTo(pass) == 0  Then ''''''' 3rd statement
+							'Dim calc As calculations
+							'calc.Initialize
+							'name = calc.getting_fulln(calc.php_email_url("index3.php"),text_email.Text,text_password.Text)
+						Dim dialogR As Int
+						dialogR = Msgbox2("Welcome "&name,"C O N F I R M A T I O N","OK","","",Null)
+						booleanCount = 0
+						If  dialogR == DialogResponse.POSITIVE Then
+							text_password.Text = ""
+							text_email.text = ""
+							is_log_in = True
+						StartActivity("menu_form")
+						Else
+						End If
+				Else
+						Msgbox("Error email address or password.!","C O N F I R M A T I O N")
+						text_password.Text = ""
+						booleanCount = 0
+				End If ''''''''''''' 3rd statement
+			End If	''''''''' 2nd statement
+		Else
+		
+		End If	'''''''''''''''''''' 1st statement	
+	End If		
+		'''''''''''''''''''''''''''''''''''''''''''''''''''
+		''for recover account
+	If log_click == False Then
+		If booleanforgotcount == 1 Then
+			ProgressDialogHide
+			If email_for.CompareTo(email_forgot.Text) == 0 And nickName_for.CompareTo(nickN_forgot.Text) == 0 Then
+				'ToastMessageShow("good",False)
+				Dim url_back As calculations
+				Dim forgot_string As String
+				url_back.Initialize
+				forgot_string = url_back.php_email_url("forgot_pass.php")
+				forgot_recover_job.Download2(forgot_string,Array As String("recover","UPDATE `person_info` SET `password`=ENCODE('"&newPass.Text&"','goroy') WHERE  `email`='"&email_for&"' and `nick_name`='"&nickName_for&"';"))
+				ToastMessageShow("Successfully Recovered Account!",True)
+				forgot_pass_pnl.RemoveView
+			Else
+			Msgbox("Error: Information not existed!","C O N F I R M A T I O N")
+			End If
+		End If
+	End If
+		
+	Else If job.Success == False Then
+	ProgressDialogHide
+		If booleanCount = 4 And booleanforgotcount = 1 Then
+		Msgbox("Error: Error connecting to server, try again later.!","C O N F I R M A T I O N")
+		booleanCount = 0
+		booleanforgotcount = 0
+		Else
+		booleanCount = 4
+		booleanforgotcount = 1
+		End If
+				'If booleanforgotcount = 1 Then
+				'Msgbox("Error: Error connecting to server, try again later.!","C O N F I R M A T I O N")
 				
 				'Else
 				

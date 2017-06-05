@@ -89,6 +89,7 @@ Sub Globals
 	''update infos
 	Private all_info_query As HttpJob
 	Private update_job As HttpJob
+	Private update_img_job As HttpJob	
 	'' for label
 	Private lab_fullname As Label
 	Private lab_bloodgroup As Label
@@ -570,6 +571,7 @@ Sub usr_img_click
 	'Log(img_string)
 	End If
 	Catch
+		Msgbox("Image is too big... can't parse..!","C O N F I R M A T I O N")
 		Log(LastException.Message)
 	End Try
 End Sub
@@ -724,6 +726,7 @@ Sub update_btn_Click
 	ProgressDialogShow2("Updating Please wait...",False)
 	optionSelected = "updated_click"
 	update_job.Initialize("update_job",Me)
+	update_img_job.Initialize("update_img_job",Me)
 	Dim url_back As calculations 
 	Dim male_c,female_c As String
 	male_c = File.GetText(File.DirAssets, "male_string.txt")	
@@ -782,7 +785,9 @@ Sub update_btn_Click
 		m_3 = "`age`='"&ageGet&"',`date_donated`='"&isDonateDate&"',`gender`='"&gender_string_data&"' WHERE `id`="&login_form.id_query&";"
 		merge = m_1&m_2&m_3
 		ins = url_back.php_email_url("updating.php")
-		update_job.Download2(ins,Array As String("update",""&merge))
+		
+		update_img_job.PostString(ins,"update_img="&m_1&m_2&m_3)
+		'update_job.Download2(ins,Array As String("update",""&merge))
 		
 	End If
 	

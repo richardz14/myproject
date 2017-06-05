@@ -15,6 +15,8 @@ Sub Process_Globals
 Dim list_bloodgroup As List
 
 Dim id_list As List
+Dim bday_list As List
+Dim bloodtype_list As List
 Dim fullN_llist As List
 Dim location_list As List
 Dim lat_list As List
@@ -28,6 +30,8 @@ Dim image_list As List
 Dim age_list As List
 Dim gender_list As List
 Dim is_complete As Int : is_complete = 0
+
+Dim all_users_data_search_list As List
 
 Dim gpsClient As GPS
 Dim userLocation As Location
@@ -74,6 +78,8 @@ Sub Globals
 	Private data_query_age As HttpJob
 	Private data_query_gender As HttpJob
 	Private query_marker As HttpJob
+	
+	Private data_query_all_users_datas As HttpJob
 	Private isGPSon As CheckBox
 	Dim view_info_pnl As Panel
 	Dim view_data_info_person As Panel
@@ -86,28 +92,29 @@ Sub Globals
 	
 		Dim a1, a2 As Animation
 		Dim ph1_a1,ph2_a2,userI_a3 As Animation
-		dim user_image as ImageView
+		Dim user_image As ImageView
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("search_frame")
 	Activity.Title = "SEARCH"
-	data_query_id.Initialize("data_query_id_get",Me)
-	data_query_fullN.Initialize("data_query_fullN_get",Me)
-	data_query_location.Initialize("data_query_location_get",Me)
-	query_lat.Initialize("data_query_lat_get",Me)
-	query_lng.Initialize("data_query_lng_get",Me)
-	data_query_donated.Initialize("data_query_donated_get",Me)
-	data_query_email.Initialize("data_query_email_get",Me)
-	data_query_nickname.Initialize("data_query_nickname_get",Me)
-	data_query_phone1.Initialize("data_query_phone1_get",Me)
-	data_query_phone2.Initialize("data_query_phone2_get",Me)
-	data_query_image.Initialize("data_query_image",Me)
-	data_query_age.Initialize("data_query_age_get",Me)
-	data_query_gender.Initialize("data_query_gender_get",Me)
-    query_marker.Initialize("query_marker_get",Me)
-	map_extras.addJavascriptInterface(map_webview,"B4A")
+	data_query_all_users_datas.Initialize("data_query_all_users_datas",Me)
+	'data_query_id.Initialize("data_query_id_get",Me)
+	'data_query_fullN.Initialize("data_query_fullN_get",Me)
+	'data_query_location.Initialize("data_query_location_get",Me)
+	'query_lat.Initialize("data_query_lat_get",Me)
+	'query_lng.Initialize("data_query_lng_get",Me)
+	'data_query_donated.Initialize("data_query_donated_get",Me)
+	'data_query_email.Initialize("data_query_email_get",Me)
+	'data_query_nickname.Initialize("data_query_nickname_get",Me)
+	'data_query_phone1.Initialize("data_query_phone1_get",Me)
+	'data_query_phone2.Initialize("data_query_phone2_get",Me)
+	'data_query_image.Initialize("data_query_image",Me)
+	'data_query_age.Initialize("data_query_age_get",Me)
+	'data_query_gender.Initialize("data_query_gender_get",Me)
+   ' query_marker.Initialize("query_marker_get",Me)
+	'map_extras.addJavascriptInterface(map_webview,"B4A")
 	
 	isGPSon.Enabled = False ''' for disable the GPS checkbox
 	If FirstTime Then
@@ -235,6 +242,20 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 Sub search_btn_Click
+	a2.Start(search_btn)
+	ProgressDialogShow2("please wait.!!",False)
+	isGPSon.Enabled = True
+	Dim url_back As calculations
+	Dim search_all_users_data As String
+	url_back.Initialize
+	search_all_users_data = url_back.php_email_url("search_all_users_data_list.php")
+
+	''url_id = url_back.php_email_url("search_blood_id.php")
+	'Log(full_name&" "&spin_item_click)
+	data_query_all_users_datas.Download2(search_all_users_data,Array As String("all_info","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+
+End Sub
+Sub back_up_search_btn_Click
 	a2.Start(search_btn)
 	ProgressDialogShow2("please wait.!!",False)
 	isGPSon.Enabled = True
@@ -400,7 +421,7 @@ End Sub
 Sub map_shows_PageFinished (Url As String)
 	ProgressDialogHide
 End Sub	
-Sub is_initialize
+Sub back_up_is_initialize
 	Dim TextWriters As TextWriter
 	TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_id.txt", False))
 	TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_fullN.txt", False))
@@ -416,7 +437,49 @@ Sub is_initialize
 		TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_age.txt", False))
 		TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_gender.txt", False))
 End Sub
+Sub is_initialize
+	Dim TextWriters As TextWriter
+	TextWriters.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_all_users_data.txt", False))
+End Sub
 Public Sub JobDone(job As HttpJob)
+	If job.Success Then
+		Select job.JobName
+			Case "data_query_all_users_datas" 
+				    Dim TextWriter_id As TextWriter
+   					 TextWriter_id.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_all_users_data.txt", False))
+    		    TextWriter_id.WriteLine(job.GetString.Trim)
+  			  TextWriter_id.Close
+				is_complete = is_complete + 1
+				Log("ok")
+				Log(job.GetString.trim)
+				
+			End Select	
+		
+		'Log("datas: "&is_complete)
+	If is_complete == 1 Then
+		ProgressDialogHide
+		is_complete = 0
+		Try
+		reading_txt
+		create_map
+		Catch
+			Log(LastException.Message)
+		End Try
+	End If
+	Log(is_complete)
+		Else If job.Success == False Then
+		
+		ProgressDialogHide
+		job.Release
+		isGPSon.Enabled = False
+		is_complete = 0
+		Msgbox("Error: Error connecting to server,please try again.!","C O N F I R M A T I O N")
+
+
+	End If
+
+End Sub
+Public Sub JobDone_backup(job As HttpJob)
 	If job.Success Then
 		Select job.JobName
 			Case "data_query_id_get" 
@@ -424,79 +487,105 @@ Public Sub JobDone(job As HttpJob)
    					 TextWriter_id.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_id.txt", False))
     		    TextWriter_id.WriteLine(job.GetString.Trim)
   			  TextWriter_id.Close
-				Log("1")
+				is_complete = is_complete + 1
+				Log("id ok")
+				Log(job.GetString.trim)
 			Case "data_query_fullN_get"
 				 Dim TextWriter_full As TextWriter
    					 TextWriter_full.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_fullN.txt", False))
-    		    TextWriter_full.WriteLine(job.GetString.Trim)
+    		    TextWriter_full.WriteLine(job.GetString.trim)
   			  TextWriter_full.Close
-			Log("2")
+			is_complete = is_complete + 1
+			Log("fn ok")
+				Log(job.GetString.trim)
 			Case "data_query_location_get"
 				Dim TextWriter_location As TextWriter
    					 TextWriter_location.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_location.txt", False))
-    		    TextWriter_location.WriteLine(job.GetString.Trim)
+    		    TextWriter_location.WriteLine(job.GetString.trim)
   			  TextWriter_location.Close
-			  Log("33")
+			  is_complete = is_complete + 1
+			  Log("location ok")
+			  	Log(job.GetString.trim)
 			Case "data_query_lat_get"
 				Dim TextWriter_lat As TextWriter
    					 TextWriter_lat.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_lat.txt", False))
-    		    TextWriter_lat.WriteLine(job.GetString.Trim)
-				Log("3")
+    		    TextWriter_lat.WriteLine(job.GetString.trim)
   			  TextWriter_lat.Close
+			  is_complete = is_complete + 1
+			  Log("lat ok")
+			  	Log(job.GetString.trim)
 			 Case "data_query_lng_get"
 				Dim TextWriter_lng As TextWriter
    					 TextWriter_lng.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_lng.txt", False))
-    		    TextWriter_lng.WriteLine(job.GetString.Trim)
-				Log("4")
+    		    TextWriter_lng.WriteLine(job.GetString.trim)
   			  TextWriter_lng.Close 
+			  is_complete = is_complete + 1
+			  Log("lng ok")
+			  	Log(job.GetString.trim)
 			  Case "data_query_donated_get"
 			  	Dim TextWriter_donate As TextWriter
    					 TextWriter_donate.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_donated.txt", False))
-    		    TextWriter_donate.WriteLine(job.GetString)
+    		    TextWriter_donate.WriteLine(job.GetString.trim)
 				TextWriter_donate.Close 
-				Log("5")
+				is_complete = is_complete + 1
+				Log("donated ok")
+					Log(job.GetString.trim)
 			  Case "data_query_email_get"
 			  	Dim TextWriter_email As TextWriter
    					 TextWriter_email.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_email.txt", False))
-    		    TextWriter_email.WriteLine(job.GetString.Trim)
+    		    TextWriter_email.WriteLine(job.GetString.trim)
 				TextWriter_email.Close 
-				Log("6")
+				is_complete = is_complete + 1
+				Log("email ok")
+					Log(job.GetString.trim)
 			  Case "data_query_nickname_get"
 			  	Dim TextWriter_nickname As TextWriter
    					 TextWriter_nickname.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_nickname.txt", False))
-    		    TextWriter_nickname.WriteLine(job.GetString.Trim)
+    		    TextWriter_nickname.WriteLine(job.GetString.trim)
 				TextWriter_nickname.Close 
-				Log("7")
+				is_complete = is_complete + 1
+				Log("nick ok")
+					Log(job.GetString.trim)
 			  Case "data_query_phone1_get"
 			  	Dim TextWriter_phone1 As TextWriter
    					 TextWriter_phone1.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_phone1.txt", False))
-    		    TextWriter_phone1.WriteLine(job.GetString.Trim)
+    		    TextWriter_phone1.WriteLine(job.GetString.trim)
 				TextWriter_phone1.Close 
-				Log("8")
+				is_complete = is_complete + 1
+				Log("phone1 ok")
+					Log(job.GetString.trim)
 			  Case "data_query_phone2_get"
 			  	Dim TextWriter_phone2 As TextWriter
    					 TextWriter_phone2.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_phone2.txt", False))
-    		    TextWriter_phone2.WriteLine(job.GetString.Trim)
+    		    TextWriter_phone2.WriteLine(job.GetString.trim)
 				TextWriter_phone2.Close 
-				Log("9")
+				is_complete = is_complete + 1
+				Log("phone2 ok")
+					Log(job.GetString.trim)
 			  Case "data_query_image"
 			  	Dim TextWriter_image As TextWriter
    					 TextWriter_image.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_image.txt", False))
-    		    TextWriter_image.WriteLine(job.GetString.Trim)
+    		    TextWriter_image.WriteLine(job.GetString.trim)
 				TextWriter_image.Close 	
-				Log("10")
+				is_complete = is_complete + 1
+				Log("image ok")
+					'Log(job.GetString.trim)
 			  Case "data_query_age_get"
 			  	Dim TextWriter_age As TextWriter
    					 TextWriter_age.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_age.txt", False))
-    		    TextWriter_age.WriteLine(job.GetString.Trim)
+    		    TextWriter_age.WriteLine(job.GetString.trim)
 				TextWriter_age.Close 	
-				Log("11")
+				is_complete = is_complete + 1
+				Log("age ok")
+					Log(job.GetString.trim)
 			  Case "data_query_gender_get"
 			  	Dim TextWriter_gender As TextWriter
    					 TextWriter_gender.Initialize(File.OpenOutput(File.DirInternalCache, "data_query_gender.txt", False))
-    		    TextWriter_gender.WriteLine(job.GetString.Trim)
+    		    TextWriter_gender.WriteLine(job.GetString.trim)
 				TextWriter_gender.Close 
-				Log("12")	
+					is_complete = is_complete + 1
+					Log("gender ok")
+						Log(job.GetString.trim)
 			End Select	
 		
 		'Log("datas: "&is_complete)
@@ -510,10 +599,11 @@ Public Sub JobDone(job As HttpJob)
 			Log(LastException.Message)
 		End Try
 	End If
-	is_complete = is_complete + 1
+	Log(is_complete)
 		Else If job.Success == False Then
 		
 		ProgressDialogHide
+		job.Release
 		isGPSon.Enabled = False
 		is_complete = 0
 		Msgbox("Error: Error connecting to server,please try again.!","C O N F I R M A T I O N")
@@ -762,6 +852,13 @@ Sub vie_btn_click
 				ok_vie_btn.TextColor = Colors.Black
 				age.TextColor = Colors.Black
 				gender.TextColor = Colors.Black
+					location.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					donated.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					email.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					phone1.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					phone2.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					age.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					gender.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
 	'tittle.Text = "Pofile Info"
 	'tittle.Gravity = Gravity.CENTER
 	fullname.Gravity = Gravity.CENTER
@@ -995,6 +1092,131 @@ Sub reading_txt
 		image_list.Initialize
 		age_list.Initialize
 		gender_list.Initialize
+		bloodtype_list.Initialize
+		bday_list.Initialize
+		
+		all_users_data_search_list.Initialize
+	''for id
+	Dim TextReader As TextReader
+    TextReader.Initialize(File.OpenInput(File.DirInternalCache, "data_query_all_users_data.txt"))
+    Dim line As String
+    line = TextReader.ReadLine    
+    Do While line <> Null
+		all_users_data_search_list.Add(line)
+        line = TextReader.ReadLine
+    Loop
+    TextReader.Close
+	
+	Dim id_c, fn_c, loc_c, lat_c, lng_c, don_c, email_c, nick_c, ph1_c, ph2_c, img_c, age_c, gend_c,blood_c, bday_c As Int
+	
+	'' for id
+	For fn_c = 0 To all_users_data_search_list.Size - 1
+		If fn_c mod 15 = 0 Then
+			fullN_llist.Add(all_users_data_search_list.Get(fn_c))
+		End If
+	Next
+
+	'' for bloodtype
+	For blood_c = 0 To all_users_data_search_list.Size - 1
+		If blood_c mod 15 = 1 Then
+			bloodtype_list.Add(all_users_data_search_list.Get(blood_c))
+		End If
+	Next
+	
+		'' for email address
+	For email_c = 0 To all_users_data_search_list.Size - 1
+		If email_c mod 15 = 2 Then
+			email_list.Add(all_users_data_search_list.Get(email_c))
+		End If
+	Next
+		'' for phone 1
+	For ph1_c = 0 To all_users_data_search_list.Size - 1
+		If ph1_c mod 15 = 3 Then
+			phone1_list.Add(all_users_data_search_list.Get(ph1_c))
+		End If
+	Next
+		'' for phone 2
+	For ph2_c = 0 To all_users_data_search_list.Size - 1
+		If ph2_c mod 15 = 4 Then
+			phone2_list.Add(all_users_data_search_list.Get(ph2_c))
+		End If
+	Next
+		'' for bday
+	For bday_c = 0 To all_users_data_search_list.Size - 1
+		If bday_c mod 15 = 5 Then
+			bday_list.Add(all_users_data_search_list.Get(bday_c))
+		End If
+	Next
+	'' for location
+	For loc_c = 0 To all_users_data_search_list.Size - 1
+		If loc_c mod 15 = 6 Then
+			location_list.Add(all_users_data_search_list.Get(loc_c))
+		End If
+	Next
+	'' for nickname
+	For nick_c = 0 To all_users_data_search_list.Size - 1
+		If nick_c mod 15 = 7 Then
+			nickname_list.Add(all_users_data_search_list.Get(nick_c))
+		End If
+	Next
+		'' for donated
+	For don_c = 0 To all_users_data_search_list.Size - 1
+		If don_c mod 15 = 8 Then
+			donated_list.Add(all_users_data_search_list.Get(don_c))
+		End If
+	Next
+		'' for gender
+	For gend_c = 0 To all_users_data_search_list.Size - 1
+		If gend_c mod 15 = 9 Then
+			gender_list.Add(all_users_data_search_list.Get(gend_c))
+		End If
+	Next
+		'' for id
+	For id_c = 0 To all_users_data_search_list.Size - 1
+		If id_c mod 15 = 10 Then
+			id_list.Add(all_users_data_search_list.Get(id_c))
+		End If
+	Next
+		'' for age
+	For age_c = 0 To all_users_data_search_list.Size - 1
+		If age_c mod 15 = 11 Then
+			age_list.Add(all_users_data_search_list.Get(age_c))
+		End If
+	Next
+		'' for latitude
+	For lat_c = 0 To all_users_data_search_list.Size - 1
+		If lat_c mod 15 = 12 Then
+			lat_list.Add(all_users_data_search_list.Get(lat_c))
+		End If
+	Next
+		'' for longitude
+	For lng_c = 0 To all_users_data_search_list.Size - 1
+		If lng_c mod 15 = 13 Then
+			lng_list.Add(all_users_data_search_list.Get(lng_c))
+		End If
+	Next
+		'' for image
+	For img_c = 0 To all_users_data_search_list.Size - 1
+		If img_c mod 15 = 14 Then
+			image_list.Add(all_users_data_search_list.Get(img_c))
+		End If
+	Next
+
+End Sub
+Sub back_up_reading_txt
+		id_list.Initialize
+		fullN_llist.Initialize
+		location_list.Initialize
+		lat_list.Initialize
+		lng_list.Initialize
+	    donated_list.Initialize
+		email_list.Initialize
+		nickname_list.Initialize
+		phone1_list.Initialize
+		phone2_list.Initialize
+		image_list.Initialize
+		age_list.Initialize
+		gender_list.Initialize
 	''for id
 	Dim TextReader_id As TextReader
     TextReader_id.Initialize(File.OpenInput(File.DirInternalCache, "data_query_id.txt"))
@@ -1087,7 +1309,7 @@ Sub reading_txt
         line_phone1 = TextReader_phone1.ReadLine
     Loop
     TextReader_phone1.Close
-	
+		'Log("list p1:"&phone1_list.Size)
 	Dim TextReader_phone2 As TextReader
     TextReader_phone2.Initialize(File.OpenInput(File.DirInternalCache, "data_query_phone2.txt"))
     Dim line_phone2 As String
@@ -1097,7 +1319,7 @@ Sub reading_txt
         line_phone2 = TextReader_phone2.ReadLine
     Loop
     TextReader_phone2.Close
-	
+		'Log("list p2:"&phone2_list.Size)
 		Dim TextReader_image As TextReader
     TextReader_image.Initialize(File.OpenInput(File.DirInternalCache, "data_query_image.txt"))
     Dim line_image As String
@@ -1107,7 +1329,6 @@ Sub reading_txt
         line_image = TextReader_image.ReadLine
     Loop
     TextReader_image.Close
-	
 		Dim TextReader_age As TextReader
     TextReader_age.Initialize(File.OpenInput(File.DirInternalCache, "data_query_age.txt"))
     Dim line_age As String

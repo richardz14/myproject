@@ -16,12 +16,12 @@
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 	<application
 		android:icon="@drawable/icon"
-		android:label="bloodlife system">
+		android:label="LIFEBLOOD">
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".main"
-			android:label="bloodlife system"
+			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 			<intent-filter>
 			   <action android:name="android.intent.action.MAIN" />
@@ -33,35 +33,35 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".login_form"
-			android:label="bloodlife system"
+			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".create_account"
-			android:label="bloodlife system"
+			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".menu_form"
-			android:label="bloodlife system"
+			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".search_frame"
-			android:label="bloodlife system"
+			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".help_frame"
-			android:label="bloodlife system"
+			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
 		<service android:name=".httputils2service">
@@ -72,14 +72,14 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".my_profile"
-			android:label="bloodlife system"
+			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".about_frame"
-			android:label="bloodlife system"
+			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
 	</application>

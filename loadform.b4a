@@ -162,7 +162,7 @@ Library14=sql
 Library15=phone
 @EndOfDesignText@
 #Region  Project Attributes 
-	#ApplicationLabel: bloodlife system
+	#ApplicationLabel: LIFEBLOOD
 	#VersionCode: 1
 	#VersionName: 1.0
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
@@ -252,7 +252,7 @@ Sub start_button_Click
 		'sqlLite.ExecNonQuery("update from data set `isStart`=1 where `id`=1;")
 		a1.Start(start_button)
 		sqlLite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';")	
-	StartActivity ("login_form")
+	StartActivity ("menu_form")
 	
 End Sub
 

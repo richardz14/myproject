@@ -137,7 +137,7 @@ Public Sub JobDone(job As HttpJob)
 	
 	Else If job.Success == False Then
 		ProgressDialogHide
-		Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N")	
+		Msgbox("Error: Error connecting to server, try again later.!","C O N F I R M A T I O N")	
 	End If
 	ProgressDialogHide
 End Sub
@@ -273,7 +273,10 @@ Private Sub existing_result
 				m_2 = "VALUES ('"&full_name&"', '"&blood_type&"','"&email&"',ENCODE('"&password2&"','goroy'),'"&phone_number1&"','"&phone_number2&"','"&brgy&"','"&street&"','"&month&"','"&day&"','"&year&"','"&answer&"','"&donate_boolean&"','"&lat&"','"&lng&"','"&img_string&"','"&ageGet&"','"&isDonateDate&"','"&gender_string&"');"
 				merge = m_1&m_2
 				ins = url_back.php_email_url("inserting.php")
-				insert_job.Download2(ins,Array As String("insert",""&merge))
+				
+				insert_job.PostString(ins,"insert="&merge)
+				'insert_job.Download2(ins,Array As String("insert",""&merge))
+				
 				ProgressDialogHide
 			''
 			Dim choose As Int : choose = Msgbox2("Sucessfuly Registered","C O N F I R M A T I O N","OK","","",Null)

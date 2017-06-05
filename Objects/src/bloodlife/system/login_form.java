@@ -934,7 +934,7 @@ anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
  //BA.debugLineNum = 202;BA.debugLine="If booleanCount = 4 And booleanforgotcount = 1 T";
 if (_booleancount==4 && _booleanforgotcount==1) { 
  //BA.debugLineNum = 203;BA.debugLine="Msgbox(\"Error: Error connecting to server, try a";
-anywheresoftware.b4a.keywords.Common.Msgbox("Error: Error connecting to server, try again laiter.!","C O N F I R M A T I O N",mostCurrent.activityBA);
+anywheresoftware.b4a.keywords.Common.Msgbox("Error: Error connecting to server, try again later.!","C O N F I R M A T I O N",mostCurrent.activityBA);
  //BA.debugLineNum = 204;BA.debugLine="booleanCount = 0";
 _booleancount = (int) (0);
  //BA.debugLineNum = 205;BA.debugLine="booleanforgotcount = 0";
