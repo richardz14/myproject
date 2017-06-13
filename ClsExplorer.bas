@@ -493,7 +493,7 @@ End Sub
 Private Sub IsImage(NomFichier As String) As Boolean
 	Dim Minus As String
 	Minus = NomFichier.ToLowerCase
-	Return (Minus.EndsWith(".bmp") OR Minus.EndsWith(".gif") OR Minus.EndsWith(".jpg") OR Minus.EndsWith(".png"))
+	Return (Minus.EndsWith(".bmp") Or Minus.EndsWith(".gif") Or Minus.EndsWith(".jpg") Or Minus.EndsWith(".png"))
 End Sub
 
 ' Resize a picture

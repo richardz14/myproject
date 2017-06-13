@@ -11,6 +11,7 @@ B4A=true
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
+	Dim bookmark_id_list As List
 	Dim list_all_info As List
 	Dim list_bloodgroup As List
 	Dim list_donated As List
@@ -18,7 +19,7 @@ Sub Process_Globals
 	Dim list_day,list_month,list_year As List
 	Dim users_string_login As String
 	
-	Dim blood_selected As String : blood_selected = "A" 
+	Dim blood_selected As String : blood_selected = "A+" 
 	Dim bday_day_selected As String : bday_day_selected = "1"
 	Dim bday_month_selected As String : bday_month_selected = "1"
 	Dim bday_year_selected As String : bday_year_selected = DateTime.GetYear(DateTime.Now)
@@ -40,6 +41,12 @@ Sub Process_Globals
 	Private image_container As String
 	Private panel_click_ As Int : panel_click_ = 0
 	Private edit_panel_click_ As Int : edit_panel_click_ = 0
+	
+	Dim sqlLite As SQL
+	database_init
+	Dim row_click As Int
+		Dim item As Int
+		Dim list_all_select As Int
 End Sub
 
 Sub Globals
@@ -136,6 +143,21 @@ Sub Globals
 	
 		Dim a1, a2, a3, a4, a5, userImage As Animation
 		'Dim aa1,aa2,aa3,aa4,aa5 As Animation
+	Private bookmark_image As ImageView
+	
+	''''''''''''''''''''''''' for bookmark
+	Dim dialog_panel As Panel
+		Dim scrolllista As ScrollView
+			Dim dialog_all_panel As Panel	
+			Dim view_info_pnl As Panel
+				Dim view_data_info_person As Panel
+				Dim scroll_view_info As ScrollView2D
+			Dim ph1_a1,ph2_a2,userI_a3 As Animation
+		Dim user_image As ImageView
+		Private ph1_pnl,ph2_pnl As Panel
+	Private phone1,phone2 As Label
+		Dim image_list As List
+		Dim user_img_panl As Panel
 End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
@@ -144,6 +166,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.Title = "MENU"
 	load_activity_layout
 	for_btn_animation
+		If sqlLite.IsInitialized = False Then
+		sqlLite.Initialize(File.DirInternal, "mydb.db", False)
+		End If
 End Sub
 Sub for_btn_animation
 	a1.InitializeAlpha("", 1, 0)
@@ -168,7 +193,7 @@ Sub load_activity_layout
 	Dim text_temp As calculations
 	
 	text_temp.Initialize
-	Log("name: "&login_form.name_query)
+	'Log("name ► "&login_form.name_query)
 	'Log("id: "&login_form.id_query)
 	users_out_lbl.text = login_form.name_query
 	ban_picture.SetBackgroundImage(LoadBitmap(File.DirAssets,"banner01.jpg"))
@@ -187,8 +212,10 @@ Sub load_activity_layout
 			 help_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"ehelp.png"))
 			 exit_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"eexit.png"))
 	
+			bookmark_image.SetBackgroundImage(LoadBitmap(File.DirAssets,"bh3.png"))
 	users_heading.Color = Colors.Transparent
 	''width
+		bookmark_image.Width = 12%x
 	ban_picture.Width = 80%x
 	ban_logo.Width = 20%x
 	users_panel.Width = Activity.Width
@@ -199,6 +226,7 @@ Sub load_activity_layout
 	exit_pnl.Width = Activity.Width
 	users_heading.Width = Activity.Width
 	''heigth
+		bookmark_image.Height = 7%y
 	users_heading.Height = 9%y
 	users_panel.Height = 18%y
 	ban_picture.Height = users_panel.Height
@@ -246,6 +274,8 @@ Sub load_activity_layout
 	 		about_img.Width = Activity.Width - 85%x
 			 help_img.Width = Activity.Width - 85%x
 			 exit_img.Width = Activity.Width - 85%x
+			 
+			 users_out_lbl.Width = 50%x
 	'height
 		search_blood.Height = 9%y
 		about.Height = 9%y
@@ -258,6 +288,8 @@ Sub load_activity_layout
 			 help_img.Height = 9%y
 			 exit_img.Height = 9%y
 	'left
+	bookmark_image.Left = 97%x - bookmark_image.Width
+	
 	users_lbl.Left = 2%x
 	users_out_lbl.Left = users_lbl.Left + users_lbl.Width
 		search_blood.Left = ((src_blood_pnl.Width/2)/2)/2
@@ -274,6 +306,7 @@ Sub load_activity_layout
 	'top
 	users_out_lbl.Top = ((users_heading.Height/2)/2)/2
 	users_lbl.Top = users_out_lbl.Top
+		bookmark_image.Top = users_out_lbl.Top
 	
 		search_blood.Top = ((src_blood_pnl.Height/2)/2)/2
 		about.Top = ((about_pnl.Height/2)/2)/2
@@ -292,6 +325,9 @@ Sub load_activity_layout
 		help.SetBackgroundImage(LoadBitmap(File.DirAssets,"HELP.png"))
 		profile.SetBackgroundImage(LoadBitmap(File.DirAssets,"my_profile.png"))
 		exit_btn.SetBackgroundImage(LoadBitmap(File.DirAssets,"EXIT.png"))
+		
+		users_lbl.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+		 users_out_lbl.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
 	
 End Sub
 Sub Activity_Resume
@@ -463,6 +499,8 @@ Sub all_input_on_list
 	is_donated = list_all_info.Get(11)
 	text_gender.Text = list_all_info.Get(13)
 	gender_string_data = list_all_info.Get(13)
+	isDonateDate = list_all_info.Get(14)
+	
 	
 	Dim inp As InputStream
 	Dim bmp As Bitmap
@@ -525,6 +563,20 @@ Sub Activity_KeyPress(KeyCode As Int) As Boolean
 		else if panel_click_ == 3 Then
 			help_us_pnl.RemoveView
 			panel_click_ = 0
+		else If panel_click_ == 4 Then
+				If list_all_select == 1 Then
+					list_all_select = 0
+					view_info_pnl.RemoveView
+					else if list_all_select == 2 Then
+						view_data_info_person.RemoveView
+					list_all_select = 0
+					else if list_all_select == 3 Then
+						user_img_panl.RemoveView
+						list_all_select = 2
+					Else
+					panel_click_ = 0
+					dialog_all_panel.RemoveView	
+				End If
 		End If
 
 	End If
@@ -552,8 +604,8 @@ Sub usr_img_click
 					out1.InitializeToBytesArray(0) 'size not really important
 					File.Copy2(File.OpenInput(dlgFileExpl.Selection.ChosenPath, dlgFileExpl.Selection.ChosenFile), out1)
 					img_string=su.EncodeBase64(out1.ToBytesArray)
-					Log(img_string)
-					'image_container = img_string
+					'Log(img_string)
+					image_container = img_string
 					'''
 	Dim inp As InputStream
 	Dim bmp As Bitmap
@@ -594,6 +646,8 @@ Public Sub JobDone(job As HttpJob)
     		    user_all_info.WriteLine(job.GetString.Trim)
   			  user_all_info.Close
 			  'Log(job.GetString.Trim)
+			  Case "update_img_job" 
+			  	'Log(job.GetString)
 			End Select
 		''''''''''''''''''''''''''''''''''''''''''''''''''
 			If optionSelected == "pofileView" Then
@@ -625,8 +679,8 @@ Sub profiled_Click
 		Dim fullN As EditText : fullN.Initialize("")
 		Dim blood_sel As Label : blood_sel.Initialize("")
 		Dim email As EditText : email.Initialize("")
-		Dim phone1 As EditText : phone1.Initialize("")
-		Dim phone2 As EditText : phone2.Initialize("")
+		Dim phone11 As EditText : phone11.Initialize("")
+		Dim phone22 As EditText : phone22.Initialize("")
 		Dim location As Label : location.Initialize("")
 		Dim bday As Label : bday.Initialize("")
 		Dim nickN As EditText : nickN.Initialize("")
@@ -646,7 +700,7 @@ Sub profiled_Click
 		title.Gravity = Gravity.CENTER
 		title.TextSize = 20 '''-------
 		''images 
-		blood_sel.Text = "A"
+		blood_sel.Text = "A+"
 		bday.Text = "may/13/1993"
 		location.Text = "hinigaran neg occ"
 			img_fullN.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-4-user.png"))
@@ -671,10 +725,10 @@ Sub profiled_Click
 		profile_panel.AddView(email,img_email.Left+img_email.Width,img_email.Top,60%x, 8%y) ''email name 
 		
 		profile_panel.AddView(img_phone1,5%x,img_email.Top+img_email.Height,10%x,10%y) ''phone1 image
-		profile_panel.AddView(phone1,img_phone1.Left+img_phone1.Width,img_phone1.Top,60%x, 8%y) ''phone1 name 
+		profile_panel.AddView(phone11,img_phone1.Left+img_phone1.Width,img_phone1.Top,60%x, 8%y) ''phone1 name 
 		
 		profile_panel.AddView(img_phone2,5%x,img_phone1.Top+img_phone1.Height,10%x,10%y) ''phone2 image
-		profile_panel.AddView(phone2,img_phone2.Left+img_phone2.Width,img_phone2.Top,60%x, 8%y) ''phone2 name 
+		profile_panel.AddView(phone22,img_phone2.Left+img_phone2.Width,img_phone2.Top,60%x, 8%y) ''phone2 name 
 		
 		profile_panel.AddView(img_location,5%x,img_phone2.Top+img_phone2.Height,10%x,10%y) ''location image
 		profile_panel.AddView(location,img_location.Left+img_location.Width,img_location.Top,60%x, 8%y) ''location name 
@@ -719,10 +773,12 @@ Sub exit_btn_Click
 	End If
 End Sub
 Sub cancel_btn_Click
+	panel_click_ = 0
 	profile_all_body.RemoveView
 End Sub
 
 Sub update_btn_Click
+	panel_click_ = 0
 	ProgressDialogShow2("Updating Please wait...",False)
 	optionSelected = "updated_click"
 	update_job.Initialize("update_job",Me)
@@ -786,8 +842,45 @@ Sub update_btn_Click
 		merge = m_1&m_2&m_3
 		ins = url_back.php_email_url("updating.php")
 		
-		update_img_job.PostString(ins,"update_img="&m_1&m_2&m_3)
-		'update_job.Download2(ins,Array As String("update",""&merge))
+		'update_img_job.PostString(ins,"update="&m_1&m_2&m_3)
+		'update_job.Download2(ins,Array As String("update",m_1&m_2&m_3))
+		
+		
+		'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+		Dim htp As JSONGenerator
+		Dim hps As JSONParser ''not used!!
+		Dim maps As Map
+		Dim JSONList As List
+		JSONList.Initialize
+			maps.Initialize
+			maps.Put("text_fn",text_fn.Text)
+			maps.Put("blood_type",blood_selected)
+			maps.Put("phone_number1",text_phonenumber.Text)
+			maps.Put("phone_number2",text_phonenumber2.Text)
+			maps.Put("location_brgy",location_brgy_selected)
+			maps.Put("location_street",location_street_selected)
+			maps.Put("location_purok","NULL")
+			maps.Put("bday_month",bday_month_selected)
+			maps.Put("bday_day",bday_day_selected)
+			maps.Put("bday_year",bday_year_selected)
+			maps.Put("nick_name",text_answer.Text)
+			maps.Put("donate_boolean",is_donated)
+			maps.Put("lat",lat)
+			maps.Put("long",lng)
+			maps.Put("image",image_container)
+			maps.Put("age",ageGet)
+			maps.Put("date_donated",isDonateDate)
+			maps.Put("gender",gender_string_data)
+			maps.Put("id",login_form.id_query)
+		JSONList.Add(maps)
+		'htp.Initialize(JSONList)
+		htp.Initialize2(JSONList)
+		Dim JSONstring As String
+   		JSONstring = htp.ToString
+		'update_img_job.Download2(ins,Array As String("JSONdata",JSONstring))
+		update_img_job.PostString(ins,"update="&htp.ToString)
+		
+		'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 		
 	End If
 	
@@ -899,7 +992,7 @@ Sub donated_edit_Click
 	Activity.AddView(pnl_donated_body,0,0,100%x,100%y)	
 End Sub
 Sub spin_donated_ItemClick (Position As Int, Value As Object)
-	Log(Position)
+	'Log(Position)
 	is_donated = Value
 	donated_index = Position
 End Sub
@@ -1000,10 +1093,11 @@ Sub isdonated_ok_btn_click
 	'is_donate_date.Text = "("&isDonateDate&")"		
 	Msgbox(""&month&"/"&day&"/"&year,"Date Selected")
 		text_donated.Text = is_donated
-	Log(isDonateDate)
+	'Log(isDonateDate)
 	pnl_bday_body.RemoveView
 End Sub
 Sub isdonated_can_btn_click
+	
 	pnl_bday_body.RemoveView
 	If text_donated.Text == "NO" Then
 	text_donated.Text = "NO"
@@ -1085,19 +1179,19 @@ Sub bday_edit_Click
 End Sub
 Sub spin_day_ItemClick (Position As Int, Value As Object)
 	bday_day_selected = Value
-	Log("day: "&Value)
+''	Log("day: "&Value)
 End Sub
 Sub spin_month_ItemClick (Position As Int, Value As Object)
   bday_month_selected = Value
-  	Log("month: "&Value)
+'  	Log("month: "&Value)
 End Sub
 Sub spin_year_ItemClick (Position As Int, Value As Object)
 	 bday_year_selected =  Value
-	 	Log("year: "&Value)
+'	 	Log("year: "&Value)
 End Sub
 Sub edit_bday_ok_btn_click
 	text_bday.Text = bday_month_selected&"/"&bday_day_selected&"/"&bday_year_selected
-		Log("date: "& bday_month_selected&"/"&bday_day_selected&"/"&bday_year_selected)
+'		Log("date: "& bday_month_selected&"/"&bday_day_selected&"/"&bday_year_selected)
 	pnl_bday_body.RemoveView
 End Sub
 Sub edit_bday_can_btn_click
@@ -1111,10 +1205,10 @@ Sub blood_edit_Click
 	edit_panel_click_ = 1
 	list_bloodgroup.Initialize
 	spin_bloodgroup.Initialize("spin_bloodgroup")
-	list_bloodgroup.Add("A")
-	list_bloodgroup.Add("B")
-	list_bloodgroup.Add("O")
-	list_bloodgroup.Add("AB")
+	list_bloodgroup.Add("A+")
+	list_bloodgroup.Add("B+")
+	list_bloodgroup.Add("O+")
+	list_bloodgroup.Add("AB+")
 	'list_bloodgroup.Add("A+")
 	'list_bloodgroup.Add("B+")
 	'list_bloodgroup.Add("O+")
@@ -1819,7 +1913,7 @@ Sub street_lat_lng
 	lng = "122.859242"
 	End If
 	
-	Log("lat: "&lat&CRLF&"lng: "&lng)
+'	Log("lat: "&lat&CRLF&"lng: "&lng)
 End Sub
 Sub location_spin_brgy_ItemClick (Position As Int, Value As Object)
 	list_location_s.Clear
@@ -2106,6 +2200,7 @@ Sub about_Click
 	Activity.AddView(about_us_pnl,0,0,100%x,100%y)	
 End Sub
 Sub about_ok_btn_click
+	panel_click_ = 0
 	about_us_pnl.RemoveView
 End Sub
 Sub about_us_pnl_click
@@ -2185,8 +2280,585 @@ Sub help_Click
 	Activity.AddView(help_us_pnl,0,0,100%x,100%y)	
 End Sub
 Sub help_ok_btn_click
+	panel_click_ = 0
 	help_us_pnl.RemoveView
 End Sub
 Sub help_us_pnl_click
 	''
+End Sub
+
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Sub database_init
+	If File.Exists(File.DirInternal,"mydb.db") = True Then
+	
+	Else
+		File.Copy(File.DirAssets,"mydb.db",File.DirInternal,"mydb.db")
+	End If
+End Sub
+Sub bookmark_image_Click
+		'a1.Start(list_btn)
+	panel_click_ = 4
+	ProgressDialogShow2("Loading data, Please Wait...",False)
+	If scrolllista.IsInitialized == True Then
+	scrolllista.RemoveView
+	dialog_all_panel.RemoveView
+	End If
+	bookmark_id_list.Initialize
+	scrolllista.Initialize(500)
+	dialog_panel.Initialize("dialog_panel")
+	dialog_all_panel.Initialize("dialog_all_panel")
+	'Dim cd As CustomDialog2
+	Dim pnl As Panel
+	pnl.Initialize("pnl")
+	Dim bgnd As ColorDrawable
+	bgnd.Initialize(Colors.Cyan, 5dip)
+	pnl.Background = bgnd
+	dialog_all_panel.Color = Colors.Transparent
+	'''Dim lv As ListView
+	'''lv.Initialize("lv")
+	''----------------------------
+	'reading_txt
+		'''For i=0 To id_list.Size - 1
+		'''	 	lv.AddTwoLinesAndBitmap(fullN_llist.Get(i),location_list.Get(i),Null)
+		'''Next
+	''---------------------------
+	''lv.AddTwoLinesAndBitmap(""&i, "one", Null)
+
+	'''pnl.AddView(lv, 1%x, 1%y, 75%x, 78%y)
+	
+	''''''''''''''''''''''''''''''''''
+	'scrolllista.Panel.RemoveAllViews   ' Write this line if you have many text files and one scrolview. Clear Previous List
+	Dim Bitmap1 As Bitmap
+	Dim Panel0 As Panel
+	Dim PanelTop, PanelHeight  As Int
+	''Dim lista As List
+	
+	''lista=File.ReadList(File.DirAssets,"listlabel.txt")
+	
+	Bitmap1.Initialize(File.DirAssets,"banner1.png") ' First image of list
+	PanelTop=1%y
+	Panel0=scrolllista.Panel
+	Panel0.Color=Colors.argb(0,0,0,0)  'sets the invisible panel 
+	
+	
+		''''''''''''''  for query bookmark
+		Dim fullN_llist,location_list As List
+		fullN_llist.Initialize
+		location_list.Initialize
+			If sqlLite.IsInitialized = True Then
+			Dim set_cursor As Cursor
+			set_cursor = sqlLite.ExecQuery("select * from `bookmarks`;")
+						For i = 0 To set_cursor.RowCount - 1
+							set_cursor.Position = i
+							bookmark_id_list.Add(set_cursor.GetInt("users_id"))
+							fullN_llist.Add(set_cursor.GetString("full_name"))
+							location_list.Add(set_cursor.GetString("location"))
+						Next
+				End If
+		''''''''''''''''''''''
+	
+	For i=0 To bookmark_id_list.Size-1
+	
+		If i>0 And i<3 Then Bitmap1.Initialize(File.DirAssets,"banner.png")  'Images beyond the first. Only if you use 2 images and 2 label
+		Dim ImageView1 As ImageView
+		ImageView1.Initialize("data_list")		
+		PanelHeight=12%y
+		
+		Panel0.AddView(ImageView1,1%x,PanelTop,71%x,PanelHeight)
+		ImageView1.Tag=i&"1"
+		ImageView1.Bitmap=Bitmap1
+		ImageView1.Gravity=Gravity.fill
+		
+		Dim Label1, Label2 As Label
+		Label1.Initialize("")
+		Label2.Initialize("")
+		Panel0.AddView(Label1,1%x,PanelTop-2%y,71%x,PanelHeight)
+		Panel0.AddView(Label2,1%x,PanelTop+2%y,71%x,PanelHeight)
+		
+		Label1.TextColor= Colors.White
+		Label1.TextSize= 18
+		Label1.Typeface = Typeface.DEFAULT_BOLD
+		Label1.Gravity=Gravity.CENTER
+		Label2.Color=Colors.argb(0,0,0,0)
+		Label1.Text=fullN_llist.Get(i) 'set data from list
+	
+		Label2.TextColor= Colors.White
+		Label2.TextSize= 15	
+		Label2.Gravity=Gravity.CENTER
+		Label2.Color=Colors.argb(0,0,0,0)
+		Label2.Text=location_list.Get(i) 'set data from list
+			
+		
+		If i > bookmark_id_list.size-1 Then i = bookmark_id_list.size-1
+		
+		
+		PanelTop=PanelTop+PanelHeight
+	Next
+	Panel0.Height=PanelTop
+	''''''''''''''''''''''''''''''''''
+	ProgressDialogHide 
+	dialog_panel.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	''dialog_panel.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	Dim dialog_panel_can_btn As Button
+	Dim dialog_panel_tittle As Label
+	Dim btn_panel As Panel
+	btn_panel.Initialize("")
+	btn_panel.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	dialog_panel_can_btn.Initialize("dialog_panel_can_btn")
+	dialog_panel_tittle.Initialize("dialog_panel_tittle")
+	dialog_panel_tittle.Text = "BOOKMARKS LIST"
+	dialog_panel_can_btn.Text = "OK"
+		dialog_panel_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		dialog_panel_tittle.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+			Dim se_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			se_btn.Initialize("TOP_BOTTOM",colorG)
+			se_btn.CornerRadius = 50dip
+		dialog_panel_can_btn.Background = se_btn
+	dialog_panel_tittle.TextSize = 30
+	dialog_panel_tittle.Gravity = Gravity.CENTER
+	dialog_panel_can_btn.Gravity = Gravity.CENTER
+	dialog_panel.AddView(dialog_panel_tittle,1%x,2%y,83%x,8%y)
+	dialog_panel.AddView(scrolllista,5%x,dialog_panel_tittle.Top + dialog_panel_tittle.Height+1%y,75%x,69%y)
+	dialog_panel.AddView(btn_panel,1%x,79%y,83%x,10%y)
+	btn_panel.AddView(dialog_panel_can_btn,((btn_panel.Width/2)/2),1%y,42%x,8%y)
+	dialog_all_panel.AddView(dialog_panel,7.5%x,5%y,85%x,90%y)
+	dialog_all_panel.Color = Colors.ARGB(128,128,128,.50)
+	Activity.AddView(dialog_all_panel,0,0,100%x,100%y)
+	'cd.AddView(dialog_panel,75%x,78%y)
+	''cd.AddView(pnl, 77%x, 80%y) ' sizing relative to the screen size is probably best
+	'cd.Show("List of people", "CANCEL", "VIEW", "", Null)		
+End Sub
+Sub data_list_Click
+	list_all_select = 1
+	Dim Send As View
+	Dim row As Int
+	Send=Sender
+	row=Floor(Send.Tag/10) '20
+		item=row
+		row_click = row
+	'Log(row)	
+	'Log(CRLF&"Item "&item)
+	'' for modal VIEW and CANCEL 
+	'''''''''''''''''''''''''''''''''''
+	If view_info_pnl.IsInitialized == True Then
+		view_info_pnl.RemoveView
+	End If
+	view_info_pnl.Initialize("view_info_pnl")
+	Dim view_panl As Panel
+	Dim vie_btn,can_btn As Button
+	Dim lbl_tittle As Label
+	lbl_tittle.Initialize("")
+	view_panl.Initialize("view_panl")
+	vie_btn.Initialize("vie_btn")
+	can_btn.Initialize("can_btn")
+	vie_btn.Text = "VIEW"
+	can_btn.Text = "CANCEL"
+	vie_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+	can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		vie_btn.Background = V_btn
+		can_btn.Background = C_btn
+	lbl_tittle.Text = "SELECT ACTION"
+	lbl_tittle.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+	lbl_tittle.Gravity = Gravity.CENTER
+	lbl_tittle.TextColor = Colors.White
+	view_panl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	view_panl.AddView(lbl_tittle,1%x,2%y,72%x,8%y)
+	view_panl.AddView(vie_btn,5%x,lbl_tittle.Top + lbl_tittle.Height + 1%y,31%x,8%y)
+	view_panl.AddView(can_btn,vie_btn.Left+vie_btn.Width+2%x,vie_btn.Top,31%x,8%y)
+	view_info_pnl.AddView(view_panl,13%x,((Activity.Height/2)/2),74%x,20%y)
+	Activity.AddView(view_info_pnl,0,0,100%x,100%y)
+End Sub
+
+Sub dialog_panel_can_btn_click
+	panel_click_ = 0
+		'edit_panel_click_ = 0
+	dialog_all_panel.RemoveView
+End Sub
+Sub can_btn_click
+	list_all_select = 0
+	view_info_pnl.RemoveView
+End Sub
+Sub dialog_all_panel_click
+	''''
+End Sub
+Sub view_info_pnl_click
+	''''
+End Sub
+Sub delete_bookmark_click
+	Dim choose_bm As Int
+	choose_bm = Msgbox2("Would you like to delete this bookmark?","C O N F I R M A T I O N","YES","","NO",Null)
+	If choose_bm == DialogResponse.POSITIVE Then
+		If sqlLite.IsInitialized == True Then
+		  sqlLite.ExecNonQuery("DELETE FROM `bookmarks` WHERE  `users_id`='"&bookmark_id_list.Get(row_click)&"';")
+		  '''' refreshing
+		  list_all_select = 0
+		  		panel_click_ = 4
+		  	view_data_info_person.RemoveView
+		  	dialog_all_panel.RemoveView
+			bookmark_image_Click
+			''''''''''
+		End If
+	else if choose_bm == DialogResponse.NEGATIVE Then
+		
+	End If
+End Sub
+Sub vie_btn_click
+	list_all_select = 2
+	view_info_pnl.RemoveView	
+		If view_data_info_person.IsInitialized == True Then
+		view_data_info_person.RemoveView	
+		scroll_view_info.RemoveView		
+	Else
+	End If
+	view_data_info_person.Initialize("view_data_info_person")
+	scroll_view_info.Initialize(74%x,57%y,"scroll_view_info")
+		
+	Dim view_panl,view_for_image,view_for_btn As Panel
+	Dim tittle,fullname,location,donated,email,age,gender As Label
+	Dim fn_pnl,loc_pnl,don_pnl,ema_pnl,btn_pnl,age_pnl,gender_pnl As Panel
+	Dim fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img,age_img,gender_img,delete_bookmark As ImageView
+					fn_img.Initialize("")
+					loc_img.Initialize("")
+					don_img.Initialize("")
+					ema_img.Initialize("")
+					ph1_img.Initialize("")
+					ph2_img.Initialize("")
+					user_image.Initialize("user_image")
+					age_img.Initialize("")
+					gender_img.Initialize("")
+							delete_bookmark.Initialize("delete_bookmark")
+			fn_pnl.Initialize("")
+			loc_pnl.Initialize("")
+			don_pnl.Initialize("")
+			ema_pnl.Initialize("")
+			ph1_pnl.Initialize("phone1_view_call")
+			ph2_pnl.Initialize("phone2_view_call")
+			btn_pnl.Initialize("")
+			age_pnl.Initialize("")
+			gender_pnl.Initialize("")
+	Dim ok_vie_btn As Button
+		ok_vie_btn.Initialize("ok_vie_btn")
+		tittle.Initialize("")
+		fullname.Initialize("")
+		location.Initialize("")
+		donated.Initialize("")
+		email.Initialize("")
+		phone1.Initialize("")
+		phone2.Initialize("")
+		age.Initialize("")
+		gender.Initialize("")
+	view_panl.Initialize("")
+	view_for_image.Initialize("")
+	view_for_btn.Initialize("")
+	
+		'''''''''''' for query database
+	Dim fullN_llist,location_list,donated_list,email_list,phone1_list,phone2_list,age_list,gender_list As List
+		fullN_llist.Initialize
+		location_list.Initialize
+		donated_list.Initialize
+		email_list.Initialize
+		phone1_list.Initialize
+		phone2_list.Initialize
+		age_list.Initialize
+		gender_list.Initialize
+		image_list.Initialize
+				If sqlLite.IsInitialized = True Then
+			Dim set_cursor As Cursor
+			set_cursor = sqlLite.ExecQuery("select * from bookmarks where `users_id`='"&bookmark_id_list.Get(row_click)&"';")
+						For i = 0 To set_cursor.RowCount - 1
+							set_cursor.Position = i
+							
+								fullN_llist.Add(set_cursor.GetString("full_name"))
+								location_list.Add(set_cursor.GetString("location"))
+								donated_list.Add(set_cursor.GetString("is_donated"))
+								email_list.Add(set_cursor.GetString("email"))
+								phone1_list.Add(set_cursor.GetString("ph_number1"))
+								phone2_list.Add(set_cursor.GetString("ph_number2"))
+								age_list.Add(set_cursor.GetString("age"))
+								gender_list.Add(set_cursor.GetString("gender"))
+								image_list.Add(set_cursor.GetString("image"))
+						Next
+			End If
+		''''''''''''''''''''''''''''''
+	fullname.Text = fullN_llist.Get(0)			'string outputs
+	location.Text = ": "&location_list.Get(0)
+	donated.Text = ": "&donated_list.Get(0)
+	email.Text = ": "&email_list.Get(0)
+	phone1.Text = ": "&phone1_list.Get(0)
+	phone2.Text = ": "&phone2_list.Get(0)   	'string outputs
+	age.Text = ": "&age_list.Get(0) 
+	gender.Text = ": "&gender_list.Get(0) 
+			location.Gravity = Gravity.CENTER_VERTICAL
+			donated.Gravity = Gravity.CENTER_VERTICAL
+			email.Gravity = Gravity.CENTER_VERTICAL
+			phone1.Gravity = Gravity.CENTER_VERTICAL
+			phone2.Gravity = Gravity.CENTER_VERTICAL
+			age.Gravity = Gravity.CENTER_VERTICAL
+			gender.Gravity = Gravity.CENTER_VERTICAL
+				fullname.TextColor = Colors.Black
+				location.TextColor = Colors.Black
+				donated.TextColor = Colors.Black
+				email.TextColor = Colors.Black
+				phone1.TextColor = Colors.Black
+				phone2.TextColor = Colors.Black
+				ok_vie_btn.TextColor = Colors.Black
+				age.TextColor = Colors.Black
+				gender.TextColor = Colors.Black
+					location.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					donated.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					email.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					phone1.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					phone2.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					age.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+					gender.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+	'tittle.Text = "Pofile Info"
+	'tittle.Gravity = Gravity.CENTER
+	fullname.Gravity = Gravity.CENTER
+	ok_vie_btn.Text = "OK"
+	ok_vie_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+	view_panl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	'view_panl.AddView(tittle,1%x,2%y,72%x,8%y) ' title of modal
+				'loc_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-21-home.png"))
+				'don_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-152-new-window.png"))
+				'ema_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-social-40-e-mail.png"))
+				'ph1_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-354-nameplate-alt1.png"))
+				'ph2_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"glyphicons-354-nameplate-alt2.png"))
+				Dim loc_bitd,don_bitd,ema_bitd,ph1_bitd,ph2_bitd,age_bitd,gender_bitd As BitmapDrawable
+				Dim loc_bit,don_bit,ema_bit,ph1_bit,ph2_bit,age_bit,gender_bit  As Bitmap
+					loc_bit.Initialize(File.DirAssets,"glyphicons-21-home.png")
+					don_bit.Initialize(File.DirAssets,"glyphicons-152-new-window.png")
+					ema_bit.Initialize(File.DirAssets,"glyphicons-social-40-e-mail.png")
+					ph1_bit.Initialize(File.DirAssets,"glyphicons-354-nameplate-alt1.png")
+					ph2_bit.Initialize(File.DirAssets,"glyphicons-354-nameplate-alt2.png")
+					age_bit.Initialize(File.DirAssets,"glyphicons-577-uk-rat-r18.png")
+					gender_bit.Initialize(File.DirAssets,"glyphicons-25-parents.png")
+						loc_bitd.Initialize(loc_bit)
+						don_bitd.Initialize(don_bit)
+						ema_bitd.Initialize(ema_bit)
+						ph1_bitd.Initialize(ph1_bit)
+						ph2_bitd.Initialize(ph2_bit)
+						age_bitd.Initialize(age_bit)
+						gender_bitd.Initialize(gender_bit)
+				loc_img.Background = loc_bitd
+				don_img.Background = don_bitd
+				ema_img.Background = ema_bitd
+				ph1_img.Background = ph1_bitd
+				ph2_img.Background = ph2_bitd
+				age_img.Background = age_bitd
+				gender_img.Background = gender_bitd
+	Dim inp As InputStream
+	Dim bmp As Bitmap
+	Dim su As StringUtils
+	Dim bytes() As Byte
+	bytes = su.DecodeBase64(image_list.Get(0))
+	inp.InitializeFromBytesArray(bytes,0,bytes.Length)
+	bmp.Initialize2(inp)
+	''
+	Dim bd As BitmapDrawable
+	bd.Initialize(bmp)
+	user_image.Background = bd
+	'user_image.SetBackgroundImage(bmp)
+		
+			Dim fn_grad,don_grad,ema_grad,ph1_grad,ph2_grad,loc_grad,btn_grad,ok_btn_grad,age_grad,gender_grad As GradientDrawable
+			Dim colorG(2),btn_color(2),panl_btn(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+				btn_color(0) = Colors.Red
+				btn_color(1) = Colors.White
+					panl_btn(0) = Colors.Gray
+					panl_btn(1) = Colors.Red
+			fn_grad.Initialize("TOP_BOTTOM",colorG)
+			don_grad.Initialize("TOP_BOTTOM",colorG)
+			ema_grad.Initialize("TOP_BOTTOM",colorG)
+			ph1_grad.Initialize("TOP_BOTTOM",colorG)
+			ph2_grad.Initialize("TOP_BOTTOM",colorG)
+			loc_grad.Initialize("TOP_BOTTOM",colorG)
+			age_grad.Initialize("TOP_BOTTOM",colorG)
+			gender_grad.Initialize("TOP_BOTTOM",colorG)
+				btn_grad.Initialize("TOP_BOTTOM",panl_btn)
+				ok_btn_grad.Initialize("TOP_BOTTOM",btn_color)
+			fn_grad.CornerRadius = 10dip
+			ok_btn_grad.CornerRadius = 50dip
+		fn_pnl.Background = fn_grad		'fn_pnl.Color = Colors.LightGray
+		don_pnl.Background = don_grad		'don_pnl.Color = Colors.LightGray
+		ema_pnl.Background = ema_grad		'ema_pnl.Color = Colors.LightGray
+		ph1_pnl.Background = ph1_grad		'ph1_pnl.Color = Colors.LightGray
+		ph2_pnl.Background = ph2_grad		'ph2_pnl.Color = Colors.LightGray
+		loc_pnl.Background = loc_grad		'loc_pnl.Color = Colors.LightGray
+		age_pnl.Background = loc_grad
+		gender_pnl.Background = loc_grad
+			btn_pnl.Background = btn_grad
+		ok_vie_btn.Background = ok_btn_grad	
+				
+				'' image for bookmark
+				Dim bitmd As BitmapDrawable
+				Dim bitm As Bitmap
+				bitm.Initialize(File.DirAssets,"bh2.png")
+				bitmd.Initialize(bitm)
+				delete_bookmark.Background = bitmd
+				''''''''
+	view_for_image.AddView(fn_pnl,0,0,74%x,30%y) ' full name
+		'fn_pnl.AddView(fullname,0,1%y,72%x,8%y) ' full name image
+		fn_pnl.AddView(user_image,((fn_pnl.Width/2)/2)-2%x,1.2%y,39%x,17%y)
+			fn_pnl.AddView(delete_bookmark,fn_pnl.Width-13.5%x,1.3%y,12%x,7%y)
+		fn_pnl.AddView(fullname,0,user_image.Top + user_image.Height,72%x,10%y) ' full name
+		
+		fullname.TextSize = 25
+		fullname.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+		''
+	view_panl.AddView(age_pnl,1%x,0,72%x,8%y) 
+		age_pnl.AddView(age_img,4%x,1%y,6%x,6%y) ''  image of age boolean
+		age_pnl.AddView(age,age_img.Left + age_img.Width + 1%x,1%y,50%x,6%y) 
+		''
+	view_panl.AddView(gender_pnl,1%x,age_pnl.Top + age_pnl.Height,72%x,8%y) 
+		gender_pnl.AddView(gender_img,4%x,1%y,6%x,6%y) '' image of gender boolean
+		gender_pnl.AddView(gender,gender_img.Left + gender_img.Width + 1%x,1%y,50%x,6%y) 
+		''	
+	view_panl.AddView(don_pnl,1%x,gender_pnl.Top + gender_pnl.Height,72%x,8%y) 
+		don_pnl.AddView(don_img,4%x,1%y,6%x,6%y) '' image of donation boolean
+		don_pnl.AddView(donated,don_img.Left + don_img.Width + 1%x,1%y,50%x,6%y) 
+		''
+	view_panl.AddView(ema_pnl,1%x,don_pnl.Top + don_pnl.Height,72%x,8%y) 
+		ema_pnl.AddView(ema_img,4%x,1%y,6%x,6%y) '' image of email address
+		ema_pnl.AddView(email,ema_img.Left + ema_img.Width + 1%x,1%y,50%x,6%y) 
+		''
+	view_panl.AddView(ph1_pnl,1%x,ema_pnl.Top + ema_pnl.Height,72%x,8%y) 
+		ph1_pnl.AddView(ph1_img,4%x,1%y,6%x,6%y) '' image of phone number 1
+		ph1_pnl.AddView(phone1,ph1_img.Left + ph1_img.Width + 1%x,1%y,50%x,6%y) 
+		''
+	view_panl.AddView(ph2_pnl,1%x,ph1_pnl.Top + ph1_pnl.Height,72%x,8%y) 
+		ph2_pnl.AddView(ph2_img,4%x,1%y,6%x,6%y) '' image of phone number 2
+		ph2_pnl.AddView(phone2,ph2_img.Left + ph2_img.Width + 1%x,1%y,50%x,6%y) 
+		''
+	view_panl.AddView(loc_pnl,1%x,ph2_pnl.Top + ph2_pnl.Height,72%x,8%y) 
+		loc_pnl.AddView(loc_img,4%x,1%y,6%x,6%y) '' image of location
+		loc_pnl.AddView(location,loc_img.Left + loc_img.Width + 1%x,1%y,50%x,6%y) 
+			'btn_pnl
+	'view_for_btn.AddView(btn_pnl,13%x,loc_pnl.Top + loc_pnl.Height,72%x,10%y) 
+	btn_pnl.AddView(ok_vie_btn,((74%x/2)/2),1%y,37%x,8%y) 
+	
+		view_data_info_person.Color = Colors.ARGB(128,128,128,.70)
+	'scroll_view_info.Panel.AddView(view_panl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,83%y)
+	'view_data_info_person.AddView(scroll_view_info,0,0,74%x,83%y)
+		scroll_view_info.ScrollbarsVisibility(False,False)
+		scroll_view_info.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	scroll_view_info.Panel.AddView(view_panl,0,0,74%x,57%y)
+	view_data_info_person.AddView(view_for_image,13%x,((((Activity.Height/2)/2)/2)/2),74%x,31%y)
+	view_data_info_person.AddView(scroll_view_info,13%x,view_for_image.Top + view_for_image.Height - .7%y,74%x,40%y)
+	view_data_info_person.AddView(btn_pnl,13%x,scroll_view_info.Top + scroll_view_info.Height,74%x,10%y)
+	
+	Activity.AddView(view_data_info_person,0,0,100%x,100%y)
+	
+	for_phone_clik_animation
+End Sub
+Sub ok_vie_btn_click
+	view_data_info_person.RemoveView
+End Sub
+Sub view_data_info_person_click
+	'''
+End Sub
+Sub for_phone_clik_animation
+	ph1_a1.InitializeAlpha("", 1, 0)
+	ph2_a2.InitializeAlpha("", 1, 0)
+	userI_a3.InitializeAlpha("", 1, 0)
+	'a3.InitializeAlpha("", 1, 0)
+	ph2_pnl.Tag = ph2_a2
+	ph1_pnl.Tag = ph1_a1
+	user_image.Tag = userI_a3
+	'label_forgot.Tag = a3
+		Dim animations() As Animation
+	animations = Array As Animation(ph2_a2, ph1_a1, userI_a3)
+	For i = 0 To animations.Length - 1
+		animations(i).Duration = 300
+		animations(i).RepeatCount = 1
+		animations(i).RepeatMode = animations(i).REPEAT_REVERSE
+	Next
+End Sub
+Sub phone1_view_call_click
+	ph1_a1.Start(ph1_pnl)
+	Dim choose As Int 
+	choose = Msgbox2(""&phone1.Text,"Phone Number: ","CALL","","CANCEL",Null)
+	If choose == DialogResponse .POSITIVE Then
+	Dim ph As PhoneCalls
+	StartActivity(ph.Call(phone1.Text))
+	Else
+	End If
+End Sub
+Sub phone2_view_call_click
+		ph2_a2.Start(ph2_pnl)
+	Dim choose As Int 
+	choose = Msgbox2(""&phone2.Text,"Phone Number: ","CALL","","CANCEL",Null)
+	If choose == DialogResponse .POSITIVE Then
+	Dim ph As PhoneCalls
+	StartActivity(ph.Call(phone2.Text))
+	Else
+	End If
+End Sub
+Sub user_image_click
+		list_all_select = 3
+	userI_a3.Start(user_image)
+	If user_img_panl.IsInitialized == True Then
+		user_img_panl.RemoveView
+	End If
+	user_img_panl.Initialize("user_img_panl")
+	Dim pnl As Panel
+	Dim user_imgClose_btn As Button
+	Dim img_user_webview As WebView
+	Dim user_img_view As ImageView
+	user_imgClose_btn.Initialize("user_imgClose_btn")
+	user_img_view.Initialize("user_img_view")
+	user_imgClose_btn.Text = "CLOSE"
+			Dim V_btn,C_btn As GradientDrawable
+			Dim colorG(2) As Int
+			colorG(0) = Colors.White
+			colorG(1) = Colors.Red
+			C_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.Initialize("TOP_BOTTOM",colorG)
+			V_btn.CornerRadius = 50dip
+			C_btn.CornerRadius = 50dip
+		user_imgClose_btn.Background = V_btn
+	pnl.Initialize("pnl")
+	img_user_webview.Initialize("img_user_webview")
+	user_img_panl.Color = Colors.Transparent
+	pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"modal_bg.png"))
+	
+	Dim inp As InputStream
+	Dim bmp As Bitmap
+	Dim su As StringUtils
+	Dim bytes() As Byte
+	bytes = su.DecodeBase64(image_list.Get(0))
+	inp.InitializeFromBytesArray(bytes,0,bytes.Length)
+	bmp.Initialize2(inp)
+	''
+	Dim bd As BitmapDrawable
+	bd.Initialize(bmp)
+	'usr_img.Bitmap = bd
+	user_img_view.Background = bd
+	
+
+	'img_user_webview.LoadHtml("<html><body><img src='"&bd&"'></body></html>")
+	
+	pnl.AddView(user_img_view,1%x,1%y,86%x,75%y)
+	pnl.AddView(user_imgClose_btn,1%x,user_img_view.Top + user_img_view.Height + 1%y,86%x,8%y)
+	user_img_panl.AddView(pnl,6%x,(((((Activity.Height/2)/2)/2)/2)/2),88%x,89%y)
+	user_img_panl.BringToFront
+	'pnl_body.Enabled = False
+		'pnl_donated_body.Color = Colors.ARGB(128,128,128,.50)
+	Activity.AddView(user_img_panl,0,0,100%x,100%y)	
+End Sub
+Sub user_imgClose_btn_click
+	list_all_select = 2
+	user_img_panl.RemoveView
 End Sub

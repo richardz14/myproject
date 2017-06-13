@@ -11,8 +11,8 @@
 	    android:normalScreens="true" 
 	    android:smallScreens="true" 
 	    android:anyDensity="true"/>
-	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.CALL_PHONE"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 	<application
 		android:icon="@drawable/icon"
@@ -57,6 +57,10 @@
 			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
+		<service android:name=".httputils2service">
+		</service>
+		<receiver android:name=".httputils2service$httputils2service_BR">
+		</receiver>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
@@ -64,10 +68,6 @@
 			android:label="LIFEBLOOD"
 			android:screenOrientation="portrait">
 		</activity>
-		<service android:name=".httputils2service">
-		</service>
-		<receiver android:name=".httputils2service$httputils2service_BR">
-		</receiver>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"

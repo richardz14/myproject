@@ -62,8 +62,8 @@ public bloodlife.system.login_form _login_form = null;
 public bloodlife.system.create_account _create_account = null;
 public bloodlife.system.menu_form _menu_form = null;
 public bloodlife.system.search_frame _search_frame = null;
-public bloodlife.system.help_frame _help_frame = null;
 public bloodlife.system.httputils2service _httputils2service = null;
+public bloodlife.system.help_frame _help_frame = null;
 public bloodlife.system.my_profile _my_profile = null;
 public bloodlife.system.about_frame _about_frame = null;
 public static class _typsortdata{
@@ -2081,12 +2081,12 @@ anywheresoftware.b4a.objects.collections.List _panellist = null;
 int _totalheight = 0;
 anywheresoftware.b4a.objects.PanelWrapper _pnl = null;
  //BA.debugLineNum = 566;BA.debugLine="Public Sub SortItems(ValuesToSort As List, FirstPo";
- //BA.debugLineNum = 567;BA.debugLine="If ValuesToSort.Size < 2 OR FirstPosition = LastP";
+ //BA.debugLineNum = 567;BA.debugLine="If ValuesToSort.Size < 2 Or FirstPosition = LastP";
 if (_valuestosort.getSize()<2 || _firstposition==_lastposition) { 
 if (true) return "";};
  //BA.debugLineNum = 568;BA.debugLine="If LastPosition - FirstPosition + 1 <> ValuesToSo";
 if (_lastposition-_firstposition+1!=_valuestosort.getSize()) { 
- //BA.debugLineNum = 569;BA.debugLine="Log(\"Mismatch: \" & ValuesToSort.Size & \" values";
+ //BA.debugLineNum = 569;BA.debugLine="Log(\"Mismatch: \" & ValuesToSort.Size & \" values i";
 __c.Log("Mismatch: "+BA.NumberToString(_valuestosort.getSize())+" values in ValuesToSort and "+BA.NumberToString((_lastposition-_firstposition+1))+" positions to sort");
  //BA.debugLineNum = 570;BA.debugLine="Return";
 if (true) return "";
@@ -2267,7 +2267,7 @@ int _tmptop = 0;
 int _i = 0;
 int _delta = 0;
  //BA.debugLineNum = 348;BA.debugLine="Public Sub SwapItems(PosItem1 As Int, PosItem2 As";
- //BA.debugLineNum = 349;BA.debugLine="If sv.IsInitialized AND PosItem1 <> PosItem2 Then";
+ //BA.debugLineNum = 349;BA.debugLine="If sv.IsInitialized And PosItem1 <> PosItem2 Then";
 if (_sv.IsInitialized() && _positem1!=_positem2) { 
  //BA.debugLineNum = 350;BA.debugLine="If HasExtraContent Then CollapseItem";
 if (_hasextracontent()) { 

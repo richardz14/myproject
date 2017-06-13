@@ -7,15 +7,15 @@ Module4=menu_form
 Module5=ClsExplorer
 Module6=ClsCheckList
 Module7=search_frame
-Module8=help_frame
-Module9=HttpJob
-Module10=HttpUtils2Service
+Module8=HttpJob
+Module9=HttpUtils2Service
+Module10=help_frame
 Module11=my_profile
 Module12=about_frame
 Build1=Default,bloodlife.system
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
 IconFile=
-NumberOfFiles=128
+NumberOfFiles=129
 File1=ABOUT US.png
 File2=about_frame.bal
 File3=ABOUT_US.png
@@ -107,44 +107,45 @@ File88=glyphicons-91-eyedropper.png
 File89=glyphicons-92-adjust.png
 File90=glyphicons-93-tint.png
 File91=glyphicons-social-40-e-mail.png
-File92=heart_arrow.svg
-File93=heart_arrow_img.png
-File94=HELP.png
-File95=help_frame.bal
-File96=HipHopDemi.ttf
-File97=HipHopInline.ttf
-File98=listlabel.txt
-File99=load_form.bal
-File100=location_buttom.txt
-File101=location_top.rar
-File102=location_top.txt
-File103=LOG_IN.png
-File104=login_form.bal
-File105=logo02.png
-File106=logo1.jpg
-File107=logo1.png
-File108=male_clip.png
-File109=male_string.txt
-File110=ManilaSansBld.otf
-File111=menu_frame.bal
-File112=menu_search.png
-File113=MENU1.png
-File114=modal_bg.png
-File115=my profile.png
-File116=my_profile.bal
-File117=my_profile.png
-File118=mydb.db
-File119=REGISTER.png
-File120=SEARCH.png
-File121=search_frame.bal
-File122=searchbloodtype.png
-File123=SPIRRI__.ttf
-File124=update_all_inputs.bal
-File125=update_all_top.bal
-File126=VIEW ALL.png
-File127=ZINGBISD.OTF
-File128=ZINGHABI.OTF
-NumberOfLibraries=15
+File92=Harrington.ttf
+File93=heart_arrow.svg
+File94=heart_arrow_img.png
+File95=HELP.png
+File96=help_frame.bal
+File97=HipHopDemi.ttf
+File98=HipHopInline.ttf
+File99=listlabel.txt
+File100=load_form.bal
+File101=location_buttom.txt
+File102=location_top.rar
+File103=location_top.txt
+File104=LOG_IN.png
+File105=login_form.bal
+File106=logo02.png
+File107=logo1.jpg
+File108=logo1.png
+File109=male_clip.png
+File110=male_string.txt
+File111=ManilaSansBld.otf
+File112=menu_frame.bal
+File113=menu_search.png
+File114=MENU1.png
+File115=modal_bg.png
+File116=my profile.png
+File117=my_profile.bal
+File118=my_profile.png
+File119=mydb.db
+File120=REGISTER.png
+File121=SEARCH.png
+File122=search_frame.bal
+File123=searchbloodtype.png
+File124=SPIRRI__.ttf
+File125=update_all_inputs.bal
+File126=update_all_top.bal
+File127=VIEW ALL.png
+File128=ZINGBISD.OTF
+File129=ZINGHABI.OTF
+NumberOfLibraries=16
 Library1=core
 Library2=scrollview2d
 Library3=httpserver
@@ -160,6 +161,7 @@ Library12=reflection
 Library13=richstring
 Library14=sql
 Library15=phone
+Library16=json
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: LIFEBLOOD
@@ -179,7 +181,9 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Dim sqlLite As SQL
+
 	database_init
+	
 End Sub
 
 Sub Globals
@@ -191,17 +195,21 @@ Sub Globals
 	Private start_button As Button
 	
 		Dim a1 As Animation
+	Private main_tittle As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("load_form")
 	Activity.Title = "MAIN"
-	
+
 	all_settings_layout	
-	database_init
+	
 	for_btn_animation
-	sqlLite.Initialize(File.DirInternal,"mydb.db",True)
+		If sqlLite.IsInitialized = False Then
+		sqlLite.Initialize(File.DirInternal, "mydb.db", False)
+		End If
+
 End Sub
 Sub for_btn_animation
 
@@ -213,13 +221,15 @@ Sub for_btn_animation
 End Sub
 Sub database_init
 	If File.Exists(File.DirInternal,"mydb.db") = True Then
-	File.Copy(File.DirAssets,"mydb.db",File.DirInternal,"mydb.db")
+	
 	Else
+		File.Copy(File.DirAssets,"mydb.db",File.DirInternal,"mydb.db")
 	End If
 End Sub
 Sub Activity_Resume
-	Dim set_cursor As Cursor
-	set_cursor = sqlLite.ExecQuery("select * from data where `id`=1;")
+	If sqlLite.IsInitialized = True Then
+			Dim set_cursor As Cursor
+		set_cursor = sqlLite.ExecQuery("select * from data where `id`=1;")
 						For i = 0 To set_cursor.RowCount - 1
 							set_cursor.Position = i
 							If set_cursor.GetString("isStart") == 1 Then
@@ -230,6 +240,9 @@ Sub Activity_Resume
 									
 							End If
 						Next
+	End If
+			
+
 End Sub
 Sub Activity_KeyPress(KeyCode As Int) As Boolean
 	' Not mandatory, it depends on your app and device
@@ -252,7 +265,7 @@ Sub start_button_Click
 		'sqlLite.ExecNonQuery("update from data set `isStart`=1 where `id`=1;")
 		a1.Start(start_button)
 		sqlLite.ExecNonQuery("UPDATE data SET isStart='1' WHERE id='1';")	
-	StartActivity ("menu_form")
+	StartActivity ("login_form")
 	
 End Sub
 
@@ -264,20 +277,42 @@ Public Sub all_settings_layout
 		ban_panel.Width = 100%x
 		ban_picture.Width = ban_panel.Width
 		but_panel.Width = 100%x
-		start_button.Width =30%x
+		start_button.Width = 40%x
+		
+		main_tittle.Width = 100%x
 	'' height
-		ban_panel.Height = 45%y
+		ban_panel.Height = 30%y
 		ban_picture.Height = ban_panel.Height - 3dip
 		but_panel.Height = Activity.Height - ban_panel.Height - 3dip
 		start_button.Height = 11%y
+		
+		main_tittle.Height = 38%y
 	'' top
 		ban_panel.Top = Activity.Top
 		ban_picture.Top = ban_panel.Top + 2dip
 		but_panel.Top = ban_panel.Top + ban_panel.Height + 3dip	
-		start_button.Top = 14%y
+		start_button.Top =43%y
+		
+		main_tittle.Top = 0
 	'' left
 		ban_panel.Left = 0
 		ban_picture.Left = 0
 		but_panel.Left = 0
-		start_button.Left = 36%x
+		start_button.Left = 30%x
+		
+		main_tittle.Left = 0
+		
+		main_tittle.Text = "WELCOME"&CRLF&"→TO←"&CRLF&"LIFEBLOOD"
+		main_tittle.TextSize = 43
+		main_tittle.Gravity = Gravity.CENTER
+		main_tittle.Typeface = Typeface.LoadFromAssets("harrington.ttf")
+		start_button.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		
+		Dim gradiant As GradientDrawable
+		Dim col(2) As Int
+		col(0) = Colors.Red
+		col(1) = Colors.LightGray
+		gradiant.Initialize("TOP_BOTTOM",col)
+		gradiant.CornerRadius = 5dip
+		start_button.Background = gradiant
 End Sub

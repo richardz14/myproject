@@ -1,9 +1,11 @@
 <?php
 
-$server = "localhost";
-$user = "root";
-$pass = "";
-$database = "bloodlife_db";
+//$server = "localhost";
+//$user = "root";
+//$pass = "";
+//$database = "bloodlife_db";
+
+include 'database.php';
 
 $conection = mysql_connect($server, $user, $pass);
 mysql_select_db($database,$conection);

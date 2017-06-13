@@ -126,21 +126,21 @@ Public Sub JobDone(job As HttpJob)
 	If job.Success Then
 		Select job.JobName
 			Case "email_get"
-			Log(job.GetString)
+			'Log(job.GetString)
 			Email = job.GetString.Trim
 			Case "pass_get"
-				Log(job.GetString)
+			'	Log(job.GetString)
 			pass = job.GetString.Trim
 			Case "full_name_get"
-				Log(job.GetString)
+			'	Log(job.GetString)
 			name_query = job.GetString.Trim
 			name = job.GetString.Trim
 			Case "user_id_get"
-				Log(job.GetString)
+			'	Log(job.GetString)
 				id_query = job.GetString.Trim
 			'id_query = job.GetString.Trim
 	     	Case "nick_name_get"
-				Log(job.GetString)
+			'	Log(job.GetString)
 				'name_query = job.GetString.Trim
 				calcs.name = job.GetString.Trim
 			Case "forgot_email_get"
@@ -225,21 +225,21 @@ Public Sub back_up_JobDone(job As HttpJob)
 	If job.Success Then
 		Select job.JobName
 			Case "email_get"
-			Log(job.GetString)
+			'Log(job.GetString)
 			Email = job.GetString.Trim
 			Case "pass_get"
-				Log(job.GetString)
+			'	Log(job.GetString)
 			pass = job.GetString.Trim
 			Case "full_name_get"
-				Log(job.GetString)
+			'	Log(job.GetString)
 			name_query = job.GetString.Trim
 			name = job.GetString.Trim
 			Case "user_id_get"
-				Log(job.GetString)
+			'	Log(job.GetString)
 				id_query = job.GetString.Trim
 			'id_query = job.GetString.Trim
 	     	Case "nick_name_get"
-				Log(job.GetString)
+				'Log(job.GetString)
 				'name_query = job.GetString.Trim
 				calcs.name = job.GetString.Trim
 			Case "forgot_email_get"
@@ -322,7 +322,7 @@ Public Sub back_up_JobDone(job As HttpJob)
 End Sub
 Sub log_in_button_click
 	a1.Start(log_in_button)
-ProgressDialogShow2("please wait.!!",False)
+ProgressDialogShow2("please wait...",False)
 Email = ""
 pass = ""
 log_click = True
@@ -454,7 +454,7 @@ Sub forgot_recover_btn_click
 		Else If newPass.Text.Contains(renewPass.Text) == False Then
 		Msgbox("Error: Password did not match!","C O N F I R M A T I O N")	
 		Else
-			ProgressDialogShow2("please wait.!!",False)
+			ProgressDialogShow2("please wait...",False)
 			log_click = False
 			Dim url_back As calculations
 			Dim url_email,nickname As String

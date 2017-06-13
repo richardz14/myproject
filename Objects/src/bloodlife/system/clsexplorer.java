@@ -69,8 +69,8 @@ public bloodlife.system.login_form _login_form = null;
 public bloodlife.system.create_account _create_account = null;
 public bloodlife.system.menu_form _menu_form = null;
 public bloodlife.system.search_frame _search_frame = null;
-public bloodlife.system.help_frame _help_frame = null;
 public bloodlife.system.httputils2service _httputils2service = null;
+public bloodlife.system.help_frame _help_frame = null;
 public bloodlife.system.my_profile _my_profile = null;
 public bloodlife.system.about_frame _about_frame = null;
 public static class _typresult{
@@ -1073,7 +1073,7 @@ String _minus = "";
 _minus = "";
  //BA.debugLineNum = 490;BA.debugLine="Minus = NomFichier.ToLowerCase";
 _minus = _nomfichier.toLowerCase();
- //BA.debugLineNum = 491;BA.debugLine="Return (Minus.EndsWith(\".bmp\") OR Minus.EndsWith(";
+ //BA.debugLineNum = 491;BA.debugLine="Return (Minus.EndsWith(\".bmp\") Or Minus.EndsWith(";
 if (true) return (_minus.endsWith(".bmp") || _minus.endsWith(".gif") || _minus.endsWith(".jpg") || _minus.endsWith(".png"));
  //BA.debugLineNum = 492;BA.debugLine="End Sub";
 return false;

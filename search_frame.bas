@@ -13,7 +13,8 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 Dim list_bloodgroup As List
-
+Dim sqlLite As SQL
+database_init
 Dim id_list As List
 Dim bday_list As List
 Dim bloodtype_list As List
@@ -125,6 +126,17 @@ Sub Activity_Create(FirstTime As Boolean)
 	all_layout_load
 	load_list
 	for_btn_animation
+		
+		If sqlLite.IsInitialized = False Then
+		sqlLite.Initialize(File.DirInternal, "mydb.db", False)
+		End If
+End Sub
+Sub database_init
+	If File.Exists(File.DirInternal,"mydb.db") = True Then
+	
+	Else
+		File.Copy(File.DirAssets,"mydb.db",File.DirInternal,"mydb.db")
+	End If
 End Sub
 Sub for_btn_animation
 	a1.InitializeAlpha("", 1, 0)
@@ -191,10 +203,10 @@ End Sub
 
 Sub load_list
 	list_bloodgroup.Initialize
-	list_bloodgroup.Add("A")
-	list_bloodgroup.Add("B")
-	list_bloodgroup.Add("O")
-	list_bloodgroup.Add("AB")
+	list_bloodgroup.Add("A+")
+	list_bloodgroup.Add("B+")
+	list_bloodgroup.Add("O+")
+	list_bloodgroup.Add("AB+")
 	'list_bloodgroup.Add("A+")
 	'list_bloodgroup.Add("B+")
 	'list_bloodgroup.Add("O+")
@@ -204,13 +216,13 @@ Sub load_list
 	list_bloodgroup.Add("O-")
 	list_bloodgroup.Add("AB-")
 	search_spiner.AddAll(list_bloodgroup)
-	spin_item_click = "A"
+	spin_item_click = "A+"
 End Sub
 Sub Activity_KeyPress(KeyCode As Int) As Boolean
 	' Not mandatory, it depends on your app and device
 		If KeyCode == KeyCodes.KEYCODE_BACK Then
 					If clicked_list_all == 0 Then
-						Dim choose As Int : choose = Msgbox2("Would you like to cancel searching?","C O N F I R M A T I O N","YES","","NO",Null)		
+						Dim choose As Int : choose = Msgbox2("Would you like to exit searching?","C O N F I R M A T I O N","YES","","NO",Null)		
 									If choose == DialogResponse.POSITIVE Then
 										'ExitApplication
 										Activity.Finish
@@ -243,7 +255,7 @@ Sub Activity_Pause (UserClosed As Boolean)
 End Sub
 Sub search_btn_Click
 	a2.Start(search_btn)
-	ProgressDialogShow2("please wait.!!",False)
+	ProgressDialogShow2("please wait...",False)
 	isGPSon.Enabled = True
 	Dim url_back As calculations
 	Dim search_all_users_data As String
@@ -257,7 +269,7 @@ Sub search_btn_Click
 End Sub
 Sub back_up_search_btn_Click
 	a2.Start(search_btn)
-	ProgressDialogShow2("please wait.!!",False)
+	ProgressDialogShow2("please wait...",False)
 	isGPSon.Enabled = True
 	Dim url_back As calculations
 	Dim url_id,full_name,location,lat,lng,donated,email,nickname,phoneq1,phoneq2,image,age,gender As String
@@ -342,7 +354,7 @@ Sub create_map
 		If is_check_true == True Then
 		GPSlat = userLocation.Latitude
 		GPSlng = userLocation.Longitude
-		Log("lat: "&GPSlat)
+'		Log("lat: "&GPSlat)
 		Log("long: "&GPSlng)
   		'htmlString1_1 = " new google.maps.Marker({ position: new google.maps.LatLng("&userLocation.Latitude&", "&userLocation.Longitude&"), map: map, title: 'My Location', content: 'I am here!', clickable: True, icon: 'http://www.google.com/mapfiles/arrow.png' }); " 'markers
 		htmlString1_1 = " new google.maps.Marker({ position: new google.maps.LatLng("&GPSlat&", "&GPSlng&"), map: map, title: 'My Location', clickable: true, icon: 'http://www.google.com/mapfiles/dd-end.png' }); "
@@ -795,7 +807,7 @@ Sub vie_btn_click
 	Dim view_panl,view_for_image,view_for_btn As Panel
 	Dim tittle,fullname,location,donated,email,age,gender As Label
 	Dim fn_pnl,loc_pnl,don_pnl,ema_pnl,btn_pnl,age_pnl,gender_pnl As Panel
-	Dim fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img,age_img,gender_img As ImageView
+	Dim fn_img,loc_img,don_img,ema_img,ph1_img,ph2_img,age_img,gender_img,bookmark_img As ImageView
 					fn_img.Initialize("")
 					loc_img.Initialize("")
 					don_img.Initialize("")
@@ -805,6 +817,7 @@ Sub vie_btn_click
 					user_image.Initialize("user_image")
 					age_img.Initialize("")
 					gender_img.Initialize("")
+							bookmark_img.Initialize("bookmark_img")
 			fn_pnl.Initialize("")
 			loc_pnl.Initialize("")
 			don_pnl.Initialize("")
@@ -937,11 +950,18 @@ Sub vie_btn_click
 		gender_pnl.Background = loc_grad
 			btn_pnl.Background = btn_grad
 		ok_vie_btn.Background = ok_btn_grad	
-		
-		
+					
+				'' image for bookmark
+				Dim bitmd As BitmapDrawable
+				Dim bitm As Bitmap
+				bitm.Initialize(File.DirAssets,"bh1.png")
+				bitmd.Initialize(bitm)
+				bookmark_img.Background = bitmd
+				''''''''
 	view_for_image.AddView(fn_pnl,0,0,74%x,30%y) ' full name
 		'fn_pnl.AddView(fullname,0,1%y,72%x,8%y) ' full name image
 		fn_pnl.AddView(user_image,((fn_pnl.Width/2)/2)-2%x,1.2%y,39%x,17%y)
+			fn_pnl.AddView(bookmark_img,fn_pnl.Width-13.5%x,1.3%y,12%x,7%y)
 		fn_pnl.AddView(fullname,0,user_image.Top + user_image.Height,72%x,10%y) ' full name
 		
 		fullname.TextSize = 25
@@ -992,6 +1012,28 @@ Sub vie_btn_click
 	
 	for_phone_clik_animation
 End Sub
+Sub bookmark_img_click
+	Dim choose As Int
+	choose = Msgbox2("Would you like to add this as bookmark","C O N F I R M A T I O N","YES","CANCEL","",Null)
+		If choose == DialogResponse.POSITIVE Then
+				If sqlLite.IsInitialized = True Then
+				Dim set_cursor As Cursor
+				set_cursor = sqlLite.ExecQuery("SELECT * from `bookmarks` where `users_id`="&id_list.get(row_click)&";")
+
+				If set_cursor.RowCount == 0 Then
+					sqlLite.ExecNonQuery("INSERT INTO `bookmarks` (`users_id`,`age`,`gender`,`is_donated`,`email`,`ph_number1`,`ph_number2`,`location`,`full_name`,`image`) VALUES('"&id_list.Get(row_click)&"','"&age_list.Get(row_click)&"','"&gender_list.Get(row_click)&"','"&donated_list.Get(row_click)&"','"&email_list.Get(row_click)&"','"&phone1_list.Get(row_click)&"','"&phone2_list.Get(row_click)&"','"&location_list.Get(row_click)&"','"&fullN_llist.Get(row_click)&"','"&image_list.Get(row_click)&"')")
+					Msgbox("Successfuly added as bookmark...","C O N F I R M A T I O N")
+				Else
+					Msgbox("You have already added this person as bookmark...","C O N F I R M A T I O N")
+				End If
+					
+					
+			End If
+		Else if choose == DialogResponse.CANCEL Then
+			
+		End If
+
+End Sub
 Sub for_phone_clik_animation
 	ph1_a1.InitializeAlpha("", 1, 0)
 	ph2_a2.InitializeAlpha("", 1, 0)
@@ -1010,6 +1052,7 @@ Sub for_phone_clik_animation
 	Next
 End Sub
 Sub ok_vie_btn_click
+	list_all_select = 0
 	view_data_info_person.RemoveView
 End Sub
 Sub ok_vie_btn_LongClick
@@ -1444,6 +1487,8 @@ Sub list_btn_Click
 	dialog_panel_tittle.Initialize("dialog_panel_tittle")
 	dialog_panel_tittle.Text = "LIST OF PEOPLE"
 	dialog_panel_can_btn.Text = "SEARCH"
+		dialog_panel_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
+		dialog_panel_tittle.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 			Dim se_btn As GradientDrawable
 			Dim colorG(2) As Int
 			colorG(0) = Colors.White
@@ -1467,6 +1512,7 @@ Sub list_btn_Click
 
 End Sub
 Sub dialog_panel_can_btn_click
+	clicked_list_all = 0
 	dialog_all_panel.RemoveView
 End Sub
 Sub dialog_all_panel_click

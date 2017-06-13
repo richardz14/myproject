@@ -351,7 +351,7 @@ End Sub
 
 ' Swaps the position of the given items
 Public Sub SwapItems(PosItem1 As Int, PosItem2 As Int)
-	If sv.IsInitialized AND PosItem1 <> PosItem2 Then
+	If sv.IsInitialized And PosItem1 <> PosItem2 Then
 		If HasExtraContent Then CollapseItem
 		Dim PosMin, PosMax As Int
 		PosMin = Min(PosItem1, PosItem2)
@@ -569,9 +569,9 @@ End Sub
 ' ValuesToSort: a list containing the values to sort (numbers or strings). These values must be in the same order as their origin items.
 ' To sort all items: FirstPosition = 0 and LastPosition = NumberOfItems - 1
 Public Sub SortItems(ValuesToSort As List, FirstPosition As Int, LastPosition As Int, AscendingOrder As Boolean)
-	If ValuesToSort.Size < 2 OR FirstPosition = LastPosition Then Return
+	If ValuesToSort.Size < 2 Or FirstPosition = LastPosition Then Return
 	If LastPosition - FirstPosition + 1 <> ValuesToSort.Size Then
-		Log("Mismatch: " & ValuesToSort.Size & " values in ValuesToSort and " & (LastPosition - FirstPosition + 1) & " positions to sort")
+	Log("Mismatch: " & ValuesToSort.Size & " values in ValuesToSort and " & (LastPosition - FirstPosition + 1) & " positions to sort")
 		Return
 	End If
 	Dim SortList As List: SortList.Initialize

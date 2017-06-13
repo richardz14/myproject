@@ -124,7 +124,7 @@ Public Sub JobDone(job As HttpJob)
 		Select job.JobName
 			Case "email_exist"
 			email_exists = job.GetString.Trim
-			Log(email_exists)
+			'Log(email_exists)
 			If email_exists.Contains(text_email.Text) == True Then
 				ProgressDialogHide
 					Msgbox("Error: Email address are already existed.!","C O N F I R M A T I O N")
@@ -179,7 +179,7 @@ Sub reg_button_Click
             ageGet = age-1
        End If
 	   
-	  Log("date: "&Nmonth&"/"&Nday&"/"&Nyear&"  =  "&ageGet)
+	  'Log("date: "&Nmonth&"/"&Nday&"/"&Nyear&"  =  "&ageGet)
 	'' registering process...
 		''comparing empty fields...
 	If text_fn.Text == ""  Or text_email.Text == "" Or text_password.Text == "" Or text_password2.Text == "" Or text_phonenumber.Text == "" Or text_phonenumber2.Text == "" Or text_password2.Text == "" Or text_answer.Text == "" Then
@@ -274,8 +274,48 @@ Private Sub existing_result
 				merge = m_1&m_2
 				ins = url_back.php_email_url("inserting.php")
 				
-				insert_job.PostString(ins,"insert="&merge)
-				'insert_job.Download2(ins,Array As String("insert",""&merge))
+				'insert_job.PostString(ins,"insert="&merge)
+				'insert_job.Download2(ins,Array As String("insert",m_1&m_2))
+
+				'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+		Dim htp As JSONGenerator
+		Dim hps As JSONParser ''not used!!
+		Dim maps As Map
+		Dim JSONList As List
+		JSONList.Initialize
+			maps.Initialize
+			maps.Put("text_fn",full_name)
+			maps.Put("blood_type",blood_type)
+			maps.Put("email",email)
+			maps.Put("password",password2)
+			maps.Put("phone_number1",phone_number1)
+			maps.Put("phone_number2",phone_number2)
+			maps.Put("location_brgy",brgy)
+			maps.Put("location_street",street)
+			maps.Put("location_purok","NULL")
+			maps.Put("bday_month",month)
+			maps.Put("bday_day",day)
+			maps.Put("bday_year",year)
+			maps.Put("nick_name",answer)
+			maps.Put("donate_boolean",donate_boolean)
+			maps.Put("lat",lat)
+			maps.Put("long",lng)
+			maps.Put("age",ageGet)
+			maps.Put("date_donated",isDonateDate)
+			maps.Put("gender",gender_string)
+			maps.Put("id",login_form.id_query)
+			maps.Put("image",img_string)
+		JSONList.Add(maps)
+		'htp.Initialize(JSONList)
+		htp.Initialize2(JSONList)
+		Dim JSONstring As String
+   		JSONstring = htp.ToString
+		'update_img_job.Download2(ins,Array As String("JSONdata",JSONstring))
+		insert_job.PostString(ins,"insert="&htp.ToString)
+		
+		'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+				
+				
 				
 				ProgressDialogHide
 			''
@@ -376,10 +416,10 @@ Sub spinners_list_data
 	list_gender.Initialize
 	'list_location_p.Initialize
 	''
-	list_bloodgroup.Add("A")
-	list_bloodgroup.Add("B")
-	list_bloodgroup.Add("O")
-	list_bloodgroup.Add("AB")
+	list_bloodgroup.Add("A+")
+	list_bloodgroup.Add("B+")
+	list_bloodgroup.Add("O+")
+	list_bloodgroup.Add("AB+")
 	'list_bloodgroup.Add("A+")
 	'list_bloodgroup.Add("B+")
 	'list_bloodgroup.Add("O+")
@@ -1015,7 +1055,7 @@ Sub street_lat_lng
 	lng = "122.859242"
 	End If
 	
-	Log("lat: "&lat&CRLF&"lng: "&lng)
+	'Log("lat: "&lat&CRLF&"lng: "&lng)
 	
 	
 End Sub
@@ -1319,7 +1359,7 @@ Sub isdonated_ok_btn_click
 	isDonateDate = month&"/"&day&"/"&year
 	is_donate_date.Text = "("&isDonateDate&")"		
 	Msgbox(""&month&"/"&day&"/"&year,"Date Selected")
-	Log(isDonateDate)
+	'Log(isDonateDate)
 	pnl_bday_body.RemoveView
 End Sub
 Sub isdonated_can_btn_click
