@@ -20,9 +20,9 @@ if (mysqli_connect_errno()) {
 $sql = $_REQUEST["pass"];
 $sql_query = mysqli_query($con,$sql);
 
-$row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC);
-  printf(''.$row["pass"]); //
-
+$row=mysqli_fetch_row ($sql_query);
+  //printf(''.$row["password"]); //
+printf(''.$row[0]);
   //$row = mysql_fetch_array($sql_query);
   //echo ''.$row[0];
 mysqli_close($con);

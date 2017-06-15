@@ -20,9 +20,10 @@ if (mysqli_connect_errno()) {
 $sql = $_REQUEST["age"];
 $sql_query = mysqli_query($con,$sql);
 
-$row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC);
-  printf(''.$row["age"]); //
-
+while($row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC)){
+  //printf(''.$row["age"]); //
+printf(''.$row["age"]."\xA");
+}
 mysqli_close($con);
 
         

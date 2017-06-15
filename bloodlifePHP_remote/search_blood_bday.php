@@ -20,9 +20,10 @@ if (mysqli_connect_errno()) {
 $sql = $_REQUEST["bday"];
 $sql_query = mysqli_query($con,$sql);
 
-$row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC);
-  printf(''.$row["bday_month"].'-'.$row["bday_day"].'-'.$row["bday_year"]); //
+while($row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC)){
+  printf(''.$row["bday_month"].'-'.$row["bday_day"].'-'.$row["bday_year"]."\xA"); //
 	 //echo ''.$row["bday_month"].'-'.$row["bday_day"].'-'.$row["bday_year"];
+}
 mysqli_close($con);
 
 ?>

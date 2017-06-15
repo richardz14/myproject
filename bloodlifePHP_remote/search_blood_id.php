@@ -20,9 +20,10 @@ if (mysqli_connect_errno()) {
 $sql = $_REQUEST["id"];
 $sql_query = mysqli_query($con,$sql);
 
-$row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC);
-  printf(''.$row["id"]."\xA"); //
 
+while($row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC)){
+  printf(''.$row["id"]."\xA"); //
+}
 mysqli_close($con);
 
         

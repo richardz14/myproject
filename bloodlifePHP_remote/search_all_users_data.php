@@ -20,7 +20,7 @@ if (mysqli_connect_errno()) {
 $sql = $_REQUEST["all_info"];
 $sql_query = mysqli_query($con,$sql);
 
-$row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC);
+while($row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC)){
              //echo ''.$row["phone2"];
 		   printf(''.$row["full_name"]."\xA"); //0
 		   printf(''.$row["blood_type"]."\xA"); //1
@@ -36,7 +36,8 @@ $row=mysqli_fetch_array($sql_query ,MYSQLI_ASSOC);
 		   printf(''.$row["donate_boolean"]."\xA"); //11
 		   printf(''.$row["image"]."\xA"); //12
 		    printf(''.$row["gender"]."\xA"); // 13
-
+                    printf(''.$row["date_donated"]."\xA"); // 14
+}
 mysqli_close($con);
 
         
