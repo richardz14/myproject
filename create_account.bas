@@ -110,7 +110,7 @@ Sub for_btn_animation
 	a1.RepeatMode = a1.REPEAT_REVERSE
 End Sub
 Private Sub email_existance
-	ProgressDialogShow2("Please wait...",True)
+	ProgressDialogShow2("Please wait...",False)	
 	Dim email_url As String
 	Dim url_back As calculations
 	url_back.Initialize
@@ -192,6 +192,19 @@ Sub reg_button_Click
 			text_password.Text = ""
 			text_password2.Text = ""
 			Msgbox("Error: Password did not match!","C O N F I R M A T I O N")
+		else if text_email.Text.IndexOf("@") == -1 Or text_email.Text.IndexOf(".") == -1 Then
+			ProgressDialogHide
+			text_password.Text = ""
+			text_password2.Text = ""
+			Msgbox("Error: Must be a valid email address!","C O N F I R M A T I O N")
+		else if text_phonenumber.Text.Length <= 10 Or text_phonenumber2.Text.Length <= 10 Then
+			ProgressDialogHide
+			text_password.Text = ""
+			text_password2.Text = ""
+			Msgbox("Error: Phone number must be 11 digits!","C O N F I R M A T I O N")
+		else if text_password.Text.Length <= 5 Or text_password2.Text.Length <= 5 Then
+			ProgressDialogHide
+			Msgbox("Error: Password must contain a minimum of 6 letters and above!","C O N F I R M A T I O N")
 		Else if ageGet <= 18 Then
 			ProgressDialogHide	
 			Msgbox("Error: Age must be 18 above to register!","C O N F I R M A T I O N")
@@ -292,7 +305,7 @@ Private Sub existing_result
 			maps.Put("phone_number2",phone_number2)
 			maps.Put("location_brgy",brgy)
 			maps.Put("location_street",street)
-			maps.Put("location_purok","NULL")
+			maps.Put("location_purok","Him. City")
 			maps.Put("bday_month",month)
 			maps.Put("bday_day",day)
 			maps.Put("bday_year",year)
@@ -319,7 +332,7 @@ Private Sub existing_result
 				
 				ProgressDialogHide
 			''
-			Dim choose As Int : choose = Msgbox2("Sucessfuly Registered","C O N F I R M A T I O N","OK","","",Null)
+			Dim choose As Int : choose = Msgbox2("Sucessfuly Registered, this will be redirect to login!","C O N F I R M A T I O N","OK","","",Null)
 				Select choose
 					Case DialogResponse.POSITIVE
 						Activity.Finish

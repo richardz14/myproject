@@ -2566,7 +2566,7 @@ _url_back._initialize(processBA);
  //BA.debugLineNum = 258;BA.debugLine="search_all_users_data = url_back.php_email_url(\"s";
 _search_all_users_data = _url_back._php_email_url("search_all_users_data_list.php");
  //BA.debugLineNum = 262;BA.debugLine="data_query_all_users_datas.Download2(search_all_u";
-mostCurrent._data_query_all_users_datas._download2(_search_all_users_data,new String[]{"all_info","SELECT * FROM person_info where blood_type='"+mostCurrent._spin_item_click+"';"});
+mostCurrent._data_query_all_users_datas._download2(_search_all_users_data,new String[]{"all_info","SELECT * FROM person_info where blood_type='"+mostCurrent._spin_item_click+"' and not `id`="+mostCurrent._login_form._id_query+";"});
  //BA.debugLineNum = 264;BA.debugLine="End Sub";
 return "";
 }
@@ -3103,9 +3103,9 @@ _fn_pnl.AddView((android.view.View)(mostCurrent._user_image.getObject()),(int) (
  //BA.debugLineNum = 959;BA.debugLine="fn_pnl.AddView(bookmark_img,fn_pnl.Width-13.5%x";
 _fn_pnl.AddView((android.view.View)(_bookmark_img.getObject()),(int) (_fn_pnl.getWidth()-anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (13.5),mostCurrent.activityBA)),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (1.3),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (12),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (7),mostCurrent.activityBA));
  //BA.debugLineNum = 960;BA.debugLine="fn_pnl.AddView(fullname,0,user_image.Top + user_";
-_fn_pnl.AddView((android.view.View)(_fullname.getObject()),(int) (0),(int) (mostCurrent._user_image.getTop()+mostCurrent._user_image.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (72),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (10),mostCurrent.activityBA));
- //BA.debugLineNum = 962;BA.debugLine="fullname.TextSize = 25";
-_fullname.setTextSize((float) (25));
+_fn_pnl.AddView((android.view.View)(_fullname.getObject()),(int) (0),(int) (mostCurrent._user_image.getTop()+mostCurrent._user_image.getHeight()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (72),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (12),mostCurrent.activityBA));
+ //BA.debugLineNum = 962;BA.debugLine="fullname.TextSize = 18";
+_fullname.setTextSize((float) (18));
  //BA.debugLineNum = 963;BA.debugLine="fullname.Typeface = Typeface.LoadFromAssets(\"ZIN";
 _fullname.setTypeface(anywheresoftware.b4a.keywords.Common.Typeface.LoadFromAssets("ZINGHABI.otf"));
  //BA.debugLineNum = 965;BA.debugLine="view_panl.AddView(age_pnl,1%x,0,72%x,8%y)";

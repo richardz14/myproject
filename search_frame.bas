@@ -264,7 +264,7 @@ Sub search_btn_Click
 
 	''url_id = url_back.php_email_url("search_blood_id.php")
 	'Log(full_name&" "&spin_item_click)
-	data_query_all_users_datas.Download2(search_all_users_data,Array As String("all_info","SELECT * FROM person_info where blood_type='"&spin_item_click&"';"))
+	data_query_all_users_datas.Download2(search_all_users_data,Array As String("all_info","SELECT * FROM person_info where blood_type='"&spin_item_click&"' and not `id`="&login_form.id_query&";"))
 
 End Sub
 Sub back_up_search_btn_Click
@@ -962,9 +962,9 @@ Sub vie_btn_click
 		'fn_pnl.AddView(fullname,0,1%y,72%x,8%y) ' full name image
 		fn_pnl.AddView(user_image,((fn_pnl.Width/2)/2)-2%x,1.2%y,39%x,17%y)
 			fn_pnl.AddView(bookmark_img,fn_pnl.Width-13.5%x,1.3%y,12%x,7%y)
-		fn_pnl.AddView(fullname,0,user_image.Top + user_image.Height,72%x,10%y) ' full name
+		fn_pnl.AddView(fullname,0,user_image.Top + user_image.Height,72%x,12%y) ' full name
 		
-		fullname.TextSize = 25
+		fullname.TextSize = 18
 		fullname.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
 		''
 	view_panl.AddView(age_pnl,1%x,0,72%x,8%y) 

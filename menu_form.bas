@@ -835,6 +835,9 @@ Sub update_btn_Click
     If text_fn.Text == ""  Or text_email.Text == "" Or text_phonenumber2.Text == "" Or text_phonenumber.Text == "" Or text_answer.Text == "" Then
 		ProgressDialogHide
 		Msgbox("Error: Fill up those empty fields before you update!","C O N F I R M A T I O N")
+	else if ageGet <= 18 Then
+		ProgressDialogHide
+		Msgbox("Error: Your age must be 18 and above!","C O N F I R M A T I O N")
 	Else
 		m_1 = "UPDATE `person_info` SET `full_name`='"&text_fn.Text&"',`blood_type`='"&blood_selected&"', `phone_number1`='"&text_phonenumber.Text&"', `phone_number2`='"&text_phonenumber2.Text&"', `location_brgy`='"&location_brgy_selected&"', `location_street`='"&location_street_selected&"', "
 		m_2 = "`location_purok`='', `bday_month`='"&bday_month_selected&"',`bday_day`='"&bday_day_selected&"', `bday_year`='"&bday_year_selected&"', `nick_name`='"&text_answer.Text&"', `donate_boolean`='"&is_donated&"', `lat`='"&lat&"', `long`='"&lng&"', `image`='"&image_container&"', "
@@ -859,7 +862,7 @@ Sub update_btn_Click
 			maps.Put("phone_number2",text_phonenumber2.Text)
 			maps.Put("location_brgy",location_brgy_selected)
 			maps.Put("location_street",location_street_selected)
-			maps.Put("location_purok","NULL")
+			maps.Put("location_purok","Him. City")
 			maps.Put("bday_month",bday_month_selected)
 			maps.Put("bday_day",bday_day_selected)
 			maps.Put("bday_year",bday_year_selected)
