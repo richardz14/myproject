@@ -524,7 +524,7 @@ Sub Activity_KeyPress(KeyCode As Int) As Boolean
 		If panel_click_ == 0 Then
 		''for exiting application
 				Dim confirm As Int
-			confirm = Msgbox2("Would you to log out your account?","C O N F I R M A T I O N","YES","","NO",Null)
+			confirm = Msgbox2("Would you to like log out your account?","C O N F I R M A T I O N","YES","","NO",Null)
 			If confirm == DialogResponse.POSITIVE Then
 				login_form.is_log_in = False
 				ExitApplication
@@ -759,7 +759,7 @@ Sub exit_btn_Click
 		
 	If login_form.is_log_in == True Then
 		Dim confirm As Int
-		confirm = Msgbox2("Would you to log out your account, and exit the application?","C O N F I R M A T I O N","YES","","NO",Null)
+		confirm = Msgbox2("Would you to like log out your account, and exit the application?","C O N F I R M A T I O N","YES","","NO",Null)
 		If confirm == DialogResponse.POSITIVE Then
 			login_form.is_log_in = False
 				
@@ -835,7 +835,7 @@ Sub update_btn_Click
     If text_fn.Text == ""  Or text_email.Text == "" Or text_phonenumber2.Text == "" Or text_phonenumber.Text == "" Or text_answer.Text == "" Then
 		ProgressDialogHide
 		Msgbox("Error: Fill up those empty fields before you update!","C O N F I R M A T I O N")
-	else if ageGet <= 18 Then
+	else if ageGet < 18 Then
 		ProgressDialogHide
 		Msgbox("Error: Your age must be 18 and above!","C O N F I R M A T I O N")
 	Else

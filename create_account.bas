@@ -205,7 +205,7 @@ Sub reg_button_Click
 		else if text_password.Text.Length <= 5 Or text_password2.Text.Length <= 5 Then
 			ProgressDialogHide
 			Msgbox("Error: Password must contain a minimum of 6 letters and above!","C O N F I R M A T I O N")
-		Else if ageGet <= 18 Then
+		Else if ageGet < 18 Then
 			ProgressDialogHide	
 			Msgbox("Error: Age must be 18 above to register!","C O N F I R M A T I O N")
 			Else

@@ -661,8 +661,8 @@ if (_keycode==anywheresoftware.b4a.keywords.Common.KeyCodes.KEYCODE_BACK) {
 if (_panel_click_==0) { 
  //BA.debugLineNum = 521;BA.debugLine="Dim confirm As Int";
 _confirm = 0;
- //BA.debugLineNum = 522;BA.debugLine="confirm = Msgbox2(\"Would you to log out your ac";
-_confirm = anywheresoftware.b4a.keywords.Common.Msgbox2("Would you to log out your account?","C O N F I R M A T I O N","YES","","NO",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
+ //BA.debugLineNum = 522;BA.debugLine="confirm = Msgbox2(\"Would you to like log out yo";
+_confirm = anywheresoftware.b4a.keywords.Common.Msgbox2("Would you to like log out your account?","C O N F I R M A T I O N","YES","","NO",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
  //BA.debugLineNum = 523;BA.debugLine="If confirm == DialogResponse.POSITIVE Then";
 if (_confirm==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
  //BA.debugLineNum = 524;BA.debugLine="login_form.is_log_in = False";
@@ -1835,8 +1835,8 @@ _aa1.Start((android.view.View)(mostCurrent._exit_img.getObject()));
 if (mostCurrent._login_form._is_log_in==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 756;BA.debugLine="Dim confirm As Int";
 _confirm = 0;
- //BA.debugLineNum = 757;BA.debugLine="confirm = Msgbox2(\"Would you to log out your acc";
-_confirm = anywheresoftware.b4a.keywords.Common.Msgbox2("Would you to log out your account, and exit the application?","C O N F I R M A T I O N","YES","","NO",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
+ //BA.debugLineNum = 757;BA.debugLine="confirm = Msgbox2(\"Would you to like log out you";
+_confirm = anywheresoftware.b4a.keywords.Common.Msgbox2("Would you to like log out your account, and exit the application?","C O N F I R M A T I O N","YES","","NO",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
  //BA.debugLineNum = 758;BA.debugLine="If confirm == DialogResponse.POSITIVE Then";
 if (_confirm==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
  //BA.debugLineNum = 759;BA.debugLine="login_form.is_log_in = False";
@@ -4991,7 +4991,7 @@ if ((mostCurrent._text_fn.getText()).equals("") || (mostCurrent._text_email.getT
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
  //BA.debugLineNum = 832;BA.debugLine="Msgbox(\"Error: Fill up those empty fields before";
 anywheresoftware.b4a.keywords.Common.Msgbox("Error: Fill up those empty fields before you update!","C O N F I R M A T I O N",mostCurrent.activityBA);
- }else if(_ageget<=18) { 
+ }else if(_ageget<18) { 
  //BA.debugLineNum = 834;BA.debugLine="ProgressDialogHide";
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
  //BA.debugLineNum = 835;BA.debugLine="Msgbox(\"Error: Your age must be 18 and above!\",\"";

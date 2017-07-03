@@ -1702,7 +1702,7 @@ anywheresoftware.b4a.keywords.Common.Msgbox("Error: Phone number must be 11 digi
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
  //BA.debugLineNum = 202;BA.debugLine="Msgbox(\"Error: Password must contain a minimum";
 anywheresoftware.b4a.keywords.Common.Msgbox("Error: Password must contain a minimum of 6 letters and above!","C O N F I R M A T I O N",mostCurrent.activityBA);
- }else if(_ageget<=18) { 
+ }else if(_ageget<18) { 
  //BA.debugLineNum = 204;BA.debugLine="ProgressDialogHide";
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
  //BA.debugLineNum = 205;BA.debugLine="Msgbox(\"Error: Age must be 18 above to register";
