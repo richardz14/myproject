@@ -144,8 +144,10 @@ Public Sub JobDone(job As HttpJob)
 				'name_query = job.GetString.Trim
 				calcs.name = job.GetString.Trim
 			Case "forgot_email_get"
+				'Log(job.GetString)
 				email_for = job.GetString.Trim
 			Case "forgot_nick_get"
+				'Log(job.GetString)
 				nickName_for = job.GetString.Trim
 			End Select
 		''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -185,9 +187,9 @@ Public Sub JobDone(job As HttpJob)
 		'''''''''''''''''''''''''''''''''''''''''''''''''''
 		''for recover account
 	If log_click == False Then
-		If booleanforgotcount == 1 Then
+		If booleanforgotcount == 2 Then
 			ProgressDialogHide
-			If email_for.CompareTo(email_forgot.Text) == 0 And nickName_for.CompareTo(nickN_forgot.Text) == 0 Then
+			If email_for.CompareTo(email_forgot.Text.Trim) == 0 And nickName_for.CompareTo(nickN_forgot.Text.Trim) == 0 Then
 				'ToastMessageShow("good",False)
 				Dim url_back As calculations
 				Dim forgot_string As String
@@ -340,7 +342,7 @@ log_click = True
 	user_id.Download2(id,Array As String("id","SELECT id FROM `person_info` where `email`='"&text_email.Text&"';"))
 	'nick_name.Download2(nickname,Array As String("nick","SELECT nick_name FROM `person_info` where `email`='"&text_email.Text&"';"))
 	
-	h_email.Download2(url_email,Array As String("email","SELECT email FROM `person_info` where `email`='"&text_email.Text&"';"))
+	h_email.Download2(url_email,Array As String("email","SELECT * FROM `person_info` where `email`='"&text_email.Text&"';","email_class","login"))
 	h_pass.Download2(url_pass,Array As String("pass","SELECT decode(password,'goroy') FROM `person_info` where `email`='"&text_email.Text&"';"))
 	
 End Sub
@@ -461,7 +463,7 @@ Sub forgot_recover_btn_click
 			url_back.Initialize
 			url_email = url_back.php_email_url("index.php")
 			nickname = url_back.php_email_url("search_blood_nickN.php")
-			forgot_email_job.Download2(url_email,Array As String("email","SELECT email FROM `person_info` where `email`='"&email_forgot.Text&"';"))
+			forgot_email_job.Download2(url_email,Array As String("email","SELECT * FROM `person_info` where `email`='"&email_forgot.Text&"';","email_class","recover"))
 			forgot_nick_job.Download2(nickname,Array As String("nick","SELECT nick_name FROM `person_info` where `nick_name`='"&nickN_forgot.Text&"';"))	
 		End If
 	End If
