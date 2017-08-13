@@ -197,7 +197,7 @@ Sub reg_button_Click
 			text_password.Text = ""
 			text_password2.Text = ""
 			Msgbox("Error: Must be a valid email address!","C O N F I R M A T I O N")
-		else if text_phonenumber.Text.Length <= 10 Or text_phonenumber2.Text.Length <= 10 Then
+		else if text_phonenumber.Text.Length <> 11 Or text_phonenumber2.Text.Length <> 11 Then
 			ProgressDialogHide
 			text_password.Text = ""
 			text_password2.Text = ""

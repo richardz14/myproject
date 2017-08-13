@@ -1688,7 +1688,7 @@ mostCurrent._text_password.setText((Object)(""));
 mostCurrent._text_password2.setText((Object)(""));
  //BA.debugLineNum = 194;BA.debugLine="Msgbox(\"Error: Must be a valid email address!\",";
 anywheresoftware.b4a.keywords.Common.Msgbox("Error: Must be a valid email address!","C O N F I R M A T I O N",mostCurrent.activityBA);
- }else if(mostCurrent._text_phonenumber.getText().length()<=10 || mostCurrent._text_phonenumber2.getText().length()<=10) { 
+ }else if(mostCurrent._text_phonenumber.getText().length()!=11 || mostCurrent._text_phonenumber2.getText().length()!=11) { 
  //BA.debugLineNum = 196;BA.debugLine="ProgressDialogHide";
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
  //BA.debugLineNum = 197;BA.debugLine="text_password.Text = \"\"";

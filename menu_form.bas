@@ -2247,14 +2247,16 @@ Sub help_Click
 	''for string of about us design...
 		help_us_pnl.Initialize("help_us_pnl")
 	Dim rs As RichString
-	Dim f_string,s_string,t_string,fo_string,fi_string,s_string As String
+	Dim f_string,s_string,t_string,fo_string,fi_string,si_string,sev_string As String
 	f_string = CRLF&"•	Once you gave your name and your contact number, all your information will be shown to all this mobile app users.  "
 	s_string = CRLF&CRLF&"•  Your mobile number will be call you once the recipient found you that you are one of the possible donors. "
 	t_string = CRLF&CRLF&"•  DO NOT do a search and contact just to test app. If you do TEST the SEARCH button and contact the donor and tell the donor that you only testing the app the donor might be disappointed. You will waste not only your time and effort but you will waste a patient’s who is really need a donor."
 	fo_string = CRLF&CRLF&"•  Using call button is more effective than sending message to the donor. It saves time and effort."
 	fi_string = CRLF&CRLF&"•  Select the correct Feedback given to this app so that it will help in boosting the confident of the developer and will be making more community based app like this LIFEBLOOD WITH GIS."
-	s_string = CRLF&CRLF&"•  Please share this app and let us build a community that cares."
-	rs.Initialize(f_string&s_string&t_string&fo_string&fi_string&s_string)
+	si_string = CRLF&CRLF&"•  Please share this app and let us build a community that cares."
+	sev_string = CRLF&CRLF&"•  If you want to deactivate your account or for more inquiries just email {bg}Beckaygoroy@gmail.com{bg} and state your reason."
+	rs.Initialize(f_string&s_string&t_string&fo_string&fi_string&si_string&sev_string)
+	rs.Color2(Colors.Blue,"{bg}")
 	help_data.Text = rs '' to set the string output
 	help_data.Typeface = Typeface.LoadFromAssets("ZINGBISD.otf")
 	help_data.TextSize = 17
