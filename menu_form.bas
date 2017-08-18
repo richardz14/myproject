@@ -189,7 +189,7 @@ Sub for_btn_animation
 		animations(i).RepeatMode = animations(i).REPEAT_REVERSE
 	Next
 End Sub
-Sub load_activity_layout
+Sub load_activity_layout_backup
 	Dim text_temp As calculations
 	
 	text_temp.Initialize
@@ -319,12 +319,232 @@ Sub load_activity_layout
 	 		about_img.Top = ((help_pnl.Height/2)/2)/2
 			 help_img.Top = ((profile_pnl.Height/2)/2)/2
 			 exit_img.Top = ((exit_pnl.Height/2)/2)/2
-	''--------- button images ------------------''''
-	search_blood.SetBackgroundImage(LoadBitmap(File.DirAssets,"SEARCH.png"))
-		about.SetBackgroundImage(LoadBitmap(File.DirAssets,"ABOUT_US.png"))
-		help.SetBackgroundImage(LoadBitmap(File.DirAssets,"HELP.png"))
-		profile.SetBackgroundImage(LoadBitmap(File.DirAssets,"my_profile.png"))
-		exit_btn.SetBackgroundImage(LoadBitmap(File.DirAssets,"EXIT.png"))
+	''--------- button images ------------------'''''
+	Dim search_grad,about_grad,help_grad,profile_grad,exit_grad As GradientDrawable
+		Dim col(2) As Int
+		col(0) = Colors.Red
+		col(1) = Colors.LightGray
+		search_grad.Initialize("TOP_BOTTOM",col)
+		about_grad.Initialize("TOP_BOTTOM",col)
+		help_grad.Initialize("TOP_BOTTOM",col)
+		profile_grad.Initialize("TOP_BOTTOM",col)
+		exit_grad.Initialize("TOP_BOTTOM",col)
+			'' this is for gradiant buttons
+			search_blood.Background = search_grad
+			about.Background = about_grad
+			help.Background = help_grad
+			profile.Background = profile_grad
+			exit_btn.Background = exit_grad
+					search_grad.CornerRadius = 5dip
+					about_grad.CornerRadius = 5dip
+					help_grad.CornerRadius = 5dip
+					profile_grad.CornerRadius = 5dip
+					exit_grad.CornerRadius = 5dip
+				''' text
+			search_blood.Text = " SEARCH "
+			about.Text = " ABOUT "
+			help.Text = " HELP "
+			profile.Text = " PROFILE "
+			exit_btn.Text = " EXIT "
+			'' typefaces
+			search_blood.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			about.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			help.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			profile.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			exit_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			'' tet size
+			search_blood.TextSize = 25
+			about.TextSize = 25
+			help.TextSize = 25
+			profile.TextSize = 25
+			exit_btn.TextSize = 25
+		'log_in_button.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+	    'search_blood.SetBackgroundImage(LoadBitmap(File.DirAssets,"SEARCH.png"))
+		'about.SetBackgroundImage(LoadBitmap(File.DirAssets,"ABOUT_US.png"))
+		'help.SetBackgroundImage(LoadBitmap(File.DirAssets,"HELP.png"))
+		'profile.SetBackgroundImage(LoadBitmap(File.DirAssets,"my_profile.png"))
+		'exit_btn.SetBackgroundImage(LoadBitmap(File.DirAssets,"EXIT.png"))
+		
+		users_lbl.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+		 users_out_lbl.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
+	
+End Sub
+
+Sub load_activity_layout
+	Dim text_temp As calculations
+	
+	text_temp.Initialize
+	'Log("name ► "&login_form.name_query)
+	'Log("id: "&login_form.id_query)
+	users_out_lbl.text = login_form.name_query
+	ban_picture.SetBackgroundImage(LoadBitmap(File.DirAssets,"banner01.jpg"))
+	ban_logo.SetBackgroundImage(LoadBitmap(File.DirAssets,"logo1.jpg"))
+	Activity.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	users_panel.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	src_blood_pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	profile_pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	about_pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	help_pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	exit_pnl.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
+	
+			srch_blood_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"menu_search.png"))
+	 		profile_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"emyprofile.png"))
+	 		about_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"eaboutus.png"))
+			 help_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"ehelp.png"))
+			 exit_img.SetBackgroundImage(LoadBitmap(File.DirAssets,"eexit.png"))
+	
+			bookmark_image.SetBackgroundImage(LoadBitmap(File.DirAssets,"bh3.png"))
+	users_heading.Color = Colors.Transparent
+	''width
+		bookmark_image.Width = 12%x
+	ban_picture.Width = 80%x
+	ban_logo.Width = 20%x
+	users_panel.Width = Activity.Width
+	src_blood_pnl.Width = Activity.Width
+	profile_pnl.Width = Activity.Width
+	about_pnl.Width = Activity.Width
+	help_pnl.Width = Activity.Width
+	exit_pnl.Width = Activity.Width
+	users_heading.Width = Activity.Width
+	''heigth
+		bookmark_image.Height = 7%y
+	users_heading.Height = 9%y
+	users_panel.Height = 18%y
+	ban_picture.Height = users_panel.Height
+	ban_logo.Height = users_panel.Height
+	src_blood_pnl.Height = 12%y
+	profile_pnl.Height = 12%y
+	about_pnl.Height = 12%y
+	help_pnl.Height = 12%y
+	exit_pnl.Height = 12%y
+	''left
+	ban_logo.Left = 0
+	ban_picture.Left = ban_logo.Left + ban_logo.Width
+	users_panel.Left = 0
+	src_blood_pnl.Left = 0
+	profile_pnl.Left = 0
+	about_pnl.Left = 0
+	help_pnl.Left = 0
+	exit_pnl.Left = 0
+	users_heading.Left = 0
+	''top
+	users_panel.Top = 0
+	ban_picture.Top = 0
+	ban_logo.Top = 0
+	users_heading.Top = users_panel.Top + users_panel.Height 
+	src_blood_pnl.Top = users_heading.Top + users_heading.Height + 2%y
+	profile_pnl.Top = src_blood_pnl.Top + src_blood_pnl.Height
+	about_pnl.Top = profile_pnl.Top + profile_pnl.Height
+	help_pnl.Top = about_pnl.Top + about_pnl.Height
+	exit_pnl.Top = help_pnl.Top + help_pnl.Height
+	'src_blood_pnl.Top = users_panel.Top + users_panel.Height + 1%Y
+	'profile_pnl.Top = src_blood_pnl.Top + src_blood_pnl.Height + 1%Y
+	'about_pnl.Top = profile_pnl.Top + profile_pnl.Height+ 1%Y
+	'help_pnl.Top = about_pnl.Top + about_pnl.Height+ 1%Y
+	'exit_pnl.Top = help_pnl.Top + help_pnl.Height+ 1%Y
+	
+	'' buttons height, width, left, top
+	'width
+		search_blood.Width = Activity.Width - 60%x
+		about.Width = Activity.Width - 60%x
+		help.Width = Activity.Width - 60%x
+		profile.Width = Activity.Width - 60%x
+		exit_btn.Width = Activity.Width - 60%x
+			srch_blood_img.Width = Activity.Width - 85%x
+	 		profile_img.Width = Activity.Width - 85%x
+	 		about_img.Width = Activity.Width - 85%x
+			 help_img.Width = Activity.Width - 85%x
+			 exit_img.Width = Activity.Width - 85%x
+			 
+			 users_out_lbl.Width = 50%x
+	'height
+		search_blood.Height = 9%y
+		about.Height = 9%y
+		help.Height = 9%y
+		profile.Height = 9%y
+		exit_btn.Height = 9%y
+			 srch_blood_img.Height = 9%y
+	 		profile_img.Height = 9%y
+	 		about_img.Height = 9%y
+			 help_img.Height = 9%y
+			 exit_img.Height = 9%y
+	'left
+	bookmark_image.Left = 97%x - bookmark_image.Width
+	
+	users_lbl.Left = 2%x
+	users_out_lbl.Left = users_lbl.Left + users_lbl.Width
+		search_blood.Left = ((src_blood_pnl.Width/2)/2) - 2%x
+	    profile.Left = ((profile_pnl.Width/2)/2) - 2%x	
+		about.Left = ((help_pnl.Width/2)/2) - 2%x
+		help.Left = ((about_pnl.Width/2)/2) - 2%x
+		exit_btn.Left = ((exit_pnl.Width/2)/2) - 2%x
+		
+		srch_blood_img.Left = search_blood.Left + search_blood.Width
+	 		profile_img.Left = profile.Left + profile.Width
+	 		about_img.Left = about.Left + about.Width
+			 help_img.Left = help.Left + help.Width
+			 exit_img.Left = exit_btn.Left + exit_btn.Width
+	'top
+	users_out_lbl.Top = ((users_heading.Height/2)/2)/2
+	users_lbl.Top = users_out_lbl.Top
+		bookmark_image.Top = users_out_lbl.Top
+	
+		search_blood.Top = ((src_blood_pnl.Height/2)/2)/2
+		about.Top = ((about_pnl.Height/2)/2)/2
+		help.Top = ((help_pnl.Height/2)/2)/2
+		profile.Top = ((profile_pnl.Height/2)/2)/2
+		exit_btn.Top = ((exit_pnl.Height/2)/2)/2
+		
+		srch_blood_img.Top = ((src_blood_pnl.Height/2)/2)/2
+	 		profile_img.Top = ((about_pnl.Height/2)/2)/2
+	 		about_img.Top = ((help_pnl.Height/2)/2)/2
+			 help_img.Top = ((profile_pnl.Height/2)/2)/2
+			 exit_img.Top = ((exit_pnl.Height/2)/2)/2
+	''--------- button images ------------------'''''
+	Dim search_grad,about_grad,help_grad,profile_grad,exit_grad As GradientDrawable
+		Dim col(2) As Int
+		col(0) = Colors.Red
+		col(1) = Colors.LightGray
+		search_grad.Initialize("TOP_BOTTOM",col)
+		about_grad.Initialize("TOP_BOTTOM",col)
+		help_grad.Initialize("TOP_BOTTOM",col)
+		profile_grad.Initialize("TOP_BOTTOM",col)
+		exit_grad.Initialize("TOP_BOTTOM",col)
+			'' this is for gradiant buttons
+			search_blood.Background = search_grad
+			about.Background = about_grad
+			help.Background = help_grad
+			profile.Background = profile_grad
+			exit_btn.Background = exit_grad
+					search_grad.CornerRadius = 5dip
+					about_grad.CornerRadius = 5dip
+					help_grad.CornerRadius = 5dip
+					profile_grad.CornerRadius = 5dip
+					exit_grad.CornerRadius = 5dip
+				''' text
+			search_blood.Text = " SEARCH "
+			about.Text = " ABOUT "
+			help.Text = " HELP "
+			profile.Text = " PROFILE "
+			exit_btn.Text = " EXIT "
+			'' typefaces
+			search_blood.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			about.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			help.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			profile.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			exit_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+			'' tet size
+			search_blood.TextSize = 25
+			about.TextSize = 25
+			help.TextSize = 25
+			profile.TextSize = 25
+			exit_btn.TextSize = 25
+		'log_in_button.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+	    'search_blood.SetBackgroundImage(LoadBitmap(File.DirAssets,"SEARCH.png"))
+		'about.SetBackgroundImage(LoadBitmap(File.DirAssets,"ABOUT_US.png"))
+		'help.SetBackgroundImage(LoadBitmap(File.DirAssets,"HELP.png"))
+		'profile.SetBackgroundImage(LoadBitmap(File.DirAssets,"my_profile.png"))
+		'exit_btn.SetBackgroundImage(LoadBitmap(File.DirAssets,"EXIT.png"))
 		
 		users_lbl.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
 		 users_out_lbl.Typeface = Typeface.LoadFromAssets("ZINGHABI.otf")
@@ -656,7 +876,7 @@ Public Sub JobDone(job As HttpJob)
 				ProgressDialogHide	
 				profile_all_body.RemoveView
 				Dim confirmR As Int
-				confirmR = Msgbox2("Successfuly Update!","C O N F I R M A T I O N","OK","","",Null)
+				confirmR = Msgbox2("successfully Update!","C O N F I R M A T I O N","OK","","",Null)
 				If confirmR == DialogResponse.POSITIVE Then
 		  		users_out_lbl.text = text_answer.Text
 		'' login_form.name_query = text_answer.Text
@@ -838,6 +1058,9 @@ Sub update_btn_Click
 	else if ageGet < 18 Then
 		ProgressDialogHide
 		Msgbox("Error: Your age must be 18 and above!","C O N F I R M A T I O N")
+	else if text_phonenumber.Text.Length <> 11 Or text_phonenumber2.Text.Length <> 11 Then
+	ProgressDialogHide
+		Msgbox("Error: Phone number must be 11 digits!","C O N F I R M A T I O N")
 	Else
 		m_1 = "UPDATE `person_info` SET `full_name`='"&text_fn.Text&"',`blood_type`='"&blood_selected&"', `phone_number1`='"&text_phonenumber.Text&"', `phone_number2`='"&text_phonenumber2.Text&"', `location_brgy`='"&location_brgy_selected&"', `location_street`='"&location_street_selected&"', "
 		m_2 = "`location_purok`='', `bday_month`='"&bday_month_selected&"',`bday_day`='"&bday_day_selected&"', `bday_year`='"&bday_year_selected&"', `nick_name`='"&text_answer.Text&"', `donate_boolean`='"&is_donated&"', `lat`='"&lat&"', `long`='"&lng&"', `image`='"&image_container&"', "
@@ -2165,12 +2388,20 @@ Sub about_Click
 	title_lbl.TextColor = Colors.White
 	''for string of about us design...
 	Dim rs As RichString
-	Dim f_string,s_string As String
-	f_string = CRLF&"•	{ib}{bg1}Becgrajhon2013{bg1}{ib} was the developer and designer of the LIFEBLOOD WITH GIS mobile app. It was started when the developer saw the posted in NONESCOST IT building that there was a boy that need a certain blood to help cure his illness."
-	s_string = CRLF&CRLF&"•	{iib}{bg2}Philippines{bg2}{iib} is facing a blood shortage and even Himamaylan City. People not only have to run from their respective place to other barangay or other city as well because they need some donor, they will be go to Bacolod City to process the blood donation procedure of the government. This LIFEBLOOD WITH GIS will help the NOT only in people of HIMAMAYLAN CITY but in other neighboring municipalities and cities in finding blood donors."
-	rs.Initialize(f_string&s_string)
+	Dim f_string,s_string,ss_string,info_1,info_2,info_3 As String
+	f_string = CRLF&"•	{ib}{bg1}Becgrajhon2013{bg1}{ib} is the developer and designer of the LIFEBLOOD WITH GIS mobile app. This application was conceived when the developer was prompted by a post in one of the NONESCOST’s bulletin boards, about a boy who was asking for blood donation."
+	ss_string = CRLF&CRLF&"•  Motivation for the development of this mobile apps is indebted to the NONESCOST FAMILY."
+	s_string = CRLF&CRLF&"{f_tittle}INFORMATION{f_tittle}"
+	info_1 = CRLF&"Blood shortage is happening in the Philippines in general, and even in Himamaylan City in particular. People here would go to nearby municipalities and cities to look for blood donors. If meet, they would go to Bacolod City just to process blood donation procedure of the government."
+	info_2 = CRLF&"With this LIFEBLOOD with GIS, looking for possible blood donors would just be easy. This benefit not only the “Himamaylanons” but people in the neighboring municipalities and cities as well. "
+	info_3 = CRLF&CRLF&CRLF&"{c_right}Copyright © 2017 Mary Ann P. Goroy{c_right}"
+	's_string = CRLF&CRLF&"•	{iib}{bg2}Philippines{bg2}{iib} is facing a blood shortage and even Himamaylan City. People not only have to run from their respective place to other barangay or other city as well because they need some donor, they will be go to Bacolod City to process the blood donation procedure of the government. This LIFEBLOOD WITH GIS will help the NOT only in people of HIMAMAYLAN CITY but in other neighboring municipalities and cities in finding blood donors."
+	rs.Initialize(f_string&ss_string&s_string&info_1&info_2&info_3)
 	rs.Style2(rs.STYLE_BOLD_ITALIC, "{ib}")
 	rs.Style2(rs.STYLE_BOLD_ITALIC, "{iib}")
+	rs.RelativeSize2(1.2,"{c_right}")
+	rs.RelativeSize2(1.5,"{f_tittle}")
+	
 	'rs.BackColor2(Colors.DarkGray,"{bg1}")
 	'rs.BackColor2(Colors.DarkGray,"{bg2}")
 	rs.Underscore2("{bg1}")
@@ -2183,7 +2414,7 @@ Sub about_Click
 		for_h.Visible = False
 		Dim string_h As Int : string_h= sus.MeasureMultilineTextHeight(for_h,for_h.Text)
 	''-------------------------------
-			about_sc2d.Initialize(68%x,string_h+7%Y,"about_sc2d")
+			about_sc2d.Initialize(68%x,string_h+10%Y,"about_sc2d")
 			about_sc2d.ScrollbarsVisibility(False,False)
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
@@ -2248,15 +2479,23 @@ Sub help_Click
 		help_us_pnl.Initialize("help_us_pnl")
 	Dim rs As RichString
 	Dim f_string,s_string,t_string,fo_string,fi_string,si_string,sev_string As String
-	f_string = CRLF&"•	Once you gave your name and your contact number, all your information will be shown to all this mobile app users.  "
-	s_string = CRLF&CRLF&"•  Your mobile number will be call you once the recipient found you that you are one of the possible donors. "
-	t_string = CRLF&CRLF&"•  DO NOT do a search and contact just to test app. If you do TEST the SEARCH button and contact the donor and tell the donor that you only testing the app the donor might be disappointed. You will waste not only your time and effort but you will waste a patient’s who is really need a donor."
-	fo_string = CRLF&CRLF&"•  Using call button is more effective than sending message to the donor. It saves time and effort."
-	fi_string = CRLF&CRLF&"•  Select the correct Feedback given to this app so that it will help in boosting the confident of the developer and will be making more community based app like this LIFEBLOOD WITH GIS."
-	si_string = CRLF&CRLF&"•  Please share this app and let us build a community that cares."
-	sev_string = CRLF&CRLF&"•  If you want to deactivate your account or for more inquiries just email {bg}Beckaygoroy@gmail.com{bg} and state your reason."
-	rs.Initialize(f_string&s_string&t_string&fo_string&fi_string&si_string&sev_string)
-	rs.Color2(Colors.Blue,"{bg}")
+	Dim title_first,title_second,very_first As String 
+	very_first = CRLF&"Bookmark: use for saving multiple possible blood donors. "
+		
+	title_first = CRLF&CRLF&"{f_tittle}Caution:{f_tittle}"
+	f_string = CRLF&"•	DO NOT do a search and contact just to test the app. If you do TEST the SEARCH button and contact the donor, telling him/her that you are only testing the app, he/she might be disappointed. You’re not only wasting your time and effort, but also that of the patient who really needs a blood donor. "
+	s_string = CRLF&CRLF&"•  Once you gave your name and your contact number, all your information will be shown to all this mobile app users. "
+	t_string = CRLF&CRLF&"•  Your mobile number will be called once the recipient found you as possible donors. "
+	
+	title_second = CRLF&CRLF&"{s_tittle}Information:{s_tittle}"
+	fo_string = CRLF&"•  Using call button is more effective than sending message to the donor. It saves time and effort. "
+	fi_string = CRLF&CRLF&"•  Select the correct Feedback given to this app so that it helps in boosting the confidence of the developer in making more community based apps like this-LIFEBLOOD WITH GIS. "
+	si_string = CRLF&CRLF&"•  Researcher will be excited to hear from you. Do share your feedbacks, queries or concerns. Please email me at {bg}beckaygoroy@gmail.com{bg} "
+	sev_string = CRLF&CRLF&"•  Please share this app and let us build a community that cares."
+	rs.Initialize(very_first&title_first&f_string&s_string&t_string&title_second&fo_string&fi_string&si_string&sev_string)
+	rs.Color2(Colors.Cyan,"{bg}")
+	rs.RelativeSize2(1.5,"{f_tittle}")
+	rs.RelativeSize2(1.5,"{s_tittle}")
 	help_data.Text = rs '' to set the string output
 	help_data.Typeface = Typeface.LoadFromAssets("ZINGBISD.otf")
 	help_data.TextSize = 17
@@ -2265,7 +2504,7 @@ Sub help_Click
 		for_h.Visible = False
 		Dim string_h As Int : string_h= sus.MeasureMultilineTextHeight(for_h,for_h.Text)
 	''-------------------------------
-			help_sc2d.Initialize(68%x,string_h+15%Y,"help_sc2d")
+			help_sc2d.Initialize(68%x,string_h+10%Y,"help_sc2d")
 			help_sc2d.ScrollbarsVisibility(False,False)
 	title_lbl.Gravity = Gravity.CENTER
 	pnl.Initialize("pnl")
@@ -2275,7 +2514,7 @@ Sub help_Click
 	pnl.AddView(title_lbl,2%x,2%y,70%x,8%y)
 	
 	pnl.AddView(help_sc2d,2%x,title_lbl.Top + title_lbl.Height,70%x,60%y)
-	help_sc2d.Panel.AddView(help_data,2%x,0,66%x,string_h+15%Y)
+	help_sc2d.Panel.AddView(help_data,2%x,0,66%x,string_h+10%Y)
 	pnl.AddView(help_ok_btn,1%x,help_sc2d.Top + help_sc2d.Height,72%x,8%y)
 
 	help_us_pnl.AddView(pnl,13%x,((((Activity.Height/2)/2)/2)/2),74%x,80%y)

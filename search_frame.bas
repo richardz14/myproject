@@ -156,7 +156,7 @@ Sub all_layout_load
 	toolkit_pnl.Color = Colors.Transparent
 	list_panel.Color = Colors.Transparent
 	search_btn.SetBackgroundImage(LoadBitmap(File.DirAssets,"esearch.png"))
-	list_btn.SetBackgroundImage(LoadBitmap(File.DirAssets,"view all.png"))
+	'list_btn.SetBackgroundImage(LoadBitmap(File.DirAssets,"view all.png"))
 	''width
 	  toolkit_pnl.Width = Activity.Width
 	  list_panel.Width = Activity.Width
@@ -198,6 +198,20 @@ Sub all_layout_load
 	  search_btn.top = ((toolkit_pnl.Height/2)/3)
 	  search_spiner.top = ((toolkit_pnl.Height/2)/3)
 	  
+	  ''' gradian of view all
+	  Dim view_all_grad As GradientDrawable
+	  	Dim col(2) As Int
+		col(0) = Colors.Red
+		col(1) = Colors.LightGray
+		view_all_grad.Initialize("TOP_BOTTOM",col)
+		list_btn.Background = view_all_grad
+			view_all_grad.CornerRadius = 5dip
+				''' text
+			list_btn.Text = " VIEW ALL "
+		list_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")	
+		list_btn.TextSize = 25
+		
+		
 	  isGPSon.Gravity = Gravity.RIGHT
 End Sub
 
@@ -1022,7 +1036,7 @@ Sub bookmark_img_click
 
 				If set_cursor.RowCount == 0 Then
 					sqlLite.ExecNonQuery("INSERT INTO `bookmarks` (`users_id`,`age`,`gender`,`is_donated`,`email`,`ph_number1`,`ph_number2`,`location`,`full_name`,`image`) VALUES('"&id_list.Get(row_click)&"','"&age_list.Get(row_click)&"','"&gender_list.Get(row_click)&"','"&donated_list.Get(row_click)&"','"&email_list.Get(row_click)&"','"&phone1_list.Get(row_click)&"','"&phone2_list.Get(row_click)&"','"&location_list.Get(row_click)&"','"&fullN_llist.Get(row_click)&"','"&image_list.Get(row_click)&"')")
-					Msgbox("Successfuly added as bookmark...","C O N F I R M A T I O N")
+					Msgbox("successfully added as bookmark...","C O N F I R M A T I O N")
 				Else
 					Msgbox("You have already added this person as bookmark...","C O N F I R M A T I O N")
 				End If
@@ -1485,7 +1499,7 @@ Sub list_btn_Click
 	btn_panel.SetBackgroundImage(LoadBitmap(File.DirAssets,"bg.jpg"))
 	dialog_panel_can_btn.Initialize("dialog_panel_can_btn")
 	dialog_panel_tittle.Initialize("dialog_panel_tittle")
-	dialog_panel_tittle.Text = "LIST OF PEOPLE"
+	dialog_panel_tittle.Text = "LIST OF PEOPLE ("&spin_item_click&")"
 	dialog_panel_can_btn.Text = "SEARCH"
 		dialog_panel_can_btn.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
 		dialog_panel_tittle.Typeface = Typeface.LoadFromAssets("HipHopDemi.ttf")
@@ -1496,7 +1510,7 @@ Sub list_btn_Click
 			se_btn.Initialize("TOP_BOTTOM",colorG)
 			se_btn.CornerRadius = 50dip
 		dialog_panel_can_btn.Background = se_btn
-	dialog_panel_tittle.TextSize = 30
+	dialog_panel_tittle.TextSize = 27 '30
 	dialog_panel_tittle.Gravity = Gravity.CENTER
 	dialog_panel_can_btn.Gravity = Gravity.CENTER
 	dialog_panel.AddView(dialog_panel_tittle,1%x,2%y,83%x,8%y)

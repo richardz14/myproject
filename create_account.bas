@@ -332,7 +332,7 @@ Private Sub existing_result
 				
 				ProgressDialogHide
 			''
-			Dim choose As Int : choose = Msgbox2("Sucessfuly Registered, this will be redirect to login!","C O N F I R M A T I O N","OK","","",Null)
+			Dim choose As Int : choose = Msgbox2("Successfully Registered, this will be redirect to login!","C O N F I R M A T I O N","OK","","",Null)
 				Select choose
 					Case DialogResponse.POSITIVE
 						Activity.Finish
@@ -505,17 +505,18 @@ Sub spinners_list_data
 
 End Sub
 Sub scrolling
-	'scrool_2d.Initialize(100%x,Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height + 5%y,"scroll2d")
-	scrool_2d.Initialize(100%x,112%y,"scroll2d")
+	'scrool_2d.Initialize(100%x,112%y,"scroll2d")
+	scrool_2d.Initialize(100%x,750dip,"scroll2d")
 	'scrool_2d.Panel.AddView(create_all_inputs,0,uptext_panel.Top - uptext_panel.Height,100%x,Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height)
 	scrool_2d.Panel.LoadLayout("create_all_inputs")
 	scrool_2d.ScrollbarsVisibility(False,False)
 	all_inputs.Width = 100%x
-	all_inputs.Height = 100%y
+	all_inputs.Height = 750dip
 	scrool_2d.Panel.SendToBack
-	'scrool_2d.Panel.Height = Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height - 10%y
-	all_inputs.SendToBack
+	'scrool_2d.Panel.Height = Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height - 10%y all_inputs
+	all_inputs.SendToBack 
 	all_inputs.Color = Colors.Transparent
+	'Activity.AddView(scrool_2d,0,uptext_panel.Top + uptext_panel.Height ,100%x, Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height)
 	Activity.AddView(scrool_2d,0,uptext_panel.Top + uptext_panel.Height ,100%x, Activity.Height - ban_panel.Height - uptext_panel.Height - create_panel.Height)
 	spinners_list_data
 End Sub
