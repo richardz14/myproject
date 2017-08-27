@@ -141,6 +141,36 @@ Public Sub JobDone(job As HttpJob)
 	End If
 	ProgressDialogHide
 End Sub
+Sub get_month_number(month_s As String) As Int
+	Dim number As Int
+	If month_s == "Jan" Then
+		number = 1
+	else if month_s == "Feb" Then
+		number = 2
+	else if month_s == "Mar" Then
+		number = 3
+	else if month_s == "Apr" Then
+		number = 4
+	else if month_s == "May" Then
+		number = 5
+	else if month_s == "Jun" Then
+		number = 6
+	else if month_s == "Jul" Then
+		number = 7
+	else if month_s == "Aug" Then
+		number = 8
+	else if month_s == "Sep" Then
+		number = 9
+	else if month_s == "Oct" Then
+		number = 10
+	else if month_s == "Nov" Then
+		number = 11
+	else if month_s == "Dec" Then
+		number = 12
+	End If
+	
+	Return number
+End Sub
 Sub reg_button_Click
 	a1.Start(reg_button)
 	
@@ -156,7 +186,7 @@ Sub reg_button_Click
 	street = location_spin_street.SelectedItem
 '	purok = location_spin_purok.SelectedItem
 	Dim month,day,year As String
-	month = bday_spin_month.SelectedItem
+	month = get_month_number(bday_spin_month.SelectedItem)
 	day = bday_spin_day.SelectedItem
 	year = bday_spin_year.SelectedItem
 	Dim answer As String : answer = text_answer.Text
@@ -249,7 +279,7 @@ Private Sub existing_result
 	street = location_spin_street.SelectedItem
 '	purok = location_spin_purok.SelectedItem
 	Dim month,day,year As String
-	month = bday_spin_month.SelectedItem
+	month = get_month_number(bday_spin_month.SelectedItem)
 	day = bday_spin_day.SelectedItem
 	year = bday_spin_year.SelectedItem
 	Dim answer As String : answer = text_answer.Text
@@ -460,9 +490,21 @@ Sub spinners_list_data
 	  	list_bday_y.Add(iNowYear)
 		iNowYear = iNowYear-1
 	  Next
-		For iii = 1 To 12
-			list_bday_m.Add(iii)
-		Next
+		'For iii = 1 To 12
+		'	list_bday_m.Add(iii)
+		'Next
+		list_bday_m.Add("Jan")
+		list_bday_m.Add("Feb")
+		list_bday_m.Add("Mar")
+		list_bday_m.Add("Apr")
+		list_bday_m.Add("May")
+		list_bday_m.Add("Jun")
+		list_bday_m.Add("Jul")
+		list_bday_m.Add("Aug")
+		list_bday_m.Add("Sep")
+		list_bday_m.Add("Oct")
+		list_bday_m.Add("Nov")
+		list_bday_m.Add("Dec")
 	bday_spin_month.AddAll(list_bday_m)
 	bday_spin_day.AddAll(list_bday_d)
 	bday_spin_year.AddAll(list_bday_y)
