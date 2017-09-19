@@ -377,18 +377,21 @@ Sub create_map
 	
 		End If
 		
+			Dim selected_remote_icon As String
+			selected_remote_icon = get_remote_icon(spin_item_click)
 	For i=0 To id_list.Size-1
+		
 		If is_check_true == True Then		
 			TOlat = lat_list.Get(i)
 			TOlng = lng_list.Get(i)
-		
+			
 			distance = earth_radius * ACos( Cos( ( 90 - GPSlat ) * ( pi / 180 ) ) * Cos( ( 90 - TOlat ) * ( pi / 180 ) ) +  Sin( ( 90 - GPSlat ) * ( pi / 180 ) ) * Sin( ( 90 - TOlat ) * ( pi / 180 ) ) * Cos( ( GPSlng - TOlng ) * ( pi / 180 ) ) ) 
 			distanceMeter = distance*1000
 			'htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""well""><b><h3><center>"&fullN_llist.Get(i)&"</center></h3></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 500 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
-			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""iw-container""><div class=""iw-title"">Personal Information</div><div class=""iw-content""><b><h2><center>"&fullN_llist.Get(i)&"</center></h2></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Age: <b>"&age_list.Get(i)&"</b></h4><h4>Gender: <b>"&gender_list.Get(i)&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4><h4><b>You are "&distanceMeter&"m away from the donor!</b></h4></div></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 350 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
+			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: '"&selected_remote_icon&"', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""iw-container""><div class=""iw-title"">Personal Information</div><div class=""iw-content""><b><h2><center>"&fullN_llist.Get(i)&"</center></h2></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Age: <b>"&age_list.Get(i)&"</b></h4><h4>Gender: <b>"&gender_list.Get(i)&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4><h4><b>You are "&distanceMeter&"m away from the donor!</b></h4></div></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 350 }); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 			location.WriteLine(htmlString2)	
 		Else
-			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: 'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""iw-container""><div class=""iw-title"">Personal Information</div><div class=""iw-content""><b><h2><center>"&fullN_llist.Get(i)&"</center></h2></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Age: <b>"&age_list.Get(i)&"</b></h4><h4>Gender: <b>"&gender_list.Get(i)&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 350}); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
+			htmlString2 = "markers["&i&"] = new google.maps.Marker({position: new google.maps.LatLng("&lat_list.Get(i)&" , "&lng_list.Get(i)&"), map: map, title: '"&fullN_llist.Get(i)&"', icon: '"&selected_remote_icon&"', clickable: true }); markers["&i&"].index = "&i&"; contents["&i&"] = '<div class=""iw-container""><div class=""iw-title"">Personal Information</div><div class=""iw-content""><b><h2><center>"&fullN_llist.Get(i)&"</center></h2></b><h4>Blood Type: <b>"&spin_item_click&"</b></h4><h4>Age: <b>"&age_list.Get(i)&"</b></h4><h4>Gender: <b>"&gender_list.Get(i)&"</b></h4><h4>Email Address: <b>"&email_list.Get(i)&"</b></h4><h4>Location: <b>"&location_list.Get(i)&"</b></h4><h4>Phone Number 1: <b>"&phone1_list.Get(i)&"</b></h4><h4>Phone Number 2: <b>"&phone2_list.Get(i)&"</b></h4><h4>Donated: <b>"&donated_list.Get(i)&"</b></h4></div></div>'; infowindows["&i&"] = new google.maps.InfoWindow({ content: contents["&i&"], maxWidth: 350}); google.maps.event.addListener(markers["&i&"], 'click', function() { infowindows[this.index].open(map,markers[this.index]); map.panTo(markers[this.index].getPosition()); }); "
 			location.WriteLine(htmlString2)
 		End If
 		
@@ -442,6 +445,29 @@ Sub create_map
 	map_webview.LoadHtml(File.ReadString(File.DirInternalCache,"all_marker_location.txt"))
 	
 	'Log(File.ReadString(File.DirInternalCache,"all_marker_location.txt"))
+
+End Sub
+Sub get_remote_icon(selected As String) As String
+		Dim remote_icon As String
+		If selected == "A+" Then
+			remote_icon = "https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png"
+			'https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img.png
+		else if selected == "B+" Then
+			remote_icon = "https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img_b.png"
+		else if selected == "O+" Then
+			remote_icon = "https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img_y.png"
+		else if selected == "AB+" Then
+		remote_icon = "https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img_o.png"
+		else if selected == "A-" Then
+			remote_icon = "https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img_g.png"
+		else if selected == "B-" Then
+			remote_icon = "https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img_p.png"
+		else if selected == "O-" Then
+			remote_icon = "https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img_br.png"
+		else if selected == "AB-" Then	
+			remote_icon = "https://raw.githubusercontent.com/richardz14/myproject/master/Files/heart_arrow_img_bl.png"
+		End If
+	Return remote_icon
 
 End Sub
 Sub map_shows_PageFinished (Url As String)
